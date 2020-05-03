@@ -1,5 +1,7 @@
 import {setLocale} from './locale';
+import {fetchGames} from './games';
 
 export {
-    setLocale
+    setLocale,
+    fetchGames,
 };
