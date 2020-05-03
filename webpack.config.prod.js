@@ -63,7 +63,7 @@ module.exports = {
             meta: {
                 viewport: "width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no",
                 description: "Game Aggregate",
-                ['theme-color']: "#08415C"
+                ['theme-color']: "#303030"
             },
             hash: true,
             inject: true,

@@ -9,11 +9,7 @@ import {StyledLayout, StyledMain} from './styles.js';
 class MainLayout extends React.Component {
 
     shouldComponentUpdate(nextProps) {
-        const {location} = this.props;
-        if (location.pathname == nextProps.location.pathname) {
-            return false;
-        }
-        return true;
+        return this.props.location.pathname !== nextProps.location.pathname;
     }
 
     render() {
@@ -35,7 +31,7 @@ class MainLayout extends React.Component {
 
 MainLayout.propTypes = {
     location: PropTypes.object,
-    children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    children: PropTypes.any,
 }
 
 export default withRouter(MainLayout);

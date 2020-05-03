@@ -18,9 +18,8 @@ module.exports = {
         port: 3000,
         proxy: {
             '/api/*': {
-                target: 'http://localhost:3001',
-                changeOrigin: true,
-                pathRewrite: {'^/api' : ''}
+                target: 'https://www.giantbomb.com',
+                changeOrigin: true
             }
         },
         overlay: {
@@ -81,13 +80,13 @@ module.exports = {
                 NODE_ENV: JSON.stringify('development')
             }
         }), new htmlPlugin({
-            title: '"Game Aggregate',
+            title: 'Game Aggregate',
             template: 'index.html',
             filename: 'index.html',
             meta: {
                 viewport: "width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no",
                 description: "Game Aggregate",
-                ['theme-color']: "#08415C"
+                ['theme-color']: "#303030"
             },
             hash: false,
             inject: true,
