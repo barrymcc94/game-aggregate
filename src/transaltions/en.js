@@ -7,5 +7,7 @@ export default {
     "footer.copyright": "Copyright © Barry McCormack 2020",
     "aboutPage.aboutText": "About Text",
     "errorPage.errorHeading": "404 - Page Not Found",
-    "errorPage.errorMessage": "Click {link} to go back to the homepage"
+    "errorPage.errorMessage": "Click {link} to go back to the homepage",
+    "homePage.gamesTitle": "Games",
+    "gameslist.error": "Error: Could not retrieve games"
 };

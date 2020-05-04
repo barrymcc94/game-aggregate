@@ -12,7 +12,7 @@ const Loader = ({isLoading, children}) => (
 
 Loader.propTypes = {
     isLoading: PropTypes.bool.isRequired,
-    children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    children: PropTypes.any,
     intl: PropTypes.object,
 }
 
