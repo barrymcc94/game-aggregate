@@ -2,7 +2,7 @@ import {createMuiTheme} from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
     palette: {
-        type: 'light',
+        type: 'dark',
     },
     headerHeight: '4rem',
     footerHeight: '4rem',

@@ -7,7 +7,7 @@ export const StyledFooter = styled.footer`
     bottom: 0;
     width: 100%;
     text-align: center;
-    background-color: ${({theme}) => theme.palette.primary.main};
+    background-color: ${({theme}) => theme.palette.background.paper};
     color: ${({theme}) => theme.palette.primary.contrastText};
     height: ${({theme}) => theme.footerHeightSm};
     line-height: initial;

@@ -1,7 +1,7 @@
 import REACT_ICON from './static/img/react.svg';
 
 export {REACT_ICON};
-export const defaultLimit = 5;
+export const defaultLimit = 100;
 export const defaultGbApiDefaults = {
     format: 'json',
     api_key: process.env.GB_API_KEY,

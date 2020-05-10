@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 import {StyledErrorMessage} from './styles.js';
 
 const ErrorMessage = ({id, error, children}) => (
@@ -17,4 +17,4 @@ ErrorMessage.propTypes = {
     children: PropTypes.any,
 }
 
-export default ErrorMessage;
+export default injectIntl(ErrorMessage);

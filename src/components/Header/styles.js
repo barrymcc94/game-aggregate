@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom';
 import {getBreakPoint} from '../../utils';
 
 export const StyledHeader = styled.header`
-    background-color: ${({theme}) => theme.palette.primary.main};
+    background-color: ${({theme}) => theme.palette.background.paper};
     color: ${({theme}) => theme.palette.primary.contrastText};
     text-transform: capitalize;
     height: ${({theme}) => theme.headerHeight};
@@ -76,7 +76,7 @@ export const StyledNavLinkList = styled.ul`
 `;
 
 export const StyledNavLinkListItem = styled.li`
-    background-color: ${({theme}) => theme.palette.primary.main};
+    background-color: ${({theme}) => theme.palette.background.paper};
     display: ${({active}) => active ? 'block' : 'none'};
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
         display: inline-block;
@@ -93,7 +93,7 @@ export const StyledLink = styled(NavLink)`
     &:hover {
         outline: none;
         text-decoration: none;
-        background-color: ${({theme}) => theme.palette.primary.light};
+        background-color: ${({theme}) => theme.palette.action.hover};
     }
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
         display: inline-block;

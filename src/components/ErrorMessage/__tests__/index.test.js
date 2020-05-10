@@ -14,14 +14,14 @@ describe('<ErrorMessage/>', () => {
     it('does not render when error prop is false', () => {
         const component = <ErrorMessage id="errorPage.errorMessage" error={false}/>;
         const wrapper = mountWithBaseWrapper(component);
-        expect(wrapper.children().length).toEqual(0);
+        expect(wrapper.html()).toEqual('');
         expect(testRenderer(component).toJSON()).toMatchSnapshot();
     });
 
     it('does not render when id prop is falsy', () => {
         const component = <ErrorMessage id="" error={true}/>;
         const wrapper = mountWithBaseWrapper(component);
-        expect(wrapper.children().length).toEqual(0);
+        expect(wrapper.html()).toEqual('');
         expect(testRenderer(component).toJSON()).toMatchSnapshot();
     });
 });
