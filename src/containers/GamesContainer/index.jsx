@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import moment from 'moment/moment'
+import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
 import {Game} from '../../types';
 import {bindActionCreators} from 'redux';
@@ -8,22 +9,53 @@ import {defaultGbApiDefaults} from '../../config';
 import {fetchGames} from '../../redux/actions';
 import {selectGames} from '../../redux/selectors';
 import GamesList from '../../components/GamesList';
+export class GamesContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.gameListRef = React.createRef();
+    }
 
-export const GamesContainer = ({games, isFetching, error, meta, fetchGames}) => {
-    useEffect(() => {
+    loadMore = () => {
+        const {meta, isFetching, fetchGames} = this.props;
+        const {limit, offset, total} = meta;
+        if (isFetching || (total > -1 && offset >= total)) {
+            return;
+        }
         const currentMoment = moment();
         const dateFormat = 'YYYY-M-D 00:00:00';
-        const endDate = currentMoment.subtract(1, 'day').format(dateFormat);
         const startDate = '';
+        const endDate = currentMoment.subtract(1, 'day').format(dateFormat);
         fetchGames({
             ...defaultGbApiDefaults,
             sort: `original_release_date:desc`,
             filter: `original_release_date:${startDate}|${endDate}`,
-            limit: 100,
-            offset: 0,
+            limit,
+            offset,
         });
-    }, [])
-    return <GamesList games={games} isFetching={isFetching} error={error} />;
+    }
+
+    onScroll = throttle(() => {
+        if (!this.gameListRef.current || window.pageYOffset < this.gameListRef.current.offsetHeight/2) {
+            return;
+        }
+        this.loadMore();
+    }, 2000);
+
+    componentDidMount() {
+        this.loadMore();
+        window.addEventListener('scroll', this.onScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll);
+    }
+
+    render() {
+        const {games, isFetching, error} = this.props;
+        return <div>
+            <GamesList ref={this.gameListRef} games={games} isFetching={isFetching} error={error}/>
+        </div>;
+    }
 }
 
 const mapStateToProps = (state) => {

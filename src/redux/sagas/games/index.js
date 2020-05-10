@@ -28,7 +28,7 @@ export function* fetchGamesSaga({payload}) {
             },
         }));
     } catch(e) {
-        yield put(fetchGamesFailed());
+        yield put(fetchGamesFailed({error: true}));
     }
 }
 
