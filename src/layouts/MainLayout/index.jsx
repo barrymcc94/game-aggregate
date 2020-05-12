@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Container from '@material-ui/core/Container';
 import {withRouter} from 'react-router-dom';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
-import {StyledLayout, StyledMain} from './styles.js';
+import {StyledLayout, StyledMain, StyledContainer} from './styles.js';
 
 class MainLayout extends React.Component {
 
@@ -17,11 +16,11 @@ class MainLayout extends React.Component {
             <React.Fragment>
                 <Header/>
                     <StyledLayout>
-                        <Container maxWidth="lg">
+                        <StyledContainer maxWidth="lg">
                             <StyledMain>
                                 {this.props.children}
                             </StyledMain>
-                        </Container>
+                        </StyledContainer>
                     </StyledLayout>
                 <Footer/>
             </React.Fragment>

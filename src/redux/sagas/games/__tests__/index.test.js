@@ -40,7 +40,7 @@ describe('Games Sagas', () => {
         await gen.next().value;
         const {type, payload} = gen.throw(new Error()).value.payload.action;
         expect(type).toBe(FETCH_GAMES_FAILED);
-        expect(payload).toBe(undefined);
+        expect(payload).toEqual({error: true});
         expect(gen.next().done).toBe(true);
     })
 

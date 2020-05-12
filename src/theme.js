@@ -5,8 +5,6 @@ const theme = createMuiTheme({
         type: 'dark',
     },
     headerHeight: '4rem',
-    footerHeight: '4rem',
-    footerHeightSm: '5rem',
 });
 
 export default theme;

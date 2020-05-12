@@ -32,12 +32,10 @@ const Styles = createGlobalStyle`
         height: 100%;
         margin: 0;
         #root {
-            min-height: 100%;
-            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
-    }
-    main {
-        margin: 1rem 0;
     }
     ul {
         list-style-type: none;
