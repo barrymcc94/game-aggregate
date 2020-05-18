@@ -9,6 +9,7 @@ import {defaultGbApiDefaults} from '../../config';
 import {fetchGames} from '../../redux/actions';
 import {selectGames} from '../../redux/selectors';
 import GamesList from '../../components/GamesList';
+
 export class GamesContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -16,7 +17,7 @@ export class GamesContainer extends React.Component {
     }
 
     loadMore = () => {
-        const {meta, isFetching, fetchGames} = this.props;
+        const {meta, isFetching, fetchGames, filters} = this.props;
         const {limit, offset, total} = meta;
         if (isFetching || (total > -1 && offset >= total)) {
             return;
@@ -31,11 +32,12 @@ export class GamesContainer extends React.Component {
             filter: `original_release_date:${startDate}|${endDate}`,
             limit,
             offset,
+            ...filters
         });
     }
 
     onScroll = throttle(() => {
-        if (!this.gameListRef.current || window.pageYOffset < this.gameListRef.current.offsetHeight/2) {
+        if (!this.gameListRef.current || window.pageYOffset < this.gameListRef.current.offsetHeight*0.8) {
             return;
         }
         this.loadMore();
@@ -52,9 +54,7 @@ export class GamesContainer extends React.Component {
 
     render() {
         const {games, isFetching, error} = this.props;
-        return <div>
-            <GamesList ref={this.gameListRef} games={games} isFetching={isFetching} error={error}/>
-        </div>;
+        return <GamesList ref={this.gameListRef} games={games} isFetching={isFetching} error={error}/>;
     }
 }
 
@@ -75,6 +75,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 GamesContainer.propTypes = {
+    filters: PropTypes.object.isRequired,
     games: PropTypes.arrayOf(Game),
     error: PropTypes.bool,
     isFetching: PropTypes.bool,
