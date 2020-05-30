@@ -1,4 +1,10 @@
-import {FETCH_GAMES_STARTED, FETCH_GAMES_SUCCEEDED, FETCH_GAMES_FAILED} from '../../types';
+import {
+    FETCH_GAMES_STARTED,
+    FETCH_GAMES_SUCCEEDED,
+    FETCH_GAMES_FAILED,
+    SET_GAMES_SEARCH_FILTERS,
+    CLEAR_GAMES_STATE,
+} from '../../types';
 
 export const fetchGamesStarted = (payload) => ({
     type: FETCH_GAMES_STARTED,
@@ -15,6 +21,20 @@ export const fetchGamesFailed = (payload) => ({
     payload,
 })
 
-export const fetchGames = (payload) => async (dispatch) => {
-    return dispatch(fetchGamesStarted(payload));
-}
+export const fetchGames = (payload) => async (dispatch) => (
+    dispatch(fetchGamesStarted(payload))
+)
+
+export const setGamesSearchFilters = (payload) => async (dispatch) => (
+    dispatch({
+        type: SET_GAMES_SEARCH_FILTERS,
+        payload
+    })
+)
+
+export const clearGamesState = (payload) => async (dispatch) => (
+    dispatch({
+        type: CLEAR_GAMES_STATE,
+        payload
+    })
+)

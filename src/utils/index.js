@@ -1,3 +1,4 @@
+import moment from 'moment/moment'
 import {
     defaultLimit
 } from '../config'
@@ -21,12 +22,34 @@ export const objToQueryStr = (obj) => {
         }
         if (queries.length) {
             return `?${queries.join('&')}`;
-        } else {
-            throw new Error('Value supplied to objToQueryStr function is invalid');
         }
+        throw new Error('Value supplied to objToQueryStr function is invalid');
     } catch (err) {
         return '';
     }
+}
+
+export const objToFilterStr = (obj) => {
+    try {
+        let filterArr = [];
+        for (let k in obj) {
+            filterArr.push(`${k}:${obj[k]}`);
+        }
+        if (filterArr.length) {
+            return filterArr.join(',');
+        }
+        throw new Error('Value supplied to objToFilterStr function is invalid');
+    } catch (err) {
+        return '';
+    }
+}
+
+export const getDefaultGamesFilter = () => {
+    const currentMoment = moment();
+    const dateFormat = 'YYYY-M-D 00:00:00';
+    const startDate = '';
+    const endDate = currentMoment.subtract(1, 'day').format(dateFormat);
+    return {original_release_date: `${startDate}|${endDate}`};
 }
 
 export const formatReqMeta = (offset, limit) => ({

@@ -5,6 +5,7 @@ import {
     areShallowObjectsEqual,
     areRecordArraysTheSame,
     objToQueryStr,
+    objToFilterStr,
     normalizeObjectListing,
     combineNormalizedListingObjs,
 } from '../index';
@@ -87,7 +88,7 @@ describe('utils', () => {
         expect(result4).toEqual(false);
     });
 
-    it('successfully generates a querystring using objToQueryStr 1', () => {
+    it('successfully creates a querystring using objToQueryStr 1', () => {
         const expectedResult = '?query1=test1&query2=test2';
         const result = objToQueryStr({
             query1: 'test1',
@@ -96,15 +97,30 @@ describe('utils', () => {
         expect(result).toEqual(expectedResult);
     });
 
-    it('successfully generates a querystring using objToQueryStr 2', () => {
+    it('successfully creates a querystring using objToQueryStr 2', () => {
         const expectedResult = '';
         const result = objToQueryStr({});
         expect(result).toEqual(expectedResult);
     });
 
-    it('successfully generates a querystring using objToQueryStr 3', () => {
+    it('successfully creates a querystring using objToQueryStr 3', () => {
         const expectedResult = '';
         const result = objToQueryStr();
+        expect(result).toEqual(expectedResult);
+    });
+
+    it('successfully creates a filter string using objToFilterStr 1', () => {
+        const expectedResult = 'filter1:test1,filter2:test2';
+        const result = objToFilterStr({
+            filter1: 'test1',
+            filter2: 'test2'
+        });
+        expect(result).toEqual(expectedResult);
+    });
+
+    it('successfully creates a filter string using objToFilterStr 2', () => {
+        const expectedResult = '';
+        const result = objToFilterStr({});
         expect(result).toEqual(expectedResult);
     });
 

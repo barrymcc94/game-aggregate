@@ -8,6 +8,7 @@ export default {
     "aboutPage.aboutText": "About Text",
     "errorPage.errorHeading": "404 - Page Not Found",
     "errorPage.errorMessage": "Click {link} to go back to the homepage",
+    "searchPage.searchLabel": "Search For Game",
     "homePage.gamesTitle": "Games",
     "gameslist.error": "Error: Could not retrieve games"
 };

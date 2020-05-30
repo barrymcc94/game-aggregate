@@ -11,6 +11,7 @@ const initialState = {
         offset: 0,
         limit: defaultLimit,
         total: -1,
+        filters: {}
     }
 };
 
@@ -47,6 +48,20 @@ export const games = (state=initialState, action={type: null, payload: null}) =>
                 isFetching: false,
                 error: payload.error || true,
             };
+        case types.SET_GAMES_SEARCH_FILTERS:
+            return {
+                ...state,
+                ids: [],
+                meta: {
+                    ...initialState.meta,
+                    filters: {
+                        ...state.meta.filters,
+                        filter: payload.filter
+                    }
+                },
+            };
+        case types.CLEAR_GAMES_STATE:
+            return initialState;
         default:
             return state;
     }

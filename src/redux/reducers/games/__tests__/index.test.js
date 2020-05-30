@@ -14,6 +14,7 @@ describe('Games Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
+                filters: {}
             }
         };
         expect(games()).toEqual(initialState);
@@ -152,6 +153,74 @@ describe('Games Reducers', () => {
             payload: {error: 'error occurred'}
         });
         expect(newState2).toEqual(expectedNewState2);
+    });
+
+    it('simulates invalid SET_GAMES_SEARCH_FILTERS action', () => {
+        const oldState = {
+            ids: [],
+            byId: {},
+            isFetching: true,
+            error: true,
+            meta: {
+                offset: 5,
+                limit: defaultLimit,
+                total: 20,
+                filters: {}
+            }
+        };
+        const expectedNewState = {
+            ids: [],
+            byId: {},
+            isFetching: true,
+            error: true,
+            meta: {
+                offset: 0,
+                limit: defaultLimit,
+                total: -1,
+                filters: {
+                    filter: 'test_filter'
+                }
+            }
+        };
+        const newState = games(oldState, {
+            type: types.SET_GAMES_SEARCH_FILTERS,
+            payload: {
+                filter: 'test_filter'
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
+    it('simulates invalid CLEAR_GAMES_STATE action', () => {
+        const oldState = {
+            ids: [],
+            byId: {},
+            isFetching: true,
+            error: true,
+            meta: {
+                offset: 5,
+                limit: defaultLimit,
+                total: 20,
+            }
+        };
+        const expectedNewState = {
+            ids: [],
+            byId: {},
+            isFetching: false,
+            error: false,
+            meta: {
+                offset: 0,
+                limit: defaultLimit,
+                total: -1,
+                filters: {},
+            }
+        };
+        const newState = games(oldState, {
+            type: types.CLEAR_GAMES_STATE,
+            payload: {},
+            filters: {},
+        });
+        expect(newState).toEqual(expectedNewState);
     });
 
     it('simulates invalid action', () => {
