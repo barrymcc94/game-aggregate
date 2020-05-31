@@ -1,12 +1,12 @@
 import React from 'react';
-import moment from 'moment/moment'
 import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
 import {Game} from '../../types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {defaultGbApiDefaults} from '../../config';
-import {fetchGames} from '../../redux/actions';
+import {objToFilterStr, getDefaultGamesFilter} from '../../utils';
+import {fetchGames, clearGamesState} from '../../redux/actions';
 import {selectGames} from '../../redux/selectors';
 import GamesList from '../../components/GamesList';
 
@@ -17,19 +17,17 @@ export class GamesContainer extends React.Component {
     }
 
     loadMore = () => {
-        const {meta, isFetching, fetchGames, filters} = this.props;
-        const {limit, offset, total} = meta;
+        const {meta, isFetching, fetchGames} = this.props;
+        const {limit, offset, total, filters} = meta;
         if (isFetching || (total > -1 && offset >= total)) {
             return;
         }
-        const currentMoment = moment();
-        const dateFormat = 'YYYY-M-D 00:00:00';
-        const startDate = '';
-        const endDate = currentMoment.subtract(1, 'day').format(dateFormat);
         fetchGames({
             ...defaultGbApiDefaults,
             sort: `original_release_date:desc`,
-            filter: `original_release_date:${startDate}|${endDate}`,
+            filter: objToFilterStr({
+                ...getDefaultGamesFilter(),
+            }),
             limit,
             offset,
             ...filters
@@ -44,12 +42,33 @@ export class GamesContainer extends React.Component {
     }, 2000);
 
     componentDidMount() {
-        this.loadMore();
+        const {clearGamesState} = this.props;
+        clearGamesState().then(() => {
+            this.loadMore();
+        })
         window.addEventListener('scroll', this.onScroll);
     }
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.onScroll);
+    }
+
+    shouldComponentUpdate(prevProps) {
+        const {isFetching, meta: {filters: {filter}}} = this.props;
+        if (isFetching !== prevProps.isFetching || filter !== prevProps.meta.filters.filter) {
+            return true
+        }
+        return false;
+    }
+
+    componentDidUpdate(prevProps) {
+        const {meta: {filters: {filter}}, containerType, clearGamesState} = this.props;
+        if (containerType !== prevProps.containerType) {
+            clearGamesState();
+        }
+        if (filter !== prevProps.meta.filters.filter) {
+            this.loadMore();
+        }
     }
 
     render() {
@@ -71,11 +90,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         fetchGames,
+        clearGamesState,
     }, dispatch);
 }
 
 GamesContainer.propTypes = {
-    filters: PropTypes.object.isRequired,
     games: PropTypes.arrayOf(Game),
     error: PropTypes.bool,
     isFetching: PropTypes.bool,
@@ -83,8 +102,11 @@ GamesContainer.propTypes = {
         offset: PropTypes.number,
         limit: PropTypes.number,
         total: PropTypes.number,
+        filters: PropTypes.object,
     }),
     fetchGames: PropTypes.func,
+    clearGamesState: PropTypes.func,
+    containerType: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GamesContainer);

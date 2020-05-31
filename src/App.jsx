@@ -9,6 +9,7 @@ import {CssBaseline, ThemeProvider as MuiThemeProvider} from '@material-ui/core'
 import messages from './transaltions';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/Home';
+import SearchPage from './pages/Search'
 import AboutPage from './pages/About';
 import ErrorPage from './pages/Error';
 import Styles from './common-styles';
@@ -35,6 +36,7 @@ class App extends React.Component {
                                 <CssBaseline />
                                 <Switch>
                                     <Route exact path='/' component={HomePage} />
+                                    <Route exact path='/search' component={SearchPage} />
                                     <Route exact path='/about' component={AboutPage} />
                                     <Route path="/404" component={ErrorPage} />
                                     <Route path="*" render={() => (<Redirect to='/404' />)} />

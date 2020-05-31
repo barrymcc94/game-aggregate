@@ -9,7 +9,7 @@ const HomePage = () => (
         <Typography variant="h4" component="h1" gutterBottom>
             <FormattedMessage id={"homePage.gamesTitle"} defaultMessage="Games" />
         </Typography>
-        <GamesContainer filters={{}} />
+        <GamesContainer containerType="all" />
     </StyledGamesListSection>
 );
 
