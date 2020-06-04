@@ -55,11 +55,11 @@ describe('Games Reducers', () => {
             ids: [1, 2],
             byId: {
                 "1": {
-                    id: 1,
+                    guid: 1,
                     title: "game 1",
                 },
                 "2": {
-                    id: 2,
+                    guid: 2,
                     title: "game 2",
                 },
             },
@@ -75,10 +75,10 @@ describe('Games Reducers', () => {
             type: types.FETCH_GAMES_SUCCEEDED,
             payload: {
                 games: [{
-                    id: 1,
+                    guid: 1,
                     title: "game 1",
                 }, {
-                    id: 2,
+                    guid: 2,
                     title: "game 2",
                 }],
                 meta: {

@@ -144,7 +144,7 @@ describe('utils', () => {
         }, {
             id: 2,
             title: "post 2",
-        }]);
+        }], 'id');
         expect(result).toEqual(expectedResult);
     });
 
@@ -153,7 +153,7 @@ describe('utils', () => {
             ids: [],
             byId: {},
         };
-        const result = normalizeObjectListing([]);
+        const result = normalizeObjectListing([], 'id');
         expect(result).toEqual(expectedResult);
     });
 
@@ -171,7 +171,7 @@ describe('utils', () => {
             ids: [],
             byId: {},
         };
-        const result = normalizeObjectListing([null, null]);
+        const result = normalizeObjectListing([null, null], 'id');
         expect(result).toEqual(expectedResult);
     });
 

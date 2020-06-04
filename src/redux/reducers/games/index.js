@@ -30,7 +30,7 @@ export const games = (state=initialState, action={type: null, payload: null}) =>
                 ...state,
                 ...combineNormalizedListingObjs(
                     {ids, byId},
-                    normalizeObjectListing(payload.games)
+                    normalizeObjectListing(payload.games, 'guid')
                 ),
                 isFetching: false,
                 error: false,

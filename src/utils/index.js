@@ -97,7 +97,7 @@ export const areRecordArraysTheSame = (arr1, arr2) => {
     }
 }
 
-export const normalizeObjectListing = (objArr) => {
+export const normalizeObjectListing = (objArr, idProp) => {
     try {
         if (!Array.isArray(objArr)) {
             return {
@@ -106,10 +106,10 @@ export const normalizeObjectListing = (objArr) => {
             };
         }
         return {
-            ids: objArr.map(item => item.id),
+            ids: objArr.map(item => item[idProp]),
             byId: objArr.reduce((accum, item) => ({
                 ...accum,
-                [item.id]: item
+                [item[idProp]]: item
             }), {})
         }
     } catch {
