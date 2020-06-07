@@ -7,7 +7,8 @@ const {gbApiUrl} = config;
 
 export function* fetchGamesSaga({payload}) {
     try {
-        const queryStr = objToQueryStr(payload);
+        const {queryObj} = payload || {};
+        const queryStr = objToQueryStr(queryObj);
         const {
             results,
             error,

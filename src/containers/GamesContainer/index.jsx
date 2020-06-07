@@ -23,14 +23,16 @@ export class GamesContainer extends React.Component {
             return;
         }
         fetchGames({
-            ...defaultGbApiDefaults,
-            sort: `original_release_date:desc`,
-            filter: objToFilterStr({
-                ...getDefaultGamesFilter(),
-            }),
-            limit,
-            offset,
-            ...filters
+            queryObj: {
+                ...defaultGbApiDefaults,
+                sort: `original_release_date:desc`,
+                filter: objToFilterStr({
+                    ...getDefaultGamesFilter(),
+                }),
+                limit,
+                offset,
+                ...filters
+            }
         });
     }
 
