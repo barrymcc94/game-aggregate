@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Game} from '../../types';
+import {GameListItem} from '../../types';
 import Grid from '@material-ui/core/Grid';
 import GamesListItem from '../GamesListItem';
 import ErrorMessage from '../ErrorMessage';
@@ -18,7 +18,7 @@ export const GamesList = React.forwardRef(({games, isFetching, error}, ref) => (
 
 GamesList.displayName = 'GamesList';
 GamesList.propTypes = {
-    games: PropTypes.arrayOf(Game),
+    games: PropTypes.arrayOf(GameListItem),
     isFetching: PropTypes.bool.isRequired,
     error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     intl: PropTypes.object,

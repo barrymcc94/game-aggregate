@@ -1,7 +1,7 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
-import {Game} from '../../types';
+import {GameListItem} from '../../types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {defaultGbApiDefaults} from '../../config';
@@ -97,7 +97,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 GamesContainer.propTypes = {
-    games: PropTypes.arrayOf(Game),
+    games: PropTypes.arrayOf(GameListItem),
     error: PropTypes.bool,
     isFetching: PropTypes.bool,
     meta: PropTypes.shape({

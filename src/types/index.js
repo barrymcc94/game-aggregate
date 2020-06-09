@@ -1,3 +1,9 @@
-import {Game} from './games';
+import {GenericObject} from './generics';
+import {GameListItem} from './games';
+import {Game} from './game';
 
-export {Game};
+export {
+    GenericObject,
+    GameListItem,
+    Game
+};

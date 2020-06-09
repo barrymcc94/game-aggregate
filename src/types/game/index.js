@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
+import {GenericObject} from '../';
 
-
-export const GameListItem = PropTypes.shape({
+export const Game = PropTypes.shape({
     aliases: PropTypes.string,
     api_detail_url: PropTypes.string,
     date_added: PropTypes.string,
@@ -53,4 +53,33 @@ export const GameListItem = PropTypes.shape({
         })
     ),
     site_detail_url: PropTypes.string,
+    images: [{
+        icon_url: PropTypes.string,
+        medium_url: PropTypes.string,
+        screen_url: PropTypes.string,
+        small_url: PropTypes.string,
+        super_url: PropTypes.string,
+        thumb_url: PropTypes.string,
+        tiny_url: PropTypes.string,
+        original: PropTypes.string,
+        tags: PropTypes.string
+    }],
+    videos: GenericObject,
+    characters: GenericObject,
+    concepts: GenericObject,
+    developers: GenericObject,
+    first_appearance_characters: GenericObject,
+    first_appearance_concepts: GenericObject,
+    first_appearance_locations: GenericObject,
+    first_appearance_objects: GenericObject,
+    first_appearance_people: GenericObject,
+    franchises: GenericObject,
+    genres: GenericObject,
+    killed_characters: GenericObject,
+    locations: GenericObject,
+    objects: GenericObject,
+    people: GenericObject,
+    publishers: GenericObject,
+    similar_games: GenericObject,
+    themes: GenericObject,
 });

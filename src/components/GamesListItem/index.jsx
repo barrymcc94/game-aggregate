@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Game} from '../../types';
+import {GameListItem} from '../../types';
 import {injectIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import {StyledGrid, StyledCard, StyledCardActionArea, StyledCardMediaContainer, StyledCardMedia, StyledCardContent, StyledCardHeading, StyledCardBody, StyledCardFooter} from './styles';
@@ -29,7 +29,7 @@ export const GamesListItem = ({game: {guid, name, deck, original_release_date, i
 );
 
 GamesListItem.propTypes = {
-    game: Game,
+    game: GameListItem,
     intl: PropTypes.object,
 }
 
