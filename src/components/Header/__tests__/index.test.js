@@ -2,12 +2,12 @@ import React from "react";
 import {Header} from "../index";
 import {StyledNav, MenuIcon} from '../styles';
 import {shallow} from 'enzyme';
-import {testRenderer, mountWithBaseWrapper} from '../../../../tests/helper';
+import {mountWithBaseWrapper} from '../../../../tests/helper';
 jest.mock('@material-ui/core/Zoom', () => ({children}) => <div>{children}</div>);
 describe('<Header/>', () => {
     it('renders correctly', () => {
-        const component = <Header intl={{formatMessage: jest.fn()}} />;
-        expect(testRenderer(component).toJSON()).toMatchSnapshot();
+        const wrapper = mountWithBaseWrapper(<Header intl={{formatMessage: jest.fn()}} />);
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('renders correctly', () => {
