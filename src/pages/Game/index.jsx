@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyledGameSection} from './styles';
+import {StyledGameArticle} from './styles';
+import GameContainer from '../../containers/GameContainer';
 
 const GamePage = ({match}) => (
-    <StyledGameSection>
-        {match.params.guid}
-    </StyledGameSection>
+    <StyledGameArticle>
+        <GameContainer guid={match.params.guid}/>
+    </StyledGameArticle>
 );
 
 GamePage.propTypes = {

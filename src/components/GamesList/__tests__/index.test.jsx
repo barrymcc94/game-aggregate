@@ -20,7 +20,7 @@ describe('<GamesList/>', () => {
                 }
             }]} />);
         expect(wrapper.exists(StyledLoaderContainer)).toBe(true);
-        expect(wrapper.exists(Grid)).toBe(false);
+        expect(wrapper.exists(Grid)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });
 

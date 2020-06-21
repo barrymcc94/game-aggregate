@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
+import {shape, string, number} from 'prop-types';
 
-export const GenericObject = PropTypes.shape({
-    api_detail_url: PropTypes.string,
-    id: PropTypes.number,
-    name: PropTypes.string,
-    site_detail_url: PropTypes.string,
+export const GenericObject = shape({
+    api_detail_url: string,
+    id: number,
+    name: string,
+    site_detail_url: string,
 });
