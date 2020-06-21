@@ -10,5 +10,9 @@ export default {
     "errorPage.errorMessage": "FR Click {link} to go back to the homepage",
     "searchPage.searchLabel": "FR Search For Game",
     "homePage.gamesTitle": "FR Games",
-    "gameslist.error": "FR Error: Could not retrieve games"
+    "gameslist.error": "FR Error: Could not retrieve games",
+    "game.error": "FR Error: Could retrieve game",
+    "gameHeader.viewOnSite": "FR View on GiantBomb",
+    "gameHeader.aliases": "Also Known as: ",
+    "gameHeader.released": "FR Released: {date}",
 };
