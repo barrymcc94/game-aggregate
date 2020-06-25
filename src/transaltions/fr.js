@@ -13,6 +13,7 @@ export default {
     "gameslist.error": "FR Error: Could not retrieve games",
     "game.error": "FR Error: Could retrieve game",
     "gameHeader.viewOnSite": "FR View on GiantBomb",
-    "gameHeader.aliases": "Also Known as: ",
+    "gameHeader.aliases": "FR Also Known as: ",
     "gameHeader.released": "FR Released: {date}",
+    "gameFooter.poweredBy": "FR Powered By {link}",
 };

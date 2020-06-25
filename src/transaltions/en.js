@@ -15,4 +15,5 @@ export default {
     "gameHeader.viewOnSite": "View on GiantBomb",
     "gameHeader.aliases": "Also Known as: ",
     "gameHeader.released": "Released: {date}",
+    "gameFooter.poweredBy": "Powered By {link}",
 };

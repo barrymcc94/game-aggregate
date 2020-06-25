@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Game as GameT} from '../../types/game';
 import ErrorMessage from '../ErrorMessage';
 import GameHeader from '../GameHeader';
+import GameFooter from '../GameFooter';
 
 export const Game = ({game, isFetching, error}) => {
     if (error || (!isFetching && (!game || !game.guid))) {
@@ -10,6 +11,7 @@ export const Game = ({game, isFetching, error}) => {
     }
     return <>
         <GameHeader game={game} isFetching={isFetching} />
+        <GameFooter isFetching={isFetching} />
     </>;
 }
 

@@ -5,6 +5,7 @@ import {getBreakPoint} from '../../utils';
 export const StyledGameHeader = styled.header`
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'md')}) {
         flex-direction: row;
     }
@@ -14,7 +15,7 @@ export const PosterImg = styled.img`
     max-height: 22rem;
     margin: 0 auto 1rem auto;
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'md')}) {
-        margin: 0 auto;
+        margin: 0;
     }
 `;
 
@@ -25,7 +26,7 @@ export const TitleContent = styled.div`
     margin-left: 1rem;
 `;
 
-export const HeadingFooter = styled.div`
+export const HeadingFooter = styled(Typography)`
     display: flex;
     justify-content: space-between;
     margin-top: auto;

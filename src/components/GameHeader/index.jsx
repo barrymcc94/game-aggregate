@@ -28,7 +28,7 @@ export const GameHeader = ({game, isFetching}) => {
                     </DescriptionLabel>
                     {aliasesArr}
                 </DescriptionList>}
-                <HeadingFooter>
+                <HeadingFooter variant="subtitle2" component="div">
                     <FooterItem>
                         <Link href={site_detail_url}>
                             <FormattedMessage id="gameHeader.viewOnSite" defaultMessage="View on GiantBomb" />
