@@ -16,4 +16,10 @@ export default {
     "gameHeader.aliases": "FR Also Known as: ",
     "gameHeader.released": "FR Released: {date}",
     "gameFooter.poweredBy": "FR Powered By {link}",
+    "gameDetails.franchises": "FR Franchises: ",
+    "gameDetails.genres": "FR Genres: ",
+    "gameDetails.publishers": "FR Publishers: ",
+    "gameDetails.developers": "FR Developers: ",
+    "gameDetails.themes": "FR Themes: ",
+    "gameDetails.platforms": "FR Platforms: ",
 };

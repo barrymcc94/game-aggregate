@@ -23,7 +23,9 @@ export const TitleContent = styled.div`
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    margin-left: 1rem;
+    @media (min-width: ${({theme}) => getBreakPoint(theme, 'md')}) {
+        margin-left: 1rem;
+    }
 `;
 
 export const HeadingFooter = styled(Typography)`
