@@ -11,9 +11,9 @@ export const Game = ({game, isFetching, error}) => {
         return <ErrorMessage error={error} id="game.error" />;
     }
     return <>
-        <GameHeader game={game} isFetching={isFetching} />
-        <GameDetails game={game} isFetching={isFetching} />
-        <GameFooter isFetching={isFetching} />
+        <GameHeader game={game} isLoading={isFetching} />
+        <GameDetails game={game} isLoading={isFetching} />
+        <GameFooter isLoading={isFetching} />
     </>;
 }
 

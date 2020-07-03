@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {injectIntl, FormattedMessage} from 'react-intl';
 import {Game} from '../../types/game';
-import Loader from '../Loader';
+import SkeletonLoader from '../SkeletonLoader';
 import {GameDetailsSection, DescriptionList, DescriptionWrapper, DescriptionLabel, DescriptionValue} from './styles';
 
 const GameDetail = (id, defaultMessage, detailArr) => (
@@ -14,25 +14,29 @@ const GameDetail = (id, defaultMessage, detailArr) => (
     </DescriptionWrapper>
 );
 
-export const GameDetails = ({game, isFetching}) => {
+export const GameDetails = ({game, isLoading}) => {
     const {franchises, genres, publishers, developers, themes, platforms} = game;
-    return <Loader isLoading={isFetching}>
-        <GameDetailsSection>
-            <DescriptionList variant="body1" component="dl">
-                {GameDetail('gameDetails.franchises', 'Franchises: ', franchises)}
-                {GameDetail('gameDetails.genres', 'Genres: ', genres)}
-                {GameDetail('gameDetails.publishers', 'Publishers: ', publishers)}
-                {GameDetail('gameDetails.developers', 'Developers: ', developers)}
-                {GameDetail('gameDetails.themes', 'Themes: ', themes)}
-                {GameDetail('gameDetails.platforms', 'Platforms: ', platforms)}
+    return <GameDetailsSection>
+        {isLoading
+            ? <DescriptionList variant="body1" component="div">
+                {[0, 0, 0, 0, 0, 0].map((_, i) => <DescriptionWrapper key={i}>
+                    <SkeletonLoader variant="text" numLines={3} />
+                </DescriptionWrapper>)}
             </DescriptionList>
-        </GameDetailsSection>
-    </Loader>;
+            : <DescriptionList variant="body1" component="dl">
+                    {GameDetail('gameDetails.franchises', 'Franchises: ', franchises)}
+                    {GameDetail('gameDetails.genres', 'Genres: ', genres)}
+                    {GameDetail('gameDetails.publishers', 'Publishers: ', publishers)}
+                    {GameDetail('gameDetails.developers', 'Developers: ', developers)}
+                    {GameDetail('gameDetails.themes', 'Themes: ', themes)}
+                    {GameDetail('gameDetails.platforms', 'Platforms: ', platforms)}
+            </DescriptionList>}
+    </GameDetailsSection>
 };
 
 GameDetails.propTypes = {
     game: Game,
-    isFetching: PropTypes.bool,
+    isLoading: PropTypes.bool,
 }
 
 export default injectIntl(GameDetails);

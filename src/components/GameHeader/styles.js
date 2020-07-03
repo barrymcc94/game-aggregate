@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import {getBreakPoint} from '../../utils';
+import {LoaderStyles} from '../../common-styles';
 
 export const StyledGameHeader = styled.header`
     display: flex;
@@ -11,12 +12,22 @@ export const StyledGameHeader = styled.header`
     }
 `;
 
-export const PosterImg = styled.img`
-    max-height: 22rem;
+const PosterImgCss = css`
+    width: 20rem;
     margin: 0 auto 1rem auto;
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'md')}) {
         margin: 0;
     }
+`;
+
+export const PosterImg = styled.img`
+    ${PosterImgCss}
+`;
+
+export const PosterImgLoader = styled.div`
+    ${PosterImgCss}
+    ${LoaderStyles}
+    height: 18rem;
 `;
 
 export const TitleContent = styled.div`

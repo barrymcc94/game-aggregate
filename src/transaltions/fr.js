@@ -11,7 +11,7 @@ export default {
     "searchPage.searchLabel": "FR Search For Game",
     "homePage.gamesTitle": "FR Games",
     "gameslist.error": "FR Error: Could not retrieve games",
-    "game.error": "FR Error: Could retrieve game",
+    "game.error": "FR Error: Could not retrieve game",
     "gameHeader.viewOnSite": "FR View on GiantBomb",
     "gameHeader.aliases": "FR Also Known as: ",
     "gameHeader.released": "FR Released: {date}",

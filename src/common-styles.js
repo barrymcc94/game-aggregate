@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components'
+import {css, createGlobalStyle} from 'styled-components'
 
 const Styles = createGlobalStyle`
     @font-face {
@@ -49,5 +49,16 @@ const Styles = createGlobalStyle`
         text-decoration: none;
     }
 `;
+
+export const LoaderStyles = css`
+    @keyframes loader-anim {
+        0% {opacity: 1;}
+        50% {opacity: 0.4;}
+        100% {opacity: 1;}
+    }
+    color: transparent;
+    background-color: rgba(255, 255, 255, 0.13);
+    animation: loader-anim 2s infinite;
+`
 
 export default Styles;

@@ -14,7 +14,7 @@ export const DescriptionList = styled(Typography)`
 export const DescriptionWrapper = styled.div`
     width: 50%;
     margin-bottom: 1rem;
-    padding-right: 0.5rem;
+    padding-right: 0.75rem;
 `;
 
 export const DescriptionLabel = styled.dt`
