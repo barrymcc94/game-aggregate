@@ -2,7 +2,7 @@ import React from "react";
 import {GameDetails} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {GameDetailsSection} from '../styles';
-import {StyledLoaderContainer} from "../../Loader/styles";
+import {StyledSkeletonLoader} from "../../SkeletonLoader/styles";
 
 describe('<GameDetails />', () => {
     const genericObj = {
@@ -24,14 +24,14 @@ describe('<GameDetails />', () => {
     };
 
     it('renders loader when isFetching is true', () => {
-        const wrapper = mountWithBaseWrapper(<GameDetails {...{...defaultProps, isFetching: true}} />);
-        expect(wrapper.exists(StyledLoaderContainer)).toBe(true);
-        expect(wrapper.exists(GameDetailsSection)).toBe(false);
+        const wrapper = mountWithBaseWrapper(<GameDetails {...{...defaultProps, isLoading: true}} />);
+        expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
+        expect(wrapper.exists(GameDetailsSection)).toBe(true);
     });
 
     it('renders as expected', () => {
         const wrapper = mountWithBaseWrapper(<GameDetails {...defaultProps} />);
-        expect(wrapper.exists(StyledLoaderContainer)).toBe(false);
+        expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
         expect(wrapper.exists(GameDetailsSection)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });

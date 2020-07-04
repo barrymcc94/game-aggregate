@@ -4,14 +4,18 @@ import {GameListItem} from '../../types';
 import Grid from '@material-ui/core/Grid';
 import GamesListItem from '../GamesListItem';
 import ErrorMessage from '../ErrorMessage';
-import Loader from '../Loader';
 
+const gamesPlaceholder = new Array(12).fill(0);
 export const GamesList = React.forwardRef(({games, isFetching, error}, ref) => (
     <React.Fragment>
         <Grid container spacing={2} alignItems="stretch" ref={ref}>
-            {games.map((game) => <GamesListItem key={game.id} game={game} />)}
+            {games.map((game) => (
+                <GamesListItem key={game.id} game={game} />
+            ))}
+            {isFetching && gamesPlaceholder.map((_, i) => (
+                <GamesListItem key={i} game={{}} isLoading={isFetching} />
+            ))}
         </Grid>
-        <Loader isLoading={isFetching} />
         <ErrorMessage error={error} id="gameslist.error" />
     </React.Fragment>
 ));

@@ -1,7 +1,7 @@
 import React from "react";
 import {GamesList} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {StyledLoaderContainer} from "../../Loader/styles";
+import {StyledSkeletonLoader} from "../../SkeletonLoader/styles";
 import Grid from '@material-ui/core/Grid';
 
 describe('<GamesList/>', () => {
@@ -19,7 +19,7 @@ describe('<GamesList/>', () => {
                     screen_url: 'test'
                 }
             }]} />);
-        expect(wrapper.exists(StyledLoaderContainer)).toBe(true);
+        expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
         expect(wrapper.exists(Grid)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });
@@ -37,7 +37,7 @@ describe('<GamesList/>', () => {
                     screen_url: 'test'
                 }
             }]} />);
-        expect(wrapper.exists(StyledLoaderContainer)).toBe(false);
+        expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
         expect(wrapper.exists(Grid)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });

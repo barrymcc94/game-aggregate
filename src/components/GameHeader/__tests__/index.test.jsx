@@ -2,7 +2,7 @@ import React from "react";
 import {GameHeader} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {StyledGameHeader} from '../styles';
-import {StyledLoaderContainer} from "../../Loader/styles";
+import {StyledSkeletonLoader} from "../../SkeletonLoader/styles";
 
 describe('<GameHeader/>', () => {
     const defaultProps = {
@@ -18,14 +18,14 @@ describe('<GameHeader/>', () => {
     };
 
     it('renders loader when isFetching is true', () => {
-        const wrapper = mountWithBaseWrapper(<GameHeader {...{...defaultProps, isFetching: true}} />);
-        expect(wrapper.exists(StyledLoaderContainer)).toBe(true);
-        expect(wrapper.exists(StyledGameHeader)).toBe(false);
+        const wrapper = mountWithBaseWrapper(<GameHeader {...{...defaultProps, isLoading: true}} />);
+        expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
+        expect(wrapper.find(StyledSkeletonLoader)).toHaveLength(5);
     });
 
     it('renders as expected with game data', () => {
-        const wrapper = mountWithBaseWrapper(<GameHeader {...defaultProps} />);
-        expect(wrapper.exists(StyledLoaderContainer)).toBe(false);
+        const wrapper = mountWithBaseWrapper(<GameHeader {...defaultProps} intl={{formatMessage: jest.fn()}} />);
+        expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
         expect(wrapper.exists(StyledGameHeader)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {LoaderStyles} from '../../common-styles';
 
-export const SkeletonLoaderStyles = styled.div`
+export const StyledSkeletonLoader = styled.span`
+    display: block;
     ${LoaderStyles}
 `;
