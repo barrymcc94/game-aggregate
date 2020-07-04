@@ -24,7 +24,12 @@ export const GamesSearchContainer = ({searchLabel, setGamesSearchFilters, clearG
          });
     };
 
-    return <SearchBar searchLabel={searchLabel} value={searchStr} onChange={onChange}/>
+    return <SearchBar
+        id="games_search"
+        label={searchLabel}
+        value={searchStr}
+        onChange={onChange}
+    />;
 }
 
 const mapDispatchToProps = (dispatch) => {

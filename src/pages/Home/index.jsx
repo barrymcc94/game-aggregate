@@ -7,7 +7,7 @@ import GamesContainer from '../../containers/GamesContainer';
 const HomePage = () => (
     <StyledGamesListSection>
         <Typography variant="h4" component="h1" gutterBottom>
-            <FormattedMessage id={"homePage.gamesTitle"} defaultMessage="Games" />
+            <FormattedMessage id={"homePage.title"} defaultMessage="Games" />
         </Typography>
         <GamesContainer containerType="all" />
     </StyledGamesListSection>

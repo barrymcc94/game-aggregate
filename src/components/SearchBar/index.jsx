@@ -2,14 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {StyledTextField} from './styles';
 
-const SearchBar = ({searchLabel, value, onChange}) => (
-    <StyledTextField label={searchLabel} variant="outlined" value={value} onChange={onChange} />
+const SearchBar = ({id, label, value, onChange}) => (
+    <StyledTextField
+        variant="outlined"
+        id={id}
+        label={label}
+        value={value}
+        onChange={onChange}
+    />
 );
 
 SearchBar.propTypes = {
-    searchLabel: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     value: PropTypes.string,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
 }
 
 export default SearchBar;

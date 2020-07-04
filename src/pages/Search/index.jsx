@@ -9,7 +9,7 @@ import {StyledGamesListSection} from './styles';
 export const SearchPage = ({intl: {formatMessage}}) => (
     <StyledGamesListSection>
         <Typography variant="h4" component="h1" gutterBottom>
-            <FormattedMessage id="homePage.gamesTitle" defaultMessage="Games" />
+            <FormattedMessage id="searchPage.title" defaultMessage="Games" />
         </Typography>
         <form noValidate autoComplete="off">
             <GamesSearchContainer searchLabel={formatMessage({id: 'searchPage.searchLabel'})} />
