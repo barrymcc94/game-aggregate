@@ -44,8 +44,11 @@ export class GamesContainer extends React.Component {
     }, 2000);
 
     componentDidMount() {
-        const {clearGamesState} = this.props;
+        const {clearGamesState, containerType} = this.props;
         clearGamesState().then(() => {
+            if (containerType == 'search') {
+                return;
+            }
             this.loadMore();
         })
         window.addEventListener('scroll', this.onScroll);
@@ -53,14 +56,6 @@ export class GamesContainer extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.onScroll);
-    }
-
-    shouldComponentUpdate(prevProps) {
-        const {isFetching, meta: {filters: {filter}}} = this.props;
-        if (isFetching !== prevProps.isFetching || filter !== prevProps.meta.filters.filter) {
-            return true
-        }
-        return false;
     }
 
     componentDidUpdate(prevProps) {

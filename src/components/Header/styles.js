@@ -46,6 +46,10 @@ export const StyledNav = styled.nav`
 export const StyledIconButton = styled(IconButton)`
     padding: 0;
     color: ${({theme}) => theme.palette.primary.contrastText};
+    display: initial;
+    @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
+        display: none;
+    }
 `;
 
 export const StyledNavLinkList = styled.ul`
@@ -90,7 +94,7 @@ export const StyledLink = styled(NavLink)`
     color: ${({theme}) => theme.palette.primary.contrastText};
     padding: 0 1rem;
     box-sizing: border-box;
-    &:hover {
+    &:hover, &:focus {
         outline: none;
         text-decoration: none;
         background-color: ${({theme}) => theme.palette.action.hover};

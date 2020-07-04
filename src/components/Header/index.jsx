@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage, injectIntl} from 'react-intl';
-import {MenuIcon, CloseIcon, StyledHeader, StyledNav, StyledContainer, StyledNavLinkList, StyledNavLinkListItem, StyledIconButton, StyledLink} from './styles.js';
-import Zoom from '@material-ui/core/Zoom';
 import throttle from 'lodash.throttle';
+import {FormattedMessage, injectIntl} from 'react-intl';
+import {Zoom} from '@material-ui/core';
+import {MenuIcon, CloseIcon, StyledHeader, StyledNav, StyledContainer, StyledNavLinkList, StyledNavLinkListItem, StyledIconButton, StyledLink} from './styles.js';
 
 export class Header extends React.PureComponent {
     constructor(props) {
@@ -53,13 +53,21 @@ export class Header extends React.PureComponent {
                 <StyledContainer maxWidth="lg">
                     <StyledNav onClick={this.closeMenu}>
                         {menuActive
-                            ? <Zoom in={menuActive} aria-label={formatMessage({id: "header.closeMenu"})}>
-                                <StyledIconButton onClick={this.toggleMenu}>
+                            ? <Zoom in={menuActive}>
+                                <StyledIconButton
+                                    aria-label={formatMessage({id: "header.closeMenu"})}
+                                    aria-expanded={menuActive}
+                                    onClick={this.toggleMenu}
+                                >
                                     <CloseIcon />
                                 </StyledIconButton>
                             </Zoom>
-                            : <Zoom in={!menuActive} aria-label={formatMessage({id: "header.openMenu"})}>
-                                <StyledIconButton onClick={this.toggleMenu}>
+                            : <Zoom in={!menuActive}>
+                                <StyledIconButton
+                                    aria-label={formatMessage({id: "header.openMenu"})}
+                                    aria-expanded={menuActive}
+                                    onClick={this.toggleMenu}
+                                >
                                     <MenuIcon />
                                 </StyledIconButton>
                             </Zoom>}
@@ -67,6 +75,11 @@ export class Header extends React.PureComponent {
                             <StyledNavLinkListItem active={menuActive}>
                                 <StyledLink to="/">
                                     <FormattedMessage id="header.home" defaultMessage="Home" />
+                                </StyledLink>
+                            </StyledNavLinkListItem>
+                            <StyledNavLinkListItem active={menuActive}>
+                                <StyledLink to="/search">
+                                    <FormattedMessage id="header.search" defaultMessage="Search" />
                                 </StyledLink>
                             </StyledNavLinkListItem>
                             <StyledNavLinkListItem active={menuActive}>
