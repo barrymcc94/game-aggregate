@@ -1,11 +1,14 @@
 import {put, takeLatest} from 'redux-saga/effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
 import {fetchGamesSucceeded, fetchGamesFailed} from '../../actions/games';
-import {FETCH_GAMES_STARTED} from '../../types';
+import {FETCH_GAMES_STARTED, CLEAR_GAMES_STATE} from '../../types';
 import config from '../../../config';
 const {gbApiUrl} = config;
 
-export function* fetchGamesSaga({payload}) {
+export function* fetchGamesSaga({type, payload}) {
+    if (type == CLEAR_GAMES_STATE) {
+        return;
+    }
     try {
         const {queryObj} = payload || {};
         const queryStr = objToQueryStr(queryObj);
@@ -34,5 +37,5 @@ export function* fetchGamesSaga({payload}) {
 }
 
 export function* watchFetchGames() {
-    yield takeLatest(FETCH_GAMES_STARTED, fetchGamesSaga);
+    yield takeLatest([FETCH_GAMES_STARTED, CLEAR_GAMES_STATE], fetchGamesSaga);
 }

@@ -84,4 +84,12 @@ describe('<GamesContainer/>', () => {
         wrapper.setProps({...defaultProps, isFetching: true, containerType: 'test', meta: {filters: {filter: 'test'}}});
         expect(clearGamesState).toBeCalledTimes(2);
     });
+
+    it('tests mounting with seatch containerType', async () => {
+        await mountWithBaseWrapper(<GamesContainer {...{
+            ...defaultProps,
+            containerType: 'search'
+        }} />);
+        expect(fetchGames).toBeCalledTimes(0);
+    });
 });

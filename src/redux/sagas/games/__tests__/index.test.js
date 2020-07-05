@@ -1,5 +1,5 @@
 import {fetchGamesSaga, watchFetchGames} from '../index';
-import {FETCH_GAMES_SUCCEEDED, FETCH_GAMES_FAILED} from '../../../types';
+import {FETCH_GAMES_SUCCEEDED, FETCH_GAMES_FAILED, CLEAR_GAMES_STATE} from '../../../types';
 
 describe('Games Sagas', () => {
     const testResults = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
@@ -32,6 +32,12 @@ describe('Games Sagas', () => {
                 total: 100
             }
         });
+        expect(gen.next().done).toBe(true);
+    })
+
+    it('tests fetchGamesSaga when type is CLEAR_GAMES_STATE', async () => {
+        const gen = fetchGamesSaga({type: CLEAR_GAMES_STATE});
+        await gen.next().value;
         expect(gen.next().done).toBe(true);
     })
 
