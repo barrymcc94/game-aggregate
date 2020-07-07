@@ -6,7 +6,7 @@ import {getBreakPoint} from '../../utils';
 
 export const StyledHeader = styled.header`
     background-color: ${({theme}) => theme.palette.background.paper};
-    color: ${({theme}) => theme.palette.primary.contrastText};
+    color: ${({theme}) => theme.palette.text.primary};
     text-transform: capitalize;
     height: ${({theme}) => theme.headerHeight};
     width: 100%;
@@ -45,7 +45,7 @@ export const StyledNav = styled.nav`
 
 export const StyledIconButton = styled(IconButton)`
     padding: 0;
-    color: ${({theme}) => theme.palette.primary.contrastText};
+    color: ${({theme}) => theme.palette.text.primary};
     display: initial;
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
         display: none;
@@ -91,7 +91,7 @@ export const StyledLink = styled(NavLink)`
     display: block;
     text-align: left;
     font-size: 1.4rem;
-    color: ${({theme}) => theme.palette.primary.contrastText};
+    color: ${({theme}) => theme.palette.text.primary};
     padding: 0 1rem;
     box-sizing: border-box;
     &:hover, &:focus {

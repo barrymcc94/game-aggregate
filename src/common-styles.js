@@ -57,7 +57,7 @@ export const LoaderStyles = css`
         100% {opacity: 1;}
     }
     color: transparent;
-    background-color: rgba(255, 255, 255, 0.13);
+    background-color: ${({theme}) => theme.palette.action.disabledBackground};
     animation: loader-anim 2s infinite;
 `
 

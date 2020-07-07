@@ -11,10 +11,12 @@ const ErrorPage = () => (
                 defaultMessage="404 - Page Not Found" />
         </ErrorHeader>
         <ErrorText>
-            <FormattedMessage
-                id="errorPage.errorMessage"
-                defaultMessage="Click {link} to go back to the homepage"
-                values={{link: <Link to={'/'}>Here</Link>}} />
+            <Link to={'/'}>
+                <FormattedMessage
+                    id="errorPage.errorMessage"
+                    defaultMessage="Click here to go back to the homepage"
+                />
+            </Link>
         </ErrorText>
     </section>
 );

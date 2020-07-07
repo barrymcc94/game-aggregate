@@ -11,7 +11,7 @@ export default {
     "searchPage.searchLabel": "Search for a game",
     "aboutPage.aboutText": "About text",
     "errorPage.errorHeading": "404 - Page Not Found",
-    "errorPage.errorMessage": "Click {link} to go back to the homepage",
+    "errorPage.errorMessage": "Click here to go back to the homepage",
     "gameslist.error": "Error: Could not retrieve games",
     "game.error": "Error: Could not retrieve game",
     "gameHeader.posterAlt": "Game artwork poster",

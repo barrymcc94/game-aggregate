@@ -10,7 +10,4 @@ export const ErrorText = styled.div`
     margin-top: 2rem;
     font-size: 1.25rem;
     text-align: center;
-    a {
-        color: ${({theme}) => theme.palette.primary.light};
-    }
 `;
