@@ -56,20 +56,20 @@ export const GameHeader = ({game, isLoading, intl}) => {
             </DescriptionList>}
             <HeadingFooter variant="subtitle2" component="div">
                 <FooterItem>
-                    <Link href={site_detail_url}>
+                    <Link href={site_detail_url} color="primary">
                         <FormattedMessage
                             id="gameHeader.viewOnSite"
                             defaultMessage="View on GiantBomb"
                         />
                     </Link>
                 </FooterItem>
-                <FooterItem>
+                {original_release_date && <FooterItem>
                     <FormattedMessage
                         id="gameHeader.released"
                         defaultMessage={`Released: ${original_release_date}`}
-                        values={{date: original_release_date || '-'}}
+                        values={{date: original_release_date}}
                     />
-                </FooterItem>
+                </FooterItem>}
             </HeadingFooter>
         </TitleContent>
     </StyledGameHeader>;
