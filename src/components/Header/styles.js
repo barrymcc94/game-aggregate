@@ -94,6 +94,9 @@ export const StyledLink = styled(NavLink)`
     color: ${({theme}) => theme.palette.text.primary};
     padding: 0 1rem;
     box-sizing: border-box;
+    &.active {
+        background-color: ${({theme}) => theme.palette.action.hover};
+    }
     &:hover, &:focus {
         outline: none;
         text-decoration: none;

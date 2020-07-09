@@ -1,10 +1,18 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import PropTypes from 'prop-types';
+import DocumentTitle from 'react-document-title';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
-const AboutPage = () => (
-    <article>
-        <FormattedMessage id="aboutPage.aboutText" defaultMessage="About Text" />
-    </article>
+export const AboutPage = ({intl: {formatMessage}}) => (
+    <DocumentTitle title={formatMessage({id: "aboutPage.title", defaultMessage: "About"})}>
+        <article>
+            <FormattedMessage id="aboutPage.aboutText" defaultMessage="About Text" />
+        </article>
+    </DocumentTitle>
 );
 
-export default AboutPage;
+AboutPage.propTypes = {
+    intl: PropTypes.object,
+}
+
+export default injectIntl(AboutPage);

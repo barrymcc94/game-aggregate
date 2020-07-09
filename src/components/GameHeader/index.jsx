@@ -36,7 +36,7 @@ export const GameHeader = ({game, isLoading, intl}) => {
     return <StyledGameHeader>
         <PosterImg
             src={small_url}
-            alt={intl.formatMessage({id: 'gameHeader.posterAlt'})}
+            alt={intl.formatMessage({id: 'gameHeader.posterAlt', defaultMessage: "Game artwork poster"})}
         />
         <TitleContent>
             <GameName variant="h5" component="h1" gutterBottom>

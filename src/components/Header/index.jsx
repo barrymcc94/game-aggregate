@@ -55,7 +55,7 @@ export class Header extends React.PureComponent {
                         {menuActive
                             ? <Zoom in={menuActive}>
                                 <StyledIconButton
-                                    aria-label={formatMessage({id: "header.closeMenu"})}
+                                    aria-label={formatMessage({id: "header.closeMenu", defaultMessage: "close"})}
                                     aria-expanded={menuActive}
                                     onClick={this.toggleMenu}
                                 >
@@ -64,7 +64,7 @@ export class Header extends React.PureComponent {
                             </Zoom>
                             : <Zoom in={!menuActive}>
                                 <StyledIconButton
-                                    aria-label={formatMessage({id: "header.openMenu"})}
+                                    aria-label={formatMessage({id: "header.openMenu", defaultMessage: "open"})}
                                     aria-expanded={menuActive}
                                     onClick={this.toggleMenu}
                                 >
@@ -73,17 +73,17 @@ export class Header extends React.PureComponent {
                             </Zoom>}
                         <StyledNavLinkList active={menuActive}>
                             <StyledNavLinkListItem active={menuActive}>
-                                <StyledLink to="/">
+                                <StyledLink exact to="/">
                                     <FormattedMessage id="header.home" defaultMessage="Home" />
                                 </StyledLink>
                             </StyledNavLinkListItem>
                             <StyledNavLinkListItem active={menuActive}>
-                                <StyledLink to="/search">
+                                <StyledLink exact to="/search">
                                     <FormattedMessage id="header.search" defaultMessage="Search" />
                                 </StyledLink>
                             </StyledNavLinkListItem>
                             <StyledNavLinkListItem active={menuActive}>
-                                <StyledLink to="/about">
+                                <StyledLink exact to="/about">
                                     <FormattedMessage id="header.about" defaultMessage="About" />
                                 </StyledLink>
                             </StyledNavLinkListItem>
