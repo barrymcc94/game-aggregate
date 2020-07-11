@@ -14,7 +14,7 @@ export const StyledMediaHeader = styled.header`
 
 const PosterImgCss = css`
     width: 20rem;
-    height: 18rem;
+    min-height: 18rem;
     object-fit: contain;
     margin: 0 auto 1rem auto;
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'md')}) {

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+export const ErrorSection = styled.section``;
+
 export const ErrorHeader = styled.h1`
     padding-top: 5rem;
     font-size: 2.25rem;

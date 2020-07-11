@@ -7,8 +7,8 @@ import SkeletonLoader from '../SkeletonLoader';
 import {PosterImg, StyledMediaHeader, TitleContent, HeadingFooter, FooterItem, GameName, GameText, DescriptionList, DescriptionLabel, DescriptionValue} from './styles';
 import {PosterImgLoader} from './styles';
 
-export const MediaHeader = ({game, isLoading, intl}) => {
-    const {name, deck, image, aliases, site_detail_url, original_release_date} = game;
+export const MediaHeader = ({item, isLoading, intl}) => {
+    const {name, deck, image, aliases, site_detail_url, original_release_date, date_founded} = item;
     const aliasesContent = aliases
         ? aliases.split('\n').map(alias => <DescriptionValue key={alias}>{alias}</DescriptionValue>)
         : null;
@@ -70,13 +70,20 @@ export const MediaHeader = ({game, isLoading, intl}) => {
                         values={{date: original_release_date}}
                     />
                 </FooterItem>}
+                {date_founded && <FooterItem>
+                    <FormattedMessage
+                        id="mediaHeader.founded"
+                        defaultMessage={`Founded: ${date_founded}`}
+                        values={{date: date_founded}}
+                    />
+                </FooterItem>}
             </HeadingFooter>
         </TitleContent>
     </StyledMediaHeader>;
 }
 
 MediaHeader.propTypes = {
-    game: Game,
+    item: PropTypes.oneOfType([Game]),
     isLoading: PropTypes.bool,
     intl: PropTypes.any
 }
