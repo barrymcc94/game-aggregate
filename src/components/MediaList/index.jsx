@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {GameListItem} from '../../types';
 import Grid from '@material-ui/core/Grid';
 import MediaListItem from '../MediaListItem';
 import ErrorMessage from '../ErrorMessage';
 
-const gamesPlaceholder = new Array(12).fill(0);
-export const MediaList = React.forwardRef(({games, isFetching, error}, ref) => (
+const itemsPlaceholder = new Array(12).fill(0);
+export const MediaList = React.forwardRef(({items, isFetching, error}, ref) => (
     <React.Fragment>
         <Grid container spacing={2} alignItems="stretch" ref={ref}>
-            {games.map((game) => (
-                <MediaListItem key={game.id} game={game} />
+            {items.map((item) => (
+                <MediaListItem key={item.id} game={item} />
             ))}
-            {isFetching && gamesPlaceholder.map((_, i) => (
+            {isFetching && itemsPlaceholder.map((_, i) => (
                 <MediaListItem key={i} game={{}} isLoading={isFetching} />
             ))}
         </Grid>
@@ -22,7 +21,7 @@ export const MediaList = React.forwardRef(({games, isFetching, error}, ref) => (
 
 MediaList.displayName = 'MediaList';
 MediaList.propTypes = {
-    games: PropTypes.arrayOf(GameListItem),
+    items: PropTypes.array,
     isFetching: PropTypes.bool.isRequired,
     error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     intl: PropTypes.object,

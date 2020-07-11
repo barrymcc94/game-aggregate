@@ -1,5 +1,4 @@
 import React from 'react';
-import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
 import {GameListItem} from '../../types';
 import {bindActionCreators} from 'redux';
@@ -8,13 +7,9 @@ import {defaultGbApiDefaults} from '../../config';
 import {objToFilterStr, getDefaultGamesFilter} from '../../utils';
 import {fetchGames, clearGamesState} from '../../redux/actions';
 import {selectGames} from '../../redux/selectors';
-import MediaList from '../../components/MediaList';
+import MediaListContainer from '../MediaListContainer';
 
 export class GamesContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.gameListRef = React.createRef();
-    }
 
     loadMore = () => {
         const {meta, isFetching, fetchGames} = this.props;
@@ -36,13 +31,6 @@ export class GamesContainer extends React.Component {
         });
     }
 
-    onScroll = throttle(() => {
-        if (!this.gameListRef.current || window.pageYOffset < this.gameListRef.current.offsetHeight*0.8) {
-            return;
-        }
-        this.loadMore();
-    }, 2000);
-
     componentDidMount() {
         const {clearGamesState, containerType} = this.props;
         clearGamesState().then(() => {
@@ -51,11 +39,6 @@ export class GamesContainer extends React.Component {
             }
             this.loadMore();
         })
-        window.addEventListener('scroll', this.onScroll);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll);
     }
 
     componentDidUpdate(prevProps) {
@@ -70,7 +53,12 @@ export class GamesContainer extends React.Component {
 
     render() {
         const {games, isFetching, error} = this.props;
-        return <MediaList ref={this.gameListRef} games={games} isFetching={isFetching} error={error}/>;
+        return <MediaListContainer
+            items={games}
+            isFetching={isFetching}
+            error={error}
+            loadMore={this.loadMore}
+        />;
     }
 }
 

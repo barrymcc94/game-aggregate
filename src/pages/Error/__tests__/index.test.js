@@ -1,7 +1,6 @@
 import React from "react";
-import Error from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
-
+import Error from '../index'
 
 describe('<Error/>', () => {
     it('runs a snapshot test', () => {

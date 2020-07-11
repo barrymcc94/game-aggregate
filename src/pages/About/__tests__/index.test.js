@@ -1,10 +1,9 @@
 import React from "react";
-import {shallow} from 'enzyme';
+import {mountWithBaseWrapper} from '../../../../tests/helper';
 import About from '../index'
 
-describe('About', () => {
+describe('<About/>', () => {
     it('runs a snapshot test', () => {
-        const wrapper = shallow(<About/>);
-        expect(wrapper).toMatchSnapshot();
+        expect(mountWithBaseWrapper(<About/>)).toMatchSnapshot();
     });
 });

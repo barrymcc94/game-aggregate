@@ -61,22 +61,6 @@ describe('<GamesContainer/>', () => {
         expect(store.getActions()[1].type).toEqual('FETCH_GAMES_STARTED');
     });
 
-    it('tests scrolling loads more when over halfway down page', async () => {
-        await mountWithBaseWrapper(<GamesContainer {...defaultProps} />);
-        global.pageYOffset = 100;
-        global.dispatchEvent(new Event('scroll'));
-        expect(clearGamesState).toBeCalledTimes(1);
-        expect(fetchGames).toBeCalledTimes(2);
-    });
-
-    it('tests scrolling does not load more when less than halfway down page', async () => {
-        await mountWithBaseWrapper(<GamesContainer {...defaultProps} />);
-        global.pageYOffset = -1;
-        global.dispatchEvent(new Event('scroll'));
-        expect(clearGamesState).toBeCalledTimes(1);
-        expect(fetchGames).toBeCalledTimes(1);
-    });
-
     it('tests component updates as expected', () => {
         const wrapper = mountWithBaseWrapper(<GamesContainer {...defaultProps} />);
         wrapper.setProps({...defaultProps, containerType: 'test', meta: {filters: {filter: 'test'}}});

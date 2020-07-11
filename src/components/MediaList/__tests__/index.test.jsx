@@ -10,7 +10,7 @@ describe('<MediaList/>', () => {
         const wrapper = mountWithBaseWrapper(<MediaList
             isFetching={true}
             error={false}
-            games={[{
+            items={[{
                 id: 1,
                 name: 'name',
                 deck: 'deck',
@@ -24,11 +24,11 @@ describe('<MediaList/>', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('tests gamelist renders as expected with game data', () => {
+    it('tests Medialist renders as expected with media data', () => {
         const wrapper = mountWithBaseWrapper(<MediaList
             isFetching={false}
             error={false}
-            games={[{
+            items={[{
                 id: 1,
                 name: 'name',
                 deck: 'deck',
