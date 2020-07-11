@@ -8,7 +8,7 @@ import {defaultGbApiDefaults} from '../../config';
 import {objToFilterStr, getDefaultGamesFilter} from '../../utils';
 import {fetchGames, clearGamesState} from '../../redux/actions';
 import {selectGames} from '../../redux/selectors';
-import GamesList from '../../components/GamesList';
+import MediaList from '../../components/MediaList';
 
 export class GamesContainer extends React.Component {
     constructor(props) {
@@ -70,7 +70,7 @@ export class GamesContainer extends React.Component {
 
     render() {
         const {games, isFetching, error} = this.props;
-        return <GamesList ref={this.gameListRef} games={games} isFetching={isFetching} error={error}/>;
+        return <MediaList ref={this.gameListRef} games={games} isFetching={isFetching} error={error}/>;
     }
 }
 

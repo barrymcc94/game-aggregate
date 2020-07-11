@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import SkeletonLoader from '../SkeletonLoader';
 import {StyledGrid, StyledCard, StyledCardActionArea, StyledCardMediaContainer, StyledCardMedia, StyledCardContent, StyledCardHeading, StyledCardBody, StyledCardFooter} from './styles';
 
-export const GamesListItem = ({
+export const MediaListItem = ({
     isLoading,
     game: {guid, name, deck, original_release_date, image}
 }) => (
@@ -54,10 +54,10 @@ export const GamesListItem = ({
     </StyledGrid>
 );
 
-GamesListItem.propTypes = {
+MediaListItem.propTypes = {
     isLoading: PropTypes.bool,
     game: GameListItem,
     intl: PropTypes.object,
 }
 
-export default injectIntl(GamesListItem);
+export default injectIntl(MediaListItem);

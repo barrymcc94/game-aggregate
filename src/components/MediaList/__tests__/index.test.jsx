@@ -1,13 +1,13 @@
 import React from "react";
-import {GamesList} from '../index'
+import {MediaList} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {StyledSkeletonLoader} from "../../SkeletonLoader/styles";
 import Grid from '@material-ui/core/Grid';
 
-describe('<GamesList/>', () => {
+describe('<MediaList/>', () => {
 
     it('tests loader appears when fetching', () => {
-        const wrapper = mountWithBaseWrapper(<GamesList
+        const wrapper = mountWithBaseWrapper(<MediaList
             isFetching={true}
             error={false}
             games={[{
@@ -25,7 +25,7 @@ describe('<GamesList/>', () => {
     });
 
     it('tests gamelist renders as expected with game data', () => {
-        const wrapper = mountWithBaseWrapper(<GamesList
+        const wrapper = mountWithBaseWrapper(<MediaList
             isFetching={false}
             error={false}
             games={[{

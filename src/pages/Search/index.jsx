@@ -5,11 +5,11 @@ import {FormattedMessage, injectIntl} from 'react-intl';
 import Typography from '@material-ui/core/Typography';
 import GamesContainer from '../../containers/GamesContainer';
 import GamesSearchContainer from '../../containers/GamesSearchContainer';
-import {StyledGamesListSection} from './styles';
+import {StyledMediaListSection} from './styles';
 
 export const SearchPage = ({intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: "searchPage.title", defaultMessage: "Search"})}>
-        <StyledGamesListSection>
+        <StyledMediaListSection>
             <Typography variant="h4" component="h1" gutterBottom>
                 <FormattedMessage id="searchPage.title" defaultMessage="Games" />
             </Typography>
@@ -17,7 +17,7 @@ export const SearchPage = ({intl: {formatMessage}}) => (
                 <GamesSearchContainer searchLabel={formatMessage({id: 'searchPage.searchLabel', defaultMessage: "Search"})} />
             </form>
             <GamesContainer containerType="search" />
-        </StyledGamesListSection>
+        </StyledMediaListSection>
     </DocumentTitle>
 )
 

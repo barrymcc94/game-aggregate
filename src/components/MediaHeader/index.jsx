@@ -4,17 +4,17 @@ import Link from '@material-ui/core/Link';
 import {FormattedMessage, FormattedHTMLMessage, injectIntl} from 'react-intl';
 import {Game} from '../../types/game';
 import SkeletonLoader from '../SkeletonLoader';
-import {PosterImg, StyledGameHeader, TitleContent, HeadingFooter, FooterItem, GameName, GameText, DescriptionList, DescriptionLabel, DescriptionValue} from './styles';
+import {PosterImg, StyledMediaHeader, TitleContent, HeadingFooter, FooterItem, GameName, GameText, DescriptionList, DescriptionLabel, DescriptionValue} from './styles';
 import {PosterImgLoader} from './styles';
 
-export const GameHeader = ({game, isLoading, intl}) => {
+export const MediaHeader = ({game, isLoading, intl}) => {
     const {name, deck, image, aliases, site_detail_url, original_release_date} = game;
     const aliasesContent = aliases
         ? aliases.split('\n').map(alias => <DescriptionValue key={alias}>{alias}</DescriptionValue>)
         : null;
     const {small_url = ''} = image || {};
     if (isLoading) {
-        return <StyledGameHeader>
+        return <StyledMediaHeader>
             <PosterImgLoader />
             <TitleContent>
                 <GameName variant="h5" component="h1" gutterBottom>
@@ -31,12 +31,12 @@ export const GameHeader = ({game, isLoading, intl}) => {
                     <SkeletonLoader variant="text" numLines={1} style={{width: '47.5%'}} />
                 </HeadingFooter>
             </TitleContent>
-        </StyledGameHeader>
+        </StyledMediaHeader>
     }
-    return <StyledGameHeader>
+    return <StyledMediaHeader>
         <PosterImg
             src={small_url}
-            alt={intl.formatMessage({id: 'gameHeader.posterAlt', defaultMessage: "Game artwork poster"})}
+            alt={intl.formatMessage({id: 'mediaHeader.posterAlt', defaultMessage: "Game artwork poster"})}
         />
         <TitleContent>
             <GameName variant="h5" component="h1" gutterBottom>
@@ -48,7 +48,7 @@ export const GameHeader = ({game, isLoading, intl}) => {
             {aliasesContent && <DescriptionList variant="body1" component="dl">
                 <DescriptionLabel>
                     <FormattedHTMLMessage
-                        id="gameHeader.aliases"
+                        id="mediaHeader.aliases"
                         defaultMessage={`Also Known as: `}
                     />
                 </DescriptionLabel>
@@ -58,27 +58,27 @@ export const GameHeader = ({game, isLoading, intl}) => {
                 <FooterItem>
                     <Link href={site_detail_url} color="primary">
                         <FormattedMessage
-                            id="gameHeader.viewOnSite"
+                            id="mediaHeader.viewOnSite"
                             defaultMessage="View on GiantBomb"
                         />
                     </Link>
                 </FooterItem>
                 {original_release_date && <FooterItem>
                     <FormattedMessage
-                        id="gameHeader.released"
+                        id="mediaHeader.released"
                         defaultMessage={`Released: ${original_release_date}`}
                         values={{date: original_release_date}}
                     />
                 </FooterItem>}
             </HeadingFooter>
         </TitleContent>
-    </StyledGameHeader>;
+    </StyledMediaHeader>;
 }
 
-GameHeader.propTypes = {
+MediaHeader.propTypes = {
     game: Game,
     isLoading: PropTypes.bool,
     intl: PropTypes.any
 }
 
-export default injectIntl(GameHeader);
+export default injectIntl(MediaHeader);

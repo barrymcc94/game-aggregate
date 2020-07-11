@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import {getBreakPoint} from '../../utils';
 import {LoaderStyles} from '../../common-styles';
 
-export const StyledGameHeader = styled.header`
+export const StyledMediaHeader = styled.header`
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
@@ -14,6 +14,8 @@ export const StyledGameHeader = styled.header`
 
 const PosterImgCss = css`
     width: 20rem;
+    height: 18rem;
+    object-fit: contain;
     margin: 0 auto 1rem auto;
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'md')}) {
         margin: 0;
@@ -27,7 +29,6 @@ export const PosterImg = styled.img`
 export const PosterImgLoader = styled.div`
     ${PosterImgCss}
     ${LoaderStyles}
-    height: 18rem;
 `;
 
 export const TitleContent = styled.div`
