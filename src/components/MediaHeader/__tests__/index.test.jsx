@@ -7,13 +7,14 @@ import {StyledSkeletonLoader} from "../../SkeletonLoader/styles";
 describe('<MediaHeader/>', () => {
     const defaultProps = {
         isFetching: false,
-        game: {
+        item: {
             name: 'test name',
             deck: 'test deck',
             image: {small_url: 'test_image'},
             aliases: 'test alias',
             site_detail_url: 'test_url',
-            original_release_date: '2020-06-19'
+            original_release_date: '2020-06-19',
+            date_founded: '2000-06-19'
         }
     };
 

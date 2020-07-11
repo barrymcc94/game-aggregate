@@ -1,1 +1,1 @@
-export const selectGame = (state) => state.game.data;
+export const selectGame = (state, guid) => state.games.byId[guid];

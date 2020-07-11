@@ -8,7 +8,7 @@ import MediaHeader from '../MediaHeader';
 import GameDetails from '../GameDetails';
 import GameFooter from '../GameFooter';
 
-export const Game = ({game, isFetching, error, intl: {formatMessage}}) => {
+export const Game = ({game={}, isFetching, error, intl: {formatMessage}}) => {
     if (error || (!isFetching && (!game || !game.guid))) {
         return <ErrorMessage error={error} id="game.error" />;
     }

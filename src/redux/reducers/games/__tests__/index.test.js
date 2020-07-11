@@ -223,6 +223,46 @@ describe('Games Reducers', () => {
         expect(newState).toEqual(expectedNewState);
     });
 
+    it('simulates FETCH_GAME_SUCCEEDED action', () => {
+        const oldState = {
+            ids: [],
+            byId: {},
+            isFetching: false,
+            error: false,
+            meta: {
+                offset: 0,
+                limit: defaultLimit,
+                total: -1,
+            }
+        };
+        const expectedNewState = {
+            ids: [],
+            byId: {
+                "1": {
+                    guid: 1,
+                    title: "game 1",
+                }
+            },
+            isFetching: false,
+            error: false,
+            meta: {
+                offset: 0,
+                limit: defaultLimit,
+                total: -1,
+            }
+        };
+        const newState = games(oldState, {
+            type: types.FETCH_GAME_SUCCEEDED,
+            payload: {
+                data: {
+                    guid: 1,
+                    title: "game 1",
+                }
+            }
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
     it('simulates invalid action', () => {
         const oldState = {
             ids: [],

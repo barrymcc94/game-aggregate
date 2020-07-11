@@ -61,7 +61,18 @@ export const games = (state=initialState, action={type: null, payload: null}) =>
                 },
             };
         case types.CLEAR_GAMES_STATE:
-            return initialState;
+            return {
+                ...initialState,
+                byId
+            };
+        case types.FETCH_GAME_SUCCEEDED:
+            return {
+                ...state,
+                byId: {
+                    ...state.byId,
+                    [payload.data.guid]: payload.data
+                }
+            };
         default:
             return state;
     }

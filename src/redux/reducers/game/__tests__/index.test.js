@@ -16,16 +16,12 @@ describe('Game Reducers', () => {
 
     it('simulates FETCH_GAME_STARTED action', () => {
         const oldState = {
-            data: {
-                id: 1
-            },
             meta: {
                 isFetching: false,
                 error: false,
             }
         };
         const expectedNewState = {
-            data: {},
             meta: {
                 isFetching: true,
                 error: false,
@@ -39,16 +35,12 @@ describe('Game Reducers', () => {
 
     it('simulates FETCH_GAME_SUCCEEDED action', () => {
         const oldState = {
-            data: {},
             meta: {
                 isFetching: true,
                 error: false,
             }
         };
         const expectedNewState = {
-            data: {
-                id: 1
-            },
             meta: {
                 isFetching: false,
                 error: false,
@@ -67,14 +59,12 @@ describe('Game Reducers', () => {
 
     it('simulates FETCH_GAME_FAILED action', () => {
         const oldState = {
-            data: {},
             meta: {
                 isFetching: false,
                 error: false,
             }
         };
         const expectedNewState1 = {
-            data: {},
             meta: {
                 isFetching: false,
                 error: true,
@@ -86,7 +76,6 @@ describe('Game Reducers', () => {
         });
         expect(newState1).toEqual(expectedNewState1);
         const expectedNewState2 = {
-            data: {},
             meta: {
                 isFetching: false,
                 error: 'error occurred',
@@ -101,14 +90,12 @@ describe('Game Reducers', () => {
 
     it('simulates invalid action', () => {
         const oldState = {
-            data: {},
             meta: {
                 isFetching: false,
                 error: false,
             }
         };
         const expectedNewState = {
-            data: {},
             meta: {
                 isFetching: false,
                 error: false,
