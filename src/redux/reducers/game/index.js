@@ -1,7 +1,6 @@
 import * as types from '../../types';
 
 const initialState = {
-    data: {},
     meta: {
         isFetching: false,
         error: false

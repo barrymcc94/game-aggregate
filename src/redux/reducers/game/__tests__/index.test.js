@@ -3,9 +3,8 @@ import * as types from '../../../types';
 
 describe('Game Reducers', () => {
 
-    it('simulates no params on games reducer', () => {
+    it('simulates no params on game reducer', () => {
         const initialState = {
-            data: {},
             meta: {
                 isFetching: false,
                 error: false

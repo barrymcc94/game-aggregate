@@ -1,8 +1,19 @@
 import React from "react";
-import Container, {GamesContainer} from '../index'
+import Container, {GamesContainer, hasFiltersSearchTerm} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {Provider} from 'react-redux'
 import {mockStore} from '../../../../tests/setup';
+
+describe('<GamesContainer/> functions', () => {
+    it('invokes hasFiltersSearchTerm as expected', () => {
+        const hasTerm1 = hasFiltersSearchTerm({filter: 'test:123,name:'});
+        const hasTerm2 = hasFiltersSearchTerm({filter: 'test:123,name:123'});
+        const hasTerm3 = hasFiltersSearchTerm({});
+        expect(hasTerm1).toEqual(false);
+        expect(hasTerm2).toEqual(true);
+        expect(hasTerm3).toEqual(false);
+    });
+})
 
 describe('<GamesContainer/>', () => {
     const fetchGames = jest.fn(() => {});
@@ -69,11 +80,36 @@ describe('<GamesContainer/>', () => {
         expect(clearGamesState).toBeCalledTimes(2);
     });
 
-    it('tests mounting with seatch containerType', async () => {
+    it('tests mounting with search containerType', async () => {
         await mountWithBaseWrapper(<GamesContainer {...{
             ...defaultProps,
             containerType: 'search'
         }} />);
         expect(fetchGames).toBeCalledTimes(0);
+    });
+
+    it('tests loadMore when search is empty', async () => {
+        const wrapper = await mountWithBaseWrapper(<GamesContainer {...{
+            ...defaultProps,
+            ...{
+                meta: {
+                    offset: 10,
+                    limit: 10,
+                    total: 100,
+                    filters: {filter: 'test:123,name:123'},
+                }
+            },
+            containerType: 'search'
+        }} />);
+
+        wrapper.setProps({ meta: {
+            offset: 10,
+            limit: 10,
+            total: 100,
+            filters: {filter: 'test:123,name:'},
+        }});
+
+        expect(fetchGames).toBeCalledTimes(0);
+        expect(clearGamesState).toBeCalledTimes(2);
     });
 });

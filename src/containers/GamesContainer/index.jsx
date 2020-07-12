@@ -9,12 +9,24 @@ import {fetchGames, clearGamesState} from '../../redux/actions';
 import {selectGames} from '../../redux/selectors';
 import MediaListContainer from '../MediaListContainer';
 
-export class GamesContainer extends React.Component {
+export const hasFiltersSearchTerm = ({filter}) => {
+    try {
+        const matchingStrs = filter.split(',').filter(str => str.startsWith('name:'));
+        return !!matchingStrs[0].replace('name:','')
+    } catch (e) {
+        return false;
+    }
+}
 
+export class GamesContainer extends React.Component {
     loadMore = () => {
-        const {meta, isFetching, fetchGames} = this.props;
+        const {meta, isFetching, fetchGames, containerType, clearGamesState} = this.props;
         const {limit, offset, total, filters} = meta;
         if (isFetching || (total > -1 && offset >= total)) {
+            return;
+        }
+        if (containerType == 'search' && !hasFiltersSearchTerm(filters)) {
+            clearGamesState();
             return;
         }
         fetchGames({
