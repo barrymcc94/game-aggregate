@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 import {injectIntl} from 'react-intl';
-import {Game as GameT} from '../../types/game';
+import {Game as GameT} from '../../types';
 import ErrorMessage from '../ErrorMessage';
 import MediaHeader from '../MediaHeader';
 import GameDetails from '../GameDetails';

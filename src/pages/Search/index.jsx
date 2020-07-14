@@ -13,7 +13,7 @@ export const SearchPage = ({intl: {formatMessage}}) => (
             <Typography variant="h4" component="h1" gutterBottom>
                 <FormattedMessage id="searchPage.title" defaultMessage="Games" />
             </Typography>
-            <form noValidate autoComplete="off">
+            <form noValidate autoComplete="off" onSubmit={(e)=>{e.preventDefault();}}>
                 <GamesSearchContainer searchLabel={formatMessage({id: 'searchPage.searchLabel', defaultMessage: "Search"})} />
             </form>
             <GamesContainer containerType="search" />
