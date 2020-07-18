@@ -1,8 +1,6 @@
 import React from "react";
-import Container, {GameContainer} from '../index'
+import {GameContainer} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {Provider} from 'react-redux'
-import {mockStore} from '../../../../tests/setup';
 
 describe('<GameContainer/>', () => {
     const fetchGame = jest.fn(() => {});

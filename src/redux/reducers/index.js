@@ -5,7 +5,6 @@ import {game} from './game';
 import {companies} from './companies';
 import {company} from './company';
 
-
 const reducers = combineReducers({
     locale,
     games,
