@@ -22,6 +22,7 @@ export default {
     "mediaHeader.viewOnSite": "View on GiantBomb",
     "mediaHeader.aliases": "Also known as: ",
     "mediaHeader.released": "Released: {date}",
+    "mediaHeader.founded": "Founded: {date}",
     "gameFooter.poweredBy": "Powered by {link}",
     "gameDetails.franchises": "Franchises: ",
     "gameDetails.genres": "Genres: ",
@@ -29,4 +30,6 @@ export default {
     "gameDetails.developers": "Developers: ",
     "gameDetails.themes": "Themes: ",
     "gameDetails.platforms": "Platforms: ",
+    "companyPage.title": "Company",
+    "company.error": "Error: Could not retrieve company",
 };
