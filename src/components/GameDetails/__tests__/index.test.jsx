@@ -35,4 +35,12 @@ describe('<GameDetails />', () => {
         expect(wrapper.exists(GameDetailsSection)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('renders as expected when publisher guid is not available', () => {
+        const props = {...defaultProps, game: {...defaultProps.game, publishers: [{id: 123}]}}
+        const wrapper = mountWithBaseWrapper(<GameDetails {...props} />);
+        expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
+        expect(wrapper.exists(GameDetailsSection)).toBe(true);
+        expect(wrapper).toMatchSnapshot();
+    });
 });

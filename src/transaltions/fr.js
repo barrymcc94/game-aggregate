@@ -18,7 +18,7 @@ export default {
     "errorPage.errorMessage": "FR Click here to go back to the homepage",
     "mediaList.error": "FR Error: Could not retrieve games",
     "game.error": "FR Error: Could not retrieve game",
-    "mediaHeader.posterAlt": "FR Game artwork poster",
+    "mediaHeader.posterAlt": "FR Artwork poster",
     "mediaHeader.viewOnSite": "FR View on GiantBomb",
     "mediaHeader.aliases": "FR Also known as: ",
     "mediaHeader.released": "FR Released: {date}",
