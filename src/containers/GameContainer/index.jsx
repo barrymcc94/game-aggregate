@@ -10,6 +10,9 @@ import Game from '../../components/Game';
 
 export const GameContainer = ({guid, game, isFetching, error, fetchGame}) => {
     useEffect(() => {
+        if (game && game.developers !== undefined) {
+            return;
+        }
         fetchGame({
             guid,
             queryObj: {

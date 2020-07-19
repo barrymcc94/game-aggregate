@@ -21,4 +21,10 @@ describe('<CompanyContainer/>', () => {
         mountWithBaseWrapper(<CompanyContainer {...defaultProps} />);
         expect(fetchCompany).toBeCalledTimes(1);
     });
+
+    it('tests loaded Container Component', () => {
+        const props = {...defaultProps, company: {...defaultProps.company, developed_games: []}};
+        mountWithBaseWrapper(<CompanyContainer {...props} />);
+        expect(fetchCompany).toBeCalledTimes(0);
+    });
 });

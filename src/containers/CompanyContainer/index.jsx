@@ -10,6 +10,9 @@ import Company from '../../components/Company';
 
 export const CompanyContainer = ({guid, company, isFetching, error, fetchCompany}) => {
     useEffect(() => {
+        if (company && company.developed_games !== undefined) {
+            return;
+        }
         fetchCompany({
             guid,
             queryObj: {
