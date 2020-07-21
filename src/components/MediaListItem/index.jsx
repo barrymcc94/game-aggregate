@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {GameListItem} from '../../types';
+import {GameListItem, CompanyListItem} from '../../types';
 import {injectIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import SkeletonLoader from '../SkeletonLoader';
 import {StyledGrid, StyledCard, StyledCardActionArea, StyledCardMediaContainer, StyledCardMedia, StyledCardContent, StyledCardHeading, StyledCardBody, StyledCardFooter} from './styles';
 
 export const MediaListItem = ({
+    link,
     isLoading,
-    game: {guid, name, deck, original_release_date, image}
+    item: {guid, name, deck, original_release_date, date_founded, image}
 }) => (
     <StyledGrid item xs={12} sm={6} md={4} lg={3}>
         <StyledCard>
@@ -33,7 +34,7 @@ export const MediaListItem = ({
                     </StyledCardFooter>
                 </StyledCardContent>
             </div>
-            : <StyledCardActionArea component={Link} to={`/games/${guid}`}>
+            : <StyledCardActionArea component={Link} to={`${link}${guid}`}>
                     <StyledCardMediaContainer>
                         <StyledCardMedia title={name} image={image?.screen_url} />
                     </StyledCardMediaContainer>
@@ -46,6 +47,7 @@ export const MediaListItem = ({
                         </StyledCardBody>
                         <StyledCardFooter variant="body2">
                             {original_release_date}
+                            {date_founded}
                         </StyledCardFooter>
                     </StyledCardContent>
                 </StyledCardActionArea>
@@ -55,8 +57,9 @@ export const MediaListItem = ({
 );
 
 MediaListItem.propTypes = {
+    link: PropTypes.string,
     isLoading: PropTypes.bool,
-    game: GameListItem,
+    item: PropTypes.oneOfType([GameListItem, CompanyListItem]),
     intl: PropTypes.object,
 }
 

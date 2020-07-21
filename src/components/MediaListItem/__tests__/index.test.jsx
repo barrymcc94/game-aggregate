@@ -4,7 +4,8 @@ import {mountWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<MediaListItem/>', () => {
     it('run a snapshot test', () => {
-        expect(mountWithBaseWrapper(<MediaListItem game={{
+        expect(mountWithBaseWrapper(<MediaListItem item={{
+            guid: 'guid',
             name: 'name',
             deck: 'deck',
             original_release_date: 'date',

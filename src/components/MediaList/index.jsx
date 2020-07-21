@@ -5,14 +5,14 @@ import MediaListItem from '../MediaListItem';
 import ErrorMessage from '../ErrorMessage';
 
 const itemsPlaceholder = new Array(12).fill(0);
-export const MediaList = React.forwardRef(({items, isFetching, error}, ref) => (
+export const MediaList = React.forwardRef(({link, items, isFetching, error}, ref) => (
     <React.Fragment>
         <Grid container spacing={2} alignItems="stretch" ref={ref}>
             {items.map((item) => (
-                <MediaListItem key={item.id} game={item} />
+                <MediaListItem key={item.id} item={item} link={link}/>
             ))}
             {isFetching && itemsPlaceholder.map((_, i) => (
-                <MediaListItem key={i} game={{}} isLoading={isFetching} />
+                <MediaListItem key={i} item={{}} isLoading={isFetching} />
             ))}
         </Grid>
         <ErrorMessage error={error} id="mediaList.error" />
@@ -21,6 +21,7 @@ export const MediaList = React.forwardRef(({items, isFetching, error}, ref) => (
 
 MediaList.displayName = 'MediaList';
 MediaList.propTypes = {
+    link: PropTypes.string,
     items: PropTypes.array,
     isFetching: PropTypes.bool.isRequired,
     error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),

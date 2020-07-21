@@ -64,8 +64,14 @@ export class MediaListContainer extends React.Component {
     }
 
     render() {
-        const {items, isFetching, error} = this.props;
-        return <MediaList ref={this.mediaListRef} items={items} isFetching={isFetching} error={error}/>;
+        const {items, isFetching, error, link} = this.props;
+        return <MediaList
+            ref={this.mediaListRef}
+            items={items}
+            isFetching={isFetching}
+            error={error}
+            link={link}
+        />;
     }
 }
 
@@ -83,6 +89,7 @@ MediaListContainer.propTypes = {
     queryObj: PropTypes.object,
     fetchItems: PropTypes.func,
     clearState: PropTypes.func,
+    link: PropTypes.string,
 }
 
 export default MediaListContainer;
