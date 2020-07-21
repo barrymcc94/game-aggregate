@@ -1,7 +1,7 @@
-import {fetchGamesSaga, watchFetchGames} from '../index';
-import {FETCH_GAMES_SUCCEEDED, FETCH_GAMES_FAILED, CLEAR_GAMES_STATE} from '../../../types';
+import {fetchCompaniesSaga, watchFetchCompanies} from '../index';
+import {FETCH_COMPANIES_SUCCEEDED, FETCH_COMPANIES_FAILED, CLEAR_COMPANIES_STATE} from '../../../types';
 
-describe('Games Sagas', () => {
+describe('Companies Sagas', () => {
     const testResults = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
     beforeEach(() => {
         fetch.mockImplementationOnce(() => Promise.resolve({
@@ -19,11 +19,11 @@ describe('Games Sagas', () => {
         }));
     });
 
-    it('tests fetchGamesSaga when expecting success', async () => {
-        const gen = fetchGamesSaga({payload: {}});
+    it('tests fetchCompaniesSaga when expecting success', async () => {
+        const gen = fetchCompaniesSaga({payload: {}});
         const data = await gen.next().value;
         const {type, payload} = await gen.next(data).value.payload.action;
-        expect(type).toBe(FETCH_GAMES_SUCCEEDED);
+        expect(type).toBe(FETCH_COMPANIES_SUCCEEDED);
         expect(payload).toEqual({
             data: testResults,
             meta: {
@@ -35,22 +35,22 @@ describe('Games Sagas', () => {
         expect(gen.next().done).toBe(true);
     })
 
-    it('tests fetchGamesSaga when type is CLEAR_GAMES_STATE', async () => {
-        const gen = fetchGamesSaga({type: CLEAR_GAMES_STATE});
+    it('tests fetchCompaniesSaga when type is CLEAR_COMPANIES_STATE', async () => {
+        const gen = fetchCompaniesSaga({type: CLEAR_COMPANIES_STATE});
         await gen.next().value;
         expect(gen.next().done).toBe(true);
     })
 
-    it('tests fetchGamesSaga when expecting error', async () => {
-        const gen = fetchGamesSaga({});
+    it('tests fetchCompaniesSaga when expecting error', async () => {
+        const gen = fetchCompaniesSaga({});
         await gen.next().value;
         const {type, payload} = gen.throw(new Error()).value.payload.action;
-        expect(type).toBe(FETCH_GAMES_FAILED);
+        expect(type).toBe(FETCH_COMPANIES_FAILED);
         expect(payload).toEqual({error: true});
         expect(gen.next().done).toBe(true);
     })
 
-    it('tests fetchGamesSaga when expecting error response', async () => {
+    it('tests fetchCompaniesSaga when expecting error response', async () => {
         jest.resetAllMocks();
         fetch.mockImplementationOnce(() => Promise.resolve({
             status: 200,
@@ -65,16 +65,16 @@ describe('Games Sagas', () => {
                 version: "1.0",
             })
         }));
-        const gen = fetchGamesSaga({payload: {}});
+        const gen = fetchCompaniesSaga({payload: {}});
         const data = await gen.next().value;
         const {type, payload} = await gen.next(data).value.payload.action;
-        expect(type).toBe(FETCH_GAMES_FAILED);
+        expect(type).toBe(FETCH_COMPANIES_FAILED);
         expect(payload).toEqual({error: 'Invalid API Key'});
         expect(gen.next().done).toBe(true);
     })
 
-    it('tests watchFetchGames', async () => {
-        const gen = watchFetchGames();
+    it('tests watchFetchCompanies', async () => {
+        const gen = watchFetchCompanies();
         expect(gen.next().value.type).toBe('FORK');
         expect(gen.next().done).toBe(true);
     });

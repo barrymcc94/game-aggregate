@@ -26,7 +26,7 @@ export const games = (state=initialState, action={type: null, payload: null}) =>
                 error: false,
             };
         case types.FETCH_GAMES_SUCCEEDED:
-            const normalizedGames = normalizeObjectListing(payload.games, 'guid')
+            const normalizedGames = normalizeObjectListing(payload.data, 'guid')
             return {
                 ...state,
                 ...combineNormalizedListingObjs(

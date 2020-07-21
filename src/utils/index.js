@@ -52,6 +52,8 @@ export const getDefaultGamesFilter = () => {
     return {original_release_date: `${startDate}|${endDate}`};
 }
 
+export const getDefaultCompaniesFilter = () => ({});
+
 export const formatReqMeta = (offset, limit) => ({
     _page: offset ? (offset / limit) + 1 : 1,
     _limit: limit || defaultLimit

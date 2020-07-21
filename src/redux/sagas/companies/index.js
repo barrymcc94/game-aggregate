@@ -1,12 +1,12 @@
 import {put, takeLatest} from 'redux-saga/effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
-import {fetchGamesSucceeded, fetchGamesFailed} from '../../actions/games';
-import {FETCH_GAMES_STARTED, CLEAR_GAMES_STATE} from '../../types';
+import {fetchCompaniesSucceeded, fetchCompaniesFailed} from '../../actions/companies';
+import {FETCH_COMPANIES_STARTED, CLEAR_COMPANIES_STATE} from '../../types';
 import config from '../../../config';
 const {gbApiUrl} = config;
 
-export function* fetchGamesSaga({type, payload}) {
-    if (type == CLEAR_GAMES_STATE) {
+export function* fetchCompaniesSaga({type, payload}) {
+    if (type == CLEAR_COMPANIES_STATE) {
         return;
     }
     try {
@@ -19,11 +19,11 @@ export function* fetchGamesSaga({type, payload}) {
             offset,
             number_of_total_results,
             status_code,
-        } = yield jsonFetch(`${gbApiUrl}/api/games/${queryStr}`);
+        } = yield jsonFetch(`${gbApiUrl}/api/companies/${queryStr}`);
         if (status_code !== 1) {
-            return yield put(fetchGamesFailed({error}));
+            return yield put(fetchCompaniesFailed({error}));
         }
-        yield put(fetchGamesSucceeded({
+        yield put(fetchCompaniesSucceeded({
             data: results,
             meta: {
                 limit,
@@ -32,10 +32,10 @@ export function* fetchGamesSaga({type, payload}) {
             },
         }));
     } catch(e) {
-        yield put(fetchGamesFailed({error: true}));
+        yield put(fetchCompaniesFailed({error: true}));
     }
 }
 
-export function* watchFetchGames() {
-    yield takeLatest([FETCH_GAMES_STARTED, CLEAR_GAMES_STATE], fetchGamesSaga);
+export function* watchFetchCompanies() {
+    yield takeLatest([FETCH_COMPANIES_STARTED, CLEAR_COMPANIES_STATE], fetchCompaniesSaga);
 }

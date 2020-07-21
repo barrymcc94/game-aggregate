@@ -74,7 +74,7 @@ describe('Games Reducers', () => {
         const newState = games(oldState, {
             type: types.FETCH_GAMES_SUCCEEDED,
             payload: {
-                games: [{
+                data: [{
                     guid: 1,
                     title: "game 1",
                 }, {

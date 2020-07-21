@@ -3,6 +3,7 @@ import {watchSetLocale} from './locale';
 import {watchFetchGame} from './game';
 import {watchFetchGames} from './games';
 import {watchFetchCompany} from './company';
+import {watchFetchCompanies} from './companies';
 
 export default function* sagas() {
     yield all([
@@ -10,5 +11,6 @@ export default function* sagas() {
         fork(watchFetchGame),
         fork(watchFetchGames),
         fork(watchFetchCompany),
+        fork(watchFetchCompanies),
     ])
 }
