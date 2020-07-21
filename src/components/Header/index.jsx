@@ -83,6 +83,11 @@ export class Header extends React.PureComponent {
                                 </StyledLink>
                             </StyledNavLinkListItem>
                             <StyledNavLinkListItem active={menuActive}>
+                                <StyledLink exact to="/companies">
+                                    <FormattedMessage id="header.companies" defaultMessage="Companies" />
+                                </StyledLink>
+                            </StyledNavLinkListItem>
+                            <StyledNavLinkListItem active={menuActive}>
                                 <StyledLink exact to="/about">
                                     <FormattedMessage id="header.about" defaultMessage="About" />
                                 </StyledLink>

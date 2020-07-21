@@ -11,6 +11,7 @@ import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/Home';
 import GamePage from './pages/Game';
 import CompanyPage from './pages/Company';
+import CompaniesPage from './pages/Companies';
 import SearchPage from './pages/Search'
 import AboutPage from './pages/About';
 import ErrorPage from './pages/Error';
@@ -40,6 +41,7 @@ class App extends React.Component {
                                     <Route exact path='/' component={HomePage} />
                                     <Route exact path='/games' component={HomePage} />
                                     <Route exact path='/games/:guid' component={GamePage} />
+                                    <Route exact path='/companies' component={CompaniesPage} />
                                     <Route exact path='/companies/:guid' component={CompanyPage} />
                                     <Route exact path='/search' component={SearchPage} />
                                     <Route exact path='/about' component={AboutPage} />
