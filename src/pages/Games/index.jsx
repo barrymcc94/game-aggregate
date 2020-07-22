@@ -11,22 +11,22 @@ export const submitForm = (e) => {
     e.preventDefault();
 }
 
-export const SearchPage = ({intl: {formatMessage}}) => (
-    <DocumentTitle title={formatMessage({id: "searchPage.title", defaultMessage: "Search"})}>
+export const GamesPage = ({intl: {formatMessage}}) => (
+    <DocumentTitle title={formatMessage({id: "gamesPage.title", defaultMessage: "Search"})}>
         <StyledMediaListSection>
             <Typography variant="h4" component="h1" gutterBottom>
-                <FormattedMessage id="searchPage.title" defaultMessage="Games" />
+                <FormattedMessage id="gamesPage.title" defaultMessage="Games" />
             </Typography>
             <form noValidate autoComplete="off" onSubmit={submitForm}>
-                <GamesSearchContainer searchLabel={formatMessage({id: 'searchPage.searchLabel', defaultMessage: "Search"})} />
+                <GamesSearchContainer searchLabel={formatMessage({id: 'gamesPage.searchLabel', defaultMessage: "Search"})} />
             </form>
             <GamesContainer containerType="search" />
         </StyledMediaListSection>
     </DocumentTitle>
 )
 
-SearchPage.propTypes = {
+GamesPage.propTypes = {
     intl: PropTypes.object,
 }
 
-export default injectIntl(SearchPage);
+export default injectIntl(GamesPage);

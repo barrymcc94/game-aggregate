@@ -12,7 +12,7 @@ import HomePage from './pages/Home';
 import GamePage from './pages/Game';
 import CompanyPage from './pages/Company';
 import CompaniesPage from './pages/Companies';
-import SearchPage from './pages/Search'
+import GamesPage from './pages/Games'
 import AboutPage from './pages/About';
 import ErrorPage from './pages/Error';
 import Styles from './common-styles';
@@ -43,7 +43,7 @@ class App extends React.Component {
                                     <Route exact path='/games/:guid' component={GamePage} />
                                     <Route exact path='/companies' component={CompaniesPage} />
                                     <Route exact path='/companies/:guid' component={CompanyPage} />
-                                    <Route exact path='/search' component={SearchPage} />
+                                    <Route exact path='/search' component={GamesPage} />
                                     <Route exact path='/about' component={AboutPage} />
                                     <Route path="/404" component={ErrorPage} />
                                     <Route path="*" render={() => (<Redirect to='/404' />)} />

@@ -18,7 +18,7 @@ export const HomePage = ({intl: {formatMessage}}) => (
                 <FormattedMessage id={"companiesPage.heading"} defaultMessage="Companies" />
             </Typography>
             <form noValidate autoComplete="off" onSubmit={submitForm}>
-                <CompaniesSearchContainer searchLabel={formatMessage({id: 'searchPage.searchLabel', defaultMessage: "Search"})} />
+                <CompaniesSearchContainer searchLabel={formatMessage({id: 'companiesPage.searchLabel', defaultMessage: "Search"})} />
             </form>
             <CompaniesContainer containerType="search" allowEmptySearchFilter={true} />
         </StyledMediaListSection>
