@@ -70,7 +70,7 @@ describe('<MediaListContainer/>', () => {
         expect(fetchItems).toBeCalledTimes(0);
     });
 
-    it('tests fetchItems is not called when search is empty', async () => {
+    it('tests fetchItems is not called again when search is empty', async () => {
         const wrapper = await mountWithBaseWrapper(<MediaListContainer {...{
             ...defaultProps,
             ...{
@@ -84,14 +84,14 @@ describe('<MediaListContainer/>', () => {
             containerType: 'search'
         }} />);
 
-        wrapper.setProps({ meta: {
+        wrapper.setProps({meta: {
             offset: 10,
             limit: 10,
             total: 100,
             filters: {filter: 'test:123,name:'},
         }});
 
-        expect(fetchItems).toBeCalledTimes(0);
+        expect(fetchItems).toBeCalledTimes(1);
         expect(clearState).toBeCalledTimes(2);
     });
 });

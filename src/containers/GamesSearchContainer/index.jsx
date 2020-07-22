@@ -4,45 +4,27 @@ import {bindActionCreators} from 'redux';
 import debounce from 'lodash.debounce';
 import {connect} from 'react-redux';
 import {getDefaultGamesFilter, objToFilterStr} from '../../utils';
-import {setGamesSearchFilters, clearGamesState} from '../../redux/actions';
-import SearchBar from '../../components/SearchBar';
+import {setGamesSearchFilters} from '../../redux/actions';
+import MediaSearchContainer from '../MediaSearchContainer';
 
-export const GamesSearchContainer = ({searchLabel, setGamesSearchFilters, clearGamesState}) => {
-    const [searchStr, setSearchStr] = useState('');
-    const debounceOnChange = useCallback(debounce((payload) => {
-        setGamesSearchFilters(payload)
-    }, 2000), []);
-
-    const onChange = (event) => {
-        const {value} = event.target;
-        setSearchStr(value);
-        debounceOnChange({
-            filter: objToFilterStr({
-                ...getDefaultGamesFilter(),
-                name: encodeURIComponent(value),
-            })
-         });
-    };
-
-    return <SearchBar
-        id="games_search"
-        label={searchLabel}
-        value={searchStr}
-        onChange={onChange}
-    />;
-}
+export const GamesSearchContainer = ({searchLabel, setGamesSearchFilters}) => (
+    <MediaSearchContainer
+        searchId="games_search"
+        searchLabel={searchLabel}
+        filter={getDefaultGamesFilter()}
+        setSearchFilters={setGamesSearchFilters}
+    />
+);
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        setGamesSearchFilters,
-        clearGamesState,
+        setGamesSearchFilters
     }, dispatch);
 }
 
 GamesSearchContainer.propTypes = {
     searchLabel: PropTypes.string,
-    setGamesSearchFilters: PropTypes.func,
-    clearGamesState: PropTypes.func,
+    setGamesSearchFilters: PropTypes.func
 }
 
 export default connect(null, mapDispatchToProps)(GamesSearchContainer);

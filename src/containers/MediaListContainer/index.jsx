@@ -19,12 +19,12 @@ export class MediaListContainer extends React.Component {
     }
 
     loadMore = () => {
-        const {meta, isFetching, containerType, queryObj, fetchItems, clearState} = this.props;
+        const {meta, isFetching, containerType, queryObj, fetchItems, clearState, allowEmptySearchFilter} = this.props;
         const {offset, total, filters} = meta;
         if (isFetching || (total > -1 && offset >= total)) {
             return;
         }
-        if (containerType == 'search' && !hasFiltersSearchTerm(filters)) {
+        if (!allowEmptySearchFilter && containerType == 'search' && !hasFiltersSearchTerm(filters)) {
             clearState();
             return;
         }
@@ -39,11 +39,8 @@ export class MediaListContainer extends React.Component {
     }, 2000);
 
     componentDidMount() {
-        const {clearState, containerType} = this.props;
+        const {clearState} = this.props;
         clearState().then(() => {
-            if (containerType == 'search') {
-                return;
-            }
             this.loadMore();
         });
         window.addEventListener('scroll', this.onScroll);
@@ -86,6 +83,7 @@ MediaListContainer.propTypes = {
         filters: PropTypes.object,
     }),
     containerType: PropTypes.oneOf(['all', 'search']),
+    allowEmptySearchFilter: PropTypes.bool,
     queryObj: PropTypes.object,
     fetchItems: PropTypes.func,
     clearState: PropTypes.func,
