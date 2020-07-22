@@ -1,5 +1,5 @@
 import React from "react";
-import Container, {GamesSearchContainer} from '../index'
+import Container, {CompaniesSearchContainer} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {Provider} from 'react-redux'
 import {mockStore} from '../../../../tests/setup';
@@ -7,32 +7,32 @@ import debounce from 'lodash.debounce';
 jest.mock('lodash.debounce');
 jest.useFakeTimers();
 
-describe('<GamesSearchContainer/>', () => {
-    const setGamesSearchFilters = jest.fn();
-    const clearGamesState = jest.fn();
+describe('<CompaniesSearchContainer/>', () => {
+    const setCompaniesSearchFilters = jest.fn();
+    const clearCompaniesState = jest.fn();
 
     const defaultProps = {
         searchLabel: 'test',
-        setGamesSearchFilters,
-        clearGamesState
+        setCompaniesSearchFilters,
+        clearCompaniesState
     };
 
     beforeEach(() => {
-        setGamesSearchFilters.mockClear();
-        clearGamesState.mockClear();
+        setCompaniesSearchFilters.mockClear();
+        clearCompaniesState.mockClear();
     });
 
     it('tests Container Component with offset larger than total', () => {
-        mountWithBaseWrapper(<GamesSearchContainer {...defaultProps} />);
-        expect(setGamesSearchFilters).toBeCalledTimes(0);
-        expect(clearGamesState).toBeCalledTimes(0);
+        mountWithBaseWrapper(<CompaniesSearchContainer {...defaultProps} />);
+        expect(setCompaniesSearchFilters).toBeCalledTimes(0);
+        expect(clearCompaniesState).toBeCalledTimes(0);
     });
 
     it('tests mounting with store', () => {
         debounce.mockImplementation(fn => fn);
 
         const store = mockStore({
-            games: {
+            companies: {
                 byId: {},
                 ids: [],
                 meta: {
@@ -50,7 +50,7 @@ describe('<GamesSearchContainer/>', () => {
 
         wrapper.find('input').simulate('change', {target: {value: 'test input'} });
         expect(store.getActions().length).toEqual(1);
-        expect(store.getActions()[0].type).toEqual('SET_GAMES_SEARCH_FILTERS');
+        expect(store.getActions()[0].type).toEqual('SET_COMPANIES_SEARCH_FILTERS');
         expect(store.getActions()[0].payload.filter).toMatch(/(name:test%20input)/);
     });
 });

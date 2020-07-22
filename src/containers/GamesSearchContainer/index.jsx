@@ -1,9 +1,8 @@
-import React, {useState, useCallback} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
-import debounce from 'lodash.debounce';
 import {connect} from 'react-redux';
-import {getDefaultGamesFilter, objToFilterStr} from '../../utils';
+import {getDefaultGamesFilter} from '../../utils';
 import {setGamesSearchFilters} from '../../redux/actions';
 import MediaSearchContainer from '../MediaSearchContainer';
 
