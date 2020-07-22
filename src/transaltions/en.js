@@ -4,7 +4,6 @@ export default {
     "header.home": "Home",
     "header.companies": "Companies",
     "header.search": "Search",
-    "header.about": "About",
     "footer.about": "About this site",
     "footer.copyright": "Copyright © Barry McCormack 2020",
     "homePage.title": "New and upcoming games",
