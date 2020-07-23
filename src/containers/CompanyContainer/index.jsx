@@ -25,7 +25,7 @@ export const CompanyContainer = ({guid, company, isFetching, error, fetchCompany
 }
 
 const mapStateToProps = (state, props) => {
-    const {meta: {isFetching, error}} = state.company;
+    const {isFetching, error} = state.company;
     return {
         company: selectCompany(state, props.guid),
         isFetching,

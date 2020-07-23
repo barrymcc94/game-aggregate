@@ -25,7 +25,7 @@ export const GameContainer = ({guid, game, isFetching, error, fetchGame}) => {
 }
 
 const mapStateToProps = (state, props) => {
-    const {meta: {isFetching, error}} = state.game;
+    const {isFetching, error} = state.game;
     return {
         game: selectGame(state, props.guid),
         isFetching,

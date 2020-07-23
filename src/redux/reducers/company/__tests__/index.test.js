@@ -5,26 +5,20 @@ describe('Company Reducers', () => {
 
     it('simulates no params on company reducer', () => {
         const initialState = {
-            meta: {
-                isFetching: false,
-                error: false
-            }
+            isFetching: false,
+            error: false
         };
         expect(company()).toEqual(initialState);
     });
 
     it('simulates FETCH_COMPANY_STARTED action', () => {
         const oldState = {
-            meta: {
-                isFetching: false,
-                error: false,
-            }
+            isFetching: false,
+            error: false,
         };
         const expectedNewState = {
-            meta: {
-                isFetching: true,
-                error: false,
-            }
+            isFetching: true,
+            error: false,
         };
         const newState = company(oldState, {
             type: types.FETCH_COMPANY_STARTED
@@ -34,16 +28,12 @@ describe('Company Reducers', () => {
 
     it('simulates FETCH_COMPANY_SUCCEEDED action', () => {
         const oldState = {
-            meta: {
-                isFetching: true,
-                error: false,
-            }
+            isFetching: true,
+            error: false,
         };
         const expectedNewState = {
-            meta: {
-                isFetching: false,
-                error: false,
-            }
+            isFetching: false,
+            error: false,
         };
         const newState = company(oldState, {
             type: types.FETCH_COMPANY_SUCCEEDED,
@@ -58,16 +48,12 @@ describe('Company Reducers', () => {
 
     it('simulates FETCH_COMPANY_FAILED action', () => {
         const oldState = {
-            meta: {
-                isFetching: false,
-                error: false,
-            }
+            isFetching: false,
+            error: false,
         };
         const expectedNewState1 = {
-            meta: {
-                isFetching: false,
-                error: true,
-            }
+            isFetching: false,
+            error: true,
         };
         const newState1 = company(oldState, {
             type: types.FETCH_COMPANY_FAILED,
@@ -75,10 +61,8 @@ describe('Company Reducers', () => {
         });
         expect(newState1).toEqual(expectedNewState1);
         const expectedNewState2 = {
-            meta: {
-                isFetching: false,
-                error: 'error occurred',
-            }
+            isFetching: false,
+            error: 'error occurred',
         };
         const newState2 = company(oldState, {
             type: types.FETCH_COMPANY_FAILED,
@@ -89,16 +73,12 @@ describe('Company Reducers', () => {
 
     it('simulates invalid action', () => {
         const oldState = {
-            meta: {
-                isFetching: false,
-                error: false,
-            }
+            isFetching: false,
+            error: false,
         };
         const expectedNewState = {
-            meta: {
-                isFetching: false,
-                error: false,
-            }
+            isFetching: false,
+            error: false,
         };
         const newState = company(oldState, {
             type: 'INVALID'
