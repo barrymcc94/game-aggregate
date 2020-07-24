@@ -7,7 +7,7 @@ import {Provider} from 'react-redux'
 import {IntlProvider} from 'react-intl';
 import {MemoryRouter} from 'react-router';
 import {ThemeProvider} from 'styled-components'
-import messages from '../src/transaltions';
+import messages from '../src/translations';
 import theme from '../src/theme';
 const defaultLocale = 'en';
 const locale = defaultLocale;

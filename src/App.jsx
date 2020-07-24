@@ -6,7 +6,7 @@ import {ThemeProvider} from 'styled-components'
 import {StylesProvider} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {CssBaseline, ThemeProvider as MuiThemeProvider} from '@material-ui/core';
-import messages from './transaltions';
+import messages from './translations';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/Home';
 import GamePage from './pages/Game';
