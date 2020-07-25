@@ -7,14 +7,14 @@ export const GameDetailsSection = styled.section`
 
 export const DescriptionList = styled(Typography)`
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     width: 100%;
 `;
 
 export const DescriptionWrapper = styled.div`
-    width: 50%;
+    width: calc(50% - 1rem);
     margin-bottom: 1rem;
-    padding-right: 0.75rem;
 `;
 
 export const DescriptionLabel = styled.dt`
