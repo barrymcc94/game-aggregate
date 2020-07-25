@@ -9,7 +9,7 @@ import {fetchCompanies, clearCompaniesState} from '../../redux/actions';
 import {selectCompanies} from '../../redux/selectors';
 import MediaListContainer from '../MediaListContainer';
 
-export const CompaniesContainer = ({companies, isFetching, error, containerType, allowEmptySearchFilter, meta, clearCompaniesState, fetchCompanies}) => (
+export const CompaniesContainer = ({companies, isFetching, error, containerType, allowEmptySearchFilter, disableLoadMore, meta, clearCompaniesState, fetchCompanies}) => (
     <MediaListContainer
         link={'/companies/'}
         items={companies}
@@ -18,12 +18,11 @@ export const CompaniesContainer = ({companies, isFetching, error, containerType,
         meta={meta}
         containerType={containerType}
         allowEmptySearchFilter={allowEmptySearchFilter}
+        disableScrollLoading={disableLoadMore}
         queryObj={{
             ...defaultGbApiDefaults,
             sort: `original_release_date:desc`,
-            filter: objToFilterStr({
-                ...getDefaultCompaniesFilter(),
-            }),
+            filter: objToFilterStr(getDefaultCompaniesFilter()),
             limit: meta.limit,
             offset: meta.offset,
             ...meta.filters
@@ -61,6 +60,7 @@ CompaniesContainer.propTypes = {
         filters: PropTypes.object,
     }),
     containerType: PropTypes.oneOf(['all', 'search']),
+    disableLoadMore: PropTypes.bool,
     allowEmptySearchFilter: PropTypes.bool,
     fetchCompanies: PropTypes.func,
     clearCompaniesState: PropTypes.func,

@@ -23,6 +23,7 @@ describe('<MediaListContainer/>', () => {
         error: false,
         isFetching: false,
         containerType: 'all',
+        disableScrollLoading: false,
         meta: {
             offset: 0,
             limit: 10,
@@ -47,8 +48,17 @@ describe('<MediaListContainer/>', () => {
         expect(fetchItems).toBeCalledTimes(1);
     });
 
+    it('tests scrolling does not load more when disableScrollLoading prop is true', () => {
+        const wrapper = mountWithBaseWrapper(<Container {...{...defaultProps, disableScrollLoading: true}} />);
+        global.pageYOffset = 100;
+        global.dispatchEvent(new Event('scroll'));
+        wrapper.unmount();
+        expect(fetchItems).toBeCalledTimes(0);
+    });
+
     it('tests scrolling does not load more when less than 80% down page', () => {
         mountWithBaseWrapper(<Container {...defaultProps} />);
+        global.innerHeight = 0;
         global.pageYOffset = -1;
         global.dispatchEvent(new Event('scroll'));
         expect(fetchItems).toBeCalledTimes(0);

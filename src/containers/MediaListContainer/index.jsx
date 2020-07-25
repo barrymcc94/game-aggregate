@@ -32,22 +32,27 @@ export class MediaListContainer extends React.Component {
     }
 
     onScroll = throttle(() => {
-        if (!this.mediaListRef.current || window.pageYOffset < this.mediaListRef.current.offsetHeight*0.8) {
+        if (!this.mediaListRef.current || window.innerHeight + window.pageYOffset < (this.mediaListRef.current.offsetHeight + this.mediaListRef.current.offsetTop) * 0.8) {
             return;
         }
         this.loadMore();
     }, 2000);
 
     componentDidMount() {
-        const {clearState} = this.props;
+        const {clearState, disableScrollLoading} = this.props;
         clearState().then(() => {
             this.loadMore();
         });
-        window.addEventListener('scroll', this.onScroll);
+        if (!disableScrollLoading) {
+            window.addEventListener('scroll', this.onScroll);
+        }
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll);
+        const {disableScrollLoading} = this.props;
+        if (!disableScrollLoading) {
+            window.removeEventListener('scroll', this.onScroll);
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -83,11 +88,12 @@ MediaListContainer.propTypes = {
         filters: PropTypes.object,
     }),
     containerType: PropTypes.oneOf(['all', 'search']),
+    disableScrollLoading: PropTypes.bool,
     allowEmptySearchFilter: PropTypes.bool,
     queryObj: PropTypes.object,
+    link: PropTypes.string,
     fetchItems: PropTypes.func,
     clearState: PropTypes.func,
-    link: PropTypes.string,
 }
 
 export default MediaListContainer;
