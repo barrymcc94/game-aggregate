@@ -9,23 +9,24 @@ import {fetchCompanies, clearCompaniesState} from '../../redux/actions';
 import {selectCompanies} from '../../redux/selectors';
 import MediaListContainer from '../MediaListContainer';
 
-export const CompaniesContainer = ({companies, isFetching, error, containerType, allowEmptySearchFilter, disableLoadMore, meta, clearCompaniesState, fetchCompanies}) => (
+export const CompaniesContainer = ({containerType, allowEmptySearchFilter, disableLoadMore, queryObjOverrides, companies, isFetching, error, meta, clearCompaniesState, fetchCompanies}) => (
     <MediaListContainer
         link={'/companies/'}
+        containerType={containerType}
+        allowEmptySearchFilter={allowEmptySearchFilter}
+        disableScrollLoading={disableLoadMore}
         items={companies}
         isFetching={isFetching}
         error={error}
         meta={meta}
-        containerType={containerType}
-        allowEmptySearchFilter={allowEmptySearchFilter}
-        disableScrollLoading={disableLoadMore}
         queryObj={{
             ...defaultGbApiDefaults,
             sort: `original_release_date:desc`,
             filter: objToFilterStr(getDefaultCompaniesFilter()),
             limit: meta.limit,
             offset: meta.offset,
-            ...meta.filters
+            ...meta.filters,
+            ...queryObjOverrides,
         }}
         fetchItems={fetchCompanies}
         clearState={clearCompaniesState}
@@ -50,6 +51,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 CompaniesContainer.propTypes = {
+    containerType: PropTypes.oneOf(['all', 'search']),
+    disableLoadMore: PropTypes.bool,
+    allowEmptySearchFilter: PropTypes.bool,
+    queryObjOverrides: PropTypes.object,
     companies: PropTypes.arrayOf(CompanyListItem),
     error: PropTypes.bool,
     isFetching: PropTypes.bool,
@@ -59,9 +64,6 @@ CompaniesContainer.propTypes = {
         total: PropTypes.number,
         filters: PropTypes.object,
     }),
-    containerType: PropTypes.oneOf(['all', 'search']),
-    disableLoadMore: PropTypes.bool,
-    allowEmptySearchFilter: PropTypes.bool,
     fetchCompanies: PropTypes.func,
     clearCompaniesState: PropTypes.func,
 }

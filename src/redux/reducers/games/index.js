@@ -24,6 +24,10 @@ export const games = (state=initialState, action={type: null, payload: null}) =>
                 ...state,
                 isFetching: true,
                 error: false,
+                meta: {
+                    ...state.meta,
+                    ...payload.meta,
+                },
             };
         case types.FETCH_GAMES_SUCCEEDED:
             const normalizedGames = normalizeObjectListing(payload.data, 'guid')

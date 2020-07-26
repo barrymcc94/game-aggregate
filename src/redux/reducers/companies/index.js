@@ -24,6 +24,10 @@ export const companies = (state=initialState, action={type: null, payload: null}
                 ...state,
                 isFetching: true,
                 error: false,
+                meta: {
+                    ...state.meta,
+                    ...payload.meta,
+                },
             };
         case types.FETCH_COMPANIES_SUCCEEDED:
             const normalizedCompanies = normalizeObjectListing(payload.data, 'guid')

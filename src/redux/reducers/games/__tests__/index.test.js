@@ -26,15 +26,26 @@ describe('Games Reducers', () => {
             byId: {},
             isFetching: false,
             error: false,
+            meta: {
+                offset: 0,
+                limit: defaultLimit,
+                total: -1,
+            }
         };
         const expectedNewState = {
             ids: [],
             byId: {},
             isFetching: true,
             error: false,
+            meta: {
+                offset: 0,
+                limit: defaultLimit,
+                total: -1,
+            }
         };
         const newState = games(oldState, {
-            type: types.FETCH_GAMES_STARTED
+            type: types.FETCH_GAMES_STARTED,
+            payload: {meta: {}}
         });
         expect(newState).toEqual(expectedNewState);
     });
