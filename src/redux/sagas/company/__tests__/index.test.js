@@ -1,8 +1,12 @@
 import {fetchCompanySaga, watchFetchCompany} from '../index';
-import {FETCH_COMPANY_SUCCEEDED, FETCH_COMPANY_FAILED} from '../../../types';
+import {FETCH_COMPANY_SUCCEEDED, FETCH_COMPANY_FAILED, FETCH_GAMES_STARTED} from '../../../types';
 
 describe('Company Sagas', () => {
-    const testResult = {id: 1};
+    const testResult = {
+        id: 1,
+        published_games: [{id: 1}],
+        developed_games: [{id: 2}]
+    };
     beforeEach(() => {
         fetch.mockImplementationOnce(() => Promise.resolve({
             status: 200,
@@ -18,9 +22,30 @@ describe('Company Sagas', () => {
     it('tests fetchCompanySaga when expecting success', async () => {
         const gen = fetchCompanySaga({payload: {}});
         const data = await gen.next().value;
-        const {type, payload} = await gen.next(data).value.payload.action;
-        expect(type).toBe(FETCH_COMPANY_SUCCEEDED);
-        expect(payload).toEqual({data: {id: 1}});
+        const gamesStartedAction = await gen.next(data).value.payload.action;
+        expect(gamesStartedAction.type).toBe(FETCH_GAMES_STARTED);
+        expect(gamesStartedAction.payload).toEqual({
+            meta: {
+                limit: 100
+            },
+            queryObj: {
+                api_key: undefined,
+                filter: "original_release_date:|2020-7-29 00:00:00,id:1|2",
+                format: "json",
+                limit: 100,
+                offset: 0,
+                sort: "original_release_date:desc",
+            }
+        });
+        const companySucceededAction = await gen.next(data).value.payload.action;
+        expect(companySucceededAction.type).toBe(FETCH_COMPANY_SUCCEEDED);
+        expect(companySucceededAction.payload).toEqual({
+            data: {
+                id: 1,
+                published_games: [{id: 1}],
+                developed_games: [{id: 2}]
+            }
+        });
         expect(gen.next().done).toBe(true);
     })
 

@@ -1,8 +1,9 @@
 import {put, takeLatest} from 'redux-saga/effects';
-import {jsonFetch, objToQueryStr} from '../../../utils';
+import {jsonFetch, objToQueryStr, objToFilterStr, getDefaultGamesFilter} from '../../../utils';
 import {fetchCompanySucceeded, fetchCompanyFailed} from '../../actions/company';
+import {fetchGamesStarted} from '../../actions/games';
 import {FETCH_COMPANY_STARTED} from '../../types';
-import config from '../../../config';
+import config, {defaultGbApiDefaults} from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchCompanySaga({payload}) {
@@ -17,6 +18,27 @@ export function* fetchCompanySaga({payload}) {
         if (status_code !== 1) {
             return yield put(fetchCompanyFailed({error}));
         }
+
+        const gamesLimit = 100;
+        const {published_games, developed_games} = results;
+        const gamesIdFilter = [
+            ...published_games.slice(0, gamesLimit/2),
+            ...developed_games.slice(0, gamesLimit/2)
+        ].map(({id}) => id).join('|');
+
+        yield put(fetchGamesStarted({
+            queryObj: {
+                ...defaultGbApiDefaults,
+                sort: `original_release_date:desc`,
+                filter: objToFilterStr({
+                    ...getDefaultGamesFilter(),
+                    id: gamesIdFilter,
+                }),
+                limit: gamesLimit,
+                offset: 0,
+            },
+            meta: {limit: gamesLimit}
+        }));
 
         yield put(fetchCompanySucceeded({
             data: results,
