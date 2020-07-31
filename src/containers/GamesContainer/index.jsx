@@ -9,7 +9,7 @@ import {fetchGames, clearGamesState} from '../../redux/actions';
 import {selectGames} from '../../redux/selectors';
 import MediaListContainer from '../MediaListContainer';
 
-export const GamesContainer = ({containerType, allowEmptySearchFilter, disableLoadMore, queryObjOverrides, games, isFetching, error, meta, clearGamesState, fetchGames}) => (
+export const GamesContainer = ({containerType, allowEmptySearchFilter, disableLoadMore, games, isFetching, error, meta, clearGamesState, fetchGames}) => (
     <MediaListContainer
         link={'/games/'}
         containerType={containerType}
@@ -24,9 +24,7 @@ export const GamesContainer = ({containerType, allowEmptySearchFilter, disableLo
             sort: `original_release_date:desc`,
             filter: objToFilterStr(getDefaultGamesFilter()),
             limit: meta.limit,
-            offset: meta.offset,
-            ...meta.filters,
-            ...queryObjOverrides,
+            offset: meta.offset
         }}
         fetchItems={fetchGames}
         clearState={clearGamesState}
@@ -54,7 +52,6 @@ GamesContainer.propTypes = {
     containerType: PropTypes.oneOf(['all', 'search']),
     disableLoadMore: PropTypes.bool,
     allowEmptySearchFilter: PropTypes.bool,
-    queryObjOverrides: PropTypes.object,
     games: PropTypes.arrayOf(GameListItem),
     error: PropTypes.bool,
     isFetching: PropTypes.bool,

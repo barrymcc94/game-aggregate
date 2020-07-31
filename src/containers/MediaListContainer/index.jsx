@@ -28,7 +28,15 @@ export class MediaListContainer extends React.Component {
             clearState();
             return;
         }
-        fetchItems({queryObj, meta: {limit: queryObj.limit}});
+        fetchItems({
+            queryObj: {
+                ...queryObj,
+                ...meta.filters
+            },
+            meta: {
+                limit: queryObj.limit
+            }
+        });
     }
 
     onScroll = throttle(() => {

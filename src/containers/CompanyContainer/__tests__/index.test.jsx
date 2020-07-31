@@ -10,6 +10,12 @@ describe('<CompanyContainer/>', () => {
         company: {guid: '123'},
         isFetching: false,
         error: false,
+        gamesData: {
+            publishedGames: [],
+            developedGames: [],
+            isFetching: false,
+            error: false,
+        },
         fetchCompany
     };
 

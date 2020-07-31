@@ -13,7 +13,10 @@ const ErrorMessage = ({id, error, children}) => (
 
 ErrorMessage.propTypes = {
     id: PropTypes.string.isRequired,
-    error: PropTypes.bool.isRequired,
+    error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool
+    ]).isRequired,
     children: PropTypes.any,
 }
 
