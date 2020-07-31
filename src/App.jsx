@@ -27,6 +27,12 @@ class App extends React.Component {
         return locationChange || localeChange;
     }
 
+    componentDidUpdate(prevProps) {
+		if (this.props.location !== prevProps.location) {
+			window.scrollTo(0, 0);
+		}
+	}
+
     render() {
         const {locale} = this.props;
         return (

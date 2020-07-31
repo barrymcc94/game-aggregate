@@ -31,7 +31,7 @@ describe('Company Sagas', () => {
             },
             queryObj: {
                 api_key: undefined,
-                filter: "original_release_date:|2020-6-14,id:1|2",
+                filter: "original_release_date:|2020-6-14 00:00:00,id:1|2",
                 format: "json",
                 limit: 100,
                 offset: 0,
