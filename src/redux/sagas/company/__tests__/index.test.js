@@ -20,6 +20,7 @@ describe('Company Sagas', () => {
     });
 
     it('tests fetchCompanySaga when expecting success', async () => {
+        Date.now = jest.fn().mockReturnValue(new Date('2020-06-15T00:00:00.000Z'));
         const gen = fetchCompanySaga({payload: {}});
         const data = await gen.next().value;
         const gamesStartedAction = await gen.next(data).value.payload.action;
@@ -30,7 +31,7 @@ describe('Company Sagas', () => {
             },
             queryObj: {
                 api_key: undefined,
-                filter: "original_release_date:|2020-7-29 00:00:00,id:1|2",
+                filter: "original_release_date:|2020-6-14,id:1|2",
                 format: "json",
                 limit: 100,
                 offset: 0,

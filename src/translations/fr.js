@@ -13,6 +13,8 @@ export default {
     "companiesPage.heading": "FR Companies",
     "companiesPage.searchLabel": "FR Search for a company",
     "companyPage.title": "FR Company",
+    "company.publishedGamesTitle": "FR Most Recently Published Games",
+    "company.developedGamesTitle": "FR Most Recently Developed Games",
     "gamesPage.title": "FR Games search",
     "gamesPage.heading": "FR Games search",
     "gamesPage.searchLabel": "FR Search for a game",

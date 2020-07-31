@@ -13,6 +13,8 @@ export default {
     "companiesPage.heading": "Companies",
     "companiesPage.searchLabel": "Search for a company",
     "companyPage.title": "Company",
+    "company.publishedGamesTitle": "Most Recently Published Games",
+    "company.developedGamesTitle": "Most Recently Developed Games",
     "gamesPage.title": "Games search",
     "gamesPage.heading": "Games search",
     "gamesPage.searchLabel": "Search for a game",

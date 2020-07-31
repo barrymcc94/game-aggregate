@@ -50,7 +50,7 @@ CompanyContainer.propTypes = {
     company: CompanyT,
     isFetching: PropTypes.bool,
     error: PropTypes.bool,
-    gamesData: PropTypes.objectOf({
+    gamesData: PropTypes.shape({
         publishedGames: PropTypes.arrayOf(GameListItem),
         developedGames: PropTypes.arrayOf(GameListItem),
         isFetching: PropTypes.bool,
