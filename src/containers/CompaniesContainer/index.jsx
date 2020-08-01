@@ -9,7 +9,7 @@ import {fetchCompanies, clearCompaniesState} from '../../redux/actions';
 import {selectCompanies} from '../../redux/selectors';
 import MediaListContainer from '../MediaListContainer';
 
-export const CompaniesContainer = ({containerType, allowEmptySearchFilter, disableLoadMore, companies, isFetching, error, meta, clearCompaniesState, fetchCompanies}) => (
+export const CompaniesContainer = ({containerType, allowEmptySearchFilter, disableLoadMore, companies=[], isFetching, error, meta, clearCompaniesState, fetchCompanies}) => (
     <MediaListContainer
         link={'/companies/'}
         containerType={containerType}

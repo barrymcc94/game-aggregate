@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from '@material-ui/core/Link';
 import {FormattedMessage, FormattedHTMLMessage, injectIntl} from 'react-intl';
-import {Game} from '../../types/game';
+import {Game, Company} from '../../types';
 import SkeletonLoader from '../SkeletonLoader';
 import {PosterImg, StyledMediaHeader, TitleContent, HeadingFooter, FooterItem, GameName, GameText, DescriptionList, DescriptionLabel, DescriptionValue} from './styles';
 import {PosterImgLoader} from './styles';
@@ -83,9 +83,14 @@ export const MediaHeader = ({item, isLoading, intl}) => {
 }
 
 MediaHeader.propTypes = {
-    item: PropTypes.oneOfType([Game]),
+    item: PropTypes.oneOfType([Game, Company]),
     isLoading: PropTypes.bool,
     intl: PropTypes.any
 }
 
-export default injectIntl(MediaHeader);
+export const isEqual = (prevProps, nextProps) => (
+    prevProps.isLoading == nextProps.isLoading
+        && prevProps.item.guid == nextProps.item.guid
+)
+
+export default injectIntl(React.memo(MediaHeader, isEqual));

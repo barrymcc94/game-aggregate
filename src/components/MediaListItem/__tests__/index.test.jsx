@@ -1,5 +1,5 @@
 import React from "react";
-import {MediaListItem} from '../index'
+import {MediaListItem, isEqual} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<MediaListItem/>', () => {
@@ -13,5 +13,10 @@ describe('<MediaListItem/>', () => {
                 screen_url: 'test'
             }
         }}/>)).toMatchSnapshot();
+    });
+
+    it('tests isEqual function', () => {
+        expect(isEqual({isLoading: true, item: {guid: '1'}}, {isLoading: true, item: {guid: '1'}})).toEqual(true);
+        expect(isEqual({isLoading: true, item: {guid: '1'}}, {isLoading: false, item: {guid: '1'}})).toEqual(false);
     });
 });

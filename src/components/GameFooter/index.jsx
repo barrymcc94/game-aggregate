@@ -25,4 +25,5 @@ GameFooter.propTypes = {
     isLoading: PropTypes.bool
 }
 
-export default injectIntl(GameFooter);
+export const isEqual = (prevProps, nextProps) => (prevProps.isLoading == nextProps.isLoading);
+export default injectIntl(React.memo(GameFooter, isEqual));

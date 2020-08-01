@@ -20,4 +20,5 @@ ErrorMessage.propTypes = {
     children: PropTypes.any,
 }
 
-export default injectIntl(ErrorMessage);
+export const isEqual = (prevProps, nextProps) => (prevProps.error == nextProps.error);
+export default injectIntl(React.memo(ErrorMessage, isEqual));

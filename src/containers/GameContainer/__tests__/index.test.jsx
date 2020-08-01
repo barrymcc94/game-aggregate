@@ -22,6 +22,11 @@ describe('<GameContainer/>', () => {
         expect(fetchGame).toBeCalledTimes(1);
     });
 
+    it('tests Container Component with no game', () => {
+        mountWithBaseWrapper(<GameContainer {...{...defaultProps, game: undefined}} />);
+        expect(fetchGame).toBeCalledTimes(1);
+    });
+
     it('tests loaded Container Component', () => {
         const props = {...defaultProps, game: {...defaultProps.game, developers: []}};
         mountWithBaseWrapper(<GameContainer {...props} />);

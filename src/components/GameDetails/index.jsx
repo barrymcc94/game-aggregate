@@ -15,7 +15,7 @@ const GameDetail = (id, defaultMessage, detailArr, link) => (
         {detailArr.map(({name, id, api_detail_url}) => {
             let guid;
             try {
-                [,guid] = api_detail_url.match(/([^/]+)\/?$/);
+                [, guid] = api_detail_url.match(/([^/]+)\/?$/);
             } catch (e) {
                 guid = null;
             }
@@ -53,4 +53,8 @@ GameDetails.propTypes = {
     isLoading: PropTypes.bool,
 }
 
-export default injectIntl(GameDetails);
+export const isEqual = (prevProps, nextProps) => (
+    prevProps.isLoading == nextProps.isLoading && prevProps.game.guid == nextProps.game.guid
+);
+
+export default injectIntl(React.memo(GameDetails, isEqual));

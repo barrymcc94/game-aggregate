@@ -63,4 +63,9 @@ MediaListItem.propTypes = {
     intl: PropTypes.object,
 }
 
-export default injectIntl(MediaListItem);
+export const isEqual = (prevProps, nextProps) => (
+    prevProps.isLoading == nextProps.isLoading
+        && prevProps.item.guid == nextProps.item.guid
+);
+
+export default injectIntl(React.memo(MediaListItem, isEqual));

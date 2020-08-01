@@ -10,7 +10,6 @@ describe('<GamesContainer/>', () => {
 
     const defaultProps = {
         containerType: 'all',
-        games: [],
         isFetching: false,
         error: false,
         meta: {

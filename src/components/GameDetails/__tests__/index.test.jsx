@@ -1,5 +1,5 @@
 import React from "react";
-import {GameDetails} from '../index'
+import {GameDetails, isEqual} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {GameDetailsSection} from '../styles';
 import {StyledSkeletonLoader} from "../../SkeletonLoader/styles";
@@ -12,7 +12,7 @@ describe('<GameDetails />', () => {
         site_detail_url: 'site_detail_url',
     };
     const defaultProps = {
-        isFetching: false,
+        isLoading: false,
         game: {
             franchises: [genericObj],
             genres: [genericObj],
@@ -23,7 +23,7 @@ describe('<GameDetails />', () => {
         }
     };
 
-    it('renders loader when isFetching is true', () => {
+    it('renders loader when isLoading is true', () => {
         const wrapper = mountWithBaseWrapper(<GameDetails {...{...defaultProps, isLoading: true}} />);
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
         expect(wrapper.exists(GameDetailsSection)).toBe(true);
@@ -42,5 +42,10 @@ describe('<GameDetails />', () => {
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
         expect(wrapper.exists(GameDetailsSection)).toBe(true);
         expect(wrapper).toMatchSnapshot();
+    });
+
+    it('tests isEqual function', () => {
+        expect(isEqual({isLoading: true, game: {guid: '1'}}, {isLoading: true, game: {guid: '1'}})).toEqual(true);
+        expect(isEqual({isLoading: true, game: {guid: '1'}}, {isLoading: false, game: {guid: '1'}})).toEqual(false);
     });
 });

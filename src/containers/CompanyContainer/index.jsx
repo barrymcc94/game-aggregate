@@ -8,7 +8,7 @@ import {fetchCompany} from '../../redux/actions';
 import {selectCompany, selectCompanyGamesData} from '../../redux/selectors';
 import Company from '../../components/Company';
 
-export const CompanyContainer = ({guid, company, isFetching, error, gamesData, fetchCompany}) => {
+export const CompanyContainer = ({guid, company={}, isFetching, error, gamesData, fetchCompany}) => {
     useEffect(() => {
         if (company && company.developed_games !== undefined) {
             return;

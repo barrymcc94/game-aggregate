@@ -10,7 +10,6 @@ describe('<CompaniesContainer/>', () => {
 
     const defaultProps = {
         containerType: 'all',
-        companies: [],
         isFetching: false,
         error: false,
         meta: {

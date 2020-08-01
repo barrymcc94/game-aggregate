@@ -9,7 +9,7 @@ import {fetchGames, clearGamesState} from '../../redux/actions';
 import {selectGames} from '../../redux/selectors';
 import MediaListContainer from '../MediaListContainer';
 
-export const GamesContainer = ({containerType, allowEmptySearchFilter, disableLoadMore, games, isFetching, error, meta, clearGamesState, fetchGames}) => (
+export const GamesContainer = ({containerType, allowEmptySearchFilter, disableLoadMore, games=[], isFetching, error, meta, clearGamesState, fetchGames}) => (
     <MediaListContainer
         link={'/games/'}
         containerType={containerType}

@@ -30,4 +30,5 @@ GameList.propTypes = {
     titleId: PropTypes.string,
 }
 
-export default injectIntl(GameList);
+export const isEqual = (prevProps, nextProps) => (prevProps.fetchingGames == nextProps.fetchingGames)
+export default injectIntl(React.memo(GameList, isEqual));

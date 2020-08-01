@@ -28,6 +28,11 @@ describe('<CompanyContainer/>', () => {
         expect(fetchCompany).toBeCalledTimes(1);
     });
 
+    it('tests Container Component with no company', () => {
+        mountWithBaseWrapper(<CompanyContainer {...{...defaultProps, company: undefined}} />);
+        expect(fetchCompany).toBeCalledTimes(1);
+    });
+
     it('tests loaded Container Component', () => {
         const props = {...defaultProps, company: {...defaultProps.company, developed_games: []}};
         mountWithBaseWrapper(<CompanyContainer {...props} />);

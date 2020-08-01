@@ -1,12 +1,12 @@
 import React from "react";
-import {MediaHeader} from '../index'
+import {MediaHeader, isEqual} from '../index'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {StyledMediaHeader} from '../styles';
 import {StyledSkeletonLoader} from "../../SkeletonLoader/styles";
 
 describe('<MediaHeader/>', () => {
     const defaultProps = {
-        isFetching: false,
+        isLoading: false,
         item: {
             name: 'test name',
             deck: 'test deck',
@@ -29,5 +29,10 @@ describe('<MediaHeader/>', () => {
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
         expect(wrapper.exists(StyledMediaHeader)).toBe(true);
         expect(wrapper).toMatchSnapshot();
+    });
+
+    it('tests isEqual function', () => {
+        expect(isEqual({isLoading: true, item: {guid: '1'}}, {isLoading: true, item: {guid: '1'}})).toEqual(true);
+        expect(isEqual({isLoading: true, item: {guid: '1'}}, {isLoading: false, item: {guid: '1'}})).toEqual(false);
     });
 });

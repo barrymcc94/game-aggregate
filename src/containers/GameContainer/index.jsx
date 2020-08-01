@@ -8,7 +8,7 @@ import {fetchGame} from '../../redux/actions';
 import {selectGame} from '../../redux/selectors';
 import Game from '../../components/Game';
 
-export const GameContainer = ({guid, game, isFetching, error, fetchGame}) => {
+export const GameContainer = ({guid, game={}, isFetching, error, fetchGame}) => {
     useEffect(() => {
         if (game && game.developers !== undefined) {
             return;

@@ -28,4 +28,8 @@ Game.propTypes = {
     error: PropTypes.bool,
 }
 
-export default injectIntl(Game);
+export const isEqual = (prevProps, nextProps) => (
+    prevProps.isFetching == nextProps.isFetching
+        && prevProps.game.guid == nextProps.game.guid
+)
+export default injectIntl(React.memo(Game, isEqual));

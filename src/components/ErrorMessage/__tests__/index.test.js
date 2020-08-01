@@ -1,5 +1,5 @@
 import React from "react";
-import ErrorMessage from "../index";
+import ErrorMessage, {isEqual} from "../index";
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<ErrorMessage/>', () => {
@@ -20,5 +20,10 @@ describe('<ErrorMessage/>', () => {
         const wrapper = mountWithBaseWrapper(<ErrorMessage id="" error={true}/>);
         expect(wrapper.html()).toEqual('');
         expect(wrapper).toMatchSnapshot();
+    });
+
+    it('tests isEqual function', () => {
+        expect(isEqual({error: true}, {error: true})).toEqual(true);
+        expect(isEqual({error: true}, {error: false})).toEqual(false);
     });
 });

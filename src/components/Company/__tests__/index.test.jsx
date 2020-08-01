@@ -26,7 +26,6 @@ describe('<Company/>', () => {
         const wrapper = mountWithBaseWrapper(<Company
             isFetching={true}
             error={true}
-            company={{}}
             gamesData={{
                 publishedGames: [],
                 developedGames: [],
