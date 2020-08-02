@@ -12,7 +12,7 @@ describe('<MediaSearchContainer/>', () => {
     debounce.mockImplementation(fn => fn);
 
     const defaultProps = {
-        searchType: 'games',
+        mediaType: 'games',
         id: 'test_id',
         label: 'search',
         setSearchFilters
@@ -45,7 +45,7 @@ describe('<MediaSearchContainer/>', () => {
 
     it('tests MediaSearchContainer with companies props', () => {
         const store = mockStore({companies: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(<MediaSearchContainer {...{...defaultProps, searchType: 'companies'}} />, store);
+        const wrapper = mountWithBaseWrapper(<MediaSearchContainer {...{...defaultProps, mediaType: 'companies'}} />, store);
         wrapper.find('input').simulate('change', {target: {value: 'test input'}});
         expect(store.getActions().length).toEqual(1);
         expect(store.getActions()[0].type).toEqual('SET_COMPANIES_SEARCH_FILTERS');
@@ -53,7 +53,7 @@ describe('<MediaSearchContainer/>', () => {
 
     it('tests MediaSearchContainer with invalid searchType prop', () => {
         const store = mockStore({games: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(<MediaSearchContainer {...{...defaultProps, searchType: 'what?'}}/>, store);
+        const wrapper = mountWithBaseWrapper(<MediaSearchContainer {...{...defaultProps, mediaType: 'what?'}}/>, store);
         wrapper.find('input').simulate('change', {target: {value: 'test input'}});
         expect(store.getActions().length).toEqual(0);
     });
