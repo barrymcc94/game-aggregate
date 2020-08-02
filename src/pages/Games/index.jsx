@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
-import {FormattedMessage, injectIntl} from 'react-intl';
 import Typography from '@material-ui/core/Typography';
+import {FormattedMessage, injectIntl} from 'react-intl';
+import {ENUMS} from '../../config';
 import MediaListContainer from '../../containers/MediaListContainer';
 import MediaSearchContainer from '../../containers/MediaSearchContainer';
 import {StyledMediaListSection} from './styles';
+
+const {GAMES} = ENUMS.MEDIA_TYPE;
+const {SEARCH} = ENUMS.CONTAINER_TYPE;
 
 export const submitForm = (e) => {
     e.preventDefault();
@@ -19,14 +23,14 @@ export const GamesPage = ({intl: {formatMessage}}) => (
             </Typography>
             <form noValidate autoComplete="off" onSubmit={submitForm}>
                 <MediaSearchContainer
-                    mediaType="games"
+                    mediaType={GAMES}
                     id="games_search"
                     label={formatMessage({id: 'gamesPage.searchLabel', defaultMessage: "Search"})}
                 />
             </form>
             <MediaListContainer
-                mediaType="games"
-                containerType="search"
+                mediaType={GAMES}
+                containerType={SEARCH}
                 allowEmptySearchFilter={false}
                 disableScrollLoading={false}
             />

@@ -4,14 +4,17 @@ import debounce from 'lodash.debounce';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {setGamesSearchFilters, setCompaniesSearchFilters} from '../../redux/actions';
+import {ENUMS} from '../../config';
 import {getDefaultGamesFilter, getDefaultCompaniesFilter, objToFilterStr} from '../../utils';
 import SearchBar from '../../components/SearchBar';
 
+const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
+
 const getDefaultFilters = (mediaType) => {
     let filters = {};
-    if (mediaType == 'games') {
+    if (mediaType == GAMES) {
         filters = getDefaultGamesFilter();
-    } else if (mediaType == 'companies') {
+    } else if (mediaType == COMPANIES) {
         filters = getDefaultCompaniesFilter();
     }
     return filters;
@@ -45,12 +48,12 @@ export const MediaSearchContainer = ({mediaType, id, label, setSearchFilters}) =
 
 export const mapDispatchToProps = (dispatch, {mediaType}) => {
     let actions = {};
-    if (mediaType == 'games') {
+    if (mediaType == GAMES) {
         actions = {
             ...actions,
             setSearchFilters: setGamesSearchFilters
         };
-    } else if (mediaType == 'companies') {
+    } else if (mediaType == COMPANIES) {
         actions = {
             ...actions,
             setSearchFilters: setCompaniesSearchFilters
@@ -60,7 +63,7 @@ export const mapDispatchToProps = (dispatch, {mediaType}) => {
 }
 
 MediaSearchContainer.propTypes = {
-    mediaType: PropTypes.oneOf(['games', 'companies']),
+    mediaType: PropTypes.oneOf([GAMES, COMPANIES]),
     id: PropTypes.string,
     label: PropTypes.string,
     setSearchFilters: PropTypes.func,

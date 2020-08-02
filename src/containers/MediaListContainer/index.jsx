@@ -5,9 +5,12 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {fetchGames, clearGamesState, fetchCompanies, clearCompaniesState} from '../../redux/actions';
 import {selectGames, selectCompanies} from '../../redux/selectors';
-import {defaultGbApiDefaults} from '../../config';
+import {defaultGbApiDefaults, ENUMS} from '../../config';
 import {objToFilterStr, getDefaultGamesFilter, getDefaultCompaniesFilter} from '../../utils';
 import MediaList from '../../components/MediaList';
+
+const {ALL, SEARCH} = ENUMS.CONTAINER_TYPE;
+const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
 
 export const hasFiltersSearchTerm = ({filter}) => {
     try {
@@ -26,12 +29,12 @@ export const getDefaultFilters = (mediaType, meta) => {
             limit: meta.limit,
             offset: meta.offset
         };
-        if (mediaType == 'games') {
+        if (mediaType == GAMES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
                 filter: objToFilterStr(getDefaultGamesFilter()),
             }
-        } else if (mediaType == 'companies') {
+        } else if (mediaType == COMPANIES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
                 filter: objToFilterStr(getDefaultCompaniesFilter()),
@@ -120,11 +123,11 @@ export class MediaListContainer extends React.Component {
 const mapStateToProps = (state, {mediaType}) => {
     const {isFetching, error, meta} = state[mediaType] || {meta: {}};
     let mediaState = {};
-    if (mediaType == 'games') {
+    if (mediaType == GAMES) {
         mediaState = {
             items: selectGames(state),
         }
-    } else if (mediaType == 'companies') {
+    } else if (mediaType == COMPANIES) {
         mediaState = {
             items: selectCompanies(state),
         }
@@ -139,13 +142,13 @@ const mapStateToProps = (state, {mediaType}) => {
 
 const mapDispatchToProps = (dispatch, {mediaType}) => {
     let actions = {};
-    if (mediaType == 'games') {
+    if (mediaType == GAMES) {
         actions = {
             ...actions,
             fetchItems: fetchGames,
             clearState: clearGamesState,
         };
-    } else if (mediaType == 'companies') {
+    } else if (mediaType == COMPANIES) {
         actions = {
             ...actions,
             fetchItems: fetchCompanies,
@@ -156,8 +159,8 @@ const mapDispatchToProps = (dispatch, {mediaType}) => {
 }
 
 MediaListContainer.propTypes = {
-    mediaType: PropTypes.oneOf(['games', 'companies']),
-    containerType: PropTypes.oneOf(['all', 'search']),
+    mediaType: PropTypes.oneOf([GAMES, COMPANIES]),
+    containerType: PropTypes.oneOf([ALL, SEARCH]),
     disableScrollLoading: PropTypes.bool,
     allowEmptySearchFilter: PropTypes.bool,
     items: PropTypes.array,
