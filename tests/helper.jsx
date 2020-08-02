@@ -12,7 +12,7 @@ import theme from '../src/theme';
 const defaultLocale = 'en';
 const locale = defaultLocale;
 
-const BaseWrapper = ({children}) => <Provider store={global.helperStore}>
+const BaseWrapper = ({children, store}) => <Provider store={store || global.helperStore}>
     <MemoryRouter initialEntries={['/']}>
         <IntlProvider locale="en">
             <ThemeProvider theme={theme}>
@@ -23,13 +23,15 @@ const BaseWrapper = ({children}) => <Provider store={global.helperStore}>
 </Provider>;
 
 BaseWrapper.propTypes = {
-    children: PropTypes.any
+    children: PropTypes.any,
+    store: PropTypes.any
 }
 
-export const mountWithBaseWrapper = (node) => (
+export const mountWithBaseWrapper = (node, store) => (
     mount(node, {
         wrappingComponent: BaseWrapper,
         wrappingComponentProps: {
+            store,
             locale,
             defaultLocale,
             messages: {locale: defaultLocale, ...messages.en},
