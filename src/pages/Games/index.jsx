@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import Typography from '@material-ui/core/Typography';
-import GamesContainer from '../../containers/GamesContainer';
-import GamesSearchContainer from '../../containers/GamesSearchContainer';
+import MediaListContainer from '../../containers/MediaListContainer';
+import MediaSearchContainer from '../../containers/MediaSearchContainer';
 import {StyledMediaListSection} from './styles';
 
 export const submitForm = (e) => {
@@ -18,9 +18,18 @@ export const GamesPage = ({intl: {formatMessage}}) => (
                 <FormattedMessage id="gamesPage.title" defaultMessage="Games" />
             </Typography>
             <form noValidate autoComplete="off" onSubmit={submitForm}>
-                <GamesSearchContainer searchLabel={formatMessage({id: 'gamesPage.searchLabel', defaultMessage: "Search"})} />
+                <MediaSearchContainer
+                    mediaType="games"
+                    id="games_search"
+                    label={formatMessage({id: 'gamesPage.searchLabel', defaultMessage: "Search"})}
+                />
             </form>
-            <GamesContainer containerType="search" />
+            <MediaListContainer
+                mediaType="games"
+                containerType="search"
+                allowEmptySearchFilter={false}
+                disableScrollLoading={false}
+            />
         </StyledMediaListSection>
     </DocumentTitle>
 )

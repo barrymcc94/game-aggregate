@@ -4,8 +4,8 @@ import DocumentTitle from 'react-document-title';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import Typography from '@material-ui/core/Typography';
 import {StyledMediaListSection} from './styles';
-import CompaniesSearchContainer from '../../containers/CompaniesSearchContainer';
-import CompaniesContainer from '../../containers/CompaniesContainer';
+import MediaSearchContainer from '../../containers/MediaSearchContainer';
+import MediaListContainer from '../../containers/MediaListContainer';
 
 export const submitForm = (e) => {
     e.preventDefault();
@@ -18,9 +18,18 @@ export const HomePage = ({intl: {formatMessage}}) => (
                 <FormattedMessage id={"companiesPage.heading"} defaultMessage="Companies" />
             </Typography>
             <form noValidate autoComplete="off" onSubmit={submitForm}>
-                <CompaniesSearchContainer searchLabel={formatMessage({id: 'companiesPage.searchLabel', defaultMessage: "Search"})} />
+                <MediaSearchContainer
+                    mediaType="companies"
+                    id="companies_search"
+                    label={formatMessage({id: 'companiesPage.searchLabel', defaultMessage: "Search"})}
+                />
             </form>
-            <CompaniesContainer containerType="search" allowEmptySearchFilter={true} />
+            <MediaListContainer
+                mediaType="companies"
+                containerType="search"
+                allowEmptySearchFilter={true}
+                disableScrollLoading={false}
+            />
         </StyledMediaListSection>
     </DocumentTitle>
 );

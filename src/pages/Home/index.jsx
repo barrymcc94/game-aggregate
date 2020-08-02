@@ -4,7 +4,7 @@ import DocumentTitle from 'react-document-title';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import Typography from '@material-ui/core/Typography';
 import {StyledMediaListSection} from './styles';
-import GamesContainer from '../../containers/GamesContainer';
+import MediaListContainer from '../../containers/MediaListContainer';
 
 export const HomePage = ({intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: "homePage.title", defaultMessage: "Games"})}>
@@ -12,7 +12,7 @@ export const HomePage = ({intl: {formatMessage}}) => (
             <Typography variant="h4" component="h1" gutterBottom>
                 <FormattedMessage id={"homePage.heading"} defaultMessage="Games" />
             </Typography>
-            <GamesContainer containerType="all" />
+            <MediaListContainer mediaType="games" containerType="all" allowEmptySearchFilter={true} disableScrollLoading={false} />
         </StyledMediaListSection>
     </DocumentTitle>
 );

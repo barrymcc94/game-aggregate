@@ -1,6 +1,12 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {fetchGames, clearGamesState, fetchCompanies, clearCompaniesState} from '../../redux/actions';
+import {selectGames, selectCompanies} from '../../redux/selectors';
+import {defaultGbApiDefaults} from '../../config';
+import {objToFilterStr, getDefaultGamesFilter, getDefaultCompaniesFilter} from '../../utils';
 import MediaList from '../../components/MediaList';
 
 export const hasFiltersSearchTerm = ({filter}) => {
@@ -12,6 +18,31 @@ export const hasFiltersSearchTerm = ({filter}) => {
     }
 }
 
+export const getDefaultFilters = (mediaType, meta) => {
+    try {
+        let defaultQueryObj = {
+            ...defaultGbApiDefaults,
+            sort: `original_release_date:desc`,
+            limit: meta.limit,
+            offset: meta.offset
+        };
+        if (mediaType == 'games') {
+            defaultQueryObj = {
+                ...defaultQueryObj,
+                filter: objToFilterStr(getDefaultGamesFilter()),
+            }
+        } else if (mediaType == 'companies') {
+            defaultQueryObj = {
+                ...defaultQueryObj,
+                filter: objToFilterStr(getDefaultCompaniesFilter()),
+            }
+        }
+        return defaultQueryObj;
+    } catch (e) {
+        return {};
+    }
+}
+
 export class MediaListContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -19,7 +50,7 @@ export class MediaListContainer extends React.Component {
     }
 
     loadMore = () => {
-        const {meta, isFetching, containerType, queryObj, fetchItems, clearState, allowEmptySearchFilter} = this.props;
+        const {mediaType, meta, isFetching, containerType, fetchItems, clearState, allowEmptySearchFilter} = this.props;
         const {offset, total, filters} = meta;
         if (isFetching || (total > -1 && offset >= total)) {
             return;
@@ -28,13 +59,14 @@ export class MediaListContainer extends React.Component {
             clearState();
             return;
         }
+        const defaultQueryObj = getDefaultFilters(mediaType, meta);
         fetchItems({
             queryObj: {
-                ...queryObj,
+                ...defaultQueryObj,
                 ...meta.filters
             },
             meta: {
-                limit: queryObj.limit
+                limit: defaultQueryObj.limit
             }
         });
     }
@@ -74,18 +106,60 @@ export class MediaListContainer extends React.Component {
     }
 
     render() {
-        const {items, isFetching, error, link} = this.props;
+        const {mediaType, items, isFetching, error} = this.props;
         return <MediaList
             ref={this.mediaListRef}
             items={items}
             isFetching={isFetching}
             error={error}
-            link={link}
+            link={`/${mediaType}/`}
         />;
     }
 }
 
+const mapStateToProps = (state, {mediaType}) => {
+    const {isFetching, error, meta} = state[mediaType] || {meta: {}};
+    let mediaState = {};
+    if (mediaType == 'games') {
+        mediaState = {
+            items: selectGames(state),
+        }
+    } else if (mediaType == 'companies') {
+        mediaState = {
+            items: selectCompanies(state),
+        }
+    }
+    return {
+        ...mediaState,
+        isFetching,
+        error,
+        meta,
+    };
+}
+
+const mapDispatchToProps = (dispatch, {mediaType}) => {
+    let actions = {};
+    if (mediaType == 'games') {
+        actions = {
+            ...actions,
+            fetchItems: fetchGames,
+            clearState: clearGamesState,
+        };
+    } else if (mediaType == 'companies') {
+        actions = {
+            ...actions,
+            fetchItems: fetchCompanies,
+            clearState: clearCompaniesState,
+        };
+    }
+    return bindActionCreators(actions, dispatch);
+}
+
 MediaListContainer.propTypes = {
+    mediaType: PropTypes.oneOf(['games', 'companies']),
+    containerType: PropTypes.oneOf(['all', 'search']),
+    disableScrollLoading: PropTypes.bool,
+    allowEmptySearchFilter: PropTypes.bool,
     items: PropTypes.array,
     error: PropTypes.bool,
     isFetching: PropTypes.bool,
@@ -95,13 +169,8 @@ MediaListContainer.propTypes = {
         total: PropTypes.number,
         filters: PropTypes.object,
     }),
-    containerType: PropTypes.oneOf(['all', 'search']),
-    disableScrollLoading: PropTypes.bool,
-    allowEmptySearchFilter: PropTypes.bool,
-    queryObj: PropTypes.object,
-    link: PropTypes.string,
     fetchItems: PropTypes.func,
     clearState: PropTypes.func,
 }
 
-export default MediaListContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(MediaListContainer);

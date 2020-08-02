@@ -1,7 +1,6 @@
 import React from "react";
 import MediaSearchContainer from '../index';
 import debounce from 'lodash.debounce';
-import {Provider} from 'react-redux'
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
 jest.mock('lodash.debounce');
