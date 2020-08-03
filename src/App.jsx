@@ -16,7 +16,10 @@ import GamesPage from './pages/Games'
 import AboutPage from './pages/About';
 import ErrorPage from './pages/Error';
 import Styles from './common-styles';
+import {ENUMS} from './config';
 import theme from './theme';
+
+const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
 
 class App extends React.Component {
 
@@ -45,11 +48,10 @@ class App extends React.Component {
                                 <CssBaseline />
                                 <Switch>
                                     <Route exact path='/' component={HomePage} />
-                                    <Route exact path='/games' component={HomePage} />
-                                    <Route exact path='/games/:guid' component={GamePage} />
-                                    <Route exact path='/companies' component={CompaniesPage} />
-                                    <Route exact path='/companies/:guid' component={CompanyPage} />
-                                    <Route exact path='/search' component={GamesPage} />
+                                    <Route exact path={`/${GAMES}/`} component={GamesPage} />
+                                    <Route exact path={`/${GAMES}/:guid`} component={GamePage} />
+                                    <Route exact path={`/${COMPANIES}/`} component={CompaniesPage} />
+                                    <Route exact path={`/${COMPANIES}/:guid`} component={CompanyPage} />
                                     <Route exact path='/about' component={AboutPage} />
                                     <Route path="/404" component={ErrorPage} />
                                     <Route path="*" render={() => (<Redirect to='/404' />)} />

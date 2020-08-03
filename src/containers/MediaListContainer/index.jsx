@@ -25,18 +25,19 @@ export const getDefaultFilters = (mediaType, meta) => {
     try {
         let defaultQueryObj = {
             ...defaultGbApiDefaults,
-            sort: `original_release_date:desc`,
             limit: meta.limit,
             offset: meta.offset
         };
         if (mediaType == GAMES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
+                sort: 'original_release_date:desc',
                 filter: objToFilterStr(getDefaultGamesFilter()),
             }
         } else if (mediaType == COMPANIES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
+                sort: 'date_founded:desc',
                 filter: objToFilterStr(getDefaultCompaniesFilter()),
             }
         }
@@ -53,7 +54,7 @@ export class MediaListContainer extends React.Component {
     }
 
     loadMore = () => {
-        const {mediaType, meta, isFetching, containerType, fetchItems, clearState, allowEmptySearchFilter} = this.props;
+        const {mediaType, meta, limit, isFetching, containerType, fetchItems, clearState, allowEmptySearchFilter} = this.props;
         const {offset, total, filters} = meta;
         if (isFetching || (total > -1 && offset >= total)) {
             return;
@@ -62,7 +63,7 @@ export class MediaListContainer extends React.Component {
             clearState();
             return;
         }
-        const defaultQueryObj = getDefaultFilters(mediaType, meta);
+        const defaultQueryObj = getDefaultFilters(mediaType, limit ? {...meta, limit} : meta);
         fetchItems({
             queryObj: {
                 ...defaultQueryObj,
@@ -163,6 +164,7 @@ MediaListContainer.propTypes = {
     containerType: PropTypes.oneOf([ALL, SEARCH]),
     disableScrollLoading: PropTypes.bool,
     allowEmptySearchFilter: PropTypes.bool,
+    limit: PropTypes.number,
     items: PropTypes.array,
     error: PropTypes.bool,
     isFetching: PropTypes.bool,

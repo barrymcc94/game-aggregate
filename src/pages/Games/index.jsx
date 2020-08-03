@@ -31,7 +31,7 @@ export const GamesPage = ({intl: {formatMessage}}) => (
             <MediaListContainer
                 mediaType={GAMES}
                 containerType={SEARCH}
-                allowEmptySearchFilter={false}
+                allowEmptySearchFilter={true}
                 disableScrollLoading={false}
             />
         </StyledMediaListSection>

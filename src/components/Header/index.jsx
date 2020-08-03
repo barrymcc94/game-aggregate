@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
+import {ENUMS} from '../../config';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {Zoom} from '@material-ui/core';
 import {MenuIcon, CloseIcon, StyledHeader, StyledNav, StyledContainer, StyledNavLinkList, StyledNavLinkListItem, StyledIconButton, StyledLink} from './styles.js';
+
+const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
 
 export class Header extends React.PureComponent {
     constructor(props) {
@@ -78,12 +81,12 @@ export class Header extends React.PureComponent {
                                 </StyledLink>
                             </StyledNavLinkListItem>
                             <StyledNavLinkListItem active={menuActive}>
-                                <StyledLink exact to="/search">
-                                    <FormattedMessage id="header.search" defaultMessage="Search" />
+                                <StyledLink exact to={`/${GAMES}/`}>
+                                    <FormattedMessage id="header.games" defaultMessage="Games" />
                                 </StyledLink>
                             </StyledNavLinkListItem>
                             <StyledNavLinkListItem active={menuActive}>
-                                <StyledLink exact to="/companies">
+                                <StyledLink exact to={`/${COMPANIES}/`}>
                                     <FormattedMessage id="header.companies" defaultMessage="Companies" />
                                 </StyledLink>
                             </StyledNavLinkListItem>
