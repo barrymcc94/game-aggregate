@@ -1,8 +1,8 @@
-import React from "react";
-import {GameFooter, isEqual} from '../index'
+import React from 'react';
+import {GameFooter, isEqual} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {StyledGameFooter} from '../styles';
-import {StyledSkeletonLoader} from "../../SkeletonLoader/styles";
+import {StyledSkeletonLoader} from '../../SkeletonLoader/styles';
 
 describe('<GameFooter/>', () => {
     const defaultProps = {
@@ -10,7 +10,9 @@ describe('<GameFooter/>', () => {
     };
 
     it('renders loader when isLoading is true', () => {
-        const wrapper = mountWithBaseWrapper(<GameFooter {...{...defaultProps, isLoading: true}} />);
+        const wrapper = mountWithBaseWrapper(
+            <GameFooter {...{...defaultProps, isLoading: true}} />
+        );
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
         expect(wrapper.exists(StyledGameFooter)).toBe(true);
     });

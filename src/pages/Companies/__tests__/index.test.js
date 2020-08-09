@@ -1,5 +1,5 @@
-import React from "react";
-import Companies, {submitForm} from '../index'
+import React from 'react';
+import Companies, {submitForm} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<Companies/>', () => {
@@ -10,6 +10,8 @@ describe('<Companies/>', () => {
     });
 
     it('runs a snapshot test', () => {
-        expect(mountWithBaseWrapper(<Companies match={{params: {guid: 'test'}}}/>)).toMatchSnapshot();
+        expect(
+            mountWithBaseWrapper(<Companies match={{params: {guid: 'test'}}} />)
+        ).toMatchSnapshot();
     });
 });

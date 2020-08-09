@@ -8,7 +8,14 @@ import {fetchCompany} from '../../redux/actions';
 import {selectCompany, selectCompanyGamesData} from '../../redux/selectors';
 import Company from '../../components/Company';
 
-export const CompanyContainer = ({guid, company={}, isFetching, error, gamesData, fetchCompany}) => {
+export const CompanyContainer = ({
+    guid,
+    company = {},
+    isFetching,
+    error,
+    gamesData,
+    fetchCompany,
+}) => {
     useEffect(() => {
         if (company && company.developed_games !== undefined) {
             return;
@@ -21,13 +28,15 @@ export const CompanyContainer = ({guid, company={}, isFetching, error, gamesData
         });
     }, []);
 
-    return <Company
-        company={company}
-        gamesData={gamesData}
-        isFetching={isFetching}
-        error={error}
-    />;
-}
+    return (
+        <Company
+            company={company}
+            gamesData={gamesData}
+            isFetching={isFetching}
+            error={error}
+        />
+    );
+};
 
 const mapStateToProps = (state, props) => {
     const {isFetching, error} = state.company;
@@ -37,13 +46,16 @@ const mapStateToProps = (state, props) => {
         isFetching,
         error,
     };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        fetchCompany,
-    }, dispatch);
-}
+    return bindActionCreators(
+        {
+            fetchCompany,
+        },
+        dispatch
+    );
+};
 
 CompanyContainer.propTypes = {
     guid: PropTypes.string,
@@ -57,6 +69,6 @@ CompanyContainer.propTypes = {
         error: PropTypes.bool,
     }),
     fetchCompany: PropTypes.func,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyContainer);

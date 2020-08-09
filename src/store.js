@@ -5,16 +5,17 @@ import {createLogger} from 'redux-logger';
 import reducers from './redux/reducers';
 import sagas from './redux/sagas';
 
-const logger = createLogger({predicate: () => process.env.NODE_ENV === 'development'});
+const logger = createLogger({
+    predicate: () => process.env.NODE_ENV === 'development',
+});
 const sagaMiddleWare = createSagaMiddleware();
 
-const composeEnhancers = (process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const composeEnhancers =
+    (process.env.NODE_ENV === 'development' &&
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+    compose;
 
-const middleWare = [
-    thunk,
-    sagaMiddleWare,
-    logger,
-];
+const middleWare = [thunk, sagaMiddleWare, logger];
 
 const store = createStore(
     reducers,
@@ -22,6 +23,6 @@ const store = createStore(
     composeEnhancers(applyMiddleware(...middleWare))
 );
 
-sagaMiddleWare.run(sagas)
+sagaMiddleWare.run(sagas);
 
 export default store;

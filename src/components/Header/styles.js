@@ -26,9 +26,13 @@ const baseMenuStyles = css`
     }
 `;
 
-export const MenuIcon = styled(Menu)`${baseMenuStyles}`;
+export const MenuIcon = styled(Menu)`
+    ${baseMenuStyles}
+`;
 
-export const CloseIcon = styled(Close)`${baseMenuStyles}`;
+export const CloseIcon = styled(Close)`
+    ${baseMenuStyles}
+`;
 
 export const StyledContainer = styled(Container)`
     height: ${({theme}) => theme.headerHeight};
@@ -62,30 +66,36 @@ export const StyledNavLinkList = styled.ul`
     top: ${({theme}) => theme.headerHeight};
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    ${({active}) => active ? css`
-        transition: height, 0.1s ease-in;
-        height: calc(100vh - ${({theme}) => theme.headerHeight});
-        overflow: auto;
-    ` : ``};
+    ${({active}) =>
+        active
+            ? css`
+                  transition: height, 0.1s ease-in;
+                  height: calc(100vh - ${({theme}) => theme.headerHeight});
+                  overflow: auto;
+              `
+            : ``};
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
         height: 100%;
         position: relative;
         transition: height, 0s;
         top: 0;
         background-color: rgba(0, 0, 0, 0);
-        ${({active}) => active ? css`
-            height: auto;
-    ` : ``};
+        ${({active}) =>
+            active
+                ? css`
+                      height: auto;
+                  `
+                : ``};
     }
 `;
 
 export const StyledNavLinkListItem = styled.li`
     background-color: ${({theme}) => theme.palette.background.paper};
-    display: ${({active}) => active ? 'block' : 'none'};
+    display: ${({active}) => (active ? 'block' : 'none')};
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
         display: inline-block;
     }
-`
+`;
 
 export const StyledLink = styled(NavLink)`
     display: block;
@@ -97,7 +107,8 @@ export const StyledLink = styled(NavLink)`
     &.active {
         background-color: ${({theme}) => theme.palette.action.hover};
     }
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         outline: none;
         text-decoration: none;
         background-color: ${({theme}) => theme.palette.action.hover};

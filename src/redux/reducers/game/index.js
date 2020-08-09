@@ -2,10 +2,13 @@ import * as types from '../../types';
 
 const initialState = {
     isFetching: false,
-    error: false
+    error: false,
 };
 
-export const game = (state=initialState, action={type: null, payload: null}) => {
+export const game = (
+    state = initialState,
+    action = {type: null, payload: null}
+) => {
     const {type, payload} = action;
     switch (type) {
         case types.FETCH_GAME_STARTED:
@@ -29,4 +32,4 @@ export const game = (state=initialState, action={type: null, payload: null}) => 
         default:
             return state;
     }
-}
+};

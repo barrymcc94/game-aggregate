@@ -6,7 +6,6 @@ import Footer from '../../components/Footer';
 import {StyledLayout, StyledMain, StyledContainer} from './styles.js';
 
 class MainLayout extends React.Component {
-
     shouldComponentUpdate(nextProps) {
         return this.props.location.pathname !== nextProps.location.pathname;
     }
@@ -14,15 +13,13 @@ class MainLayout extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Header/>
-                    <StyledLayout>
-                        <StyledContainer maxWidth="lg">
-                            <StyledMain>
-                                {this.props.children}
-                            </StyledMain>
-                        </StyledContainer>
-                    </StyledLayout>
-                <Footer/>
+                <Header />
+                <StyledLayout>
+                    <StyledContainer maxWidth="lg">
+                        <StyledMain>{this.props.children}</StyledMain>
+                    </StyledContainer>
+                </StyledLayout>
+                <Footer />
             </React.Fragment>
         );
     }
@@ -31,6 +28,6 @@ class MainLayout extends React.Component {
 MainLayout.propTypes = {
     location: PropTypes.object,
     children: PropTypes.any,
-}
+};
 
 export default withRouter(MainLayout);

@@ -1,8 +1,10 @@
-import React from "react";
+import React from 'react';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
-import MainLayout from "../index";
+import MainLayout from '../index';
 import {StyledMain} from '../styles.js';
-jest.mock('@material-ui/core/Zoom', () => ({children}) => <div>{children}</div>);
+jest.mock('@material-ui/core/Zoom', () => ({children}) => (
+    <div>{children}</div>
+));
 
 describe('<MainLayout/>', () => {
     it('correctly renders MainLayout', () => {

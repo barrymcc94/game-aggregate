@@ -6,9 +6,13 @@ import {StyledCompanyArticle} from './styles';
 import CompanyContainer from '../../containers/CompanyContainer';
 
 export const CompanyPage = ({match, intl: {formatMessage}}) => (
-    <DocumentTitle title={formatMessage({id: "companyPage.title", defaultMessage: "Company"})}>
+    <DocumentTitle
+        title={formatMessage({
+            id: 'companyPage.title',
+            defaultMessage: 'Company',
+        })}>
         <StyledCompanyArticle>
-            <CompanyContainer guid={match.params.guid}/>
+            <CompanyContainer guid={match.params.guid} />
         </StyledCompanyArticle>
     </DocumentTitle>
 );
@@ -16,6 +20,6 @@ export const CompanyPage = ({match, intl: {formatMessage}}) => (
 CompanyPage.propTypes = {
     match: PropTypes.object,
     intl: PropTypes.object,
-}
+};
 
 export default injectIntl(CompanyPage);

@@ -1,5 +1,5 @@
-import React from "react";
-import {GameContainer} from '../index'
+import React from 'react';
+import {GameContainer} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<GameContainer/>', () => {
@@ -10,7 +10,7 @@ describe('<GameContainer/>', () => {
         game: {guid: '123'},
         isFetching: false,
         error: false,
-        fetchGame
+        fetchGame,
     };
 
     beforeEach(() => {
@@ -23,12 +23,17 @@ describe('<GameContainer/>', () => {
     });
 
     it('tests Container Component with no game', () => {
-        mountWithBaseWrapper(<GameContainer {...{...defaultProps, game: undefined}} />);
+        mountWithBaseWrapper(
+            <GameContainer {...{...defaultProps, game: undefined}} />
+        );
         expect(fetchGame).toBeCalledTimes(1);
     });
 
     it('tests loaded Container Component', () => {
-        const props = {...defaultProps, game: {...defaultProps.game, developers: []}};
+        const props = {
+            ...defaultProps,
+            game: {...defaultProps.game, developers: []},
+        };
         mountWithBaseWrapper(<GameContainer {...props} />);
         expect(fetchGame).toBeCalledTimes(0);
     });

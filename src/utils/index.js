@@ -1,18 +1,12 @@
-import moment from 'moment/moment'
-import {
-    defaultLimit
-} from '../config'
+import moment from 'moment/moment';
+import {defaultLimit} from '../config';
 
 export const jsonFetch = async (url) => {
     const req = new Request(url);
-    return await fetch(
-        req
-    ).then(response =>
-        response.json()
-    ).then(jsonRes =>
-        jsonRes
-    );
-}
+    return await fetch(req)
+        .then((response) => response.json())
+        .then((jsonRes) => jsonRes);
+};
 
 export const objToQueryStr = (obj) => {
     try {
@@ -27,7 +21,7 @@ export const objToQueryStr = (obj) => {
     } catch (err) {
         return '';
     }
-}
+};
 
 export const objToFilterStr = (obj) => {
     try {
@@ -42,7 +36,7 @@ export const objToFilterStr = (obj) => {
     } catch (err) {
         return '';
     }
-}
+};
 
 export const getDefaultGamesFilter = () => {
     const currentMoment = moment();
@@ -50,14 +44,14 @@ export const getDefaultGamesFilter = () => {
     const startDate = '';
     const endDate = currentMoment.subtract(1, 'day').format(dateFormat);
     return {original_release_date: `${startDate}|${endDate}`};
-}
+};
 
 export const getDefaultCompaniesFilter = () => ({});
 
 export const formatReqMeta = (offset, limit) => ({
-    _page: offset ? (offset / limit) + 1 : 1,
-    _limit: limit || defaultLimit
-})
+    _page: offset ? offset / limit + 1 : 1,
+    _limit: limit || defaultLimit,
+});
 
 export const getBreakPoint = (theme, breakpoint) => {
     try {
@@ -69,7 +63,7 @@ export const getBreakPoint = (theme, breakpoint) => {
     } catch (e) {
         return '';
     }
-}
+};
 
 export const areShallowObjectsEqual = (obj1, obj2) => {
     if (obj1 !== Object(obj1) || obj2 !== Object(obj2)) {
@@ -81,7 +75,7 @@ export const areShallowObjectsEqual = (obj1, obj2) => {
         }
     }
     return true;
-}
+};
 
 export const areRecordArraysTheSame = (arr1, arr2) => {
     try {
@@ -97,42 +91,42 @@ export const areRecordArraysTheSame = (arr1, arr2) => {
     } catch {
         return false;
     }
-}
+};
 
 export const normalizeObjectListing = (objArr, idProp) => {
     try {
         if (!Array.isArray(objArr)) {
             return {
                 ids: [],
-                byId: {}
+                byId: {},
             };
         }
         return {
-            ids: objArr.map(item => item[idProp]),
-            byId: objArr.reduce((accum, item) => ({
-                ...accum,
-                [item[idProp]]: item
-            }), {})
-        }
+            ids: objArr.map((item) => item[idProp]),
+            byId: objArr.reduce(
+                (accum, item) => ({
+                    ...accum,
+                    [item[idProp]]: item,
+                }),
+                {}
+            ),
+        };
     } catch {
         return {
             ids: [],
-            byId: {}
+            byId: {},
         };
     }
-}
+};
 
 export const combineNormalizedListingObjs = (data1, data2) => {
     try {
         return {
             byId: {
                 ...data1.byId,
-                ...data2.byId
+                ...data2.byId,
             },
-            ids: [...new Set([
-                ...data1.ids,
-                ...data2.ids
-            ])]
+            ids: [...new Set([...data1.ids, ...data2.ids])],
         };
     } catch (e) {
         return {
@@ -140,4 +134,4 @@ export const combineNormalizedListingObjs = (data1, data2) => {
             ids: [],
         };
     }
-}
+};

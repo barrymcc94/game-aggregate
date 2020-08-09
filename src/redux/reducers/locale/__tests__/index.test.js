@@ -2,7 +2,6 @@ import {locale} from '../index';
 import * as types from '../../../types';
 
 describe('Locale Reducers', () => {
-
     it('simulates no params on locale reducer', () => {
         const initialState = {
             currentLocale: 'en',
@@ -22,7 +21,7 @@ describe('Locale Reducers', () => {
         };
         const newState = locale(oldState, {
             type: types.SET_LOCALE,
-            payload: 'fr'
+            payload: 'fr',
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -38,7 +37,7 @@ describe('Locale Reducers', () => {
         };
         const newState = locale(oldState, {
             type: 'INVALID',
-            payload: 'fr'
+            payload: 'fr',
         });
         expect(newState).toEqual(expectedNewState);
     });

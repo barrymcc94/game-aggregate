@@ -12,13 +12,16 @@ import {
 import {defaultLimit} from '../../config';
 
 describe('utils', () => {
-    it('successfully tests fetching (mocked)', done => {
-        fetch.mockImplementationOnce(() => Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({
-                test: 'test'
+    it('successfully tests fetching (mocked)', (done) => {
+        fetch.mockImplementationOnce(() =>
+            Promise.resolve({
+                status: 200,
+                json: () =>
+                    Promise.resolve({
+                        test: 'test',
+                    }),
             })
-        }));
+        );
 
         jsonFetch('').then(() => {
             done();
@@ -28,11 +31,11 @@ describe('utils', () => {
     it('tests formatReqMeta', () => {
         const expectedResult1 = {
             _page: 2,
-            _limit: 5
+            _limit: 5,
         };
         const expectedResult2 = {
             _page: 1,
-            _limit: defaultLimit
+            _limit: defaultLimit,
         };
 
         const result1 = formatReqMeta(5, 5);
@@ -45,16 +48,26 @@ describe('utils', () => {
         expect(getBreakPoint({}, '')).toEqual('');
         expect(getBreakPoint({breakpoints: {}}, 'xs')).toEqual('');
         expect(getBreakPoint({breakpoints: {values: {}}}, 'xs')).toEqual('');
-        expect(getBreakPoint({breakpoints: {values: {xs: 0}}}, 'xs')).toEqual('0px');
-        expect(getBreakPoint({breakpoints: {values: {sm: 600}}}, 'sm')).toEqual('600px');
+        expect(getBreakPoint({breakpoints: {values: {xs: 0}}}, 'xs')).toEqual(
+            '0px'
+        );
+        expect(getBreakPoint({breakpoints: {values: {sm: 600}}}, 'sm')).toEqual(
+            '600px'
+        );
     });
 
     it('tests areShallowObjectsEqual', () => {
         const result1 = areShallowObjectsEqual({prop1: 1}, {prop1: 1});
         const result2 = areShallowObjectsEqual(1, 1);
         const result3 = areShallowObjectsEqual({prop1: 1}, {prop1: 2});
-        const result4 = areShallowObjectsEqual({prop1: 1, prop2: 2}, {prop1: 1});
-        const result5 = areShallowObjectsEqual({prop1: {prop: 1}}, {prop1: {prop: 1}});
+        const result4 = areShallowObjectsEqual(
+            {prop1: 1, prop2: 2},
+            {prop1: 1}
+        );
+        const result5 = areShallowObjectsEqual(
+            {prop1: {prop: 1}},
+            {prop1: {prop: 1}}
+        );
         expect(result1).toEqual(true);
         expect(result2).toEqual(false);
         expect(result3).toEqual(false);
@@ -63,24 +76,43 @@ describe('utils', () => {
     });
 
     it('tests areRecordArraysTheSame', () => {
-        const result1 = areRecordArraysTheSame([{
-            id: 1,
-            title: "post 1",
-        }], [{
-            id: 1,
-            title: "post 1",
-        }]);
-        const result2 = areRecordArraysTheSame([{
-            id: 1,
-            title: "post 1",
-        }], [{
-            id: 2,
-            title: "post 2",
-        }]);
-        const result3 = areRecordArraysTheSame([{
-            id: 1,
-            title: "post 1",
-        }], []);
+        const result1 = areRecordArraysTheSame(
+            [
+                {
+                    id: 1,
+                    title: 'post 1',
+                },
+            ],
+            [
+                {
+                    id: 1,
+                    title: 'post 1',
+                },
+            ]
+        );
+        const result2 = areRecordArraysTheSame(
+            [
+                {
+                    id: 1,
+                    title: 'post 1',
+                },
+            ],
+            [
+                {
+                    id: 2,
+                    title: 'post 2',
+                },
+            ]
+        );
+        const result3 = areRecordArraysTheSame(
+            [
+                {
+                    id: 1,
+                    title: 'post 1',
+                },
+            ],
+            []
+        );
         const result4 = areRecordArraysTheSame();
         expect(result1).toEqual(true);
         expect(result2).toEqual(false);
@@ -92,7 +124,7 @@ describe('utils', () => {
         const expectedResult = '?query1=test1&query2=test2';
         const result = objToQueryStr({
             query1: 'test1',
-            query2: 'test2'
+            query2: 'test2',
         });
         expect(result).toEqual(expectedResult);
     });
@@ -113,7 +145,7 @@ describe('utils', () => {
         const expectedResult = 'filter1:test1,filter2:test2';
         const result = objToFilterStr({
             filter1: 'test1',
-            filter2: 'test2'
+            filter2: 'test2',
         });
         expect(result).toEqual(expectedResult);
     });
@@ -128,23 +160,29 @@ describe('utils', () => {
         const expectedResult = {
             ids: [1, 2],
             byId: {
-                "1": {
+                '1': {
                     id: 1,
-                    title: "post 1",
+                    title: 'post 1',
                 },
-                "2": {
+                '2': {
                     id: 2,
-                    title: "post 2",
+                    title: 'post 2',
                 },
             },
         };
-        const result = normalizeObjectListing([{
-            id: 1,
-            title: "post 1",
-        }, {
-            id: 2,
-            title: "post 2",
-        }], 'id');
+        const result = normalizeObjectListing(
+            [
+                {
+                    id: 1,
+                    title: 'post 1',
+                },
+                {
+                    id: 2,
+                    title: 'post 2',
+                },
+            ],
+            'id'
+        );
         expect(result).toEqual(expectedResult);
     });
 
@@ -179,33 +217,36 @@ describe('utils', () => {
         const expectedResult = {
             ids: [1, 2],
             byId: {
-                "1": {
+                '1': {
                     id: 1,
-                    title: "post 1",
+                    title: 'post 1',
                 },
-                "2": {
+                '2': {
                     id: 2,
-                    title: "post 2",
+                    title: 'post 2',
                 },
             },
         };
-        const result = combineNormalizedListingObjs({
-            ids: [1],
-            byId: {
-                "1": {
-                    id: 1,
-                    title: "post 1",
+        const result = combineNormalizedListingObjs(
+            {
+                ids: [1],
+                byId: {
+                    '1': {
+                        id: 1,
+                        title: 'post 1',
+                    },
                 },
             },
-        }, {
-            ids: [2],
-            byId: {
-                "2": {
-                    id: 2,
-                    title: "post 2",
+            {
+                ids: [2],
+                byId: {
+                    '2': {
+                        id: 2,
+                        title: 'post 2',
+                    },
                 },
-            },
-        });
+            }
+        );
         expect(result).toEqual(expectedResult);
     });
 
@@ -217,9 +258,9 @@ describe('utils', () => {
         const result = combineNormalizedListingObjs(null, {
             ids: [2],
             byId: {
-                "2": {
+                '2': {
                     id: 2,
-                    title: "post 2",
+                    title: 'post 2',
                 },
             },
         });

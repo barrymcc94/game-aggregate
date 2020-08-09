@@ -1,7 +1,8 @@
 {
     "plugins": [
         "react",
-        "react-hooks"
+        "react-hooks",
+        "eslint-plugin-prettier"
     ],
     "parser": "babel-eslint",
     "parserOptions": {
@@ -12,19 +13,21 @@
         }
     },
     "env": {
-        "es6":     true,
+        "es6": true,
         "browser": true,
-        "node":    true,
-        "jest":    true
+        "node": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "eslint-config-prettier"
     ],
     "rules": {
         "no-var": "error",
         "no-case-declarations": "off",
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "off"
+        "react-hooks/exhaustive-deps": "off",
+        "prettier/prettier": "error"
     }
 }

@@ -1,8 +1,8 @@
-import React from "react";
-import {GameDetails, isEqual} from '../index'
+import React from 'react';
+import {GameDetails, isEqual} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {GameDetailsSection} from '../styles';
-import {StyledSkeletonLoader} from "../../SkeletonLoader/styles";
+import {StyledSkeletonLoader} from '../../SkeletonLoader/styles';
 
 describe('<GameDetails />', () => {
     const genericObj = {
@@ -20,11 +20,13 @@ describe('<GameDetails />', () => {
             developers: [genericObj],
             themes: [genericObj],
             platforms: null,
-        }
+        },
     };
 
     it('renders loader when isLoading is true', () => {
-        const wrapper = mountWithBaseWrapper(<GameDetails {...{...defaultProps, isLoading: true}} />);
+        const wrapper = mountWithBaseWrapper(
+            <GameDetails {...{...defaultProps, isLoading: true}} />
+        );
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
         expect(wrapper.exists(GameDetailsSection)).toBe(true);
     });
@@ -37,7 +39,10 @@ describe('<GameDetails />', () => {
     });
 
     it('renders as expected when publisher guid is not available', () => {
-        const props = {...defaultProps, game: {...defaultProps.game, publishers: [{id: 123}]}}
+        const props = {
+            ...defaultProps,
+            game: {...defaultProps.game, publishers: [{id: 123}]},
+        };
         const wrapper = mountWithBaseWrapper(<GameDetails {...props} />);
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
         expect(wrapper.exists(GameDetailsSection)).toBe(true);
@@ -45,7 +50,17 @@ describe('<GameDetails />', () => {
     });
 
     it('tests isEqual function', () => {
-        expect(isEqual({isLoading: true, game: {guid: '1'}}, {isLoading: true, game: {guid: '1'}})).toEqual(true);
-        expect(isEqual({isLoading: true, game: {guid: '1'}}, {isLoading: false, game: {guid: '1'}})).toEqual(false);
+        expect(
+            isEqual(
+                {isLoading: true, game: {guid: '1'}},
+                {isLoading: true, game: {guid: '1'}}
+            )
+        ).toEqual(true);
+        expect(
+            isEqual(
+                {isLoading: true, game: {guid: '1'}},
+                {isLoading: false, game: {guid: '1'}}
+            )
+        ).toEqual(false);
     });
 });

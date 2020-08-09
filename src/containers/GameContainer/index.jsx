@@ -8,7 +8,13 @@ import {fetchGame} from '../../redux/actions';
 import {selectGame} from '../../redux/selectors';
 import Game from '../../components/Game';
 
-export const GameContainer = ({guid, game={}, isFetching, error, fetchGame}) => {
+export const GameContainer = ({
+    guid,
+    game = {},
+    isFetching,
+    error,
+    fetchGame,
+}) => {
     useEffect(() => {
         if (game && game.developers !== undefined) {
             return;
@@ -21,8 +27,8 @@ export const GameContainer = ({guid, game={}, isFetching, error, fetchGame}) => 
         });
     }, []);
 
-    return <Game game={game} isFetching={isFetching} error={error} />
-}
+    return <Game game={game} isFetching={isFetching} error={error} />;
+};
 
 const mapStateToProps = (state, props) => {
     const {isFetching, error} = state.game;
@@ -31,13 +37,16 @@ const mapStateToProps = (state, props) => {
         isFetching,
         error,
     };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        fetchGame,
-    }, dispatch);
-}
+    return bindActionCreators(
+        {
+            fetchGame,
+        },
+        dispatch
+    );
+};
 
 GameContainer.propTypes = {
     guid: PropTypes.string,
@@ -45,6 +54,6 @@ GameContainer.propTypes = {
     fetchGame: PropTypes.func,
     isFetching: PropTypes.bool,
     error: PropTypes.bool,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);

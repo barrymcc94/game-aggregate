@@ -1,13 +1,17 @@
-import {selectCompany, getFormattedGames, selectCompanyGamesData} from '../index';
+import {
+    selectCompany,
+    getFormattedGames,
+    selectCompanyGamesData,
+} from '../index';
 
 describe('Company Selectors', () => {
     it('simulates selectCompany ', () => {
         const state = {
             companies: {
-               byId: {
-                    id1: {id: 1}
-               }
-            }
+                byId: {
+                    id1: {id: 1},
+                },
+            },
         };
         const expectedResult = {id: 1};
         const result = selectCompany(state, 'id1');
@@ -19,30 +23,39 @@ describe('Company Selectors', () => {
             byId: {
                 game1: {
                     guid: 'game1',
-                    id: 123
+                    id: 123,
                 },
                 game2: {
                     guid: 'game2',
-                    id: 321
-                }
+                    id: 321,
+                },
             },
             meta: {
-                limit: 10
-            }
+                limit: 10,
+            },
         };
-        const result = getFormattedGames([{
-            api_detail_url: '/api/game/game1/',
-        }, {
-            api_detail_url: '/api/game/game2/',
-        }], gamesState);
+        const result = getFormattedGames(
+            [
+                {
+                    api_detail_url: '/api/game/game1/',
+                },
+                {
+                    api_detail_url: '/api/game/game2/',
+                },
+            ],
+            gamesState
+        );
 
-        expect(result).toEqual([{
-            guid: 'game1',
-            id: 123
-        },{
-            guid: 'game2',
-            id: 321
-        }]);
+        expect(result).toEqual([
+            {
+                guid: 'game1',
+                id: 123,
+            },
+            {
+                guid: 'game2',
+                id: 321,
+            },
+        ]);
     });
 
     it('simulates getFormattedGames with err', () => {
@@ -61,22 +74,22 @@ describe('Company Selectors', () => {
                     },
                     game2: {
                         guid: 'game2',
-                    }
+                    },
                 },
                 meta: {
                     limit: 100,
-                }
+                },
             },
             companies: {
-               byId: {
+                byId: {
                     company1: {
                         guid: 'company1',
                         id: 1,
                         published_games: [{api_detail_url: '/api/game/game1/'}],
                         developed_games: [{api_detail_url: '/api/game/game2/'}],
                     },
-               }
-            }
+                },
+            },
         };
         const result = selectCompanyGamesData(state, 'company1');
         expect(result).toEqual({
@@ -94,11 +107,11 @@ describe('Company Selectors', () => {
                 error: false,
                 meta: {
                     limit: 100,
-                }
+                },
             },
             companies: {
-               byId: {}
-            }
+                byId: {},
+            },
         };
         const result = selectCompanyGamesData(state, '');
         expect(result).toEqual({

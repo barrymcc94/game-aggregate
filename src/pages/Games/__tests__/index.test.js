@@ -1,9 +1,8 @@
-import React from "react";
+import React from 'react';
 import {shallow} from 'enzyme';
-import {GamesPage, submitForm} from '../index'
+import {GamesPage, submitForm} from '../index';
 
 describe('<GamesPage/>', () => {
-
     it('verifys submitForm works as expected', () => {
         const e = {preventDefault: jest.fn()};
         submitForm(e);
@@ -11,7 +10,7 @@ describe('<GamesPage/>', () => {
     });
 
     it('runs a snapshot test', () => {
-        const wrapper = shallow(<GamesPage intl={{formatMessage: () => ''}}/>);
+        const wrapper = shallow(<GamesPage intl={{formatMessage: () => ''}} />);
         expect(wrapper).toMatchSnapshot();
     });
 });

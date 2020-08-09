@@ -3,7 +3,6 @@ import * as types from '../../../types';
 import {defaultLimit} from '../../../../config';
 
 describe('Games Reducers', () => {
-
     it('simulates no params on games reducer', () => {
         const initialState = {
             ids: [],
@@ -14,8 +13,8 @@ describe('Games Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-                filters: {}
-            }
+                filters: {},
+            },
         };
         expect(games()).toEqual(initialState);
     });
@@ -30,7 +29,7 @@ describe('Games Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const expectedNewState = {
             ids: [],
@@ -41,11 +40,11 @@ describe('Games Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const newState = games(oldState, {
             type: types.FETCH_GAMES_STARTED,
-            payload: {meta: {}}
+            payload: {meta: {}},
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -60,18 +59,18 @@ describe('Games Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const expectedNewState = {
             ids: [1, 2],
             byId: {
-                "1": {
+                '1': {
                     guid: 1,
-                    title: "game 1",
+                    title: 'game 1',
                 },
-                "2": {
+                '2': {
                     guid: 2,
-                    title: "game 2",
+                    title: 'game 2',
                 },
             },
             isFetching: false,
@@ -80,23 +79,26 @@ describe('Games Reducers', () => {
                 offset: defaultLimit,
                 limit: defaultLimit,
                 total: 20,
-            }
+            },
         };
         const newState = games(oldState, {
             type: types.FETCH_GAMES_SUCCEEDED,
             payload: {
-                data: [{
-                    guid: 1,
-                    title: "game 1",
-                }, {
-                    guid: 2,
-                    title: "game 2",
-                }],
+                data: [
+                    {
+                        guid: 1,
+                        title: 'game 1',
+                    },
+                    {
+                        guid: 2,
+                        title: 'game 2',
+                    },
+                ],
                 meta: {
                     offset: 5,
                     total: 20,
-                }
-            }
+                },
+            },
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -111,7 +113,7 @@ describe('Games Reducers', () => {
                 offset: 5,
                 limit: defaultLimit,
                 total: 20,
-            }
+            },
         };
         const expectedNewState = {
             ids: [],
@@ -122,15 +124,18 @@ describe('Games Reducers', () => {
                 offset: 5 + defaultLimit,
                 limit: defaultLimit,
                 total: 20,
-            }
+            },
         };
         const newState = games(oldState, {
             type: types.FETCH_GAMES_SUCCEEDED,
-            payload: {games: [], meta: {
-                offset: 5,
-                limit: defaultLimit,
-                total: 20,
-            }},
+            payload: {
+                games: [],
+                meta: {
+                    offset: 5,
+                    limit: defaultLimit,
+                    total: 20,
+                },
+            },
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -150,7 +155,7 @@ describe('Games Reducers', () => {
         };
         const newState1 = games(oldState, {
             type: types.FETCH_GAMES_FAILED,
-            payload: true
+            payload: true,
         });
         expect(newState1).toEqual(expectedNewState1);
         const expectedNewState2 = {
@@ -161,7 +166,7 @@ describe('Games Reducers', () => {
         };
         const newState2 = games(oldState, {
             type: types.FETCH_GAMES_FAILED,
-            payload: {error: 'error occurred'}
+            payload: {error: 'error occurred'},
         });
         expect(newState2).toEqual(expectedNewState2);
     });
@@ -176,8 +181,8 @@ describe('Games Reducers', () => {
                 offset: 5,
                 limit: defaultLimit,
                 total: 20,
-                filters: {}
-            }
+                filters: {},
+            },
         };
         const expectedNewState = {
             ids: [],
@@ -189,14 +194,14 @@ describe('Games Reducers', () => {
                 limit: defaultLimit,
                 total: -1,
                 filters: {
-                    filter: 'test_filter'
-                }
-            }
+                    filter: 'test_filter',
+                },
+            },
         };
         const newState = games(oldState, {
             type: types.SET_GAMES_SEARCH_FILTERS,
             payload: {
-                filter: 'test_filter'
+                filter: 'test_filter',
             },
         });
         expect(newState).toEqual(expectedNewState);
@@ -212,7 +217,7 @@ describe('Games Reducers', () => {
                 offset: 5,
                 limit: defaultLimit,
                 total: 20,
-            }
+            },
         };
         const expectedNewState = {
             ids: [],
@@ -224,7 +229,7 @@ describe('Games Reducers', () => {
                 limit: defaultLimit,
                 total: -1,
                 filters: {},
-            }
+            },
         };
         const newState = games(oldState, {
             type: types.CLEAR_GAMES_STATE,
@@ -244,15 +249,15 @@ describe('Games Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const expectedNewState = {
             ids: [],
             byId: {
-                "1": {
+                '1': {
                     guid: 1,
-                    title: "game 1",
-                }
+                    title: 'game 1',
+                },
             },
             isFetching: false,
             error: false,
@@ -260,16 +265,16 @@ describe('Games Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const newState = games(oldState, {
             type: types.FETCH_GAME_SUCCEEDED,
             payload: {
                 data: {
                     guid: 1,
-                    title: "game 1",
-                }
-            }
+                    title: 'game 1',
+                },
+            },
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -288,7 +293,7 @@ describe('Games Reducers', () => {
             error: false,
         };
         const newState = games(oldState, {
-            type: 'INVALID'
+            type: 'INVALID',
         });
         expect(newState).toEqual(expectedNewState);
     });

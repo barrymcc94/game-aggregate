@@ -7,7 +7,7 @@ describe('Companies Selector', () => {
                 ids: [],
                 byId: {},
                 isFetching: false,
-            }
+            },
         };
         const expectedResult = [];
         const result = selectCompanies(state);
@@ -17,27 +17,30 @@ describe('Companies Selector', () => {
     it('simulates selectCompanies 2', () => {
         const state = {
             companies: {
-                ids: ["1", "2"],
+                ids: ['1', '2'],
                 byId: {
-                    "1": {
+                    '1': {
                         id: 1,
-                        title: "post 1",
+                        title: 'post 1',
                     },
-                    "2": {
+                    '2': {
                         id: 2,
-                        title: "post 2",
+                        title: 'post 2',
                     },
                 },
                 isFetching: false,
-            }
+            },
         };
-        const expectedResult = [{
-            id: 1,
-            title: "post 1",
-        }, {
-            id: 2,
-            title: "post 2",
-        }];
+        const expectedResult = [
+            {
+                id: 1,
+                title: 'post 1',
+            },
+            {
+                id: 2,
+                title: 'post 2',
+            },
+        ];
         const result = selectCompanies(state);
         expect(result).toEqual(expectedResult);
     });

@@ -6,21 +6,27 @@ import SkeletonLoader from '../../SkeletonLoader';
 import {GameListItem} from '../../../types';
 import {StyledHeading} from './styles';
 
-export const GameList = ({fetchingGames, gamesList, error, titleId}) => (
-    fetchingGames || (!fetchingGames && gamesList.length) ? <>
-        <StyledHeading variant="h5" component="h2" gutterBottom>
-            {fetchingGames
-                ? <SkeletonLoader variant="text" numLines={1} />
-                : <FormattedMessage id={titleId} defaultMessage="Related Games" />}
-        </StyledHeading>
-        <MediaList
-            link={'/games/'}
-            items={gamesList}
-            isFetching={fetchingGames}
-            error={error}
-        />
-    </> : null
-)
+export const GameList = ({fetchingGames, gamesList, error, titleId}) =>
+    fetchingGames || (!fetchingGames && gamesList.length) ? (
+        <>
+            <StyledHeading variant="h5" component="h2" gutterBottom>
+                {fetchingGames ? (
+                    <SkeletonLoader variant="text" numLines={1} />
+                ) : (
+                    <FormattedMessage
+                        id={titleId}
+                        defaultMessage="Related Games"
+                    />
+                )}
+            </StyledHeading>
+            <MediaList
+                link={'/games/'}
+                items={gamesList}
+                isFetching={fetchingGames}
+                error={error}
+            />
+        </>
+    ) : null;
 
 GameList.propTypes = {
     intl: PropTypes.object,
@@ -28,7 +34,8 @@ GameList.propTypes = {
     fetchingGames: PropTypes.bool,
     gamesList: PropTypes.arrayOf(GameListItem),
     titleId: PropTypes.string,
-}
+};
 
-export const isEqual = (prevProps, nextProps) => (prevProps.fetchingGames == nextProps.fetchingGames)
+export const isEqual = (prevProps, nextProps) =>
+    prevProps.fetchingGames == nextProps.fetchingGames;
 export default injectIntl(React.memo(GameList, isEqual));

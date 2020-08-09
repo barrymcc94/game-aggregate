@@ -6,12 +6,17 @@ import {ErrorSection, ErrorHeader, ErrorText} from './styles';
 import {FormattedMessage, injectIntl} from 'react-intl';
 
 export const ErrorPage = ({intl: {formatMessage}}) => (
-    <DocumentTitle title={formatMessage({id: "errorPage.title", defaultMessage: "404 - Page Not Found"})}>
+    <DocumentTitle
+        title={formatMessage({
+            id: 'errorPage.title',
+            defaultMessage: '404 - Page Not Found',
+        })}>
         <ErrorSection>
             <ErrorHeader>
                 <FormattedMessage
                     id="errorPage.errorHeading"
-                    defaultMessage="404 - Page Not Found" />
+                    defaultMessage="404 - Page Not Found"
+                />
             </ErrorHeader>
             <ErrorText>
                 <Link to={'/'}>
@@ -27,6 +32,6 @@ export const ErrorPage = ({intl: {formatMessage}}) => (
 
 ErrorPage.propTypes = {
     intl: PropTypes.object,
-}
+};
 
 export default injectIntl(ErrorPage);

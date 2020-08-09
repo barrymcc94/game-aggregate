@@ -1,5 +1,8 @@
 import * as types from '../../types';
-import {combineNormalizedListingObjs, normalizeObjectListing} from '../../../utils';
+import {
+    combineNormalizedListingObjs,
+    normalizeObjectListing,
+} from '../../../utils';
 import {defaultLimit} from '../../../config';
 
 const initialState = {
@@ -11,11 +14,14 @@ const initialState = {
         offset: 0,
         limit: defaultLimit,
         total: -1,
-        filters: {}
-    }
+        filters: {},
+    },
 };
 
-export const games = (state=initialState, action={type: null, payload: null}) => {
+export const games = (
+    state = initialState,
+    action = {type: null, payload: null}
+) => {
     const {type, payload} = action;
     const {ids, byId} = state;
     switch (type) {
@@ -30,7 +36,10 @@ export const games = (state=initialState, action={type: null, payload: null}) =>
                 },
             };
         case types.FETCH_GAMES_SUCCEEDED:
-            const normalizedGames = normalizeObjectListing(payload.data, 'guid')
+            const normalizedGames = normalizeObjectListing(
+                payload.data,
+                'guid'
+            );
             return {
                 ...state,
                 ...combineNormalizedListingObjs(
@@ -43,8 +52,8 @@ export const games = (state=initialState, action={type: null, payload: null}) =>
                     ...state.meta,
                     ...payload.meta,
                     ...{
-                        offset: state.meta.offset + state.meta.limit
-                    }
+                        offset: state.meta.offset + state.meta.limit,
+                    },
                 },
             };
         case types.FETCH_GAMES_FAILED:
@@ -61,24 +70,24 @@ export const games = (state=initialState, action={type: null, payload: null}) =>
                     ...initialState.meta,
                     filters: {
                         ...state.meta.filters,
-                        filter: payload.filter
-                    }
+                        filter: payload.filter,
+                    },
                 },
             };
         case types.CLEAR_GAMES_STATE:
             return {
                 ...initialState,
-                byId
+                byId,
             };
         case types.FETCH_GAME_SUCCEEDED:
             return {
                 ...state,
                 byId: {
                     ...state.byId,
-                    [payload.data.guid]: payload.data
-                }
+                    [payload.data.guid]: payload.data,
+                },
             };
         default:
             return state;
     }
-}
+};

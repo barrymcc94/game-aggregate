@@ -1,12 +1,23 @@
-import {FETCH_COMPANIES_STARTED, FETCH_COMPANIES_SUCCEEDED, FETCH_COMPANIES_FAILED, SET_COMPANIES_SEARCH_FILTERS} from '../../../types';
-import {fetchCompaniesStarted, fetchCompaniesSucceeded, fetchCompaniesFailed, fetchCompanies, setCompaniesSearchFilters} from '../index';
+import {
+    FETCH_COMPANIES_STARTED,
+    FETCH_COMPANIES_SUCCEEDED,
+    FETCH_COMPANIES_FAILED,
+    SET_COMPANIES_SEARCH_FILTERS,
+} from '../../../types';
+import {
+    fetchCompaniesStarted,
+    fetchCompaniesSucceeded,
+    fetchCompaniesFailed,
+    fetchCompanies,
+    setCompaniesSearchFilters,
+} from '../index';
 
 describe('Companies Actions', () => {
     it('tests fetchCompaniesStarted', () => {
         const action = fetchCompaniesStarted({});
         expect(action).toEqual({
             type: FETCH_COMPANIES_STARTED,
-            payload: {}
+            payload: {},
         });
     });
 
@@ -14,7 +25,7 @@ describe('Companies Actions', () => {
         const action = fetchCompaniesSucceeded({});
         expect(action).toEqual({
             type: FETCH_COMPANIES_SUCCEEDED,
-            payload: {}
+            payload: {},
         });
     });
 
@@ -22,7 +33,7 @@ describe('Companies Actions', () => {
         const action = fetchCompaniesFailed({});
         expect(action).toEqual({
             type: FETCH_COMPANIES_FAILED,
-            payload: {}
+            payload: {},
         });
     });
 
@@ -30,15 +41,17 @@ describe('Companies Actions', () => {
         const action = await global.testStore.dispatch(fetchCompanies({}));
         expect(action).toEqual({
             type: FETCH_COMPANIES_STARTED,
-            payload: {}
+            payload: {},
         });
     });
 
     it('tests setCompaniesSearchFilters', async () => {
-        const action = await global.testStore.dispatch(setCompaniesSearchFilters({}));
+        const action = await global.testStore.dispatch(
+            setCompaniesSearchFilters({})
+        );
         expect(action).toEqual({
             type: SET_COMPANIES_SEARCH_FILTERS,
-            payload: {}
+            payload: {},
         });
     });
 });

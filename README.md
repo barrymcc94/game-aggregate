@@ -10,18 +10,18 @@ for development purposes, you will be required to supply a `GB_API_KEY` env vari
 
 ## Steps Required To Run This Project In Development Mode
 
-+ `npm i` (to install npm packages)
-+ `npm run start` (to run the react app)
+-   `npm i` (to install npm packages)
+-   `npm run start` (to run the react app)
 
 ## Steps Required To Run The Projects Tests
 
-+ `npm run test`
+-   `npm run test`
 
 ## Steps Required To Build This Project
 
-+ `npm i`
-+ `npm run build`
+-   `npm i`
+-   `npm run build`
 
 ## Steps Required To Run The Build Locally
 
-+ `npm run start-build`
+-   `npm run start-build`

@@ -4,22 +4,32 @@ import throttle from 'lodash.throttle';
 import {ENUMS} from '../../config';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {Zoom} from '@material-ui/core';
-import {MenuIcon, CloseIcon, StyledHeader, StyledNav, StyledContainer, StyledNavLinkList, StyledNavLinkListItem, StyledIconButton, StyledLink} from './styles.js';
+import {
+    MenuIcon,
+    CloseIcon,
+    StyledHeader,
+    StyledNav,
+    StyledContainer,
+    StyledNavLinkList,
+    StyledNavLinkListItem,
+    StyledIconButton,
+    StyledLink,
+} from './styles.js';
 
-const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
+const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export class Header extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             menuActive: false,
-        }
+        };
         this.toggleMenu = this.toggleMenu.bind(this);
         this.closeMenu = this.closeMenu.bind(this);
     }
 
     toggleMenu() {
-        this.setState({menuActive: !this.state.menuActive})
+        this.setState({menuActive: !this.state.menuActive});
     }
 
     closeMenu() {
@@ -29,15 +39,15 @@ export class Header extends React.PureComponent {
     }
 
     throttleCloseMenu = throttle(() => {
-        this.closeMenu()
+        this.closeMenu();
     }, 1000);
 
     componentDidMount() {
-        window.addEventListener('resize', this.throttleCloseMenu)
+        window.addEventListener('resize', this.throttleCloseMenu);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.throttleCloseMenu)
+        window.removeEventListener('resize', this.throttleCloseMenu);
     }
 
     componentDidUpdate() {
@@ -55,39 +65,62 @@ export class Header extends React.PureComponent {
             <StyledHeader>
                 <StyledContainer maxWidth="lg">
                     <StyledNav onClick={this.closeMenu}>
-                        {menuActive
-                            ? <Zoom in={menuActive}>
+                        {menuActive ? (
+                            <Zoom in={menuActive}>
                                 <StyledIconButton
-                                    aria-label={formatMessage({id: "header.closeMenu", defaultMessage: "close"})}
+                                    aria-label={formatMessage({
+                                        id: 'header.closeMenu',
+                                        defaultMessage: 'close',
+                                    })}
                                     aria-expanded={menuActive}
-                                    onClick={this.toggleMenu}
-                                >
+                                    onClick={this.toggleMenu}>
                                     <CloseIcon />
                                 </StyledIconButton>
                             </Zoom>
-                            : <Zoom in={!menuActive}>
+                        ) : (
+                            <Zoom in={!menuActive}>
                                 <StyledIconButton
-                                    aria-label={formatMessage({id: "header.openMenu", defaultMessage: "open"})}
+                                    aria-label={formatMessage({
+                                        id: 'header.openMenu',
+                                        defaultMessage: 'open',
+                                    })}
                                     aria-expanded={menuActive}
-                                    onClick={this.toggleMenu}
-                                >
+                                    onClick={this.toggleMenu}>
                                     <MenuIcon />
                                 </StyledIconButton>
-                            </Zoom>}
+                            </Zoom>
+                        )}
                         <StyledNavLinkList active={menuActive}>
                             <StyledNavLinkListItem active={menuActive}>
                                 <StyledLink exact to="/">
-                                    <FormattedMessage id="header.home" defaultMessage="Home" />
+                                    <FormattedMessage
+                                        id="header.home"
+                                        defaultMessage="Home"
+                                    />
                                 </StyledLink>
                             </StyledNavLinkListItem>
                             <StyledNavLinkListItem active={menuActive}>
                                 <StyledLink exact to={`/${GAMES}/`}>
-                                    <FormattedMessage id="header.games" defaultMessage="Games" />
+                                    <FormattedMessage
+                                        id="header.games"
+                                        defaultMessage="Games"
+                                    />
                                 </StyledLink>
                             </StyledNavLinkListItem>
                             <StyledNavLinkListItem active={menuActive}>
                                 <StyledLink exact to={`/${COMPANIES}/`}>
-                                    <FormattedMessage id="header.companies" defaultMessage="Companies" />
+                                    <FormattedMessage
+                                        id="header.companies"
+                                        defaultMessage="Companies"
+                                    />
+                                </StyledLink>
+                            </StyledNavLinkListItem>
+                            <StyledNavLinkListItem active={menuActive}>
+                                <StyledLink exact to={`/${FRANCHISES}/`}>
+                                    <FormattedMessage
+                                        id="header.franchises"
+                                        defaultMessage="Franchises"
+                                    />
                                 </StyledLink>
                             </StyledNavLinkListItem>
                         </StyledNavLinkList>
@@ -100,6 +133,6 @@ export class Header extends React.PureComponent {
 
 Header.propTypes = {
     intl: PropTypes.object,
-}
+};
 
 export default injectIntl(Header);

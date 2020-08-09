@@ -3,49 +3,71 @@ import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchGames, clearGamesState, fetchCompanies, clearCompaniesState} from '../../redux/actions';
-import {selectGames, selectCompanies} from '../../redux/selectors';
+import {
+    fetchGames,
+    clearGamesState,
+    fetchCompanies,
+    clearCompaniesState,
+    fetchFranchises,
+    clearFranchisesState,
+} from '../../redux/actions';
+import {
+    selectGames,
+    selectCompanies,
+    selectFranchises,
+} from '../../redux/selectors';
 import {defaultGbApiDefaults, ENUMS} from '../../config';
-import {objToFilterStr, getDefaultGamesFilter, getDefaultCompaniesFilter} from '../../utils';
+import {
+    objToFilterStr,
+    getDefaultGamesFilter,
+    getDefaultCompaniesFilter,
+} from '../../utils';
 import MediaList from '../../components/MediaList';
 
 const {ALL, SEARCH} = ENUMS.CONTAINER_TYPE;
-const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
+const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export const hasFiltersSearchTerm = ({filter}) => {
     try {
-        const matchingStrs = filter.split(',').filter(str => str.startsWith('name:'));
-        return !!matchingStrs[0].replace('name:','')
+        const matchingStrs = filter
+            .split(',')
+            .filter((str) => str.startsWith('name:'));
+        return !!matchingStrs[0].replace('name:', '');
     } catch (e) {
         return false;
     }
-}
+};
 
 export const getDefaultFilters = (mediaType, meta) => {
     try {
         let defaultQueryObj = {
             ...defaultGbApiDefaults,
             limit: meta.limit,
-            offset: meta.offset
+            offset: meta.offset,
         };
         if (mediaType == GAMES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
                 sort: 'original_release_date:desc',
                 filter: objToFilterStr(getDefaultGamesFilter()),
-            }
+            };
         } else if (mediaType == COMPANIES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
                 sort: 'date_founded:desc',
                 filter: objToFilterStr(getDefaultCompaniesFilter()),
-            }
+            };
+        } else if (mediaType == FRANCHISES) {
+            defaultQueryObj = {
+                ...defaultQueryObj,
+                filter: objToFilterStr(getDefaultCompaniesFilter()),
+            };
         }
         return defaultQueryObj;
     } catch (e) {
         return {};
     }
-}
+};
 
 export class MediaListContainer extends React.Component {
     constructor(props) {
@@ -54,29 +76,51 @@ export class MediaListContainer extends React.Component {
     }
 
     loadMore = () => {
-        const {mediaType, meta, limit, isFetching, containerType, fetchItems, clearState, allowEmptySearchFilter} = this.props;
+        const {
+            mediaType,
+            meta,
+            limit,
+            isFetching,
+            containerType,
+            fetchItems,
+            clearState,
+            allowEmptySearchFilter,
+        } = this.props;
         const {offset, total, filters} = meta;
         if (isFetching || (total > -1 && offset >= total)) {
             return;
         }
-        if (!allowEmptySearchFilter && containerType == 'search' && !hasFiltersSearchTerm(filters)) {
+        if (
+            !allowEmptySearchFilter &&
+            containerType == 'search' &&
+            !hasFiltersSearchTerm(filters)
+        ) {
             clearState();
             return;
         }
-        const defaultQueryObj = getDefaultFilters(mediaType, limit ? {...meta, limit} : meta);
+        const defaultQueryObj = getDefaultFilters(
+            mediaType,
+            limit ? {...meta, limit} : meta
+        );
         fetchItems({
             queryObj: {
                 ...defaultQueryObj,
-                ...meta.filters
+                ...meta.filters,
             },
             meta: {
-                limit: defaultQueryObj.limit
-            }
+                limit: defaultQueryObj.limit,
+            },
         });
-    }
+    };
 
     onScroll = throttle(() => {
-        if (!this.mediaListRef.current || window.innerHeight + window.pageYOffset < (this.mediaListRef.current.offsetHeight + this.mediaListRef.current.offsetTop) * 0.8) {
+        if (
+            !this.mediaListRef.current ||
+            window.innerHeight + window.pageYOffset <
+                (this.mediaListRef.current.offsetHeight +
+                    this.mediaListRef.current.offsetTop) *
+                    0.8
+        ) {
             return;
         }
         this.loadMore();
@@ -100,7 +144,13 @@ export class MediaListContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const {meta: {filters: {filter}}, containerType, clearState} = this.props;
+        const {
+            meta: {
+                filters: {filter},
+            },
+            containerType,
+            clearState,
+        } = this.props;
         if (containerType !== prevProps.containerType) {
             clearState();
         }
@@ -111,13 +161,15 @@ export class MediaListContainer extends React.Component {
 
     render() {
         const {mediaType, items, isFetching, error} = this.props;
-        return <MediaList
-            ref={this.mediaListRef}
-            items={items}
-            isFetching={isFetching}
-            error={error}
-            link={`/${mediaType}/`}
-        />;
+        return (
+            <MediaList
+                ref={this.mediaListRef}
+                items={items}
+                isFetching={isFetching}
+                error={error}
+                link={`/${mediaType}/`}
+            />
+        );
     }
 }
 
@@ -127,11 +179,15 @@ const mapStateToProps = (state, {mediaType}) => {
     if (mediaType == GAMES) {
         mediaState = {
             items: selectGames(state),
-        }
+        };
     } else if (mediaType == COMPANIES) {
         mediaState = {
             items: selectCompanies(state),
-        }
+        };
+    } else if (mediaType == FRANCHISES) {
+        mediaState = {
+            items: selectFranchises(state),
+        };
     }
     return {
         ...mediaState,
@@ -139,7 +195,7 @@ const mapStateToProps = (state, {mediaType}) => {
         error,
         meta,
     };
-}
+};
 
 const mapDispatchToProps = (dispatch, {mediaType}) => {
     let actions = {};
@@ -155,12 +211,18 @@ const mapDispatchToProps = (dispatch, {mediaType}) => {
             fetchItems: fetchCompanies,
             clearState: clearCompaniesState,
         };
+    } else if (mediaType == FRANCHISES) {
+        actions = {
+            ...actions,
+            fetchItems: fetchFranchises,
+            clearState: clearFranchisesState,
+        };
     }
     return bindActionCreators(actions, dispatch);
-}
+};
 
 MediaListContainer.propTypes = {
-    mediaType: PropTypes.oneOf([GAMES, COMPANIES]),
+    mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES]),
     containerType: PropTypes.oneOf([ALL, SEARCH]),
     disableScrollLoading: PropTypes.bool,
     allowEmptySearchFilter: PropTypes.bool,
@@ -176,6 +238,6 @@ MediaListContainer.propTypes = {
     }),
     fetchItems: PropTypes.func,
     clearState: PropTypes.func,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaListContainer);

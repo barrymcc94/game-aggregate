@@ -17,6 +17,6 @@ SearchBar.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-}
+};
 
 export default SearchBar;

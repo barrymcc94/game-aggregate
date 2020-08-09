@@ -63,7 +63,7 @@ export const Game = shape({
             thumb_url: string,
             tiny_url: string,
             original: string,
-            tags: string
+            tags: string,
         })
     ),
     videos: arrayOf(GenericObject),

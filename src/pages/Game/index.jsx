@@ -6,9 +6,10 @@ import {StyledGameArticle} from './styles';
 import GameContainer from '../../containers/GameContainer';
 
 export const GamePage = ({match, intl: {formatMessage}}) => (
-    <DocumentTitle title={formatMessage({id: "gamePage.title", defaultMessage: "Game"})}>
+    <DocumentTitle
+        title={formatMessage({id: 'gamePage.title', defaultMessage: 'Game'})}>
         <StyledGameArticle>
-            <GameContainer guid={match.params.guid}/>
+            <GameContainer guid={match.params.guid} />
         </StyledGameArticle>
     </DocumentTitle>
 );
@@ -16,6 +17,6 @@ export const GamePage = ({match, intl: {formatMessage}}) => (
 GamePage.propTypes = {
     match: PropTypes.object,
     intl: PropTypes.object,
-}
+};
 
 export default injectIntl(GamePage);

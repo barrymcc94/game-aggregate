@@ -1,9 +1,11 @@
-import {fork, all} from 'redux-saga/effects'
+import {fork, all} from 'redux-saga/effects';
 import {watchSetLocale} from './locale';
 import {watchFetchGame} from './game';
 import {watchFetchGames} from './games';
 import {watchFetchCompany} from './company';
 import {watchFetchCompanies} from './companies';
+import {watchFetchFranchise} from './franchise';
+import {watchFetchFranchises} from './franchises';
 
 export default function* sagas() {
     yield all([
@@ -12,5 +14,7 @@ export default function* sagas() {
         fork(watchFetchGames),
         fork(watchFetchCompany),
         fork(watchFetchCompanies),
-    ])
+        fork(watchFetchFranchise),
+        fork(watchFetchFranchises),
+    ]);
 }

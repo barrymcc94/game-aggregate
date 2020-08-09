@@ -13,19 +13,29 @@ const {SEARCH} = ENUMS.CONTAINER_TYPE;
 
 export const submitForm = (e) => {
     e.preventDefault();
-}
+};
 
 export const HomePage = ({intl: {formatMessage}}) => (
-    <DocumentTitle title={formatMessage({id: "companiesPage.title", defaultMessage: "Companies"})}>
+    <DocumentTitle
+        title={formatMessage({
+            id: 'companiesPage.title',
+            defaultMessage: 'Companies',
+        })}>
         <StyledMediaListSection>
             <Typography variant="h4" component="h1" gutterBottom>
-                <FormattedMessage id={"companiesPage.heading"} defaultMessage="Companies" />
+                <FormattedMessage
+                    id={'companiesPage.heading'}
+                    defaultMessage="Companies"
+                />
             </Typography>
             <form noValidate autoComplete="off" onSubmit={submitForm}>
                 <MediaSearchContainer
                     mediaType={COMPANIES}
                     id="companies_search"
-                    label={formatMessage({id: 'companiesPage.searchLabel', defaultMessage: "Search"})}
+                    label={formatMessage({
+                        id: 'companiesPage.searchLabel',
+                        defaultMessage: 'Search',
+                    })}
                 />
             </form>
             <MediaListContainer
@@ -40,6 +50,6 @@ export const HomePage = ({intl: {formatMessage}}) => (
 
 HomePage.propTypes = {
     intl: PropTypes.object,
-}
+};
 
 export default injectIntl(HomePage);

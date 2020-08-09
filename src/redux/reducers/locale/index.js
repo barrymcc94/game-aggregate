@@ -5,7 +5,10 @@ const initialState = {
     locales: ['en', 'fr'],
 };
 
-export const locale = (state=initialState, action={type: null, payload: null}) => {
+export const locale = (
+    state = initialState,
+    action = {type: null, payload: null}
+) => {
     const {type, payload} = action;
     switch (type) {
         case types.SET_LOCALE:
@@ -16,4 +19,4 @@ export const locale = (state=initialState, action={type: null, payload: null}) =
         default:
             return state;
     }
-}
+};

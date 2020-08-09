@@ -2,11 +2,10 @@ import {game} from '../index';
 import * as types from '../../../types';
 
 describe('Game Reducers', () => {
-
     it('simulates no params on game reducer', () => {
         const initialState = {
             isFetching: false,
-            error: false
+            error: false,
         };
         expect(game()).toEqual(initialState);
     });
@@ -21,7 +20,7 @@ describe('Game Reducers', () => {
             error: false,
         };
         const newState = game(oldState, {
-            type: types.FETCH_GAME_STARTED
+            type: types.FETCH_GAME_STARTED,
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -39,9 +38,9 @@ describe('Game Reducers', () => {
             type: types.FETCH_GAME_SUCCEEDED,
             payload: {
                 data: {
-                    id: 1
-                }
-            }
+                    id: 1,
+                },
+            },
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -57,7 +56,7 @@ describe('Game Reducers', () => {
         };
         const newState1 = game(oldState, {
             type: types.FETCH_GAME_FAILED,
-            payload: true
+            payload: true,
         });
         expect(newState1).toEqual(expectedNewState1);
         const expectedNewState2 = {
@@ -66,7 +65,7 @@ describe('Game Reducers', () => {
         };
         const newState2 = game(oldState, {
             type: types.FETCH_GAME_FAILED,
-            payload: {error: 'error occurred'}
+            payload: {error: 'error occurred'},
         });
         expect(newState2).toEqual(expectedNewState2);
     });
@@ -81,7 +80,7 @@ describe('Game Reducers', () => {
             error: false,
         };
         const newState = game(oldState, {
-            type: 'INVALID'
+            type: 'INVALID',
         });
         expect(newState).toEqual(expectedNewState);
     });

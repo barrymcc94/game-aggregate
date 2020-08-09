@@ -2,11 +2,10 @@ import {company} from '../index';
 import * as types from '../../../types';
 
 describe('Company Reducers', () => {
-
     it('simulates no params on company reducer', () => {
         const initialState = {
             isFetching: false,
-            error: false
+            error: false,
         };
         expect(company()).toEqual(initialState);
     });
@@ -21,7 +20,7 @@ describe('Company Reducers', () => {
             error: false,
         };
         const newState = company(oldState, {
-            type: types.FETCH_COMPANY_STARTED
+            type: types.FETCH_COMPANY_STARTED,
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -39,9 +38,9 @@ describe('Company Reducers', () => {
             type: types.FETCH_COMPANY_SUCCEEDED,
             payload: {
                 data: {
-                    id: 1
-                }
-            }
+                    id: 1,
+                },
+            },
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -57,7 +56,7 @@ describe('Company Reducers', () => {
         };
         const newState1 = company(oldState, {
             type: types.FETCH_COMPANY_FAILED,
-            payload: true
+            payload: true,
         });
         expect(newState1).toEqual(expectedNewState1);
         const expectedNewState2 = {
@@ -66,7 +65,7 @@ describe('Company Reducers', () => {
         };
         const newState2 = company(oldState, {
             type: types.FETCH_COMPANY_FAILED,
-            payload: {error: 'error occurred'}
+            payload: {error: 'error occurred'},
         });
         expect(newState2).toEqual(expectedNewState2);
     });
@@ -81,7 +80,7 @@ describe('Company Reducers', () => {
             error: false,
         };
         const newState = company(oldState, {
-            type: 'INVALID'
+            type: 'INVALID',
         });
         expect(newState).toEqual(expectedNewState);
     });

@@ -6,20 +6,35 @@ import {Link as RouterLink} from 'react-router-dom';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
 import MediaListContainer from '../../containers/MediaListContainer';
-import {StyledMediaListSection, StyledHeading, StyledLinkContainer, StyledLink} from './styles';
+import {
+    StyledMediaListSection,
+    StyledHeading,
+    StyledLinkContainer,
+    StyledLink,
+} from './styles';
 
 const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
 const {ALL} = ENUMS.CONTAINER_TYPE;
 
 export const HomePage = ({intl: {formatMessage}}) => (
-    <DocumentTitle title={formatMessage({id: "homePage.title", defaultMessage: "Games and Companies"})}>
+    <DocumentTitle
+        title={formatMessage({
+            id: 'homePage.title',
+            defaultMessage: 'Games and Companies',
+        })}>
         <>
             <StyledHeading variant="h4" component="h1" gutterBottom>
-                <FormattedMessage id={"homePage.heading"} defaultMessage="Games and Companies" />
+                <FormattedMessage
+                    id={'homePage.heading'}
+                    defaultMessage="Games and Companies"
+                />
             </StyledHeading>
             <StyledMediaListSection>
                 <Typography variant="h5" component="h2" gutterBottom>
-                    <FormattedMessage id={"homePage.gamesHeading"} defaultMessage="Games" />
+                    <FormattedMessage
+                        id={'homePage.gamesHeading'}
+                        defaultMessage="Games"
+                    />
                 </Typography>
                 <MediaListContainer
                     mediaType={GAMES}
@@ -30,13 +45,19 @@ export const HomePage = ({intl: {formatMessage}}) => (
                 />
                 <StyledLinkContainer>
                     <StyledLink component={RouterLink} to={`/${GAMES}/`}>
-                        <FormattedMessage id={"homePage.gamesLink"} defaultMessage="See all games" />
+                        <FormattedMessage
+                            id={'homePage.gamesLink'}
+                            defaultMessage="See all games"
+                        />
                     </StyledLink>
                 </StyledLinkContainer>
             </StyledMediaListSection>
             <StyledMediaListSection>
                 <Typography variant="h5" component="h2" gutterBottom>
-                    <FormattedMessage id={"homePage.companiesHeading"} defaultMessage="Companies" />
+                    <FormattedMessage
+                        id={'homePage.companiesHeading'}
+                        defaultMessage="Companies"
+                    />
                 </Typography>
                 <MediaListContainer
                     mediaType={COMPANIES}
@@ -47,7 +68,10 @@ export const HomePage = ({intl: {formatMessage}}) => (
                 />
                 <StyledLinkContainer>
                     <StyledLink component={RouterLink} to={`/${COMPANIES}/`}>
-                        <FormattedMessage id={"homePage.companiesLink"} defaultMessage="See all companies" />
+                        <FormattedMessage
+                            id={'homePage.companiesLink'}
+                            defaultMessage="See all companies"
+                        />
                     </StyledLink>
                 </StyledLinkContainer>
             </StyledMediaListSection>
@@ -57,6 +81,6 @@ export const HomePage = ({intl: {formatMessage}}) => (
 
 HomePage.propTypes = {
     intl: PropTypes.object,
-}
+};
 
 export default injectIntl(HomePage);

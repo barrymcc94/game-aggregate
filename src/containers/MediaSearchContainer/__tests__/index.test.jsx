@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import MediaSearchContainer from '../index';
 import debounce from 'lodash.debounce';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
@@ -8,13 +8,13 @@ jest.useFakeTimers();
 
 describe('<MediaSearchContainer/>', () => {
     const setSearchFilters = jest.fn();
-    debounce.mockImplementation(fn => fn);
+    debounce.mockImplementation((fn) => fn);
 
     const defaultProps = {
         mediaType: 'games',
         id: 'test_id',
         label: 'search',
-        setSearchFilters
+        setSearchFilters,
     };
 
     const defaultStoreProps = {
@@ -27,7 +27,7 @@ describe('<MediaSearchContainer/>', () => {
             filters: {},
         },
         isFetching: false,
-        error: false
+        error: false,
     };
 
     beforeEach(() => {
@@ -36,25 +36,60 @@ describe('<MediaSearchContainer/>', () => {
 
     it('tests MediaSearchContainer with games props', () => {
         const store = mockStore({games: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(<MediaSearchContainer {...defaultProps} />, store);
-        wrapper.find('input').simulate('change', {target: {value: 'test input'}});
+        const wrapper = mountWithBaseWrapper(
+            <MediaSearchContainer {...defaultProps} />,
+            store
+        );
+        wrapper
+            .find('input')
+            .simulate('change', {target: {value: 'test input'}});
         expect(store.getActions().length).toEqual(1);
         expect(store.getActions()[0].type).toEqual('SET_GAMES_SEARCH_FILTERS');
     });
 
     it('tests MediaSearchContainer with companies props', () => {
         const store = mockStore({companies: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(<MediaSearchContainer {...{...defaultProps, mediaType: 'companies'}} />, store);
-        wrapper.find('input').simulate('change', {target: {value: 'test input'}});
+        const wrapper = mountWithBaseWrapper(
+            <MediaSearchContainer
+                {...{...defaultProps, mediaType: 'companies'}}
+            />,
+            store
+        );
+        wrapper
+            .find('input')
+            .simulate('change', {target: {value: 'test input'}});
         expect(store.getActions().length).toEqual(1);
-        expect(store.getActions()[0].type).toEqual('SET_COMPANIES_SEARCH_FILTERS');
+        expect(store.getActions()[0].type).toEqual(
+            'SET_COMPANIES_SEARCH_FILTERS'
+        );
+    });
+
+    it('tests MediaSearchContainer with franchises props', () => {
+        const store = mockStore({companies: defaultStoreProps});
+        const wrapper = mountWithBaseWrapper(
+            <MediaSearchContainer
+                {...{...defaultProps, mediaType: 'franchises'}}
+            />,
+            store
+        );
+        wrapper
+            .find('input')
+            .simulate('change', {target: {value: 'test input'}});
+        expect(store.getActions().length).toEqual(1);
+        expect(store.getActions()[0].type).toEqual(
+            'SET_FRANCHISES_SEARCH_FILTERS'
+        );
     });
 
     it('tests MediaSearchContainer with invalid searchType prop', () => {
         const store = mockStore({games: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(<MediaSearchContainer {...{...defaultProps, mediaType: 'what?'}}/>, store);
-        wrapper.find('input').simulate('change', {target: {value: 'test input'}});
+        const wrapper = mountWithBaseWrapper(
+            <MediaSearchContainer {...{...defaultProps, mediaType: 'what?'}} />,
+            store
+        );
+        wrapper
+            .find('input')
+            .simulate('change', {target: {value: 'test input'}});
         expect(store.getActions().length).toEqual(0);
     });
-
 });

@@ -1,12 +1,21 @@
-import {FETCH_COMPANY_STARTED, FETCH_COMPANY_SUCCEEDED, FETCH_COMPANY_FAILED} from '../../../types';
-import {fetchCompanyStarted, fetchCompanySucceeded, fetchCompanyFailed, fetchCompany} from '../index';
+import {
+    FETCH_COMPANY_STARTED,
+    FETCH_COMPANY_SUCCEEDED,
+    FETCH_COMPANY_FAILED,
+} from '../../../types';
+import {
+    fetchCompanyStarted,
+    fetchCompanySucceeded,
+    fetchCompanyFailed,
+    fetchCompany,
+} from '../index';
 
 describe('Company Actions', () => {
     it('tests fetchCompanyStarted', () => {
         const action = fetchCompanyStarted({});
         expect(action).toEqual({
             type: FETCH_COMPANY_STARTED,
-            payload: {}
+            payload: {},
         });
     });
 
@@ -14,7 +23,7 @@ describe('Company Actions', () => {
         const action = fetchCompanySucceeded({});
         expect(action).toEqual({
             type: FETCH_COMPANY_SUCCEEDED,
-            payload: {}
+            payload: {},
         });
     });
 
@@ -22,7 +31,7 @@ describe('Company Actions', () => {
         const action = fetchCompanyFailed({});
         expect(action).toEqual({
             type: FETCH_COMPANY_FAILED,
-            payload: {}
+            payload: {},
         });
     });
 
@@ -30,8 +39,7 @@ describe('Company Actions', () => {
         const action = await global.testStore.dispatch(fetchCompany({}));
         expect(action).toEqual({
             type: FETCH_COMPANY_STARTED,
-            payload: {}
+            payload: {},
         });
     });
-
 });

@@ -1,12 +1,21 @@
-import {FETCH_GAME_STARTED, FETCH_GAME_SUCCEEDED, FETCH_GAME_FAILED} from '../../../types';
-import {fetchGameStarted, fetchGameSucceeded, fetchGameFailed, fetchGame} from '../index';
+import {
+    FETCH_GAME_STARTED,
+    FETCH_GAME_SUCCEEDED,
+    FETCH_GAME_FAILED,
+} from '../../../types';
+import {
+    fetchGameStarted,
+    fetchGameSucceeded,
+    fetchGameFailed,
+    fetchGame,
+} from '../index';
 
 describe('Game Actions', () => {
     it('tests fetchGameStarted', () => {
         const action = fetchGameStarted({});
         expect(action).toEqual({
             type: FETCH_GAME_STARTED,
-            payload: {}
+            payload: {},
         });
     });
 
@@ -14,7 +23,7 @@ describe('Game Actions', () => {
         const action = fetchGameSucceeded({});
         expect(action).toEqual({
             type: FETCH_GAME_SUCCEEDED,
-            payload: {}
+            payload: {},
         });
     });
 
@@ -22,7 +31,7 @@ describe('Game Actions', () => {
         const action = fetchGameFailed({});
         expect(action).toEqual({
             type: FETCH_GAME_FAILED,
-            payload: {}
+            payload: {},
         });
     });
 
@@ -30,8 +39,7 @@ describe('Game Actions', () => {
         const action = await global.testStore.dispatch(fetchGame({}));
         expect(action).toEqual({
             type: FETCH_GAME_STARTED,
-            payload: {}
+            payload: {},
         });
     });
-
 });

@@ -1,6 +1,6 @@
 import {put, takeLatest} from 'redux-saga/effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
-import {fetchGamesSucceeded, fetchGamesFailed} from '../../actions/games';
+import {fetchGamesSucceeded, fetchGamesFailed} from '../../actions';
 import {FETCH_GAMES_STARTED, CLEAR_GAMES_STATE} from '../../types';
 import config from '../../../config';
 const {gbApiUrl} = config;
@@ -23,15 +23,17 @@ export function* fetchGamesSaga({type, payload}) {
         if (status_code !== 1) {
             return yield put(fetchGamesFailed({error}));
         }
-        yield put(fetchGamesSucceeded({
-            data: results,
-            meta: {
-                limit,
-                offset,
-                total: number_of_total_results,
-            },
-        }));
-    } catch(e) {
+        yield put(
+            fetchGamesSucceeded({
+                data: results,
+                meta: {
+                    limit,
+                    offset,
+                    total: number_of_total_results,
+                },
+            })
+        );
+    } catch (e) {
         yield put(fetchGamesFailed({error: true}));
     }
 }

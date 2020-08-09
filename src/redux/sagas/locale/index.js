@@ -5,7 +5,7 @@ export function* setLocaleSaga({payload}) {
     if (!payload) {
         return;
     }
-    yield document.documentElement.lang = payload;
+    yield (document.documentElement.lang = payload);
 }
 
 export function* watchSetLocale() {

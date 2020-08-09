@@ -6,7 +6,7 @@ describe('Locale Actions', () => {
         const action = setLocale('en');
         expect(action).toEqual({
             type: SET_LOCALE,
-            payload: 'en'
+            payload: 'en',
         });
     });
 
@@ -14,7 +14,7 @@ describe('Locale Actions', () => {
         const action = await global.testStore.dispatch(changeLocale('en'));
         expect(action).toEqual({
             type: SET_LOCALE,
-            payload: 'en'
+            payload: 'en',
         });
-    })
+    });
 });

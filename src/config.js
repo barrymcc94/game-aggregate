@@ -6,12 +6,13 @@ export const ENUMS = {
     MEDIA_TYPE: {
         GAMES: 'games',
         COMPANIES: 'companies',
+        FRANCHISES: 'franchises',
     },
     CONTAINER_TYPE: {
         ALL: 'all',
         SEARCH: 'search',
-    }
-}
+    },
+};
 
 export const defaultLimit = 100;
 
@@ -21,11 +22,11 @@ export const defaultGbApiDefaults = {
 };
 
 export const dev = {
-    gbApiUrl: ''
+    gbApiUrl: '',
 };
 
 export const prod = {
-    gbApiUrl: 'https://www.giantbomb.com'
+    gbApiUrl: 'https://www.giantbomb.com',
 };
 
 const config = process.env.NODE_ENV === 'development' ? dev : prod;

@@ -1,5 +1,12 @@
 import styled from 'styled-components';
-import {Grid, Card, CardActionArea, CardMedia, CardContent, Typography} from '@material-ui/core';
+import {
+    Grid,
+    Card,
+    CardActionArea,
+    CardMedia,
+    CardContent,
+    Typography,
+} from '@material-ui/core';
 
 const imageHeight = `11rem`;
 

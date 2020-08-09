@@ -1,22 +1,30 @@
-import React from "react";
-import {Header} from "../index";
+import React from 'react';
+import {Header} from '../index';
 import {StyledNav, MenuIcon} from '../styles';
 import {shallow} from 'enzyme';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
-jest.mock('@material-ui/core/Zoom', () => ({children}) => <div>{children}</div>);
+jest.mock('@material-ui/core/Zoom', () => ({children}) => (
+    <div>{children}</div>
+));
 describe('<Header/>', () => {
     it('renders correctly', () => {
-        const wrapper = mountWithBaseWrapper(<Header intl={{formatMessage: jest.fn()}} />);
+        const wrapper = mountWithBaseWrapper(
+            <Header intl={{formatMessage: jest.fn()}} />
+        );
         expect(wrapper).toMatchSnapshot();
     });
 
     it('renders correctly', () => {
-        const wrapper = mountWithBaseWrapper(<Header intl={{formatMessage: jest.fn()}} />);
+        const wrapper = mountWithBaseWrapper(
+            <Header intl={{formatMessage: jest.fn()}} />
+        );
         wrapper.setState({menuActive: true});
     });
 
     it('simulates toggleMenu call through hamburger click', () => {
-        const wrapper = mountWithBaseWrapper(<Header intl={{formatMessage: jest.fn()}} />);
+        const wrapper = mountWithBaseWrapper(
+            <Header intl={{formatMessage: jest.fn()}} />
+        );
         global.innerWidth = 400;
         global.dispatchEvent(new Event('resize'));
         expect(wrapper.state('menuActive')).toEqual(false);

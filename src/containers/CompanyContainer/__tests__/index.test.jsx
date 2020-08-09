@@ -1,5 +1,5 @@
-import React from "react";
-import {CompanyContainer} from '../index'
+import React from 'react';
+import {CompanyContainer} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<CompanyContainer/>', () => {
@@ -16,7 +16,7 @@ describe('<CompanyContainer/>', () => {
             isFetching: false,
             error: false,
         },
-        fetchCompany
+        fetchCompany,
     };
 
     beforeEach(() => {
@@ -29,12 +29,17 @@ describe('<CompanyContainer/>', () => {
     });
 
     it('tests Container Component with no company', () => {
-        mountWithBaseWrapper(<CompanyContainer {...{...defaultProps, company: undefined}} />);
+        mountWithBaseWrapper(
+            <CompanyContainer {...{...defaultProps, company: undefined}} />
+        );
         expect(fetchCompany).toBeCalledTimes(1);
     });
 
     it('tests loaded Container Component', () => {
-        const props = {...defaultProps, company: {...defaultProps.company, developed_games: []}};
+        const props = {
+            ...defaultProps,
+            company: {...defaultProps.company, developed_games: []},
+        };
         mountWithBaseWrapper(<CompanyContainer {...props} />);
         expect(fetchCompany).toBeCalledTimes(0);
     });

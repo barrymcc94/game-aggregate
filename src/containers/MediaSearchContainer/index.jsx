@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {setGamesSearchFilters, setCompaniesSearchFilters} from '../../redux/actions';
+import {
+    setGamesSearchFilters,
+    setCompaniesSearchFilters,
+    setFranchisesSearchFilters,
+} from '../../redux/actions';
 import {ENUMS} from '../../config';
-import {getDefaultGamesFilter, getDefaultCompaniesFilter, objToFilterStr} from '../../utils';
+import {
+    getDefaultGamesFilter,
+    getDefaultCompaniesFilter,
+    objToFilterStr,
+} from '../../utils';
 import SearchBar from '../../components/SearchBar';
 
-const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
+const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 const getDefaultFilters = (mediaType) => {
     let filters = {};
@@ -18,13 +26,21 @@ const getDefaultFilters = (mediaType) => {
         filters = getDefaultCompaniesFilter();
     }
     return filters;
-}
+};
 
-export const MediaSearchContainer = ({mediaType, id, label, setSearchFilters}) => {
+export const MediaSearchContainer = ({
+    mediaType,
+    id,
+    label,
+    setSearchFilters,
+}) => {
     const [searchStr, setSearchStr] = useState('');
-    const debounceOnChange = useCallback(debounce((payload) => {
-        setSearchFilters(payload)
-    }, 2000), []);
+    const debounceOnChange = useCallback(
+        debounce((payload) => {
+            setSearchFilters(payload);
+        }, 2000),
+        []
+    );
 
     const onChange = (event) => {
         const defaultFilters = getDefaultFilters(mediaType);
@@ -33,40 +49,47 @@ export const MediaSearchContainer = ({mediaType, id, label, setSearchFilters}) =
         debounceOnChange({
             filter: objToFilterStr({
                 ...defaultFilters,
-                name: encodeURIComponent(value)
-            })
+                name: encodeURIComponent(value),
+            }),
         });
     };
 
-    return <SearchBar
-        id={id}
-        label={label}
-        value={searchStr}
-        onChange={onChange}
-    />;
-}
+    return (
+        <SearchBar
+            id={id}
+            label={label}
+            value={searchStr}
+            onChange={onChange}
+        />
+    );
+};
 
 export const mapDispatchToProps = (dispatch, {mediaType}) => {
     let actions = {};
     if (mediaType == GAMES) {
         actions = {
             ...actions,
-            setSearchFilters: setGamesSearchFilters
+            setSearchFilters: setGamesSearchFilters,
         };
     } else if (mediaType == COMPANIES) {
         actions = {
             ...actions,
-            setSearchFilters: setCompaniesSearchFilters
+            setSearchFilters: setCompaniesSearchFilters,
+        };
+    } else if (mediaType == FRANCHISES) {
+        actions = {
+            ...actions,
+            setSearchFilters: setFranchisesSearchFilters,
         };
     }
     return bindActionCreators(actions, dispatch);
-}
+};
 
 MediaSearchContainer.propTypes = {
-    mediaType: PropTypes.oneOf([GAMES, COMPANIES]),
+    mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES]),
     id: PropTypes.string,
     label: PropTypes.string,
     setSearchFilters: PropTypes.func,
-}
+};
 
 export default connect(null, mapDispatchToProps)(MediaSearchContainer);

@@ -3,7 +3,6 @@ import * as types from '../../../types';
 import {defaultLimit} from '../../../../config';
 
 describe('Companies Reducers', () => {
-
     it('simulates no params on companies reducer', () => {
         const initialState = {
             ids: [],
@@ -14,8 +13,8 @@ describe('Companies Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-                filters: {}
-            }
+                filters: {},
+            },
         };
         expect(companies()).toEqual(initialState);
     });
@@ -30,7 +29,7 @@ describe('Companies Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const expectedNewState = {
             ids: [],
@@ -41,11 +40,11 @@ describe('Companies Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const newState = companies(oldState, {
             type: types.FETCH_COMPANIES_STARTED,
-            payload: {meta: {}}
+            payload: {meta: {}},
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -60,18 +59,18 @@ describe('Companies Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const expectedNewState = {
             ids: [1, 2],
             byId: {
-                "1": {
+                '1': {
                     guid: 1,
-                    title: "company 1",
+                    title: 'company 1',
                 },
-                "2": {
+                '2': {
                     guid: 2,
-                    title: "company 2",
+                    title: 'company 2',
                 },
             },
             isFetching: false,
@@ -80,23 +79,26 @@ describe('Companies Reducers', () => {
                 offset: defaultLimit,
                 limit: defaultLimit,
                 total: 20,
-            }
+            },
         };
         const newState = companies(oldState, {
             type: types.FETCH_COMPANIES_SUCCEEDED,
             payload: {
-                data: [{
-                    guid: 1,
-                    title: "company 1",
-                }, {
-                    guid: 2,
-                    title: "company 2",
-                }],
+                data: [
+                    {
+                        guid: 1,
+                        title: 'company 1',
+                    },
+                    {
+                        guid: 2,
+                        title: 'company 2',
+                    },
+                ],
                 meta: {
                     offset: 5,
                     total: 20,
-                }
-            }
+                },
+            },
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -111,7 +113,7 @@ describe('Companies Reducers', () => {
                 offset: 5,
                 limit: defaultLimit,
                 total: 20,
-            }
+            },
         };
         const expectedNewState = {
             ids: [],
@@ -122,15 +124,18 @@ describe('Companies Reducers', () => {
                 offset: 5 + defaultLimit,
                 limit: defaultLimit,
                 total: 20,
-            }
+            },
         };
         const newState = companies(oldState, {
             type: types.FETCH_COMPANIES_SUCCEEDED,
-            payload: {companies: [], meta: {
-                offset: 5,
-                limit: defaultLimit,
-                total: 20,
-            }},
+            payload: {
+                companies: [],
+                meta: {
+                    offset: 5,
+                    limit: defaultLimit,
+                    total: 20,
+                },
+            },
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -150,7 +155,7 @@ describe('Companies Reducers', () => {
         };
         const newState1 = companies(oldState, {
             type: types.FETCH_COMPANIES_FAILED,
-            payload: true
+            payload: true,
         });
         expect(newState1).toEqual(expectedNewState1);
         const expectedNewState2 = {
@@ -161,7 +166,7 @@ describe('Companies Reducers', () => {
         };
         const newState2 = companies(oldState, {
             type: types.FETCH_COMPANIES_FAILED,
-            payload: {error: 'error occurred'}
+            payload: {error: 'error occurred'},
         });
         expect(newState2).toEqual(expectedNewState2);
     });
@@ -176,8 +181,8 @@ describe('Companies Reducers', () => {
                 offset: 5,
                 limit: defaultLimit,
                 total: 20,
-                filters: {}
-            }
+                filters: {},
+            },
         };
         const expectedNewState = {
             ids: [],
@@ -189,14 +194,14 @@ describe('Companies Reducers', () => {
                 limit: defaultLimit,
                 total: -1,
                 filters: {
-                    filter: 'test_filter'
-                }
-            }
+                    filter: 'test_filter',
+                },
+            },
         };
         const newState = companies(oldState, {
             type: types.SET_COMPANIES_SEARCH_FILTERS,
             payload: {
-                filter: 'test_filter'
+                filter: 'test_filter',
             },
         });
         expect(newState).toEqual(expectedNewState);
@@ -212,7 +217,7 @@ describe('Companies Reducers', () => {
                 offset: 5,
                 limit: defaultLimit,
                 total: 20,
-            }
+            },
         };
         const expectedNewState = {
             ids: [],
@@ -224,7 +229,7 @@ describe('Companies Reducers', () => {
                 limit: defaultLimit,
                 total: -1,
                 filters: {},
-            }
+            },
         };
         const newState = companies(oldState, {
             type: types.CLEAR_COMPANIES_STATE,
@@ -244,15 +249,15 @@ describe('Companies Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const expectedNewState = {
             ids: [],
             byId: {
-                "1": {
+                '1': {
                     guid: 1,
-                    title: "company 1",
-                }
+                    title: 'company 1',
+                },
             },
             isFetching: false,
             error: false,
@@ -260,16 +265,16 @@ describe('Companies Reducers', () => {
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
-            }
+            },
         };
         const newState = companies(oldState, {
             type: types.FETCH_COMPANY_SUCCEEDED,
             payload: {
                 data: {
                     guid: 1,
-                    title: "company 1",
-                }
-            }
+                    title: 'company 1',
+                },
+            },
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -288,7 +293,7 @@ describe('Companies Reducers', () => {
             error: false,
         };
         const newState = companies(oldState, {
-            type: 'INVALID'
+            type: 'INVALID',
         });
         expect(newState).toEqual(expectedNewState);
     });
