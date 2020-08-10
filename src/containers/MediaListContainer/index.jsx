@@ -177,17 +177,11 @@ const mapStateToProps = (state, {mediaType}) => {
     const {isFetching, error, meta} = state[mediaType] || {meta: {}};
     let mediaState = {};
     if (mediaType == GAMES) {
-        mediaState = {
-            items: selectGames(state),
-        };
+        mediaState = {items: selectGames(state)};
     } else if (mediaType == COMPANIES) {
-        mediaState = {
-            items: selectCompanies(state),
-        };
+        mediaState = {items: selectCompanies(state)};
     } else if (mediaType == FRANCHISES) {
-        mediaState = {
-            items: selectFranchises(state),
-        };
+        mediaState = {items: selectFranchises(state)};
     }
     return {
         ...mediaState,

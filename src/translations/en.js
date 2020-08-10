@@ -15,7 +15,7 @@ export default {
     'homePage.companiesLink': 'See all companies',
     'gamePage.title': 'Game',
     'companiesPage.title': 'Companies',
-    'companiesPage.heading': 'Companies',
+    'companiesPage.heading': 'Company Search',
     'companiesPage.searchLabel': 'Search for a company',
     'companyPage.title': 'Company',
     'company.publishedGamesTitle': 'Most Recently Published Games',

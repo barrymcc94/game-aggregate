@@ -7,7 +7,8 @@ import {GameListItem} from '../../../types';
 import {StyledHeading} from './styles';
 
 export const GameList = ({fetchingGames, gamesList, error, titleId}) =>
-    fetchingGames || (!fetchingGames && gamesList.length) ? (
+    fetchingGames ||
+    (!fetchingGames && Array.isArray(gamesList) && gamesList.length) ? (
         <>
             <StyledHeading variant="h5" component="h2" gutterBottom>
                 {fetchingGames ? (

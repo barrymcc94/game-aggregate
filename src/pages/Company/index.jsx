@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 import {injectIntl} from 'react-intl';
+import {ENUMS} from '../../config';
 import {StyledCompanyArticle} from './styles';
-import CompanyContainer from '../../containers/CompanyContainer';
+import MediaContainer from '../../containers/MediaContainer';
+
+const {COMPANIES} = ENUMS.MEDIA_TYPE;
 
 export const CompanyPage = ({match, intl: {formatMessage}}) => (
     <DocumentTitle
@@ -12,7 +15,7 @@ export const CompanyPage = ({match, intl: {formatMessage}}) => (
             defaultMessage: 'Company',
         })}>
         <StyledCompanyArticle>
-            <CompanyContainer guid={match.params.guid} />
+            <MediaContainer guid={match.params.guid} mediaType={COMPANIES} />
         </StyledCompanyArticle>
     </DocumentTitle>
 );

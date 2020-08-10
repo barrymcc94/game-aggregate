@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 import {injectIntl} from 'react-intl';
+import {ENUMS} from '../../config';
 import {StyledFranchiseArticle} from './styles';
-import FranchiseContainer from '../../containers/FranchiseContainer';
+import MediaContainer from '../../containers/MediaContainer';
+
+const {FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export const FranchisePage = ({match, intl: {formatMessage}}) => (
     <DocumentTitle
@@ -12,7 +15,7 @@ export const FranchisePage = ({match, intl: {formatMessage}}) => (
             defaultMessage: 'Franchise',
         })}>
         <StyledFranchiseArticle>
-            <FranchiseContainer guid={match.params.guid} />
+            <MediaContainer guid={match.params.guid} mediaType={FRANCHISES} />
         </StyledFranchiseArticle>
     </DocumentTitle>
 );
