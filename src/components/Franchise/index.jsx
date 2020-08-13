@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
-import {injectIntl} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 import {Franchise as FranchiseT} from '../../types';
+import {ENUMS} from '../../config';
 import ErrorMessage from '../ErrorMessage';
 import MediaHeader from '../MediaHeader';
+import MediaListContainer from '../../containers/MediaListContainer';
+import {StyledHeading} from './styles';
+
+const {GAMES} = ENUMS.MEDIA_TYPE;
+const {FILTERED} = ENUMS.CONTAINER_TYPE;
 
 export const Franchise = ({
     franchise = {},
@@ -26,6 +32,18 @@ export const Franchise = ({
             }>
             <>
                 <MediaHeader item={franchise} isLoading={isFetching} />
+                <StyledHeading variant="h5" component="h2" gutterBottom>
+                    <FormattedMessage
+                        id="franchise.gamesHeading"
+                        defaultMessage="Related Games"
+                    />
+                </StyledHeading>
+                <MediaListContainer
+                    mediaType={GAMES}
+                    containerType={FILTERED}
+                    allowEmptySearchFilter={true}
+                    disableScrollLoading={false}
+                />
             </>
         </DocumentTitle>
     );
@@ -38,7 +56,4 @@ Franchise.propTypes = {
     error: PropTypes.bool,
 };
 
-export const isEqual = (prevProps, nextProps) =>
-    prevProps.isFetching == nextProps.isFetching &&
-    prevProps.franchise.guid == nextProps.franchise.guid;
-export default injectIntl(React.memo(Franchise, isEqual));
+export default injectIntl(Franchise);

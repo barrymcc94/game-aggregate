@@ -5,7 +5,7 @@ import {
 } from '../../../types';
 
 describe('Franchise Sagas', () => {
-    const testResult = {id: 1};
+    const testResult = {id: 1, games: [{id: 1}]};
     beforeEach(() => {
         fetch.mockImplementationOnce(() =>
             Promise.resolve({
@@ -23,15 +23,24 @@ describe('Franchise Sagas', () => {
 
     it('tests fetchFranchiseSaga when expecting success', async () => {
         const gen = fetchFranchiseSaga({payload: {}});
-        const data = await gen.next().value;
+        await gen.next(); // take CLEAR_GAMES_STATE
+        expect(await gen.next().value.payload.pattern).toEqual(
+            'CLEAR_GAMES_STATE'
+        );
+        const data = await gen.next().value; // results from api
         const {type, payload} = await gen.next(data).value.payload.action;
         expect(type).toBe(FETCH_FRANCHISE_SUCCEEDED);
-        expect(payload).toEqual({data: {id: 1}});
+        expect(payload).toEqual({data: {id: 1, games: [{id: 1}]}});
+        await gen.next().value;
         expect(gen.next().done).toBe(true);
     });
 
     it('tests fetchFranchiseSaga when expecting error', async () => {
         const gen = fetchFranchiseSaga({});
+        await gen.next(); // take CLEAR_GAMES_STATE
+        expect(await gen.next().value.payload.pattern).toEqual(
+            'CLEAR_GAMES_STATE'
+        );
         await gen.next().value;
         const {type, payload} = gen.throw(new Error()).value.payload.action;
         expect(type).toBe(FETCH_FRANCHISE_FAILED);
@@ -54,6 +63,10 @@ describe('Franchise Sagas', () => {
             })
         );
         const gen = fetchFranchiseSaga({payload: {}});
+        await gen.next(); // take CLEAR_GAMES_STATE
+        expect(await gen.next().value.payload.pattern).toEqual(
+            'CLEAR_GAMES_STATE'
+        );
         const data = await gen.next().value;
         const {type, payload} = await gen.next(data).value.payload.action;
         expect(type).toBe(FETCH_FRANCHISE_FAILED);

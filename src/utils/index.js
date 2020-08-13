@@ -1,5 +1,6 @@
 import moment from 'moment/moment';
-import {defaultLimit} from '../config';
+import {ENUMS, defaultLimit, defaultGbApiDefaults} from '../config';
+const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export const jsonFetch = async (url) => {
     const req = new Request(url);
@@ -47,6 +48,39 @@ export const getDefaultGamesFilter = () => {
 };
 
 export const getDefaultCompaniesFilter = () => ({});
+
+export const getDefaultFranchisesFilter = () => ({});
+
+export const getDefaultListingFilters = (mediaType, meta) => {
+    try {
+        let defaultQueryObj = {
+            ...defaultGbApiDefaults,
+            limit: meta.limit,
+            offset: meta.offset,
+        };
+        if (mediaType == GAMES) {
+            defaultQueryObj = {
+                ...defaultQueryObj,
+                sort: 'original_release_date:desc',
+                filter: objToFilterStr(getDefaultGamesFilter()),
+            };
+        } else if (mediaType == COMPANIES) {
+            defaultQueryObj = {
+                ...defaultQueryObj,
+                sort: 'date_founded:desc',
+                filter: objToFilterStr(getDefaultCompaniesFilter()),
+            };
+        } else if (mediaType == FRANCHISES) {
+            defaultQueryObj = {
+                ...defaultQueryObj,
+                filter: objToFilterStr(getDefaultFranchisesFilter()),
+            };
+        }
+        return defaultQueryObj;
+    } catch (e) {
+        return {};
+    }
+};
 
 export const formatReqMeta = (offset, limit) => ({
     _page: offset ? offset / limit + 1 : 1,

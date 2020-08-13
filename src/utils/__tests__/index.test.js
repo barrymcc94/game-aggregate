@@ -8,6 +8,7 @@ import {
     objToFilterStr,
     normalizeObjectListing,
     combineNormalizedListingObjs,
+    getDefaultListingFilters,
 } from '../index';
 import {defaultLimit} from '../../config';
 
@@ -265,5 +266,43 @@ describe('utils', () => {
             },
         });
         expect(result).toEqual(expectedResult);
+    });
+
+    it('tests getDefaultListingFilters works as expected', () => {
+        Date.now = jest
+            .fn()
+            .mockReturnValue(new Date('2020-06-15T00:00:00.000Z'));
+        const expectedVal = {
+            format: 'json',
+            api_key: undefined,
+            limit: 10,
+            offset: 0,
+        };
+        expect(
+            getDefaultListingFilters('games', {limit: 10, offset: 0})
+        ).toEqual({
+            ...expectedVal,
+            sort: 'original_release_date:desc',
+            filter: 'original_release_date:|2020-6-14 00:00:00',
+        });
+        expect(
+            getDefaultListingFilters('companies', {limit: 10, offset: 0})
+        ).toEqual({
+            ...expectedVal,
+            filter: '',
+            sort: 'date_founded:desc',
+        });
+        expect(
+            getDefaultListingFilters('franchises', {limit: 10, offset: 0})
+        ).toEqual({
+            ...expectedVal,
+            filter: '',
+        });
+        expect(
+            getDefaultListingFilters('test', {limit: 10, offset: 0})
+        ).toEqual({
+            ...expectedVal,
+        });
+        expect(getDefaultListingFilters('', null)).toEqual({});
     });
 });

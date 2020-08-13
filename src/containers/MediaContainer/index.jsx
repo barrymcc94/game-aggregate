@@ -27,7 +27,7 @@ const mediaTypeKeys = {
     [FRANCHISES]: 'franchise',
 };
 
-const isItemLoaded = (mediaType, mediaItem) => {
+export const isItemLoaded = (mediaType, mediaItem) => {
     if (!mediaItem) {
         return false;
     }
@@ -51,7 +51,7 @@ export const MediaContainer = ({
     ...rest
 }) => {
     useEffect(() => {
-        if (isItemLoaded(mediaType, item)) {
+        if (mediaType !== FRANCHISES && isItemLoaded(mediaType, item)) {
             return;
         }
         fetchItem({
@@ -65,7 +65,6 @@ export const MediaContainer = ({
     if (mediaType == GAMES) {
         return <Game game={item} isFetching={isFetching} error={error} />;
     } else if (mediaType == COMPANIES) {
-        console.log(item);
         return (
             <Company
                 company={item}
@@ -76,7 +75,12 @@ export const MediaContainer = ({
         );
     } else if (mediaType == FRANCHISES) {
         return (
-            <Franchise franchise={item} isFetching={isFetching} error={error} />
+            <Franchise
+                franchise={item}
+                gamesData={rest.gamesData}
+                isFetching={isFetching}
+                error={error}
+            />
         );
     }
     return null;

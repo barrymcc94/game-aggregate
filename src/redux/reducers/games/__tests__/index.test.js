@@ -37,6 +37,9 @@ describe('Games Reducers', () => {
             isFetching: true,
             error: false,
             meta: {
+                filters: {
+                    filter: '',
+                },
                 offset: 0,
                 limit: defaultLimit,
                 total: -1,
@@ -44,7 +47,7 @@ describe('Games Reducers', () => {
         };
         const newState = games(oldState, {
             type: types.FETCH_GAMES_STARTED,
-            payload: {meta: {}},
+            payload: {queryObj: {filter: ''}, meta: {}},
         });
         expect(newState).toEqual(expectedNewState);
     });

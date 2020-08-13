@@ -1,7 +1,17 @@
 import React from 'react';
-import Container, {MediaContainer} from '../index';
+import Container, {MediaContainer, isItemLoaded} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
+
+describe('<MediaContainer/> functions', () => {
+    it('tests isItemLoaded', () => {
+        expect(isItemLoaded('games', null)).toEqual(false);
+        expect(isItemLoaded('games', {developers: []})).toEqual(true);
+        expect(isItemLoaded('companies', {developed_games: []})).toEqual(true);
+        expect(isItemLoaded('franchises', {games: []})).toEqual(true);
+        expect(isItemLoaded('', null)).toEqual(false);
+    });
+});
 
 describe('<MediaContainer/>', () => {
     const fetchItem = jest.fn(() => {});

@@ -5,8 +5,11 @@ import {
     objToFilterStr,
     getDefaultGamesFilter,
 } from '../../../utils';
-import {fetchCompanySucceeded, fetchCompanyFailed} from '../../actions';
-import {fetchGamesStarted} from '../../actions';
+import {
+    fetchCompanySucceeded,
+    fetchCompanyFailed,
+    fetchGamesStarted,
+} from '../../actions';
 import {FETCH_COMPANY_STARTED} from '../../types';
 import config, {defaultGbApiDefaults} from '../../../config';
 const {gbApiUrl} = config;

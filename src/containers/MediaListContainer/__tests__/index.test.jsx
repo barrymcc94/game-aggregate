@@ -16,38 +16,6 @@ describe('<MediaListContainer/> functions', () => {
         expect(hasTerm2).toEqual(true);
         expect(hasTerm3).toEqual(false);
     });
-
-    it('tests getDefaultFilters works as expected', () => {
-        Date.now = jest
-            .fn()
-            .mockReturnValue(new Date('2020-06-15T00:00:00.000Z'));
-        const expectedVal = {
-            format: 'json',
-            api_key: undefined,
-            limit: 10,
-            offset: 0,
-        };
-        expect(getDefaultFilters('games', {limit: 10, offset: 0})).toEqual({
-            ...expectedVal,
-            sort: 'original_release_date:desc',
-            filter: 'original_release_date:|2020-6-14 00:00:00',
-        });
-        expect(getDefaultFilters('companies', {limit: 10, offset: 0})).toEqual({
-            ...expectedVal,
-            filter: '',
-            sort: 'date_founded:desc',
-        });
-        expect(getDefaultFilters('franchises', {limit: 10, offset: 0})).toEqual(
-            {
-                ...expectedVal,
-                filter: '',
-            }
-        );
-        expect(getDefaultFilters('test', {limit: 10, offset: 0})).toEqual({
-            ...expectedVal,
-        });
-        expect(getDefaultFilters('', null)).toEqual({});
-    });
 });
 
 describe('<MediaListContainer/>', () => {
@@ -190,6 +158,10 @@ describe('<MediaListContainer/>', () => {
             isFetching: true,
             containerType: 'search',
             meta: {filters: {filter: 'test'}},
+        });
+        wrapper.setProps({
+            ...defaultProps,
+            containerType: 'filtered',
         });
         expect(clearState).toBeCalledTimes(2);
     });

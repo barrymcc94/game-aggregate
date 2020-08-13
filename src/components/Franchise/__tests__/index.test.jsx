@@ -52,19 +52,4 @@ describe('<Franchise/>', () => {
         expect(wrapper.exists(StyledMediaHeader)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });
-
-    it('tests isEqual function', () => {
-        expect(
-            isEqual(
-                {isFetching: true, franchise: {guid: '1'}},
-                {isFetching: true, franchise: {guid: '1'}}
-            )
-        ).toEqual(true);
-        expect(
-            isEqual(
-                {isFetching: true, franchise: {guid: '1'}},
-                {isFetching: false, franchise: {guid: '1'}}
-            )
-        ).toEqual(false);
-    });
 });

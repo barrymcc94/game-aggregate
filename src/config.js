@@ -11,6 +11,7 @@ export const ENUMS = {
     CONTAINER_TYPE: {
         ALL: 'all',
         SEARCH: 'search',
+        FILTERED: 'filtered',
     },
 };
 

@@ -27,6 +27,7 @@ export default {
     'franchisesPage.heading': 'Franchise Search',
     'franchisesPage.searchLabel': 'Search for a Franchise',
     'franchisePage.title': 'Franchise',
+    'franchise.gamesHeading': 'Games in Franchise',
     'franchise.error': 'Error: Could not retrieve franchise',
     'errorPage.title': '404 - Page Not Found',
     'errorPage.errorHeading': '404 - Page Not Found',

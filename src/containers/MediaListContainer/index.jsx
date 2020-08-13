@@ -16,15 +16,11 @@ import {
     selectCompanies,
     selectFranchises,
 } from '../../redux/selectors';
-import {defaultGbApiDefaults, ENUMS} from '../../config';
-import {
-    objToFilterStr,
-    getDefaultGamesFilter,
-    getDefaultCompaniesFilter,
-} from '../../utils';
+import {ENUMS} from '../../config';
+import {getDefaultListingFilters} from '../../utils';
 import MediaList from '../../components/MediaList';
 
-const {ALL, SEARCH} = ENUMS.CONTAINER_TYPE;
+const {ALL, SEARCH, FILTERED} = ENUMS.CONTAINER_TYPE;
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export const hasFiltersSearchTerm = ({filter}) => {
@@ -35,37 +31,6 @@ export const hasFiltersSearchTerm = ({filter}) => {
         return !!matchingStrs[0].replace('name:', '');
     } catch (e) {
         return false;
-    }
-};
-
-export const getDefaultFilters = (mediaType, meta) => {
-    try {
-        let defaultQueryObj = {
-            ...defaultGbApiDefaults,
-            limit: meta.limit,
-            offset: meta.offset,
-        };
-        if (mediaType == GAMES) {
-            defaultQueryObj = {
-                ...defaultQueryObj,
-                sort: 'original_release_date:desc',
-                filter: objToFilterStr(getDefaultGamesFilter()),
-            };
-        } else if (mediaType == COMPANIES) {
-            defaultQueryObj = {
-                ...defaultQueryObj,
-                sort: 'date_founded:desc',
-                filter: objToFilterStr(getDefaultCompaniesFilter()),
-            };
-        } else if (mediaType == FRANCHISES) {
-            defaultQueryObj = {
-                ...defaultQueryObj,
-                filter: objToFilterStr(getDefaultCompaniesFilter()),
-            };
-        }
-        return defaultQueryObj;
-    } catch (e) {
-        return {};
     }
 };
 
@@ -92,13 +57,13 @@ export class MediaListContainer extends React.Component {
         }
         if (
             !allowEmptySearchFilter &&
-            containerType == 'search' &&
+            containerType == SEARCH &&
             !hasFiltersSearchTerm(filters)
         ) {
             clearState();
             return;
         }
-        const defaultQueryObj = getDefaultFilters(
+        const defaultQueryObj = getDefaultListingFilters(
             mediaType,
             limit ? {...meta, limit} : meta
         );
@@ -127,10 +92,12 @@ export class MediaListContainer extends React.Component {
     }, 2000);
 
     componentDidMount() {
-        const {clearState, disableScrollLoading} = this.props;
-        clearState().then(() => {
-            this.loadMore();
-        });
+        const {containerType, clearState, disableScrollLoading} = this.props;
+        if (containerType !== FILTERED) {
+            clearState().then(() => {
+                this.loadMore();
+            });
+        }
         if (!disableScrollLoading) {
             window.addEventListener('scroll', this.onScroll);
         }
@@ -151,6 +118,9 @@ export class MediaListContainer extends React.Component {
             containerType,
             clearState,
         } = this.props;
+        if (containerType == FILTERED) {
+            return;
+        }
         if (containerType !== prevProps.containerType) {
             clearState();
         }
@@ -217,7 +187,7 @@ const mapDispatchToProps = (dispatch, {mediaType}) => {
 
 MediaListContainer.propTypes = {
     mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES]),
-    containerType: PropTypes.oneOf([ALL, SEARCH]),
+    containerType: PropTypes.oneOf([ALL, SEARCH, FILTERED]),
     disableScrollLoading: PropTypes.bool,
     allowEmptySearchFilter: PropTypes.bool,
     limit: PropTypes.number,

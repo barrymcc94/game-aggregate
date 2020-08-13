@@ -33,6 +33,10 @@ export const games = (
                 meta: {
                     ...state.meta,
                     ...payload.meta,
+                    filters: {
+                        ...state.meta.filters,
+                        filter: payload.queryObj.filter,
+                    },
                 },
             };
         case types.FETCH_GAMES_SUCCEEDED:
