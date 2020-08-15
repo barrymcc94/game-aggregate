@@ -11,12 +11,6 @@ describe('<Company/>', () => {
                 isFetching={false}
                 error={true}
                 company={{}}
-                gamesData={{
-                    publishedGames: [],
-                    developedGames: [],
-                    isFetching: false,
-                    error: false,
-                }}
                 intl={{formatMessage: jest.fn()}}
             />
         );
@@ -29,12 +23,6 @@ describe('<Company/>', () => {
             <Company
                 isFetching={true}
                 error={true}
-                gamesData={{
-                    publishedGames: [],
-                    developedGames: [],
-                    isFetching: false,
-                    error: false,
-                }}
                 intl={{formatMessage: jest.fn()}}
             />
         );
@@ -47,12 +35,6 @@ describe('<Company/>', () => {
             <Company
                 isFetching={false}
                 error={false}
-                gamesData={{
-                    publishedGames: [{guid: 'game1', id: 1}],
-                    developedGames: [],
-                    isFetching: false,
-                    error: false,
-                }}
                 company={{
                     id: 1,
                     guid: '123-123',

@@ -8,7 +8,6 @@ import {ENUMS} from '../../config';
 import {
     selectGame,
     selectCompany,
-    selectCompanyGamesData,
     selectFranchise,
 } from '../../redux/selectors';
 import {
@@ -48,7 +47,6 @@ export const MediaContainer = ({
     isFetching,
     error,
     fetchItem,
-    ...rest
 }) => {
     useEffect(() => {
         if (mediaType !== FRANCHISES && isItemLoaded(mediaType, item)) {
@@ -65,22 +63,10 @@ export const MediaContainer = ({
     if (mediaType == GAMES) {
         return <Game game={item} isFetching={isFetching} error={error} />;
     } else if (mediaType == COMPANIES) {
-        return (
-            <Company
-                company={item}
-                gamesData={rest.gamesData}
-                isFetching={isFetching}
-                error={error}
-            />
-        );
+        return <Company company={item} isFetching={isFetching} error={error} />;
     } else if (mediaType == FRANCHISES) {
         return (
-            <Franchise
-                franchise={item}
-                gamesData={rest.gamesData}
-                isFetching={isFetching}
-                error={error}
-            />
+            <Franchise franchise={item} isFetching={isFetching} error={error} />
         );
     }
     return null;
@@ -96,7 +82,6 @@ const mapStateToProps = (state, {mediaType, guid}) => {
     } else if (mediaType == COMPANIES) {
         mediaState = {
             item: selectCompany(state, guid),
-            gamesData: selectCompanyGamesData(state, guid),
         };
     } else if (mediaType == FRANCHISES) {
         mediaState = {

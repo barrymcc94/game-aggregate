@@ -8,8 +8,8 @@ import {
 describe('Company Sagas', () => {
     const testResult = {
         id: 1,
-        published_games: [{id: 1}],
-        developed_games: [{id: 2}],
+        published_games: [{id: 1}, {id: 2}],
+        developed_games: [{id: 3}, {id: 4}],
     };
     beforeEach(() => {
         fetch.mockImplementationOnce(() =>
@@ -31,18 +31,37 @@ describe('Company Sagas', () => {
             .fn()
             .mockReturnValue(new Date('2020-06-15T00:00:00.000Z'));
         const gen = fetchCompanySaga({payload: {}});
+        await gen.next().value;
+        await gen.next().value;
         const data = await gen.next().value;
-        const gamesStartedAction = await gen.next(data).value.payload.action;
-        expect(gamesStartedAction.type).toBe(FETCH_GAMES_STARTED);
-        expect(gamesStartedAction.payload).toEqual({
+        const gamesStartedAction1 = await gen.next(data).value.payload.action;
+        expect(gamesStartedAction1.type).toBe(FETCH_GAMES_STARTED);
+        expect(gamesStartedAction1.payload).toEqual({
+            id: 'companyPublishedGames',
             meta: {
-                limit: 100,
+                limit: 12,
             },
             queryObj: {
                 api_key: undefined,
                 filter: 'original_release_date:|2020-6-14 00:00:00,id:1|2',
                 format: 'json',
-                limit: 100,
+                limit: 12,
+                offset: 0,
+                sort: 'original_release_date:desc',
+            },
+        });
+        const gamesStartedAction2 = await gen.next(data).value.payload.action;
+        expect(gamesStartedAction2.type).toBe(FETCH_GAMES_STARTED);
+        expect(gamesStartedAction2.payload).toEqual({
+            id: 'companyDevelopedGames',
+            meta: {
+                limit: 12,
+            },
+            queryObj: {
+                api_key: undefined,
+                filter: 'original_release_date:|2020-6-14 00:00:00,id:3|4',
+                format: 'json',
+                limit: 12,
                 offset: 0,
                 sort: 'original_release_date:desc',
             },
@@ -53,8 +72,8 @@ describe('Company Sagas', () => {
         expect(companySucceededAction.payload).toEqual({
             data: {
                 id: 1,
-                published_games: [{id: 1}],
-                developed_games: [{id: 2}],
+                published_games: [{id: 1}, {id: 2}],
+                developed_games: [{id: 3}, {id: 4}],
             },
         });
         expect(gen.next().done).toBe(true);
@@ -62,6 +81,7 @@ describe('Company Sagas', () => {
 
     it('tests fetchCompanySaga when expecting error', async () => {
         const gen = fetchCompanySaga({});
+        await gen.next().value;
         await gen.next().value;
         const {type, payload} = gen.throw(new Error()).value.payload.action;
         expect(type).toBe(FETCH_COMPANY_FAILED);
@@ -84,6 +104,8 @@ describe('Company Sagas', () => {
             })
         );
         const gen = fetchCompanySaga({payload: {}});
+        await gen.next().value;
+        await gen.next().value;
         const data = await gen.next().value;
         const {type, payload} = await gen.next(data).value.payload.action;
         expect(type).toBe(FETCH_COMPANY_FAILED);

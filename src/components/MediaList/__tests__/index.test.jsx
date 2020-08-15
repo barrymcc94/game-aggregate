@@ -8,7 +8,8 @@ describe('<MediaList/>', () => {
     it('tests loader appears when fetching', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
-                isFetching={true}
+                titleId="test"
+                isLoading={true}
                 error={false}
                 items={[
                     {
@@ -31,7 +32,8 @@ describe('<MediaList/>', () => {
     it('tests Medialist renders as expected with media data', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
-                isFetching={false}
+                titleId="test"
+                isLoading={false}
                 error={false}
                 items={[
                     {

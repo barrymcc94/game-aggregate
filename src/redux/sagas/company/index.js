@@ -9,14 +9,17 @@ import {
     fetchCompanySucceeded,
     fetchCompanyFailed,
     fetchGamesStarted,
+    clearGamesState,
 } from '../../actions';
 import {FETCH_COMPANY_STARTED} from '../../types';
 import config, {defaultGbApiDefaults} from '../../../config';
 const {gbApiUrl} = config;
 
-export function* fetchCompanySaga({payload}) {
+export function* fetchCompanySaga({payload = {}}) {
     try {
-        const {guid, queryObj} = payload || {};
+        yield put(clearGamesState({id: 'companyPublishedGames'}));
+        yield put(clearGamesState({id: 'companyDevelopedGames'}));
+        const {guid, queryObj} = payload;
         const queryStr = objToQueryStr(queryObj);
         const {results, error, status_code} = yield jsonFetch(
             `${gbApiUrl}/api/company/${guid}/${queryStr}`
@@ -25,23 +28,34 @@ export function* fetchCompanySaga({payload}) {
             return yield put(fetchCompanyFailed({error}));
         }
 
-        const gamesLimit = 100;
+        const gamesLimit = 12;
         const {published_games, developed_games} = results;
-        const gamesIdFilter = [
-            ...published_games.slice(0, gamesLimit / 2),
-            ...developed_games.slice(0, gamesLimit / 2),
-        ]
-            .map(({id}) => id)
-            .join('|');
 
         yield put(
             fetchGamesStarted({
+                id: 'companyPublishedGames',
                 queryObj: {
                     ...defaultGbApiDefaults,
                     sort: `original_release_date:desc`,
                     filter: objToFilterStr({
                         ...getDefaultGamesFilter(),
-                        id: gamesIdFilter,
+                        id: published_games.map(({id}) => id).join('|'),
+                    }),
+                    limit: gamesLimit,
+                    offset: 0,
+                },
+                meta: {limit: gamesLimit},
+            })
+        );
+        yield put(
+            fetchGamesStarted({
+                id: 'companyDevelopedGames',
+                queryObj: {
+                    ...defaultGbApiDefaults,
+                    sort: `original_release_date:desc`,
+                    filter: objToFilterStr({
+                        ...getDefaultGamesFilter(),
+                        id: developed_games.map(({id}) => id).join('|'),
                     }),
                     limit: gamesLimit,
                     offset: 0,

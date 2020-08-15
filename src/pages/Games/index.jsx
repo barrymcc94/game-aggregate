@@ -31,7 +31,7 @@ export const GamesPage = ({intl: {formatMessage}}) => (
             <form noValidate autoComplete="off" onSubmit={submitForm}>
                 <MediaSearchContainer
                     mediaType={GAMES}
-                    id="games_search"
+                    id="games"
                     label={formatMessage({
                         id: 'gamesPage.searchLabel',
                         defaultMessage: 'Search',
@@ -39,6 +39,7 @@ export const GamesPage = ({intl: {formatMessage}}) => (
                 />
             </form>
             <MediaListContainer
+                id="games"
                 mediaType={GAMES}
                 containerType={SEARCH}
                 allowEmptySearchFilter={true}

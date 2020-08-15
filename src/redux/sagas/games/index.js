@@ -1,4 +1,4 @@
-import {put, takeLatest} from 'redux-saga/effects';
+import {put, takeEvery} from 'redux-saga/effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
 import {fetchGamesSucceeded, fetchGamesFailed} from '../../actions';
 import {FETCH_GAMES_STARTED, CLEAR_GAMES_STATE} from '../../types';
@@ -9,8 +9,8 @@ export function* fetchGamesSaga({type, payload}) {
     if (type == CLEAR_GAMES_STATE) {
         return;
     }
+    const {id, queryObj} = payload || {};
     try {
-        const {queryObj} = payload || {};
         const queryStr = objToQueryStr(queryObj);
         const {
             results,
@@ -25,6 +25,7 @@ export function* fetchGamesSaga({type, payload}) {
         }
         yield put(
             fetchGamesSucceeded({
+                id,
                 data: results,
                 meta: {
                     limit,
@@ -34,10 +35,10 @@ export function* fetchGamesSaga({type, payload}) {
             })
         );
     } catch (e) {
-        yield put(fetchGamesFailed({error: true}));
+        yield put(fetchGamesFailed({id, error: true}));
     }
 }
 
 export function* watchFetchGames() {
-    yield takeLatest([FETCH_GAMES_STARTED, CLEAR_GAMES_STATE], fetchGamesSaga);
+    yield takeEvery([FETCH_GAMES_STARTED, CLEAR_GAMES_STATE], fetchGamesSaga);
 }

@@ -17,7 +17,7 @@ const {gbApiUrl} = config;
 
 export function* fetchFranchiseSaga({payload}) {
     try {
-        yield put(clearGamesState());
+        yield put(clearGamesState({id: 'franchiseGames'}));
         yield take(CLEAR_GAMES_STATE);
         const {guid, queryObj} = payload || {};
         const queryStr = objToQueryStr(queryObj);
@@ -39,6 +39,7 @@ export function* fetchFranchiseSaga({payload}) {
 
         yield put(
             fetchGamesStarted({
+                id: 'franchiseGames',
                 queryObj: {
                     ...defaultGbApiDefaults,
                     sort: `original_release_date:desc`,

@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 import {injectIntl} from 'react-intl';
-import {Company as CompanyT, GameListItem} from '../../types';
+import {Company as CompanyT} from '../../types';
+import {ENUMS} from '../../config';
 import ErrorMessage from '../ErrorMessage';
 import MediaHeader from '../MediaHeader';
-import GamesList from './GamesList';
+import MediaListContainer from '../../containers/MediaListContainer';
+
+const {GAMES} = ENUMS.MEDIA_TYPE;
+const {FILTERED} = ENUMS.CONTAINER_TYPE;
 
 export const Company = ({
     company = {},
-    gamesData,
     isFetching,
     error,
     intl: {formatMessage},
@@ -17,8 +20,6 @@ export const Company = ({
     if (error || (!isFetching && (!company || !company.guid))) {
         return <ErrorMessage error={error} id="company.error" />;
     }
-    const {publishedGames, developedGames} = gamesData;
-    const fetchingGames = isFetching || gamesData.isFetching;
     return (
         <DocumentTitle
             title={
@@ -30,17 +31,23 @@ export const Company = ({
             }>
             <>
                 <MediaHeader item={company} isLoading={isFetching} />
-                <GamesList
-                    fetchingGames={fetchingGames}
-                    error={gamesData.error}
-                    gamesList={publishedGames}
+                <MediaListContainer
                     titleId="company.publishedGamesTitle"
+                    id="companyPublishedGames"
+                    mediaType={GAMES}
+                    containerType={FILTERED}
+                    allowEmptySearchFilter={true}
+                    disableScrollLoading={true}
+                    isLoading={isFetching}
                 />
-                <GamesList
-                    fetchingGames={fetchingGames}
-                    error={gamesData.error}
-                    gamesList={developedGames}
+                <MediaListContainer
                     titleId="company.developedGamesTitle"
+                    id="companyDevelopedGames"
+                    mediaType={GAMES}
+                    containerType={FILTERED}
+                    allowEmptySearchFilter={true}
+                    disableScrollLoading={true}
+                    isLoading={isFetching}
                 />
             </>
         </DocumentTitle>
@@ -52,12 +59,6 @@ Company.propTypes = {
     company: CompanyT,
     isFetching: PropTypes.bool,
     error: PropTypes.bool,
-    gamesData: PropTypes.shape({
-        publishedGames: PropTypes.arrayOf(GameListItem),
-        developedGames: PropTypes.arrayOf(GameListItem),
-        isFetching: PropTypes.bool,
-        error: PropTypes.bool,
-    }),
 };
 
 export default injectIntl(Company);

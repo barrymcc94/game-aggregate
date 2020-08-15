@@ -37,9 +37,7 @@ describe('<MediaContainer/>', () => {
 
     it('tests Container Component (companies)', () => {
         mountWithBaseWrapper(
-            <MediaContainer
-                {...{...defaultProps, mediaType: 'companies', gamesData: {}}}
-            />
+            <MediaContainer {...{...defaultProps, mediaType: 'companies'}} />
         );
         expect(fetchItem).toBeCalledTimes(1);
     });

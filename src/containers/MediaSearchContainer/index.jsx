@@ -47,6 +47,7 @@ export const MediaSearchContainer = ({
         const {value} = event.target;
         setSearchStr(value);
         debounceOnChange({
+            id,
             filter: objToFilterStr({
                 ...defaultFilters,
                 name: encodeURIComponent(value),

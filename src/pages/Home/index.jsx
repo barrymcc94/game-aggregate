@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
-import Typography from '@material-ui/core/Typography';
 import {Link as RouterLink} from 'react-router-dom';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
@@ -30,13 +29,9 @@ export const HomePage = ({intl: {formatMessage}}) => (
                 />
             </StyledHeading>
             <StyledMediaListSection>
-                <Typography variant="h5" component="h2" gutterBottom>
-                    <FormattedMessage
-                        id={'homePage.gamesHeading'}
-                        defaultMessage="Games"
-                    />
-                </Typography>
                 <MediaListContainer
+                    titleId="homePage.gamesHeading"
+                    id="home"
                     mediaType={GAMES}
                     containerType={ALL}
                     allowEmptySearchFilter={true}
@@ -53,13 +48,8 @@ export const HomePage = ({intl: {formatMessage}}) => (
                 </StyledLinkContainer>
             </StyledMediaListSection>
             <StyledMediaListSection>
-                <Typography variant="h5" component="h2" gutterBottom>
-                    <FormattedMessage
-                        id={'homePage.companiesHeading'}
-                        defaultMessage="Companies"
-                    />
-                </Typography>
                 <MediaListContainer
+                    titleId="homePage.companiesHeading"
                     mediaType={COMPANIES}
                     containerType={ALL}
                     allowEmptySearchFilter={true}

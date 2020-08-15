@@ -5,9 +5,8 @@ import {
 } from '../../../utils';
 import {defaultLimit} from '../../../config';
 
-const initialState = {
+const gamesInitialState = {
     ids: [],
-    byId: {},
     isFetching: false,
     error: false,
     meta: {
@@ -18,24 +17,31 @@ const initialState = {
     },
 };
 
+const initialState = {
+    byId: {},
+};
+
 export const games = (
     state = initialState,
     action = {type: null, payload: null}
 ) => {
     const {type, payload} = action;
-    const {ids, byId} = state;
+    const {byId} = state;
     switch (type) {
         case types.FETCH_GAMES_STARTED:
             return {
                 ...state,
-                isFetching: true,
-                error: false,
-                meta: {
-                    ...state.meta,
-                    ...payload.meta,
-                    filters: {
-                        ...state.meta.filters,
-                        filter: payload.queryObj.filter,
+                [payload.id]: {
+                    ...state[payload.id],
+                    isFetching: true,
+                    error: false,
+                    meta: {
+                        ...(state[payload.id]?.meta || gamesInitialState.meta),
+                        ...payload.meta,
+                        filters: {
+                            ...(state[payload.id]?.meta?.filters || {}),
+                            filter: payload.queryObj.filter,
+                        },
                     },
                 },
             };
@@ -44,44 +50,59 @@ export const games = (
                 payload.data,
                 'guid'
             );
+            const normalizedListing = combineNormalizedListingObjs(
+                {ids: state[payload.id]?.ids || [], byId: normalizedGames.byId},
+                {ids: normalizedGames.ids, byId}
+            );
             return {
                 ...state,
-                ...combineNormalizedListingObjs(
-                    {ids, byId: normalizedGames.byId},
-                    {ids: normalizedGames.ids, byId}
-                ),
-                isFetching: false,
-                error: false,
-                meta: {
-                    ...state.meta,
-                    ...payload.meta,
-                    ...{
-                        offset: state.meta.offset + state.meta.limit,
+                byId: normalizedListing.byId,
+                [payload.id]: {
+                    ...state[payload.id],
+                    ids: normalizedListing.ids,
+                    isFetching: false,
+                    error: false,
+                    meta: {
+                        ...state[payload.id].meta,
+                        ...payload.meta,
+                        ...{
+                            offset:
+                                state[payload.id].meta.offset +
+                                state[payload.id].meta.limit,
+                        },
                     },
                 },
             };
         case types.FETCH_GAMES_FAILED:
             return {
                 ...state,
-                isFetching: false,
-                error: payload.error || true,
+                [payload.id]: {
+                    ...state[payload.id],
+                    isFetching: false,
+                    error: payload.error || true,
+                },
             };
         case types.SET_GAMES_SEARCH_FILTERS:
             return {
                 ...state,
-                ids: [],
-                meta: {
-                    ...initialState.meta,
-                    filters: {
-                        ...state.meta.filters,
-                        filter: payload.filter,
+                [payload.id]: {
+                    ...gamesInitialState,
+                    meta: {
+                        ...gamesInitialState.meta,
+                        filters: {
+                            ...state[payload.id].meta.filters,
+                            filter: payload.filter,
+                        },
                     },
                 },
             };
         case types.CLEAR_GAMES_STATE:
             return {
-                ...initialState,
+                ...state,
                 byId,
+                [payload.id]: {
+                    ...gamesInitialState,
+                },
             };
         case types.FETCH_GAME_SUCCEEDED:
             return {

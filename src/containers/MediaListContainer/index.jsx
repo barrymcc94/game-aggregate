@@ -42,6 +42,7 @@ export class MediaListContainer extends React.Component {
 
     loadMore = () => {
         const {
+            id,
             mediaType,
             meta,
             limit,
@@ -60,7 +61,7 @@ export class MediaListContainer extends React.Component {
             containerType == SEARCH &&
             !hasFiltersSearchTerm(filters)
         ) {
-            clearState();
+            clearState({id});
             return;
         }
         const defaultQueryObj = getDefaultListingFilters(
@@ -68,6 +69,7 @@ export class MediaListContainer extends React.Component {
             limit ? {...meta, limit} : meta
         );
         fetchItems({
+            id,
             queryObj: {
                 ...defaultQueryObj,
                 ...meta.filters,
@@ -92,9 +94,14 @@ export class MediaListContainer extends React.Component {
     }, 2000);
 
     componentDidMount() {
-        const {containerType, clearState, disableScrollLoading} = this.props;
+        const {
+            id,
+            containerType,
+            clearState,
+            disableScrollLoading,
+        } = this.props;
         if (containerType !== FILTERED) {
-            clearState().then(() => {
+            clearState({id}).then(() => {
                 this.loadMore();
             });
         }
@@ -112,17 +119,18 @@ export class MediaListContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         const {
+            id,
+            containerType,
             meta: {
                 filters: {filter},
             },
-            containerType,
             clearState,
         } = this.props;
         if (containerType == FILTERED) {
             return;
         }
         if (containerType !== prevProps.containerType) {
-            clearState();
+            clearState({id});
         }
         if (filter !== prevProps.meta.filters.filter) {
             this.loadMore();
@@ -130,12 +138,20 @@ export class MediaListContainer extends React.Component {
     }
 
     render() {
-        const {mediaType, items, isFetching, error} = this.props;
+        const {
+            titleId,
+            mediaType,
+            items,
+            isFetching,
+            error,
+            isLoading = false,
+        } = this.props;
         return (
             <MediaList
+                titleId={titleId}
                 ref={this.mediaListRef}
                 items={items}
-                isFetching={isFetching}
+                isLoading={isFetching || isLoading}
                 error={error}
                 link={`/${mediaType}/`}
             />
@@ -143,11 +159,17 @@ export class MediaListContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state, {mediaType}) => {
-    const {isFetching, error, meta} = state[mediaType] || {meta: {}};
+const mapStateToProps = (state, {mediaType, id}) => {
+    const defaultProps = {
+        isFetching: false,
+        error: false,
+        meta: {filters: {}},
+    };
+    let {isFetching, error, meta} = state[mediaType] || defaultProps;
     let mediaState = {};
     if (mediaType == GAMES) {
-        mediaState = {items: selectGames(state)};
+        ({isFetching, error, meta} = state[mediaType][id] || defaultProps);
+        mediaState = {items: selectGames(state, id)};
     } else if (mediaType == COMPANIES) {
         mediaState = {items: selectCompanies(state)};
     } else if (mediaType == FRANCHISES) {
@@ -186,11 +208,15 @@ const mapDispatchToProps = (dispatch, {mediaType}) => {
 };
 
 MediaListContainer.propTypes = {
+    id: PropTypes.string,
+    titleId: PropTypes.string,
     mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES]),
     containerType: PropTypes.oneOf([ALL, SEARCH, FILTERED]),
     disableScrollLoading: PropTypes.bool,
     allowEmptySearchFilter: PropTypes.bool,
     limit: PropTypes.number,
+    isLoading: PropTypes.bool,
+    // controlled via redux
     items: PropTypes.array,
     error: PropTypes.bool,
     isFetching: PropTypes.bool,

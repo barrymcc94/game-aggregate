@@ -17,7 +17,6 @@ describe('Games Selector', () => {
     it('simulates selectGames 2', () => {
         const state = {
             games: {
-                ids: ['1', '2'],
                 byId: {
                     '1': {
                         id: 1,
@@ -28,7 +27,10 @@ describe('Games Selector', () => {
                         title: 'post 2',
                     },
                 },
-                isFetching: false,
+                games: {
+                    ids: ['1', '2'],
+                    isFetching: false,
+                },
             },
         };
         const expectedResult = [
@@ -41,7 +43,7 @@ describe('Games Selector', () => {
                 title: 'post 2',
             },
         ];
-        const result = selectGames(state);
+        const result = selectGames(state, 'games');
         expect(result).toEqual(expectedResult);
     });
 });
