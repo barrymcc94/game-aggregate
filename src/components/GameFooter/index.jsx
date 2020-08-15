@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from '@material-ui/core/Link';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import SkeletonLoader from '../SkeletonLoader';
 import {StyledGameFooter, FooterText} from './styles';
 
@@ -33,4 +33,4 @@ GameFooter.propTypes = {
 
 export const isEqual = (prevProps, nextProps) =>
     prevProps.isLoading == nextProps.isLoading;
-export default injectIntl(React.memo(GameFooter, isEqual));
+export default React.memo(GameFooter, isEqual);

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import {StyledErrorMessage} from './styles.js';
 
 const ErrorMessage = ({id, error, children}) =>
@@ -20,4 +20,4 @@ ErrorMessage.propTypes = {
 
 export const isEqual = (prevProps, nextProps) =>
     prevProps.error == nextProps.error;
-export default injectIntl(React.memo(ErrorMessage, isEqual));
+export default React.memo(ErrorMessage, isEqual);

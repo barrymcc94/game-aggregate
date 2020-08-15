@@ -16,7 +16,7 @@ describe('<ErrorMessage/>', () => {
         const wrapper = mountWithBaseWrapper(
             <ErrorMessage id="errorPage.errorMessage" error={false} />
         );
-        expect(wrapper.html()).toEqual('');
+        expect(wrapper.html()).toEqual(null);
         expect(wrapper).toMatchSnapshot();
     });
 
@@ -24,7 +24,7 @@ describe('<ErrorMessage/>', () => {
         const wrapper = mountWithBaseWrapper(
             <ErrorMessage id="" error={true} />
         );
-        expect(wrapper.html()).toEqual('');
+        expect(wrapper.html()).toEqual(null);
         expect(wrapper).toMatchSnapshot();
     });
 

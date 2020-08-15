@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from '@material-ui/core/Link';
 import {Link as RouterLink} from 'react-router-dom';
-import {injectIntl, FormattedMessage} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import {Game} from '../../types/game';
 import SkeletonLoader from '../SkeletonLoader';
 import {
@@ -101,4 +101,4 @@ export const isEqual = (prevProps, nextProps) =>
     prevProps.isLoading == nextProps.isLoading &&
     prevProps.game.guid == nextProps.game.guid;
 
-export default injectIntl(React.memo(GameDetails, isEqual));
+export default React.memo(GameDetails, isEqual);

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import {GameListItem, CompanyListItem} from '../../types';
-import {injectIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import SkeletonLoader from '../SkeletonLoader';
 import {
@@ -86,11 +85,10 @@ MediaListItem.propTypes = {
     link: PropTypes.string,
     isLoading: PropTypes.bool,
     item: PropTypes.oneOfType([GameListItem, CompanyListItem]),
-    intl: PropTypes.object,
 };
 
 export const isEqual = (prevProps, nextProps) =>
     prevProps.isLoading == nextProps.isLoading &&
     prevProps.item.guid == nextProps.item.guid;
 
-export default injectIntl(React.memo(MediaListItem, isEqual));
+export default React.memo(MediaListItem, isEqual);
