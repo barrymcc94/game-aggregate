@@ -38,6 +38,7 @@ export class MediaListContainer extends React.Component {
     constructor(props) {
         super(props);
         this.mediaListRef = React.createRef();
+        this.loadMore = this.loadMore.bind(this);
     }
 
     loadMore = () => {
@@ -145,6 +146,9 @@ export class MediaListContainer extends React.Component {
             isFetching,
             error,
             isLoading = false,
+            buttonType,
+            loadMoreId,
+            meta: {total, offset},
         } = this.props;
         return (
             <MediaList
@@ -154,6 +158,9 @@ export class MediaListContainer extends React.Component {
                 isLoading={isFetching || isLoading}
                 error={error}
                 link={`/${mediaType}/`}
+                buttonType={buttonType}
+                loadMoreId={offset < total ? loadMoreId : ''}
+                onLoadMoreClick={this.loadMore}
             />
         );
     }
@@ -216,6 +223,8 @@ MediaListContainer.propTypes = {
     allowEmptySearchFilter: PropTypes.bool,
     limit: PropTypes.number,
     isLoading: PropTypes.bool,
+    buttonType: PropTypes.string,
+    loadMoreId: PropTypes.string,
     // controlled via redux
     items: PropTypes.array,
     error: PropTypes.bool,

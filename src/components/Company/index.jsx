@@ -39,6 +39,7 @@ export const Company = ({
                     allowEmptySearchFilter={true}
                     disableScrollLoading={true}
                     isLoading={isFetching}
+                    loadMoreId="company.publishedGamesLoadMore"
                 />
                 <MediaListContainer
                     titleId="company.developedGamesTitle"
@@ -48,6 +49,7 @@ export const Company = ({
                     allowEmptySearchFilter={true}
                     disableScrollLoading={true}
                     isLoading={isFetching}
+                    loadMoreId="company.developedGamesLoadMore"
                 />
             </>
         </DocumentTitle>

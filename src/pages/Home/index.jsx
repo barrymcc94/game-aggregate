@@ -37,15 +37,9 @@ export const HomePage = ({intl: {formatMessage}}) => (
                     allowEmptySearchFilter={true}
                     disableScrollLoading={true}
                     limit={12}
+                    buttonType="link"
+                    loadMoreId="homePage.gamesLink"
                 />
-                <StyledLinkContainer>
-                    <StyledLink component={RouterLink} to={`/${GAMES}/`}>
-                        <FormattedMessage
-                            id={'homePage.gamesLink'}
-                            defaultMessage="See all games"
-                        />
-                    </StyledLink>
-                </StyledLinkContainer>
             </StyledMediaListSection>
             <StyledMediaListSection>
                 <MediaListContainer
@@ -55,15 +49,9 @@ export const HomePage = ({intl: {formatMessage}}) => (
                     allowEmptySearchFilter={true}
                     disableScrollLoading={true}
                     limit={12}
+                    buttonType="link"
+                    loadMoreId="homePage.companiesLink"
                 />
-                <StyledLinkContainer>
-                    <StyledLink component={RouterLink} to={`/${COMPANIES}/`}>
-                        <FormattedMessage
-                            id={'homePage.companiesLink'}
-                            defaultMessage="See all companies"
-                        />
-                    </StyledLink>
-                </StyledLinkContainer>
             </StyledMediaListSection>
         </>
     </DocumentTitle>

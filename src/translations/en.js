@@ -20,6 +20,8 @@ export default {
     'companyPage.title': 'Company',
     'company.publishedGamesTitle': 'Most Recently Published Games',
     'company.developedGamesTitle': 'Most Recently Developed Games',
+    'company.publishedGamesLoadMore': 'Load More',
+    'company.developedGamesLoadMore': 'Load More',
     'gamesPage.title': 'Games search',
     'gamesPage.heading': 'Games search',
     'gamesPage.searchLabel': 'Search for a game',

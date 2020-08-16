@@ -1,9 +1,5 @@
 import React from 'react';
-import Container, {
-    MediaListContainer,
-    hasFiltersSearchTerm,
-    getDefaultFilters,
-} from '../index';
+import Container, {MediaListContainer, hasFiltersSearchTerm} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
 
