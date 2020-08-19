@@ -1,7 +1,7 @@
 import React from 'react';
 import {MediaList} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {StyledButton} from '../../LoadMoreButton/styles';
+import {StyledButton} from '../LoadMoreButton/styles';
 import {StyledSkeletonLoader} from '../../SkeletonLoader/styles';
 import Grid from '@material-ui/core/Grid';
 

@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Typography} from '@material-ui/core';
-import {FormattedMessage} from 'react-intl';
 import MediaListItem from '../MediaListItem';
-import SkeletonLoader from '../SkeletonLoader';
 import ErrorMessage from '../ErrorMessage';
 import {StyledGrid} from './styles';
-import LoadMoreButton from '../LoadMoreButton';
+import LoadMoreButton from './LoadMoreButton';
+import ListHeading from './ListHeading';
 
 const itemsPlaceholder = new Array(12).fill(0);
 export const MediaList = React.forwardRef(
@@ -24,16 +22,11 @@ export const MediaList = React.forwardRef(
         ref
     ) => (
         <>
-            {titleId &&
-                (isLoading ? (
-                    <Typography variant="h5" component="h2" gutterBottom>
-                        <SkeletonLoader variant="text" numLines={1} />
-                    </Typography>
-                ) : items.length || error ? (
-                    <Typography variant="h5" component="h2" gutterBottom>
-                        <FormattedMessage id={titleId} defaultMessage="Games" />
-                    </Typography>
-                ) : null)}
+            <ListHeading
+                titleId={titleId}
+                isLoading={isLoading}
+                displayTitle={!!(items.length || error)}
+            />
             <StyledGrid container spacing={2} alignItems="stretch" ref={ref}>
                 {items.map((item) => (
                     <MediaListItem key={item.id} item={item} link={link} />

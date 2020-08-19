@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
-import SkeletonLoader from '../SkeletonLoader';
+import SkeletonLoader from '../../SkeletonLoader';
 import {StyledButtonWrapper, StyledButton} from './styles';
 
 export const LoadMoreButton = ({id, isLoading, link, buttonType, onClick}) => {
@@ -11,18 +11,21 @@ export const LoadMoreButton = ({id, isLoading, link, buttonType, onClick}) => {
     if (!id) {
         return null;
     }
-    return isLoading ? (
+    return (
         <StyledButtonWrapper>
-            <SkeletonLoader
-                variant="rect"
-                style={{width: '7.5rem', height: '3rem'}}
-            />
-        </StyledButtonWrapper>
-    ) : (
-        <StyledButtonWrapper>
-            <StyledButton variant="outlined" color="primary" {...ButtonProps}>
-                <FormattedMessage id={id} defaultMessage="Load More" />
-            </StyledButton>
+            {isLoading ? (
+                <SkeletonLoader
+                    variant="rect"
+                    style={{width: '7.5rem', height: '3rem'}}
+                />
+            ) : (
+                <StyledButton
+                    variant="outlined"
+                    color="primary"
+                    {...ButtonProps}>
+                    <FormattedMessage id={id} defaultMessage="Load More" />
+                </StyledButton>
+            )}
         </StyledButtonWrapper>
     );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import {LoadMoreButton} from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {StyledButton} from '../../LoadMoreButton/styles';
-import {StyledSkeletonLoader} from '../../SkeletonLoader/styles';
+import {mountWithBaseWrapper} from '../../../../../tests/helper';
+import {StyledButton} from '../styles';
+import {StyledSkeletonLoader} from '../../../SkeletonLoader/styles';
 
 describe('<MediaList/>', () => {
     it('tests Component renders null with invalid props', () => {
