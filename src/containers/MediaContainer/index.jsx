@@ -49,7 +49,7 @@ export const MediaContainer = ({
     fetchItem,
 }) => {
     useEffect(() => {
-        if (mediaType !== FRANCHISES && isItemLoaded(mediaType, item)) {
+        if (isItemLoaded(mediaType, item)) {
             return;
         }
         fetchItem({

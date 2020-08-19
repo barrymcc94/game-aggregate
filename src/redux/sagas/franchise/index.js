@@ -15,11 +15,11 @@ import {FETCH_FRANCHISE_STARTED, CLEAR_GAMES_STATE} from '../../types';
 import config, {defaultGbApiDefaults} from '../../../config';
 const {gbApiUrl} = config;
 
-export function* fetchFranchiseSaga({payload}) {
+export function* fetchFranchiseSaga({payload = {}}) {
     try {
-        yield put(clearGamesState({id: 'franchiseGames'}));
+        const {guid, queryObj} = payload;
+        yield put(clearGamesState({id: `franchiseGames_${guid}`}));
         yield take(CLEAR_GAMES_STATE);
-        const {guid, queryObj} = payload || {};
         const queryStr = objToQueryStr(queryObj);
         const {results, error, status_code} = yield jsonFetch(
             `${gbApiUrl}/api/franchise/${guid}/${queryStr}`
@@ -39,7 +39,7 @@ export function* fetchFranchiseSaga({payload}) {
 
         yield put(
             fetchGamesStarted({
-                id: 'franchiseGames',
+                id: `franchiseGames_${guid}`,
                 queryObj: {
                     ...defaultGbApiDefaults,
                     sort: `original_release_date:desc`,

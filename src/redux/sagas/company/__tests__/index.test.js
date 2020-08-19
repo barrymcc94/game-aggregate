@@ -37,7 +37,7 @@ describe('Company Sagas', () => {
         const gamesStartedAction1 = await gen.next(data).value.payload.action;
         expect(gamesStartedAction1.type).toBe(FETCH_GAMES_STARTED);
         expect(gamesStartedAction1.payload).toEqual({
-            id: 'companyPublishedGames',
+            id: 'companyPublishedGames_undefined',
             meta: {
                 limit: 12,
             },
@@ -53,7 +53,7 @@ describe('Company Sagas', () => {
         const gamesStartedAction2 = await gen.next(data).value.payload.action;
         expect(gamesStartedAction2.type).toBe(FETCH_GAMES_STARTED);
         expect(gamesStartedAction2.payload).toEqual({
-            id: 'companyDevelopedGames',
+            id: 'companyDevelopedGames_undefined',
             meta: {
                 limit: 12,
             },

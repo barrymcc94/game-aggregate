@@ -17,9 +17,9 @@ const {gbApiUrl} = config;
 
 export function* fetchCompanySaga({payload = {}}) {
     try {
-        yield put(clearGamesState({id: 'companyPublishedGames'}));
-        yield put(clearGamesState({id: 'companyDevelopedGames'}));
         const {guid, queryObj} = payload;
+        yield put(clearGamesState({id: `companyPublishedGames_${guid}`}));
+        yield put(clearGamesState({id: `companyDevelopedGames_${guid}`}));
         const queryStr = objToQueryStr(queryObj);
         const {results, error, status_code} = yield jsonFetch(
             `${gbApiUrl}/api/company/${guid}/${queryStr}`
@@ -33,7 +33,7 @@ export function* fetchCompanySaga({payload = {}}) {
 
         yield put(
             fetchGamesStarted({
-                id: 'companyPublishedGames',
+                id: `companyPublishedGames_${guid}`,
                 queryObj: {
                     ...defaultGbApiDefaults,
                     sort: `original_release_date:desc`,
@@ -49,7 +49,7 @@ export function* fetchCompanySaga({payload = {}}) {
         );
         yield put(
             fetchGamesStarted({
-                id: 'companyDevelopedGames',
+                id: `companyDevelopedGames_${guid}`,
                 queryObj: {
                     ...defaultGbApiDefaults,
                     sort: `original_release_date:desc`,
