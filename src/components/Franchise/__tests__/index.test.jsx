@@ -1,5 +1,5 @@
 import React from 'react';
-import {Franchise, isEqual} from '../index';
+import {Franchise} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {StyledErrorMessage} from '../../ErrorMessage/styles';
 import {StyledMediaHeader} from '../../MediaHeader/styles';
@@ -48,7 +48,7 @@ describe('<Franchise/>', () => {
                 intl={{formatMessage: jest.fn()}}
             />
         );
-        expect(wrapper.exists(StyledErrorMessage)).toBe(false);
+        expect(wrapper.exists(StyledErrorMessage)).toBe(true);
         expect(wrapper.exists(StyledMediaHeader)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });

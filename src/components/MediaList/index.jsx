@@ -41,6 +41,9 @@ export const MediaList = React.forwardRef(
                     ))}
             </StyledGrid>
             <ErrorMessage error={error} id="mediaList.error" />
+            {!error && !isLoading && !items.length ? (
+                <ErrorMessage error={true} id="mediaList.emptyListMessage" />
+            ) : null}
             {isLoading || items.length ? (
                 <LoadMoreButton
                     id={loadMoreId}

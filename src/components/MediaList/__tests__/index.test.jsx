@@ -4,6 +4,7 @@ import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {StyledButton} from '../LoadMoreButton/styles';
 import {StyledSkeletonLoader} from '../../SkeletonLoader/styles';
 import Grid from '@material-ui/core/Grid';
+import {StyledErrorMessage} from '../../ErrorMessage/styles';
 
 describe('<MediaList/>', () => {
     it('tests loader appears when fetching', () => {
@@ -27,7 +28,6 @@ describe('<MediaList/>', () => {
         );
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
         expect(wrapper.exists(Grid)).toBe(true);
-        expect(wrapper).toMatchSnapshot();
     });
 
     it('tests Medialist renders as expected with media data', () => {
@@ -51,7 +51,34 @@ describe('<MediaList/>', () => {
         );
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
         expect(wrapper.exists(Grid)).toBe(true);
-        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('tests Medialist renders with error message when no results are presented', () => {
+        const wrapper = mountWithBaseWrapper(
+            <MediaList
+                titleId="test"
+                isLoading={false}
+                error={false}
+                items={[]}
+            />
+        );
+        expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
+        expect(wrapper.exists(Grid)).toBe(true);
+        expect(wrapper.find(StyledErrorMessage).length).toEqual(1);
+    });
+
+    it('tests Medialist renders with error message when error is true', () => {
+        const wrapper = mountWithBaseWrapper(
+            <MediaList
+                titleId="test"
+                isLoading={false}
+                error={true}
+                items={[]}
+            />
+        );
+        expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
+        expect(wrapper.exists(Grid)).toBe(true);
+        expect(wrapper.find(StyledErrorMessage).length).toEqual(1);
     });
 
     it('tests Component with load more button', async () => {

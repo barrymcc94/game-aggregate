@@ -48,7 +48,7 @@ describe('<Company/>', () => {
                 intl={{formatMessage: jest.fn()}}
             />
         );
-        expect(wrapper.exists(StyledErrorMessage)).toBe(false);
+        expect(wrapper.exists(StyledErrorMessage)).toBe(true);
         expect(wrapper.exists(StyledMediaHeader)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });

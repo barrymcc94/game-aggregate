@@ -34,6 +34,7 @@ export default {
     'errorPage.title': '404 - Page Not Found',
     'errorPage.errorHeading': '404 - Page Not Found',
     'errorPage.errorMessage': 'Click here to go back to the homepage',
+    'mediaList.emptyListMessage': 'No results available',
     'mediaList.error': 'Error: Could not retrieve data',
     'game.error': 'Error: Could not retrieve game',
     'mediaHeader.posterAlt': 'Artwork poster',
