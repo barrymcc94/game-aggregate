@@ -21,4 +21,4 @@ ListHeading.propTypes = {
     displayTitle: PropTypes.bool.isRequired,
 };
 
-export default ListHeading;
+export default React.memo(ListHeading);

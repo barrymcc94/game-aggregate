@@ -1,4 +1,4 @@
-import {put, takeEvery} from 'redux-saga/effects';
+import {put, fork, cancel, take} from 'redux-saga/effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
 import {fetchGamesSucceeded, fetchGamesFailed} from '../../actions';
 import {FETCH_GAMES_STARTED, CLEAR_GAMES_STATE} from '../../types';
@@ -39,6 +39,25 @@ export function* fetchGamesSaga({type, payload}) {
     }
 }
 
+// ignore custom effect from jest coverage
+/* istanbul ignore next */
+const takeLatestGames = (patternOrChannel, saga, ...args) =>
+    fork(function* () {
+        let lastTask;
+        let lastAction;
+        while (true) {
+            const action = yield take(patternOrChannel);
+            if (lastTask && action.payload.id == lastAction.payload.id) {
+                yield cancel(lastTask);
+            }
+            lastTask = yield fork(saga, ...args.concat(action));
+            lastAction = action;
+        }
+    });
+
 export function* watchFetchGames() {
-    yield takeEvery([FETCH_GAMES_STARTED, CLEAR_GAMES_STATE], fetchGamesSaga);
+    yield takeLatestGames(
+        [FETCH_GAMES_STARTED, CLEAR_GAMES_STATE],
+        fetchGamesSaga
+    );
 }
