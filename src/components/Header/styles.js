@@ -10,7 +10,7 @@ export const StyledHeader = styled.header`
     text-transform: capitalize;
     height: ${({theme}) => theme.headerHeight};
     width: 100%;
-    z-index: 9999;
+    z-index: 100;
     position: fixed;
     top: 0;
 `;

@@ -21,7 +21,7 @@ export function* fetchGamesSaga({type, payload}) {
             status_code,
         } = yield jsonFetch(`${gbApiUrl}/api/games/${queryStr}`);
         if (status_code !== 1) {
-            return yield put(fetchGamesFailed({error}));
+            return yield put(fetchGamesFailed({id, error}));
         }
         yield put(
             fetchGamesSucceeded({

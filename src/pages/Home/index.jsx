@@ -1,16 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
-import {Link as RouterLink} from 'react-router-dom';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
 import MediaListContainer from '../../containers/MediaListContainer';
-import {
-    StyledMediaListSection,
-    StyledHeading,
-    StyledLinkContainer,
-    StyledLink,
-} from './styles';
+import {StyledMediaListSection, StyledHeading} from './styles';
 
 const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
 const {ALL} = ENUMS.CONTAINER_TYPE;

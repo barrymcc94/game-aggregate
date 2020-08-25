@@ -22,11 +22,7 @@ export const MediaList = React.forwardRef(
         ref
     ) => (
         <>
-            <ListHeading
-                titleId={titleId}
-                isLoading={isLoading}
-                displayTitle={!!(items.length || error)}
-            />
+            <ListHeading titleId={titleId} isLoading={isLoading} />
             <StyledGrid container spacing={2} alignItems="stretch" ref={ref}>
                 {items.map((item) => (
                     <MediaListItem key={item.id} item={item} link={link} />
