@@ -39,25 +39,24 @@ export function* fetchGamesSaga({type, payload}) {
     }
 }
 
-// ignore custom effect from jest coverage
-/* istanbul ignore next */
-const takeLatestGames = (patternOrChannel, saga, ...args) =>
-    fork(function* () {
-        let lastTask;
-        let lastAction;
+export const takeLatestByIdGen = (patternOrChannel, saga, ...args) =>
+    function* () {
+        let lastTasks = {};
         while (true) {
             const action = yield take(patternOrChannel);
-            if (lastTask && action.payload.id == lastAction.payload.id) {
-                yield cancel(lastTask);
+            if (lastTasks[action.payload.id]) {
+                yield cancel(lastTasks[action.payload.id]);
             }
-            lastTask = yield fork(saga, ...args.concat(action));
-            lastAction = action;
+            lastTasks[action.payload.id] = yield fork(
+                saga,
+                ...args.concat(action)
+            );
         }
-    });
+    };
+
+const takeLatestById = (patternOrChannel, saga, ...args) =>
+    fork(takeLatestByIdGen(patternOrChannel, saga, ...args));
 
 export function* watchFetchGames() {
-    yield takeLatestGames(
-        [FETCH_GAMES_STARTED, CLEAR_GAMES_STATE],
-        fetchGamesSaga
-    );
+    yield takeLatestById([FETCH_GAMES_STARTED], fetchGamesSaga);
 }
