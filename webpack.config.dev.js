@@ -18,6 +18,10 @@ module.exports = {
         hot: true,
         port: 3000,
         proxy: {
+            '/app/myapp/*': {
+                target: 'https://www.giantbomb.com',
+                changeOrigin: true,
+            },
             '/api/*': {
                 target: 'https://www.giantbomb.com',
                 changeOrigin: true,

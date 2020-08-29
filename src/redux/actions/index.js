@@ -1,5 +1,11 @@
 import {setLocale, changeLocale} from './locale';
 import {
+    fetchGBApiKeyStarted,
+    fetchGBApiKeySucceeded,
+    fetchGBApiKeyFailed,
+    fetchGBApiKey,
+} from './auth';
+import {
     fetchGameStarted,
     fetchGameSucceeded,
     fetchGameFailed,
@@ -45,6 +51,10 @@ import {
 export {
     setLocale,
     changeLocale,
+    fetchGBApiKeyStarted,
+    fetchGBApiKeySucceeded,
+    fetchGBApiKeyFailed,
+    fetchGBApiKey,
     fetchGameStarted,
     fetchGameSucceeded,
     fetchGameFailed,
