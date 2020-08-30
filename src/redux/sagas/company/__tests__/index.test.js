@@ -42,9 +42,7 @@ describe('Company Sagas', () => {
                 limit: 12,
             },
             queryObj: {
-                api_key: undefined,
                 filter: 'original_release_date:|2020-6-14 00:00:00,id:1|2',
-                format: 'json',
                 limit: 12,
                 offset: 0,
                 sort: 'original_release_date:desc',
@@ -58,9 +56,7 @@ describe('Company Sagas', () => {
                 limit: 12,
             },
             queryObj: {
-                api_key: undefined,
                 filter: 'original_release_date:|2020-6-14 00:00:00,id:3|4',
-                format: 'json',
                 limit: 12,
                 offset: 0,
                 sort: 'original_release_date:desc',

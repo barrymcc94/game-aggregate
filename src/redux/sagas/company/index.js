@@ -12,7 +12,7 @@ import {
     clearGamesState,
 } from '../../actions';
 import {FETCH_COMPANY_STARTED} from '../../types';
-import config, {defaultGbApiDefaults} from '../../../config';
+import config from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchCompanySaga({payload = {}}) {
@@ -35,7 +35,6 @@ export function* fetchCompanySaga({payload = {}}) {
             fetchGamesStarted({
                 id: `companyPublishedGames_${guid}`,
                 queryObj: {
-                    ...defaultGbApiDefaults,
                     sort: `original_release_date:desc`,
                     filter: objToFilterStr({
                         ...getDefaultGamesFilter(),
@@ -51,7 +50,6 @@ export function* fetchCompanySaga({payload = {}}) {
             fetchGamesStarted({
                 id: `companyDevelopedGames_${guid}`,
                 queryObj: {
-                    ...defaultGbApiDefaults,
                     sort: `original_release_date:desc`,
                     filter: objToFilterStr({
                         ...getDefaultGamesFilter(),

@@ -4,6 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import {createLogger} from 'redux-logger';
 import reducers from './redux/reducers';
 import sagas from './redux/sagas';
+import {authMiddleware} from './redux/middleware';
 
 const logger = createLogger({
     predicate: () => process.env.NODE_ENV === 'development',
@@ -15,7 +16,7 @@ const composeEnhancers =
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
     compose;
 
-const middleWare = [thunk, sagaMiddleWare, logger];
+const middleWare = [thunk, authMiddleware, sagaMiddleWare, logger];
 
 const store = createStore(
     reducers,

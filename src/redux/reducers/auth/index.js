@@ -2,7 +2,10 @@ import * as types from '../../types';
 
 const initialState = {
     giantbomb: {
-        api_key: null,
+        api_key:
+            process.env.NODE_ENV === 'development'
+                ? process.env.GB_API_KEY
+                : null,
         isFetching: false,
         error: false,
     },

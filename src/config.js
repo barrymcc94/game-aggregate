@@ -19,7 +19,6 @@ export const defaultLimit = 100;
 
 export const defaultGbApiDefaults = {
     format: 'json',
-    api_key: process.env.GB_API_KEY,
 };
 
 export const dev = {

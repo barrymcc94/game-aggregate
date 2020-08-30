@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {defaultGbApiDefaults} from '../../config';
 import {fetchGame, fetchCompany, fetchFranchise} from '../../redux/actions';
 import {ENUMS} from '../../config';
 import {
@@ -52,12 +51,7 @@ export const MediaContainer = ({
         if (isItemLoaded(mediaType, item)) {
             return;
         }
-        fetchItem({
-            guid,
-            queryObj: {
-                ...defaultGbApiDefaults,
-            },
-        });
+        fetchItem({guid});
     }, []);
 
     if (mediaType == GAMES) {

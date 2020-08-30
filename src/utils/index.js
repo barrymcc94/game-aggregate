@@ -1,5 +1,5 @@
 import moment from 'moment/moment';
-import {ENUMS, defaultLimit, defaultGbApiDefaults} from '../config';
+import {ENUMS, defaultLimit} from '../config';
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export const jsonFetch = async (url) => {
@@ -54,7 +54,6 @@ export const getDefaultFranchisesFilter = () => ({});
 export const getDefaultListingFilters = (mediaType, meta) => {
     try {
         let defaultQueryObj = {
-            ...defaultGbApiDefaults,
             limit: meta.limit,
             offset: meta.offset,
         };
