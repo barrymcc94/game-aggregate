@@ -50,4 +50,12 @@ export default {
     'gameDetails.themes': 'Themes: ',
     'gameDetails.platforms': 'Platforms: ',
     'company.error': 'Error: Could not retrieve company',
+    'authModal.ariaLabel': 'Authentication Modal',
+    'authModal.heading': 'Authentication',
+    'authModal.description': 'Auth key required, you can get one at {link}',
+    'authModal.submit': 'Submit',
+    'authModal.close': 'Close',
+    'authModal.success': 'Success, you can now use this website',
+    'authModal.error': 'An Error Occurred, Please Try Again',
+    'authModal.appCodeLabel': 'Enter App Code',
 };

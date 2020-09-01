@@ -93,6 +93,11 @@ class App extends React.Component {
                                         path="/about"
                                         component={AboutPage}
                                     />
+                                    <Route
+                                        exact
+                                        path="/empty"
+                                        component={() => <div></div>}
+                                    />
                                     <Route path="/404" component={ErrorPage} />
                                     <Route
                                         path="*"

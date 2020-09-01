@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
+import AuthModalContainer from '../../containers/AuthModalContainer';
 import {ENUMS} from '../../config';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {Zoom} from '@material-ui/core';
@@ -63,6 +64,7 @@ export class Header extends React.PureComponent {
         const {menuActive} = this.state;
         return (
             <StyledHeader>
+                <AuthModalContainer />
                 <StyledContainer maxWidth="lg">
                     <StyledNav onClick={this.closeMenu}>
                         {menuActive ? (
