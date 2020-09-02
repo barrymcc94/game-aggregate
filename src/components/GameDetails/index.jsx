@@ -12,6 +12,9 @@ import {
     DescriptionLabel,
     DescriptionValue,
 } from './styles';
+import {ENUMS} from '../../config';
+
+const {COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 const GameDetail = (id, defaultMessage, detailArr, link) =>
     Array.isArray(detailArr) && (
@@ -65,20 +68,21 @@ export const GameDetails = ({game, isLoading}) => {
                     {GameDetail(
                         'gameDetails.franchises',
                         'Franchises: ',
-                        franchises
+                        franchises,
+                        `/${FRANCHISES}/`
                     )}
                     {GameDetail('gameDetails.genres', 'Genres: ', genres)}
                     {GameDetail(
                         'gameDetails.publishers',
                         'Publishers: ',
                         publishers,
-                        '/companies/'
+                        `/${COMPANIES}/`
                     )}
                     {GameDetail(
                         'gameDetails.developers',
                         'Developers: ',
                         developers,
-                        '/companies/'
+                        `/${COMPANIES}/`
                     )}
                     {GameDetail('gameDetails.themes', 'Themes: ', themes)}
                     {GameDetail(

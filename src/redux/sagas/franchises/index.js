@@ -5,10 +5,7 @@ import {FETCH_FRANCHISES_STARTED, CLEAR_FRANCHISES_STATE} from '../../types';
 import config from '../../../config';
 const {gbApiUrl} = config;
 
-export function* fetchFranchisesSaga({type, payload}) {
-    if (type == CLEAR_FRANCHISES_STATE) {
-        return;
-    }
+export function* fetchFranchisesSaga({payload}) {
     try {
         const {queryObj} = payload || {};
         const queryStr = objToQueryStr(queryObj);
@@ -39,8 +36,5 @@ export function* fetchFranchisesSaga({type, payload}) {
 }
 
 export function* watchFetchFranchises() {
-    yield takeLatest(
-        [FETCH_FRANCHISES_STARTED, CLEAR_FRANCHISES_STATE],
-        fetchFranchisesSaga
-    );
+    yield takeLatest(FETCH_FRANCHISES_STARTED, fetchFranchisesSaga);
 }

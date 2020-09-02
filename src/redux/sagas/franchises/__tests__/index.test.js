@@ -42,12 +42,6 @@ describe('Franchises Sagas', () => {
         expect(gen.next().done).toBe(true);
     });
 
-    it('tests fetchFranchisesSaga when type is CLEAR_FRANCHISES_STATE', async () => {
-        const gen = fetchFranchisesSaga({type: CLEAR_FRANCHISES_STATE});
-        await gen.next().value;
-        expect(gen.next().done).toBe(true);
-    });
-
     it('tests fetchFranchisesSaga when expecting error', async () => {
         const gen = fetchFranchisesSaga({});
         await gen.next().value;

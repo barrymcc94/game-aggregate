@@ -1,14 +1,11 @@
 import {put, takeLatest} from 'redux-saga/effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
 import {fetchCompaniesSucceeded, fetchCompaniesFailed} from '../../actions';
-import {FETCH_COMPANIES_STARTED, CLEAR_COMPANIES_STATE} from '../../types';
+import {FETCH_COMPANIES_STARTED} from '../../types';
 import config from '../../../config';
 const {gbApiUrl} = config;
 
-export function* fetchCompaniesSaga({type, payload}) {
-    if (type == CLEAR_COMPANIES_STATE) {
-        return;
-    }
+export function* fetchCompaniesSaga({payload}) {
     try {
         const {queryObj} = payload || {};
         const queryStr = objToQueryStr(queryObj);
@@ -39,8 +36,5 @@ export function* fetchCompaniesSaga({type, payload}) {
 }
 
 export function* watchFetchCompanies() {
-    yield takeLatest(
-        [FETCH_COMPANIES_STARTED, CLEAR_COMPANIES_STATE],
-        fetchCompaniesSaga
-    );
+    yield takeLatest(FETCH_COMPANIES_STARTED, fetchCompaniesSaga);
 }
