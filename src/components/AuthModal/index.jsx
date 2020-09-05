@@ -12,6 +12,7 @@ import {
     TextFieldWrapper,
     SuccessText,
     ProgressSpinner,
+    ModalButton,
 } from './styles.js';
 
 export const AuthModal = ({
@@ -25,92 +26,97 @@ export const AuthModal = ({
     submitForm,
     intl: {formatMessage},
 }) => (
-    <Modal
-        open={modalActive}
-        aria-label={formatMessage({
-            id: 'authModal.ariaLabel',
-            defaultMessage: 'Authentication Modal',
-        })}>
-        <StyledModalContent>
-            <Heading variant="h5" component="h2" gutterBottom>
-                <FormattedMessage
-                    id="authModal.heading"
-                    defaultMessage="Authentication"
-                />
-            </Heading>
-            <Text variant="body1">
-                <FormattedMessage
-                    id="authModal.description"
-                    defaultMessage="Auth key required, you can get one at {link}"
-                    values={{
-                        link: (
-                            <a
-                                href="https://www.giantbomb.com/app/myapp/"
-                                rel="noreferrer"
-                                target="_blank">
-                                Giantbomb
-                            </a>
-                        ),
-                    }}
-                />
-            </Text>
-            <form onSubmit={submitForm}>
-                <TextFieldWrapper>
-                    <StyledTextField
-                        disabled={isFetching}
-                        variant="outlined"
-                        label={formatMessage({
-                            id: 'authModal.appCodeLabel',
-                            defaultMessage: 'Enter App Code',
-                        })}
-                        value={appCode}
-                        onChange={onAppCodeChange}
-                        error={error}
-                        helperText={
-                            api_key ? (
-                                <SuccessText>
-                                    <FormattedMessage
-                                        id="authModal.success"
-                                        defaultMessage="Success"
-                                    />
-                                </SuccessText>
-                            ) : error ? (
-                                formatMessage({
-                                    id: 'authModal.error',
-                                    defaultMessage: 'Error Occurred',
-                                })
-                            ) : (
-                                ''
-                            )
-                        }
+    <>
+        <Modal
+            open={modalActive}
+            aria-label={formatMessage({
+                id: 'authModal.ariaLabel',
+                defaultMessage: 'Authentication Modal',
+            })}>
+            <StyledModalContent>
+                <Heading variant="h5" component="h2" gutterBottom>
+                    <FormattedMessage
+                        id="authModal.heading"
+                        defaultMessage="Authentication"
                     />
-                    {isFetching ? <ProgressSpinner /> : null}
-                </TextFieldWrapper>
-                <ButtonWrapper>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        disabled={isFetching || !appCode}
-                        onClick={submitForm}>
-                        <FormattedMessage
-                            id="authModal.submit"
-                            defaultMessage="Submit"
+                </Heading>
+                <Text variant="body1">
+                    <FormattedMessage
+                        id="authModal.description"
+                        defaultMessage="Auth key required, you can get one at {link}"
+                        values={{
+                            link: (
+                                <a
+                                    href="https://www.giantbomb.com/app/myapp/"
+                                    rel="noreferrer"
+                                    target="_blank">
+                                    Giantbomb
+                                </a>
+                            ),
+                        }}
+                    />
+                </Text>
+                <form onSubmit={submitForm}>
+                    <TextFieldWrapper>
+                        <StyledTextField
+                            disabled={isFetching}
+                            variant="outlined"
+                            label={formatMessage({
+                                id: 'authModal.appCodeLabel',
+                                defaultMessage: 'Enter App Code',
+                            })}
+                            value={appCode}
+                            onChange={onAppCodeChange}
+                            error={error}
+                            helperText={
+                                api_key ? (
+                                    <SuccessText>
+                                        <FormattedMessage
+                                            id="authModal.success"
+                                            defaultMessage="Success"
+                                        />
+                                    </SuccessText>
+                                ) : error ? (
+                                    formatMessage({
+                                        id: 'authModal.error',
+                                        defaultMessage: 'Error Occurred',
+                                    })
+                                ) : (
+                                    ''
+                                )
+                            }
                         />
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        disabled={isFetching || !api_key}
-                        onClick={toggleModal}>
-                        <FormattedMessage
-                            id="authModal.Close"
-                            defaultMessage="Close"
-                        />
-                    </Button>
-                </ButtonWrapper>
-            </form>
-        </StyledModalContent>
-    </Modal>
+                        {isFetching ? <ProgressSpinner /> : null}
+                    </TextFieldWrapper>
+                    <ButtonWrapper>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            disabled={isFetching || !appCode}
+                            onClick={submitForm}>
+                            <FormattedMessage
+                                id="authModal.submit"
+                                defaultMessage="Submit"
+                            />
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            disabled={isFetching || !api_key}
+                            onClick={toggleModal}>
+                            <FormattedMessage
+                                id="authModal.Close"
+                                defaultMessage="Close"
+                            />
+                        </Button>
+                    </ButtonWrapper>
+                </form>
+            </StyledModalContent>
+        </Modal>
+        <ModalButton variant="contained" color="primary" onClick={toggleModal}>
+            <FormattedMessage id="header.authButton" defaultMessage="Login" />
+        </ModalButton>
+    </>
 );
 
 AuthModal.propTypes = {

@@ -5,6 +5,7 @@ export default {
     'header.companies': 'Companies',
     'header.franchises': 'Franchises',
     'header.games': 'Games',
+    'header.authButton': 'Login',
     'footer.about': 'About this site',
     'footer.copyright': 'Copyright © Barry McCormack 2020',
     'homePage.title': 'New games and companies',

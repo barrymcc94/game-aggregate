@@ -11,8 +11,8 @@ import {
     StyledHeader,
     StyledNav,
     StyledContainer,
-    StyledNavLinkList,
-    StyledNavLinkListItem,
+    NavLinkList,
+    NavLinkListItem,
     StyledIconButton,
     StyledLink,
 } from './styles.js';
@@ -64,7 +64,6 @@ export class Header extends React.PureComponent {
         const {menuActive} = this.state;
         return (
             <StyledHeader>
-                <AuthModalContainer />
                 <StyledContainer maxWidth="lg">
                     <StyledNav onClick={this.closeMenu}>
                         {menuActive ? (
@@ -92,40 +91,41 @@ export class Header extends React.PureComponent {
                                 </StyledIconButton>
                             </Zoom>
                         )}
-                        <StyledNavLinkList active={menuActive}>
-                            <StyledNavLinkListItem active={menuActive}>
+                        <NavLinkList active={menuActive}>
+                            <NavLinkListItem active={menuActive}>
                                 <StyledLink exact to="/">
                                     <FormattedMessage
                                         id="header.home"
                                         defaultMessage="Home"
                                     />
                                 </StyledLink>
-                            </StyledNavLinkListItem>
-                            <StyledNavLinkListItem active={menuActive}>
+                            </NavLinkListItem>
+                            <NavLinkListItem active={menuActive}>
                                 <StyledLink exact to={`/${GAMES}/`}>
                                     <FormattedMessage
                                         id="header.games"
                                         defaultMessage="Games"
                                     />
                                 </StyledLink>
-                            </StyledNavLinkListItem>
-                            <StyledNavLinkListItem active={menuActive}>
+                            </NavLinkListItem>
+                            <NavLinkListItem active={menuActive}>
                                 <StyledLink exact to={`/${COMPANIES}/`}>
                                     <FormattedMessage
                                         id="header.companies"
                                         defaultMessage="Companies"
                                     />
                                 </StyledLink>
-                            </StyledNavLinkListItem>
-                            <StyledNavLinkListItem active={menuActive}>
+                            </NavLinkListItem>
+                            <NavLinkListItem active={menuActive}>
                                 <StyledLink exact to={`/${FRANCHISES}/`}>
                                     <FormattedMessage
                                         id="header.franchises"
                                         defaultMessage="Franchises"
                                     />
                                 </StyledLink>
-                            </StyledNavLinkListItem>
-                        </StyledNavLinkList>
+                            </NavLinkListItem>
+                        </NavLinkList>
+                        <AuthModalContainer />
                     </StyledNav>
                 </StyledContainer>
             </StyledHeader>

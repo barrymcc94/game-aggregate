@@ -1,5 +1,6 @@
 import styled, {css} from 'styled-components';
-import {Container, IconButton} from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import IconButton from '@material-ui/core/IconButton';
 import {Menu, Close} from '@material-ui/icons';
 import {NavLink} from 'react-router-dom';
 import {getBreakPoint} from '../../utils';
@@ -36,10 +37,12 @@ export const CloseIcon = styled(Close)`
 
 export const StyledContainer = styled(Container)`
     height: ${({theme}) => theme.headerHeight};
+    position: relative;
 `;
 
 export const StyledNav = styled.nav`
     display: flex;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
     margin: auto;
@@ -56,7 +59,7 @@ export const StyledIconButton = styled(IconButton)`
     }
 `;
 
-export const StyledNavLinkList = styled.ul`
+export const NavLinkList = styled.ul`
     overflow: hidden;
     width: 100%;
     max-height: none;
@@ -89,7 +92,7 @@ export const StyledNavLinkList = styled.ul`
     }
 `;
 
-export const StyledNavLinkListItem = styled.li`
+export const NavLinkListItem = styled.li`
     background-color: ${({theme}) => theme.palette.background.paper};
     display: ${({active}) => (active ? 'block' : 'none')};
     @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
@@ -102,7 +105,7 @@ export const StyledLink = styled(NavLink)`
     text-align: left;
     font-size: 1.4rem;
     color: ${({theme}) => theme.palette.text.primary};
-    padding: 0 1rem;
+    padding: 0 0.75rem;
     box-sizing: border-box;
     &.active {
         background-color: ${({theme}) => theme.palette.action.hover};
