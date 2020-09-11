@@ -26,7 +26,7 @@ export const dev = {
 };
 
 export const prod = {
-    gbApiUrl: 'https://www.giantbomb.com',
+    gbApiUrl: '',
 };
 
 const config = process.env.NODE_ENV === 'development' ? dev : prod;
