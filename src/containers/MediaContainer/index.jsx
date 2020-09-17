@@ -47,20 +47,22 @@ export const MediaContainer = ({
     error,
     fetchItem,
 }) => {
+    const isLoaded = isItemLoaded(mediaType, item);
+    const loading = isFetching || !isLoaded;
     useEffect(() => {
-        if (isItemLoaded(mediaType, item)) {
+        if (isLoaded) {
             return;
         }
         fetchItem({guid});
     }, []);
 
     if (mediaType == GAMES) {
-        return <Game game={item} isFetching={isFetching} error={error} />;
+        return <Game game={item} isFetching={loading} error={error} />;
     } else if (mediaType == COMPANIES) {
-        return <Company company={item} isFetching={isFetching} error={error} />;
+        return <Company company={item} isFetching={loading} error={error} />;
     } else if (mediaType == FRANCHISES) {
         return (
-            <Franchise franchise={item} isFetching={isFetching} error={error} />
+            <Franchise franchise={item} isFetching={loading} error={error} />
         );
     }
     return null;

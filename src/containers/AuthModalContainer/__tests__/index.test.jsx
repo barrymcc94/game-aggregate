@@ -70,11 +70,33 @@ describe('<AuthModalContainer/>', () => {
                 history={history}
             />
         );
+        expect(wrapper.find('button').length).toEqual(3);
         wrapper.setProps({api_key: 'key'});
         const closeBtn = wrapper.find('button').at(1);
         closeBtn.simulate('click');
         expect(history.push).toBeCalledTimes(1);
         expect(history.push).toBeCalledWith('/empty');
         expect(history.goBack).toBeCalledTimes(1);
+    });
+
+    it('tests opeing modal does not trigger route refresh', () => {
+        const history = {
+            push: jest.fn(),
+            goBack: jest.fn(),
+        };
+        const wrapper = mountWithBaseWrapper(
+            <AuthModalContainer
+                isFetching={false}
+                error={false}
+                api_key={'test'}
+                fetchGBApiKey={jest.fn()}
+                history={history}
+            />
+        );
+        expect(wrapper.find('button').length).toEqual(1);
+        const loginBtn = wrapper.find('button').at(0);
+        loginBtn.simulate('click');
+        expect(history.push).toBeCalledTimes(0);
+        expect(history.goBack).toBeCalledTimes(0);
     });
 });

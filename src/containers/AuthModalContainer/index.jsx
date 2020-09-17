@@ -28,8 +28,10 @@ export const AuthModalContainer = ({
 
     const toggleModal = () => {
         setModalOpen(!modalOpen);
-        history.push('/empty');
-        history.goBack();
+        if (modalOpen) {
+            history.push('/empty');
+            history.goBack();
+        }
     };
 
     const onAppCodeChange = (e) => {
