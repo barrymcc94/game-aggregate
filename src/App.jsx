@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import smoothscroll from 'smoothscroll-polyfill';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import {IntlProvider} from 'react-intl';
 import {ThemeProvider} from 'styled-components';
@@ -23,6 +24,7 @@ import ErrorPage from './pages/Error';
 import Styles from './common-styles';
 import {ENUMS} from './config';
 import theme from './theme';
+smoothscroll.polyfill();
 
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 

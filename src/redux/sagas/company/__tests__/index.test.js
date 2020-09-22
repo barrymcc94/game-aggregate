@@ -39,11 +39,11 @@ describe('Company Sagas', () => {
         expect(gamesStartedAction1.payload).toEqual({
             id: 'companyPublishedGames_undefined',
             meta: {
-                limit: 12,
+                limit: 100,
             },
             queryObj: {
                 filter: 'original_release_date:|2020-6-14 00:00:00,id:1|2',
-                limit: 12,
+                limit: 100,
                 offset: 0,
                 sort: 'original_release_date:desc',
             },
@@ -53,11 +53,11 @@ describe('Company Sagas', () => {
         expect(gamesStartedAction2.payload).toEqual({
             id: 'companyDevelopedGames_undefined',
             meta: {
-                limit: 12,
+                limit: 100,
             },
             queryObj: {
                 filter: 'original_release_date:|2020-6-14 00:00:00,id:3|4',
-                limit: 12,
+                limit: 100,
                 offset: 0,
                 sort: 'original_release_date:desc',
             },

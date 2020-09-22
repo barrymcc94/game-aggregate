@@ -89,6 +89,20 @@ describe('<MediaListContainer/>', () => {
         expect(store.getActions()[1].type).toEqual('FETCH_FRANCHISES_STARTED');
     });
 
+    it('test component mount and unmount with carousel', async () => {
+        const store = mockStore({games: defaultStoreProps});
+        const wrapper = await mountWithBaseWrapper(
+            <Container
+                {...{...defaultProps, mediaType: 'games', isCarousel: true}}
+            />,
+            store
+        );
+        expect(store.getActions().length).toEqual(2);
+        expect(store.getActions()[0].type).toEqual('CLEAR_GAMES_STATE');
+        expect(store.getActions()[1].type).toEqual('FETCH_GAMES_STARTED');
+        wrapper.unmount();
+    });
+
     it('tests redux connection when mediatype is invalid', () => {
         const store = mockStore({games: defaultStoreProps});
         mountWithBaseWrapper(

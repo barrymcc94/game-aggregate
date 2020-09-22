@@ -39,6 +39,7 @@ export class MediaListContainer extends React.Component {
         super(props);
         this.mediaListRef = React.createRef();
         this.loadMore = this.loadMore.bind(this);
+        this.state = {wrapperWidth: 0};
     }
 
     loadMore = () => {
@@ -94,27 +95,41 @@ export class MediaListContainer extends React.Component {
         this.loadMore();
     }, 2000);
 
+    onResize = throttle(() => {
+        this.setState({
+            wrapperWidth: this.mediaListRef?.current?.clientWidth || 0,
+        });
+    }, 1000);
+
     componentDidMount() {
         const {
             id,
             containerType,
             clearState,
             disableScrollLoading,
+            isCarousel,
         } = this.props;
         if (containerType !== FILTERED) {
             clearState({id}).then(() => {
                 this.loadMore();
             });
         }
-        if (!disableScrollLoading) {
+        if (!disableScrollLoading && !isCarousel) {
             window.addEventListener('scroll', this.onScroll);
+        }
+        if (isCarousel) {
+            this.onResize();
+            window.addEventListener('resize', this.onResize);
         }
     }
 
     componentWillUnmount() {
-        const {disableScrollLoading} = this.props;
-        if (!disableScrollLoading) {
+        const {disableScrollLoading, isCarousel} = this.props;
+        if (!disableScrollLoading && !isCarousel) {
             window.removeEventListener('scroll', this.onScroll);
+        }
+        if (isCarousel) {
+            window.removeEventListener('resize', this.onResize);
         }
     }
 
@@ -139,9 +154,11 @@ export class MediaListContainer extends React.Component {
     }
 
     render() {
+        const {wrapperWidth} = this.state;
         const {
             titleId,
             mediaType,
+            isCarousel,
             items,
             isFetching,
             error,
@@ -154,13 +171,16 @@ export class MediaListContainer extends React.Component {
             <MediaList
                 titleId={titleId}
                 ref={this.mediaListRef}
+                width={wrapperWidth}
+                isCarousel={isCarousel}
                 items={items}
+                total={total}
                 isLoading={isFetching || isLoading}
                 error={error}
                 link={`/${mediaType}/`}
                 buttonType={buttonType}
                 loadMoreId={offset < total ? loadMoreId : ''}
-                onLoadMoreClick={this.loadMore}
+                loadMore={this.loadMore}
             />
         );
     }
@@ -217,6 +237,7 @@ const mapDispatchToProps = (dispatch, {mediaType}) => {
 MediaListContainer.propTypes = {
     id: PropTypes.string,
     titleId: PropTypes.string,
+    isCarousel: PropTypes.bool,
     mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES]),
     containerType: PropTypes.oneOf([ALL, SEARCH, FILTERED]),
     disableScrollLoading: PropTypes.bool,

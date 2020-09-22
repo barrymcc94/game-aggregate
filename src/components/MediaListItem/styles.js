@@ -57,6 +57,10 @@ export const StyledCardHeading = styled(Typography)`
 `;
 
 export const StyledCardBody = styled(Typography)`
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     line-height: 1.2;
 `;
 

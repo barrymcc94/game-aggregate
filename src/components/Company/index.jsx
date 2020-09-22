@@ -33,6 +33,7 @@ export const Company = ({
                 <MediaHeader item={company} isLoading={isFetching} />
                 <MediaListContainer
                     titleId="company.publishedGamesTitle"
+                    isCarousel={true}
                     id={`companyPublishedGames_${company.guid}`}
                     mediaType={GAMES}
                     containerType={FILTERED}
@@ -43,6 +44,7 @@ export const Company = ({
                 />
                 <MediaListContainer
                     titleId="company.developedGamesTitle"
+                    isCarousel={true}
                     id={`companyDevelopedGames_${company.guid}`}
                     mediaType={GAMES}
                     containerType={FILTERED}

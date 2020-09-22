@@ -82,7 +82,7 @@ describe('<MediaList/>', () => {
     });
 
     it('tests Component with load more button', async () => {
-        const onLoadMoreClick = jest.fn(() => {});
+        const loadMore = jest.fn(() => {});
         const wrapper = await mountWithBaseWrapper(
             <MediaList
                 titleId="test"
@@ -102,17 +102,17 @@ describe('<MediaList/>', () => {
                 {...{
                     buttonType: '',
                     loadMoreId: 'homePage.gamesLink',
-                    onLoadMoreClick,
+                    loadMore,
                 }}
             />
         );
 
         wrapper.find(StyledButton).simulate('click');
-        expect(onLoadMoreClick).toBeCalledTimes(1);
+        expect(loadMore).toBeCalledTimes(1);
     });
 
     it('tests Component with load more link', async () => {
-        const onLoadMoreClick = jest.fn(() => {});
+        const loadMore = jest.fn(() => {});
         const wrapper = await mountWithBaseWrapper(
             <MediaList
                 titleId="test"
@@ -133,12 +133,12 @@ describe('<MediaList/>', () => {
                 {...{
                     buttonType: 'link',
                     loadMoreId: 'homePage.gamesLink',
-                    onLoadMoreClick,
+                    loadMore,
                 }}
             />
         );
 
         wrapper.find(StyledButton).simulate('click');
-        expect(onLoadMoreClick).toBeCalledTimes(0);
+        expect(loadMore).toBeCalledTimes(0);
     });
 });

@@ -28,7 +28,7 @@ export function* fetchCompanySaga({payload = {}}) {
             return yield put(fetchCompanyFailed({error}));
         }
 
-        const gamesLimit = 12;
+        const gamesLimit = 100;
         const {published_games, developed_games} = results;
 
         yield put(
