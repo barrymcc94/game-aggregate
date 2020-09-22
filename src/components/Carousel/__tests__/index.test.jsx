@@ -63,5 +63,26 @@ describe('<Carousel/>', () => {
         expect(Element.prototype.scrollTo).toBeCalledTimes(2);
     });
 
-    it('tests scrolling', () => {});
+    it('tests scrolling', () => {
+        const loadMore = jest.fn();
+        const wrapper = mountWithBaseWrapper(
+            <Carousel
+                items={[{}, {}, {}, {}]}
+                total={5}
+                error={false}
+                width={1000}
+                link={'/'}
+                isLoading={false}
+                loadMore={loadMore}
+            />
+        );
+
+        wrapper
+            .find('div')
+            .at(0)
+            .getDOMNode()
+            .dispatchEvent(new Event('scroll'));
+
+        expect(loadMore).toBeCalledTimes(1);
+    });
 });
