@@ -2,7 +2,7 @@ import React from 'react';
 import throttle from 'lodash.throttle';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {PrevButton, NextButton} from '../styles';
-import Carousel from '../index';
+import MediaCarousel from '../index';
 
 jest.mock('lodash.throttle');
 jest.useFakeTimers();
@@ -11,46 +11,28 @@ throttle.mockImplementation((fn) => fn);
 
 Element.prototype.scrollTo = jest.fn();
 
-describe('<Carousel/>', () => {
-    it('tests loading carousel', () => {
+describe('<MediaCarousel/>', () => {
+    it('tests carousel renders', () => {
         const wrapper = mountWithBaseWrapper(
-            <Carousel
-                items={[]}
-                total={5}
-                error={false}
-                width={1000}
-                link={'/'}
-                isLoading={true}
-                loadMore={jest.fn()}
-            />
-        );
-        expect(wrapper.find('li').length).toEqual(5);
-    });
-
-    it('tests carousel with data', () => {
-        const wrapper = mountWithBaseWrapper(
-            <Carousel
+            <MediaCarousel
                 items={[{}, {}, {}, {}]}
                 total={5}
-                error={false}
                 width={1000}
                 link={'/'}
-                isLoading={false}
                 loadMore={jest.fn()}
             />
         );
         expect(wrapper.find('li').length).toEqual(5);
+        wrapper.unmount();
     });
 
     it('tests prev and next buttons work as expected', () => {
         const wrapper = mountWithBaseWrapper(
-            <Carousel
+            <MediaCarousel
                 items={[{}, {}, {}, {}]}
                 total={5}
-                error={false}
                 width={1000}
                 link={'/'}
-                isLoading={false}
                 loadMore={jest.fn()}
             />
         );
@@ -66,7 +48,7 @@ describe('<Carousel/>', () => {
     it('tests scrolling', () => {
         const loadMore = jest.fn();
         const wrapper = mountWithBaseWrapper(
-            <Carousel
+            <MediaCarousel
                 items={[{}, {}, {}, {}]}
                 total={5}
                 error={false}

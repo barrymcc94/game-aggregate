@@ -22,6 +22,17 @@ const Styles = createGlobalStyle`
         text-decoration: none;
         color: ${({theme}) => theme.palette.primary.main};
     }
+
+    .carousel-list::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+        background: transparent;
+    }
+
+    .carousel-list {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
 `;
 
 export const LoaderStyles = css`

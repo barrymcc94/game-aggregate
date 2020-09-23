@@ -25,7 +25,7 @@ export const Company = ({
             title={
                 company.name ||
                 formatMessage({
-                    id: 'companyPage.title',
+                    id: 'carousel.prev',
                     defaultMessage: 'Company',
                 })
             }>

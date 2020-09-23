@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
+import {injectIntl} from 'react-intl';
 import {FixedSizeList} from 'react-window';
 import MediaListItem from '../MediaListItem';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -20,7 +21,14 @@ const Column = ({index, style, data: {items, link}}) => (
     </ListItem>
 );
 
-const Carousel = ({items, total, error, width, link, loadMore, isLoading}) => {
+const Carousel = ({
+    items,
+    total,
+    width,
+    link,
+    loadMore,
+    intl: {formatMessage},
+}) => {
     const outerRef = useRef();
 
     const [currentPos, setCurrentPos] = useState(0);
@@ -55,18 +63,35 @@ const Carousel = ({items, total, error, width, link, loadMore, isLoading}) => {
 
     const handleNext = () => {
         const nextPos = currentPos + moveSpacing;
-        moveCarousel(nextPos >= (total + 1) * colWidth ? currentPos : nextPos);
+        moveCarousel(nextPos >= total * colWidth ? currentPos : nextPos);
     };
 
-    return !error && (total || isLoading) ? (
+    return (
         <>
-            <PrevButton aria-label="previous" onClick={handlePrev}>
+            <PrevButton
+                style={currentPos != 0 ? {} : {display: 'none'}}
+                aria-label={formatMessage({
+                    id: 'carousel.prevAria',
+                    defaultMessage: 'Previous',
+                })}
+                onClick={handlePrev}>
                 <NavigateBeforeIcon />
             </PrevButton>
-            <NextButton aria-label="next" onClick={handleNext}>
+            <NextButton
+                style={
+                    currentPos + moveSpacing < total * colWidth
+                        ? {}
+                        : {display: 'none'}
+                }
+                aria-label={formatMessage({
+                    id: 'carousel.nextAria',
+                    defaultMessage: 'Next',
+                })}
+                onClick={handleNext}>
                 <NavigateNextIcon />
             </NextButton>
             <FixedSizeList
+                className="carousel-list"
                 outerRef={outerRef}
                 overscanCount={5}
                 height={colHeight}
@@ -78,7 +103,7 @@ const Carousel = ({items, total, error, width, link, loadMore, isLoading}) => {
                 {Column}
             </FixedSizeList>
         </>
-    ) : null;
+    );
 };
 
 Column.propTypes = {
@@ -88,13 +113,12 @@ Column.propTypes = {
 };
 
 Carousel.propTypes = {
+    intl: PropTypes.object,
     items: PropTypes.array,
     total: PropTypes.number,
-    error: PropTypes.bool,
     width: PropTypes.number,
     link: PropTypes.string,
-    isLoading: PropTypes.bool,
     loadMore: PropTypes.func,
 };
 
-export default Carousel;
+export default injectIntl(Carousel);

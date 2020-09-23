@@ -59,4 +59,6 @@ export default {
     'authModal.success': 'Success, you can now use this website',
     'authModal.error': 'An Error Occurred, Please Try Again',
     'authModal.appCodeLabel': 'Enter App Code',
+    'carousel.prevAria': 'Previous',
+    'carousel.nextAria': 'Next',
 };

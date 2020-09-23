@@ -53,6 +53,31 @@ describe('<MediaList/>', () => {
         expect(wrapper.exists(Grid)).toBe(true);
     });
 
+    it('tests Medialist renders a carousel as expected', () => {
+        const wrapper = mountWithBaseWrapper(
+            <MediaList
+                isCarousel={true}
+                width={1000}
+                titleId="test"
+                isLoading={false}
+                error={false}
+                total={10}
+                items={[
+                    {
+                        id: 1,
+                        name: 'name',
+                        deck: 'deck',
+                        original_release_date: Date.now(),
+                        image: {
+                            screen_url: 'test',
+                        },
+                    },
+                ]}
+            />
+        );
+        expect(wrapper.exists(Grid)).toBe(true);
+    });
+
     it('tests Medialist renders with error message when no results are presented', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList

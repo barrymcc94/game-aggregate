@@ -8,13 +8,14 @@ const buttonStyles = css`
     top: 50%;
     transform: translate(0%, -50%);
     background-color: #0000006e;
+    padding: 0.5rem;
     &:hover,
     &:focus {
         background-color: #0000008e;
     }
     svg {
-        height: 2rem;
-        width: 2rem;
+        height: 4rem;
+        width: 4rem;
     }
 `;
 

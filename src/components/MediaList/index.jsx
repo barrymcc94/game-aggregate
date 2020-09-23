@@ -5,7 +5,7 @@ import ErrorMessage from '../ErrorMessage';
 import {StyledGrid} from './styles';
 import LoadMoreButton from './LoadMoreButton';
 import ListHeading from './ListHeading';
-import Carousel from '../Carousel';
+import MediaCarousel from '../MediaCarousel';
 
 const itemsPlaceholder = new Array(12).fill(0);
 export const MediaList = React.forwardRef(
@@ -37,23 +37,23 @@ export const MediaList = React.forwardRef(
                 ref={ref}
                 style={{margin: 0, marginBottom: '1rem', width: '100%'}}>
                 {isCarousel ? (
-                    <Carousel
-                        items={
-                            isLoading && !items.length
-                                ? itemsPlaceholder
-                                : items
-                        }
-                        total={
-                            isLoading && !items.length
-                                ? itemsPlaceholder.length
-                                : total
-                        }
-                        error={error}
-                        width={width}
-                        link={link}
-                        loadMore={loadMore}
-                        isLoading={isLoading}
-                    />
+                    !error && (total || isLoading) ? (
+                        <MediaCarousel
+                            items={
+                                isLoading && !items.length
+                                    ? itemsPlaceholder
+                                    : items
+                            }
+                            total={
+                                isLoading && !items.length
+                                    ? itemsPlaceholder.length
+                                    : total
+                            }
+                            width={width}
+                            link={link}
+                            loadMore={loadMore}
+                        />
+                    ) : null
                 ) : (
                     <>
                         {items.map((item) => (
