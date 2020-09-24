@@ -106,6 +106,7 @@ const Carousel = ({
                 <NavigateNextIcon />
             </NextButton>
             <FixedSizeList
+                innerElementType="ul"
                 className="carousel-list"
                 outerRef={outerRef}
                 overscanCount={5}

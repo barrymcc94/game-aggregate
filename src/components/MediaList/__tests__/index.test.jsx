@@ -1,5 +1,6 @@
 import React from 'react';
 import {MediaList} from '../index';
+import {StyledCarouselWrapper} from '../styles';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {StyledButton} from '../LoadMoreButton/styles';
 import {StyledSkeletonLoader} from '../../SkeletonLoader/styles';
@@ -75,7 +76,7 @@ describe('<MediaList/>', () => {
                 ]}
             />
         );
-        expect(wrapper.exists(Grid)).toBe(true);
+        expect(wrapper.exists(StyledCarouselWrapper)).toBe(true);
     });
 
     it('tests Medialist renders with error message when no results are presented', () => {

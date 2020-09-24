@@ -13,7 +13,7 @@ const Styles = createGlobalStyle`
     ul {
         list-style-type: none;
         margin: 0;
-        padding: 0%;
+        padding: 0;
         li {
             display: block;
         }
@@ -21,17 +21,6 @@ const Styles = createGlobalStyle`
     a {
         text-decoration: none;
         color: ${({theme}) => theme.palette.primary.main};
-    }
-
-    .carousel-list::-webkit-scrollbar {
-        width: 0px;
-        height: 0px;
-        background: transparent;
-    }
-
-    .carousel-list {
-        scrollbar-width: none;
-        -ms-overflow-style: none;
     }
 `;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MediaListItem from '../MediaListItem';
 import ErrorMessage from '../ErrorMessage';
-import {StyledGrid} from './styles';
+import {StyledGrid, StyledCarouselWrapper} from './styles';
 import LoadMoreButton from './LoadMoreButton';
 import ListHeading from './ListHeading';
 import MediaCarousel from '../MediaCarousel';
@@ -30,14 +30,9 @@ export const MediaList = React.forwardRef(
                 titleId={titleId}
                 isLoading={isLoading && !items.length}
             />
-            <StyledGrid
-                container
-                spacing={2}
-                alignItems="stretch"
-                ref={ref}
-                style={{margin: 0, marginBottom: '1rem', width: '100%'}}>
-                {isCarousel ? (
-                    !error && (total || isLoading) ? (
+            {isCarousel ? (
+                !error && (total || isLoading) ? (
+                    <StyledCarouselWrapper ref={ref}>
                         <MediaCarousel
                             items={
                                 isLoading && !items.length
@@ -53,11 +48,19 @@ export const MediaList = React.forwardRef(
                             link={link}
                             loadMore={loadMore}
                         />
-                    ) : null
-                ) : (
+                    </StyledCarouselWrapper>
+                ) : null
+            ) : (
+                <StyledGrid
+                    container
+                    component="ul"
+                    spacing={2}
+                    alignItems="stretch"
+                    ref={ref}>
                     <>
                         {items.map((item) => (
                             <StyledGrid
+                                component="li"
                                 key={item.id}
                                 item
                                 xs={12}
@@ -70,6 +73,7 @@ export const MediaList = React.forwardRef(
                         {isLoading &&
                             itemsPlaceholder.map((_, i) => (
                                 <StyledGrid
+                                    component="li"
                                     key={i}
                                     item
                                     xs={12}
@@ -83,8 +87,8 @@ export const MediaList = React.forwardRef(
                                 </StyledGrid>
                             ))}
                     </>
-                )}
-            </StyledGrid>
+                </StyledGrid>
+            )}
             <ErrorMessage error={error} id="mediaList.error" />
             {!error && !isLoading && !items.length ? (
                 <ErrorMessage error={true} id="mediaList.emptyListMessage" />
