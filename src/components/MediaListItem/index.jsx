@@ -5,7 +5,6 @@ import {GameListItem, CompanyListItem} from '../../types';
 import {Link} from 'react-router-dom';
 import SkeletonLoader from '../SkeletonLoader';
 import {
-    StyledGrid,
     StyledCard,
     StyledCardActionArea,
     StyledCardMediaContainer,

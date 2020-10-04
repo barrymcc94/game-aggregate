@@ -1,10 +1,6 @@
 import {createMockTask} from '@redux-saga/testing-utils';
 import {fetchGamesSaga, watchFetchGames, takeLatestByIdGen} from '../index';
-import {
-    FETCH_GAMES_SUCCEEDED,
-    FETCH_GAMES_FAILED,
-    CLEAR_GAMES_STATE,
-} from '../../../types';
+import {FETCH_GAMES_SUCCEEDED, FETCH_GAMES_FAILED} from '../../../types';
 
 describe('Games Sagas', () => {
     const testResults = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];

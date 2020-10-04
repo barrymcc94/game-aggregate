@@ -2,7 +2,6 @@ import {fetchCompaniesSaga, watchFetchCompanies} from '../index';
 import {
     FETCH_COMPANIES_SUCCEEDED,
     FETCH_COMPANIES_FAILED,
-    CLEAR_COMPANIES_STATE,
 } from '../../../types';
 
 describe('Companies Sagas', () => {

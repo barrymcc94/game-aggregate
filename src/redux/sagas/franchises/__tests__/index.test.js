@@ -2,7 +2,6 @@ import {fetchFranchisesSaga, watchFetchFranchises} from '../index';
 import {
     FETCH_FRANCHISES_SUCCEEDED,
     FETCH_FRANCHISES_FAILED,
-    CLEAR_FRANCHISES_STATE,
 } from '../../../types';
 
 describe('Franchises Sagas', () => {

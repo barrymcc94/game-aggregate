@@ -57,11 +57,11 @@ describe('Games Reducers', () => {
         };
         const expectedNewState = {
             byId: {
-                '1': {
+                1: {
                     guid: 1,
                     title: 'game 1',
                 },
-                '2': {
+                2: {
                     guid: 2,
                     title: 'game 2',
                 },
@@ -272,7 +272,7 @@ describe('Games Reducers', () => {
         };
         const expectedNewState = {
             byId: {
-                '1': {
+                1: {
                     guid: 1,
                     title: 'game 1',
                 },

@@ -64,11 +64,11 @@ describe('Companies Reducers', () => {
         const expectedNewState = {
             ids: [1, 2],
             byId: {
-                '1': {
+                1: {
                     guid: 1,
                     title: 'franchise 1',
                 },
-                '2': {
+                2: {
                     guid: 2,
                     title: 'franchise 2',
                 },
@@ -254,7 +254,7 @@ describe('Companies Reducers', () => {
         const expectedNewState = {
             ids: [],
             byId: {
-                '1': {
+                1: {
                     guid: 1,
                     title: 'franchise 1',
                 },

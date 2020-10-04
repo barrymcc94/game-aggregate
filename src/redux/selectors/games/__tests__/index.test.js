@@ -18,11 +18,11 @@ describe('Games Selector', () => {
         const state = {
             games: {
                 byId: {
-                    '1': {
+                    1: {
                         id: 1,
                         title: 'post 1',
                     },
-                    '2': {
+                    2: {
                         id: 2,
                         title: 'post 2',
                     },

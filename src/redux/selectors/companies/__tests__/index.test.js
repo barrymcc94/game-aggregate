@@ -19,11 +19,11 @@ describe('Companies Selector', () => {
             companies: {
                 ids: ['1', '2'],
                 byId: {
-                    '1': {
+                    1: {
                         id: 1,
                         title: 'post 1',
                     },
-                    '2': {
+                    2: {
                         id: 2,
                         title: 'post 2',
                     },

@@ -3,9 +3,12 @@ import {Header} from '../index';
 import {StyledNav, MenuIcon} from '../styles';
 import {shallow} from 'enzyme';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
+/*eslint-disable */
 jest.mock('@material-ui/core/Zoom', () => ({children}) => (
     <div>{children}</div>
 ));
+/*eslint-enable */
+
 describe('<Header/>', () => {
     it('renders correctly', () => {
         const wrapper = mountWithBaseWrapper(

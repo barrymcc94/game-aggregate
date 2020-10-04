@@ -161,11 +161,11 @@ describe('utils', () => {
         const expectedResult = {
             ids: [1, 2],
             byId: {
-                '1': {
+                1: {
                     id: 1,
                     title: 'post 1',
                 },
-                '2': {
+                2: {
                     id: 2,
                     title: 'post 2',
                 },
@@ -218,11 +218,11 @@ describe('utils', () => {
         const expectedResult = {
             ids: [1, 2],
             byId: {
-                '1': {
+                1: {
                     id: 1,
                     title: 'post 1',
                 },
-                '2': {
+                2: {
                     id: 2,
                     title: 'post 2',
                 },
@@ -232,7 +232,7 @@ describe('utils', () => {
             {
                 ids: [1],
                 byId: {
-                    '1': {
+                    1: {
                         id: 1,
                         title: 'post 1',
                     },
@@ -241,7 +241,7 @@ describe('utils', () => {
             {
                 ids: [2],
                 byId: {
-                    '2': {
+                    2: {
                         id: 2,
                         title: 'post 2',
                     },
@@ -259,7 +259,7 @@ describe('utils', () => {
         const result = combineNormalizedListingObjs(null, {
             ids: [2],
             byId: {
-                '2': {
+                2: {
                     id: 2,
                     title: 'post 2',
                 },

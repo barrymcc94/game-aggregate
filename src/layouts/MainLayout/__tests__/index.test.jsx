@@ -2,9 +2,11 @@ import React from 'react';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import MainLayout from '../index';
 import {StyledMain} from '../styles.js';
+/*eslint-disable */
 jest.mock('@material-ui/core/Zoom', () => ({children}) => (
     <div>{children}</div>
 ));
+/*eslint-enable */
 
 describe('<MainLayout/>', () => {
     it('correctly renders MainLayout', () => {

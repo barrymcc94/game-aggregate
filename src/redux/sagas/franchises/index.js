@@ -1,7 +1,7 @@
 import {put, takeLatest} from 'redux-saga/effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
 import {fetchFranchisesSucceeded, fetchFranchisesFailed} from '../../actions';
-import {FETCH_FRANCHISES_STARTED, CLEAR_FRANCHISES_STATE} from '../../types';
+import {FETCH_FRANCHISES_STARTED} from '../../types';
 import config from '../../../config';
 const {gbApiUrl} = config;
 
