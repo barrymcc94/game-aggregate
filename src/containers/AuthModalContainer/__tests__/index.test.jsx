@@ -1,7 +1,6 @@
 import React from 'react';
 import Container, {AuthModalContainer} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {StyledTextField} from '../../../components/AuthModal/styles.js';
 import {mockStore} from '../../../../tests/setup';
 
 describe('<AuthModalContainer/>', () => {

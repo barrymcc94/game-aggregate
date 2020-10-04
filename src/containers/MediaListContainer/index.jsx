@@ -1,5 +1,6 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
+import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -95,11 +96,11 @@ export class MediaListContainer extends React.Component {
         this.loadMore();
     }, 2000);
 
-    onResize = throttle(() => {
+    onResize = debounce(() => {
         this.setState({
             wrapperWidth: this.mediaListRef?.current?.clientWidth || 0,
         });
-    }, 1000);
+    }, 250);
 
     componentDidMount() {
         const {

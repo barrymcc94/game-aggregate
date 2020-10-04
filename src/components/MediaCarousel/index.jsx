@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import throttle from 'lodash.throttle';
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
+import isMobile from 'is-mobile';
 import {injectIntl} from 'react-intl';
 import {FixedSizeList} from 'react-window';
 import MediaListItem from '../MediaListItem';
@@ -87,24 +88,30 @@ const Carousel = ({
 
     return (
         <>
-            <PrevButton
-                style={getBtnStyle(currentPos != 0)}
-                aria-label={formatMessage({
-                    id: 'carousel.prevAria',
-                    defaultMessage: 'Previous',
-                })}
-                onClick={handlePrev}>
-                <NavigateBeforeIcon />
-            </PrevButton>
-            <NextButton
-                style={getBtnStyle(currentPos + moveSpacing < total * colWidth)}
-                aria-label={formatMessage({
-                    id: 'carousel.nextAria',
-                    defaultMessage: 'Next',
-                })}
-                onClick={handleNext}>
-                <NavigateNextIcon />
-            </NextButton>
+            {!isMobile({featureDetect: true, tablet: true}) && (
+                <>
+                    <PrevButton
+                        style={getBtnStyle(currentPos != 0)}
+                        aria-label={formatMessage({
+                            id: 'carousel.prevAria',
+                            defaultMessage: 'Previous',
+                        })}
+                        onClick={handlePrev}>
+                        <NavigateBeforeIcon />
+                    </PrevButton>
+                    <NextButton
+                        style={getBtnStyle(
+                            currentPos + moveSpacing < total * colWidth
+                        )}
+                        aria-label={formatMessage({
+                            id: 'carousel.nextAria',
+                            defaultMessage: 'Next',
+                        })}
+                        onClick={handleNext}>
+                        <NavigateNextIcon />
+                    </NextButton>
+                </>
+            )}
             <FixedSizeList
                 innerElementType="ul"
                 className="carousel-list"
