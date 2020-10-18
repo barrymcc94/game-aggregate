@@ -25,19 +25,17 @@ export class Header extends React.PureComponent {
         this.state = {
             menuActive: false,
         };
-        this.toggleMenu = this.toggleMenu.bind(this);
-        this.closeMenu = this.closeMenu.bind(this);
     }
 
-    toggleMenu() {
+    toggleMenu = () => {
         this.setState({menuActive: !this.state.menuActive});
-    }
+    };
 
-    closeMenu() {
+    closeMenu = () => {
         if (this.state.menuActive) {
             this.setState({menuActive: false});
         }
-    }
+    };
 
     throttleCloseMenu = throttle(() => {
         this.closeMenu();

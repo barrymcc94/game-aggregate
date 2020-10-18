@@ -15,6 +15,7 @@ export function* fetchAuthSaga({payload = {}}) {
         if (status !== 'success') {
             return yield put(fetchGBApiKeyFailed({error: true}));
         }
+        localStorage.setItem('gbkey', regToken);
         yield put(
             fetchGBApiKeySucceeded({
                 api_key: regToken,

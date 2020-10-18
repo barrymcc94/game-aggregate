@@ -5,7 +5,9 @@ import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import {IntlProvider} from 'react-intl';
 import {ThemeProvider} from 'styled-components';
 import {StylesProvider} from '@material-ui/core/styles';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {fetchGBApiKeySucceeded} from './redux/actions';
 import {
     CssBaseline,
     ThemeProvider as MuiThemeProvider,
@@ -29,13 +31,20 @@ smoothscroll.polyfill();
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 class App extends React.Component {
-    shouldComponentUpdate(nextProps) {
-        const {location, locale} = this.props;
-        const locationChange = !(
-            location.pathname == nextProps.location.pathname
-        );
-        const localeChange = !(locale == nextProps.locale);
-        return locationChange || localeChange;
+    constructor(props) {
+        super(props);
+        this.state = {
+            loadedStorage: false,
+        };
+    }
+
+    componentDidMount() {
+        const {fetchGBApiKeySucceeded} = this.props;
+        const gbKey = localStorage.getItem('gbkey');
+        if (gbKey) {
+            fetchGBApiKeySucceeded({api_key: gbKey});
+        }
+        this.setState({loadedStorage: true});
     }
 
     componentDidUpdate(prevProps) {
@@ -44,8 +53,23 @@ class App extends React.Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        const {location, locale} = this.props;
+        const {loadedStorage} = this.state;
+        const locationChange = !(
+            location.pathname == nextProps.location.pathname
+        );
+        const localeChange = !(locale == nextProps.locale);
+        const loadedChange = !(loadedStorage == nextState.loadedStorage);
+        return locationChange || localeChange || loadedChange;
+    }
+
     render() {
         const {locale} = this.props;
+        const {loadedStorage} = this.state;
+        if (!loadedStorage) {
+            return null;
+        }
         return (
             <IntlProvider locale={locale} messages={messages[locale]}>
                 <MuiThemeProvider theme={theme}>
@@ -115,11 +139,13 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        locale: state.locale.currentLocale,
-    };
-};
+const mapStateToProps = ({locale, auth}) => ({
+    locale: locale.currentLocale,
+    gbKey: auth.giantbomb.api_key,
+});
+
+const mapDispatchToProps = (dispatch) =>
+    bindActionCreators({fetchGBApiKeySucceeded}, dispatch);
 
 App.propTypes = {
     location: PropTypes.object,
@@ -127,4 +153,4 @@ App.propTypes = {
     setLocale: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(withRouter(App));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
