@@ -151,6 +151,7 @@ App.propTypes = {
     location: PropTypes.object,
     locale: PropTypes.string,
     setLocale: PropTypes.func,
+    fetchGBApiKeySucceeded: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

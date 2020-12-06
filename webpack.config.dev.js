@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: [path.join(__dirname, 'src/index.js')],
@@ -86,14 +87,15 @@ module.exports = {
         ],
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: 'styles.css',
-            chunkFilename: 'styles.css',
-        }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('development'),
             },
+        }),
+        new Dotenv(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+            chunkFilename: 'styles.css',
         }),
         new htmlPlugin({
             title: 'Game Aggregate',

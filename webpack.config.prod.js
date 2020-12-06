@@ -5,6 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const workboxPlugin = require('workbox-webpack-plugin');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: [path.join(__dirname, 'src/index.js')],
@@ -57,14 +58,15 @@ module.exports = {
         ],
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name]-[hash].css',
-            chunkFilename: '[id][hash].css',
-        }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('production'),
             },
+        }),
+        new Dotenv(),
+        new MiniCssExtractPlugin({
+            filename: '[name]-[hash].css',
+            chunkFilename: '[id][hash].css',
         }),
         new htmlPlugin({
             title: 'Game Aggregate',
