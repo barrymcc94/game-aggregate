@@ -23,7 +23,6 @@ describe('Franchise Sagas', () => {
 
     it('tests fetchFranchiseSaga when expecting success', async () => {
         const gen = fetchFranchiseSaga({payload: {}});
-        await gen.next(); // take CLEAR_GAMES_STATE
         expect(await gen.next().value.payload.pattern).toEqual(
             'CLEAR_GAMES_STATE'
         );
@@ -37,7 +36,6 @@ describe('Franchise Sagas', () => {
 
     it('tests fetchFranchiseSaga when expecting error', async () => {
         const gen = fetchFranchiseSaga({});
-        await gen.next(); // take CLEAR_GAMES_STATE
         expect(await gen.next().value.payload.pattern).toEqual(
             'CLEAR_GAMES_STATE'
         );
@@ -63,7 +61,6 @@ describe('Franchise Sagas', () => {
             })
         );
         const gen = fetchFranchiseSaga({payload: {}});
-        await gen.next(); // take CLEAR_GAMES_STATE
         expect(await gen.next().value.payload.pattern).toEqual(
             'CLEAR_GAMES_STATE'
         );

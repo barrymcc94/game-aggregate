@@ -31,8 +31,6 @@ describe('Company Sagas', () => {
             .fn()
             .mockReturnValue(new Date('2020-06-15T00:00:00.000Z'));
         const gen = fetchCompanySaga({payload: {}});
-        await gen.next().value;
-        await gen.next().value;
         const data = await gen.next().value;
         const gamesStartedAction1 = await gen.next(data).value.payload.action;
         expect(gamesStartedAction1.type).toBe(FETCH_GAMES_STARTED);
@@ -78,7 +76,6 @@ describe('Company Sagas', () => {
     it('tests fetchCompanySaga when expecting error', async () => {
         const gen = fetchCompanySaga({});
         await gen.next().value;
-        await gen.next().value;
         const {type, payload} = gen.throw(new Error()).value.payload.action;
         expect(type).toBe(FETCH_COMPANY_FAILED);
         expect(payload).toEqual({error: true});
@@ -100,8 +97,6 @@ describe('Company Sagas', () => {
             })
         );
         const gen = fetchCompanySaga({payload: {}});
-        await gen.next().value;
-        await gen.next().value;
         const data = await gen.next().value;
         const {type, payload} = await gen.next(data).value.payload.action;
         expect(type).toBe(FETCH_COMPANY_FAILED);

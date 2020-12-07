@@ -32,4 +32,7 @@ export const NextButton = styled(IconButton)`
 export const ListItem = styled.li`
     padding-right: 1rem;
     list-style: none;
+    &:last-child {
+        padding-right: 0rem;
+    }
 `;
