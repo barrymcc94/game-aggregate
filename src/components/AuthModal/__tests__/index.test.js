@@ -21,7 +21,7 @@ describe('<AuthModal/>', () => {
             />
         );
         expect(wrapper.text()).toEqual(
-            'AuthenticationAuth key required, you can get one at GiantbombEnter App CodeEnter App CodeSubmitCloseLogin'
+            'AuthenticationAuth key required, you can get one at GiantbombEnter App CodeEnter App CodeSubmitClose'
         );
         expect(wrapper.find(ProgressSpinner).length).toEqual(0);
     });

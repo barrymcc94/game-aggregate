@@ -2,10 +2,17 @@ import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import {getBreakPoint} from '../../utils';
 
-export const ModalButton = styled(Button)``;
+export const ModalButton = styled(IconButton)`
+    padding: 0.5rem;
+    svg {
+        width: 2rem;
+        height: 2rem;
+        fill: white;
+    }
+`;
 
 export const StyledModalContent = styled.div`
     background-color: ${({theme}) => theme.palette.background.default};

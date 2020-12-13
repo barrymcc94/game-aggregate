@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import {FormattedMessage, injectIntl} from 'react-intl';
@@ -113,8 +114,15 @@ export const AuthModal = ({
                 </form>
             </StyledModalContent>
         </Modal>
-        <ModalButton variant="contained" color="primary" onClick={toggleModal}>
-            <FormattedMessage id="header.authButton" defaultMessage="Login" />
+        <ModalButton
+            variant="contained"
+            color="primary"
+            onClick={toggleModal}
+            aria-label={formatMessage({
+                id: 'header.authButton',
+                defaultMessage: 'Login',
+            })}>
+            <AccountCircleIcon />
         </ModalButton>
     </>
 );
