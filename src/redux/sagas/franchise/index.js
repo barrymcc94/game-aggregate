@@ -10,14 +10,13 @@ import {
     fetchFranchiseFailed,
     fetchGamesStarted,
 } from '../../actions';
-import {FETCH_FRANCHISE_STARTED, CLEAR_GAMES_STATE} from '../../types';
+import {FETCH_FRANCHISE_STARTED} from '../../types';
 import config from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchFranchiseSaga({payload = {}}) {
     try {
         const {guid, queryObj} = payload;
-        yield take(CLEAR_GAMES_STATE);
         const queryStr = objToQueryStr(queryObj);
         const {results, error, status_code} = yield jsonFetch(
             `${gbApiUrl}/api/franchise/${guid}/${queryStr}`

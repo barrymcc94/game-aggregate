@@ -42,7 +42,6 @@ export const GamesPage = ({intl: {formatMessage}}) => (
                 id="games"
                 mediaType={GAMES}
                 containerType={SEARCH}
-                allowEmptySearchFilter={true}
                 disableScrollLoading={false}
             />
         </StyledMediaListSection>

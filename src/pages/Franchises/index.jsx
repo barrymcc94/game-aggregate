@@ -41,7 +41,6 @@ export const FranchisesPage = ({intl: {formatMessage}}) => (
             <MediaListContainer
                 mediaType={FRANCHISES}
                 containerType={SEARCH}
-                allowEmptySearchFilter={true}
                 disableScrollLoading={false}
             />
         </StyledMediaListSection>

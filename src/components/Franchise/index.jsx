@@ -36,7 +36,6 @@ export const Franchise = ({
                     id={`franchiseGames_${franchise.guid}`}
                     mediaType={GAMES}
                     containerType={FILTERED}
-                    allowEmptySearchFilter={true}
                     disableScrollLoading={false}
                     isLoading={isFetching}
                 />

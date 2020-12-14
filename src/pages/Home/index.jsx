@@ -28,7 +28,6 @@ export const HomePage = ({intl: {formatMessage}}) => (
                     id="home"
                     mediaType={GAMES}
                     containerType={ALL}
-                    allowEmptySearchFilter={true}
                     disableScrollLoading={true}
                     limit={12}
                     buttonType="link"
@@ -40,7 +39,6 @@ export const HomePage = ({intl: {formatMessage}}) => (
                     titleId="homePage.companiesHeading"
                     mediaType={COMPANIES}
                     containerType={ALL}
-                    allowEmptySearchFilter={true}
                     disableScrollLoading={true}
                     limit={12}
                     buttonType="link"

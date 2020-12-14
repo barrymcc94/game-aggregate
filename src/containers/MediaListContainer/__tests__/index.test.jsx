@@ -1,7 +1,7 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
 import debounce from 'lodash.debounce';
-import Container, {MediaListContainer, hasFiltersSearchTerm} from '../index';
+import Container, {MediaListContainer} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
 
@@ -12,17 +12,6 @@ jest.useFakeTimers();
 throttle.mockImplementation((fn) => fn);
 debounce.mockImplementation((fn) => fn);
 
-describe('<MediaListContainer/> functions', () => {
-    it('invokes hasFiltersSearchTerm as expected', () => {
-        const hasTerm1 = hasFiltersSearchTerm({filter: 'test:123,name:'});
-        const hasTerm2 = hasFiltersSearchTerm({filter: 'test:123,name:123'});
-        const hasTerm3 = hasFiltersSearchTerm({});
-        expect(hasTerm1).toEqual(false);
-        expect(hasTerm2).toEqual(true);
-        expect(hasTerm3).toEqual(false);
-    });
-});
-
 describe('<MediaListContainer/>', () => {
     const loadMore = jest.fn(() => {});
     const fetchItems = jest.fn(() => {});
@@ -30,7 +19,6 @@ describe('<MediaListContainer/>', () => {
 
     const defaultProps = {
         mediaType: 'games',
-        allowEmptySearchFilter: false,
         containerType: 'all',
         disableScrollLoading: false,
         items: [],
@@ -182,7 +170,7 @@ describe('<MediaListContainer/>', () => {
             ...defaultProps,
             containerType: 'filtered',
         });
-        expect(clearState).toBeCalledTimes(2);
+        expect(clearState).toBeCalledTimes(1);
     });
 
     it('tests mounting with search containerType', async () => {
@@ -194,7 +182,7 @@ describe('<MediaListContainer/>', () => {
                 }}
             />
         );
-        expect(fetchItems).toBeCalledTimes(0);
+        expect(fetchItems).toBeCalledTimes(1);
     });
 
     it('tests mounting with search & allowing to initially fetch', async () => {
@@ -202,7 +190,6 @@ describe('<MediaListContainer/>', () => {
             <MediaListContainer
                 {...{
                     ...defaultProps,
-                    allowEmptySearchFilter: true,
                     mediaType: null,
                     containerType: 'search',
                 }}
@@ -238,7 +225,7 @@ describe('<MediaListContainer/>', () => {
             },
         });
 
-        expect(fetchItems).toBeCalledTimes(1);
-        expect(clearState).toBeCalledTimes(2);
+        expect(fetchItems).toBeCalledTimes(2);
+        expect(clearState).toBeCalledTimes(1);
     });
 });

@@ -23,9 +23,6 @@ describe('Franchise Sagas', () => {
 
     it('tests fetchFranchiseSaga when expecting success', async () => {
         const gen = fetchFranchiseSaga({payload: {}});
-        expect(await gen.next().value.payload.pattern).toEqual(
-            'CLEAR_GAMES_STATE'
-        );
         const data = await gen.next().value; // results from api
         const {type, payload} = await gen.next(data).value.payload.action;
         expect(type).toBe(FETCH_FRANCHISE_SUCCEEDED);
@@ -36,9 +33,6 @@ describe('Franchise Sagas', () => {
 
     it('tests fetchFranchiseSaga when expecting error', async () => {
         const gen = fetchFranchiseSaga({});
-        expect(await gen.next().value.payload.pattern).toEqual(
-            'CLEAR_GAMES_STATE'
-        );
         await gen.next().value;
         const {type, payload} = gen.throw(new Error()).value.payload.action;
         expect(type).toBe(FETCH_FRANCHISE_FAILED);
@@ -61,9 +55,6 @@ describe('Franchise Sagas', () => {
             })
         );
         const gen = fetchFranchiseSaga({payload: {}});
-        expect(await gen.next().value.payload.pattern).toEqual(
-            'CLEAR_GAMES_STATE'
-        );
         const data = await gen.next().value;
         const {type, payload} = await gen.next(data).value.payload.action;
         expect(type).toBe(FETCH_FRANCHISE_FAILED);

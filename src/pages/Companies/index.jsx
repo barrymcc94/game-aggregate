@@ -41,7 +41,6 @@ export const HomePage = ({intl: {formatMessage}}) => (
             <MediaListContainer
                 mediaType={COMPANIES}
                 containerType={SEARCH}
-                allowEmptySearchFilter={true}
                 disableScrollLoading={false}
             />
         </StyledMediaListSection>
