@@ -38,7 +38,7 @@ export const MediaSearchContainer = ({
     const debounceOnChange = useCallback(
         debounce((payload) => {
             setSearchFilters(payload);
-        }, 2000),
+        }, 1000),
         []
     );
 

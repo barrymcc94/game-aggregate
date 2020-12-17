@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash.debounce';
 import MediaListItem from '../MediaListItem';
 import ErrorMessage from '../ErrorMessage';
-import {StyledGrid, StyledCarouselWrapper} from './styles';
+import {StyledGrid} from './styles';
 import LoadMoreButton from './LoadMoreButton';
 import ListHeading from './ListHeading';
 import MediaCarousel from '../MediaCarousel';
@@ -25,26 +24,6 @@ export const MediaList = React.forwardRef(
         },
         ref
     ) => {
-        const [width, setWidth] = useState(0);
-        const onResize = useCallback(
-            debounce(() => {
-                setWidth(ref?.current?.clientWidth || 0);
-            }, 250),
-            []
-        );
-
-        useEffect(() => {
-            if (isCarousel) {
-                onResize();
-                window.addEventListener('resize', onResize);
-            }
-            return () => {
-                if (isCarousel) {
-                    window.removeEventListener('resize', onResize);
-                }
-            };
-        }, []);
-
         return (
             <>
                 <ListHeading
@@ -53,23 +32,21 @@ export const MediaList = React.forwardRef(
                 />
                 {isCarousel ? (
                     !error && (total || isLoading) ? (
-                        <StyledCarouselWrapper ref={ref}>
-                            <MediaCarousel
-                                items={
-                                    isLoading && !items.length
-                                        ? itemsPlaceholder
-                                        : items
-                                }
-                                total={
-                                    isLoading && !items.length
-                                        ? itemsPlaceholder.length
-                                        : total
-                                }
-                                width={width}
-                                link={link}
-                                loadMore={loadMore}
-                            />
-                        </StyledCarouselWrapper>
+                        <MediaCarousel
+                            ref={ref}
+                            items={
+                                isLoading && !items.length
+                                    ? itemsPlaceholder
+                                    : items
+                            }
+                            total={
+                                isLoading && !items.length
+                                    ? itemsPlaceholder.length
+                                    : total
+                            }
+                            link={link}
+                            loadMore={loadMore}
+                        />
                     ) : null
                 ) : (
                     <StyledGrid
@@ -137,7 +114,6 @@ MediaList.propTypes = {
     titleId: PropTypes.string,
     link: PropTypes.string,
     isCarousel: PropTypes.bool,
-    width: PropTypes.number,
     items: PropTypes.array,
     total: PropTypes.number,
     isLoading: PropTypes.bool.isRequired,

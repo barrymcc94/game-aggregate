@@ -2,6 +2,22 @@ import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
 import {css} from 'styled-components';
 
+export const StyledCarouselWrapper = styled.div`
+    position: relative;
+    margin-bottom: 1rem;
+    width: 100%;
+    .carousel-list::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+        background: transparent;
+    }
+
+    .carousel-list {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+`;
+
 const buttonStyles = css`
     z-index: 5;
     position: absolute;

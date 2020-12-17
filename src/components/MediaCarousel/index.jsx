@@ -1,20 +1,14 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useCallback, useRef} from 'react';
 import throttle from 'lodash.throttle';
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
-import isMobile from 'is-mobile';
-import {injectIntl} from 'react-intl';
 import {FixedSizeList} from 'react-window';
 import MediaListItem from '../MediaListItem';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import {ListItem, PrevButton, NextButton} from './styles';
+import Arrows from './Arrows';
+import {StyledCarouselWrapper, ListItem} from './styles';
 
 const colWidth = 300;
 const colHeight = 350;
-
-export const getBtnStyle = (show) =>
-    !show ? {display: 'none', visibility: 'hidden'} : {};
 
 export const calculatePrevPos = (currentPos, moveSpacing) => {
     const prevPos = currentPos - moveSpacing;
@@ -36,98 +30,99 @@ const Column = ({index, style, data: {items, link}}) => (
     </ListItem>
 );
 
-const Carousel = ({
-    items,
-    total,
-    width,
-    link,
-    loadMore,
-    intl: {formatMessage},
-}) => {
-    const outerRef = useRef();
+const MediaCarousel = React.forwardRef(
+    ({items, total, link, loadMore}, ref) => {
+        const outerRef = useRef();
 
-    const [currentPos, setCurrentPos] = useState(0);
-    const moveSpacing = (Math.floor(width / colWidth) || 1) * colWidth;
+        const [width, setWidth] = useState(0);
+        const [currentPos, setCurrentPos] = useState(0);
+        const moveSpacing = (Math.floor(width / colWidth) || 1) * colWidth;
 
-    const handleScrollLoad = throttle(() => {
-        loadMore();
-    }, 1000);
-
-    const handleScrollPos = debounce(() => {
-        setCurrentPos(
-            Math.ceil(outerRef?.current?.scrollLeft / moveSpacing) * moveSpacing
+        const handleScrollLoad = useCallback(
+            throttle(() => {
+                loadMore();
+            }, 1000),
+            []
         );
-    }, 250);
 
-    useEffect(() => {
-        outerRef?.current?.addEventListener('scroll', handleScrollLoad);
-        outerRef?.current?.addEventListener('scroll', handleScrollPos);
-        return () => {
-            outerRef?.current?.removeEventListener('scroll', handleScrollLoad);
-            outerRef?.current?.removeEventListener('scroll', handleScrollPos);
+        const handleScrollPos = useCallback(
+            debounce(() => {
+                setCurrentPos(
+                    Math.ceil(outerRef?.current?.scrollLeft / moveSpacing) *
+                        moveSpacing
+                );
+            }, 250),
+            []
+        );
+
+        const onResize = useCallback(
+            debounce(() => {
+                setWidth(ref?.current?.clientWidth || 0);
+            }, 250),
+            []
+        );
+
+        useEffect(() => {
+            onResize();
+            window.addEventListener('resize', onResize);
+            outerRef?.current?.addEventListener('scroll', handleScrollLoad);
+            outerRef?.current?.addEventListener('scroll', handleScrollPos);
+            return () => {
+                window.removeEventListener('resize', onResize);
+                outerRef?.current?.removeEventListener(
+                    'scroll',
+                    handleScrollLoad
+                );
+                outerRef?.current?.removeEventListener(
+                    'scroll',
+                    handleScrollPos
+                );
+            };
+        }, []);
+
+        const moveCarousel = (newPos) => {
+            if (currentPos == newPos) {
+                return;
+            }
+            outerRef?.current?.scrollTo({
+                left: newPos,
+                behavior: 'smooth',
+            });
         };
-    }, []);
 
-    const moveCarousel = (newPos) => {
-        if (currentPos == newPos) {
-            return;
-        }
-        outerRef?.current?.scrollTo({
-            left: newPos,
-            behavior: 'smooth',
-        });
-    };
+        const handlePrev = () => {
+            moveCarousel(calculatePrevPos(currentPos, moveSpacing));
+        };
 
-    const handlePrev = () => {
-        moveCarousel(calculatePrevPos(currentPos, moveSpacing));
-    };
+        const handleNext = () => {
+            moveCarousel(calculateNextPos(currentPos, moveSpacing, total));
+        };
 
-    const handleNext = () => {
-        moveCarousel(calculateNextPos(currentPos, moveSpacing, total));
-    };
-
-    return (
-        <>
-            {!isMobile({featureDetect: true, tablet: true}) && (
-                <>
-                    <PrevButton
-                        style={getBtnStyle(currentPos != 0)}
-                        aria-label={formatMessage({
-                            id: 'carousel.prevAria',
-                            defaultMessage: 'Previous',
-                        })}
-                        onClick={handlePrev}>
-                        <NavigateBeforeIcon />
-                    </PrevButton>
-                    <NextButton
-                        style={getBtnStyle(
-                            currentPos + moveSpacing < total * colWidth
-                        )}
-                        aria-label={formatMessage({
-                            id: 'carousel.nextAria',
-                            defaultMessage: 'Next',
-                        })}
-                        onClick={handleNext}>
-                        <NavigateNextIcon />
-                    </NextButton>
-                </>
-            )}
-            <FixedSizeList
-                innerElementType="ul"
-                className="carousel-list"
-                outerRef={outerRef}
-                overscanCount={5}
-                height={colHeight}
-                itemCount={total}
-                itemSize={colWidth}
-                layout="horizontal"
-                width={width}
-                itemData={{items, link, loadMore}}>
-                {Column}
-            </FixedSizeList>
-        </>
-    );
-};
+        return (
+            <StyledCarouselWrapper ref={ref}>
+                <Arrows
+                    showPrev={currentPos != 0}
+                    showNext={currentPos + moveSpacing < total * colWidth}
+                    onPrevClick={handlePrev}
+                    onNextClick={handleNext}
+                />
+                <FixedSizeList
+                    innerElementType="ul"
+                    className="carousel-list"
+                    outerRef={outerRef}
+                    overscanCount={5}
+                    height={colHeight}
+                    itemCount={total}
+                    itemSize={colWidth}
+                    layout="horizontal"
+                    width={width}
+                    itemData={{items, link, loadMore}}>
+                    {Column}
+                </FixedSizeList>
+            </StyledCarouselWrapper>
+        );
+    }
+);
 
 Column.propTypes = {
     index: PropTypes.number,
@@ -135,13 +130,12 @@ Column.propTypes = {
     data: PropTypes.object,
 };
 
-Carousel.propTypes = {
-    intl: PropTypes.object,
+MediaCarousel.propTypes = {
     items: PropTypes.array,
     total: PropTypes.number,
-    width: PropTypes.number,
     link: PropTypes.string,
     loadMore: PropTypes.func,
 };
 
-export default injectIntl(Carousel);
+MediaCarousel.displayName = 'MediaCarousel';
+export default MediaCarousel;

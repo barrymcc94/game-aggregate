@@ -1,6 +1,6 @@
 import React from 'react';
 import {MediaList} from '../index';
-import {StyledCarouselWrapper} from '../styles';
+import {StyledCarouselWrapper} from '../../MediaCarousel/styles';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {StyledButton} from '../LoadMoreButton/styles';
 import {StyledSkeletonLoader} from '../../SkeletonLoader/styles';
@@ -58,7 +58,6 @@ describe('<MediaList/>', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
                 isCarousel={true}
-                width={1000}
                 titleId="test"
                 isLoading={false}
                 error={false}
