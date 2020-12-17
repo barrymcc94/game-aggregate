@@ -1,5 +1,5 @@
 import React from 'react';
-import MediaSearchContainer from '../index';
+import MediaSearchContainer, {mapDispatchToProps} from '../index';
 import debounce from 'lodash.debounce';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
@@ -80,16 +80,18 @@ describe('<MediaSearchContainer/>', () => {
             'SET_FRANCHISES_SEARCH_FILTERS'
         );
     });
+});
 
-    it('tests MediaSearchContainer with invalid searchType prop', () => {
-        const store = mockStore({games: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(
-            <MediaSearchContainer {...{...defaultProps, mediaType: 'what?'}} />,
-            store
-        );
-        wrapper
-            .find('input')
-            .simulate('change', {target: {value: 'test input'}});
-        expect(store.getActions().length).toEqual(0);
+describe('<MediaSearchContainer/> funcs', () => {
+    it('tests mapDispatchToProps', () => {
+        const dispatch = jest.fn();
+        const props1 = mapDispatchToProps(dispatch, {mediaType: 'test'});
+        expect(props1).toEqual({});
+        const props2 = mapDispatchToProps(dispatch, {mediaType: 'games'});
+        expect(props2.setSearchFilters).toBeTruthy();
+        const props3 = mapDispatchToProps(dispatch, {mediaType: 'companies'});
+        expect(props3.setSearchFilters).toBeTruthy();
+        const props4 = mapDispatchToProps(dispatch, {mediaType: 'franchises'});
+        expect(props4.setSearchFilters).toBeTruthy();
     });
 });

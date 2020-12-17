@@ -1,7 +1,11 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
 import debounce from 'lodash.debounce';
-import Container, {MediaListContainer} from '../index';
+import Container, {
+    MediaListContainer,
+    mapStateToProps,
+    mapDispatchToProps,
+} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
 
@@ -98,15 +102,6 @@ describe('<MediaListContainer/>', () => {
         expect(store.getActions()[0].type).toEqual('CLEAR_GAMES_STATE');
         expect(store.getActions()[1].type).toEqual('FETCH_GAMES_STARTED');
         wrapper.unmount();
-    });
-
-    it('tests redux connection when mediatype is invalid', () => {
-        const store = mockStore({games: defaultStoreProps});
-        mountWithBaseWrapper(
-            <Container {...{...defaultProps, mediaType: ''}} />,
-            store
-        );
-        expect(store.getActions().length).toEqual(0);
     });
 
     it('tests scrolling loads more when over 80% down page', () => {
@@ -227,5 +222,82 @@ describe('<MediaListContainer/>', () => {
 
         expect(fetchItems).toBeCalledTimes(2);
         expect(clearState).toBeCalledTimes(1);
+    });
+});
+
+describe('<MediaListContainer/> funcs', () => {
+    it('tests mapDispatchToProps', () => {
+        const dispatch = jest.fn();
+        const props1 = mapDispatchToProps(dispatch, {mediaType: 'test'});
+        expect(props1).toEqual({});
+        const props2 = mapDispatchToProps(dispatch, {mediaType: 'games'});
+        expect(props2.clearState).toBeTruthy();
+        expect(props2.fetchItems).toBeTruthy();
+        const props3 = mapDispatchToProps(dispatch, {mediaType: 'companies'});
+        expect(props3.clearState).toBeTruthy();
+        expect(props3.fetchItems).toBeTruthy();
+        const props4 = mapDispatchToProps(dispatch, {mediaType: 'franchises'});
+        expect(props4.clearState).toBeTruthy();
+        expect(props4.fetchItems).toBeTruthy();
+    });
+
+    it('tests mapStateToProps', () => {
+        const props1 = mapStateToProps({}, {mediaType: 'test', id: 'test'});
+        expect(props1).toEqual({
+            error: false,
+            isFetching: false,
+            meta: {
+                filters: {},
+            },
+        });
+
+        const props2 = mapStateToProps(
+            {games: {test: {isFetching: false, error: false, meta: {}}}},
+            {mediaType: 'games', id: 'test'}
+        );
+        expect(props2).toEqual({
+            error: false,
+            isFetching: false,
+            items: [],
+            meta: {},
+        });
+
+        const props3 = mapStateToProps(
+            {
+                companies: {
+                    byId: {},
+                    ids: [],
+                    isFetching: false,
+                    error: false,
+                    meta: {},
+                },
+            },
+            {mediaType: 'companies'}
+        );
+        expect(props3).toEqual({
+            error: false,
+            isFetching: false,
+            items: [],
+            meta: {},
+        });
+
+        const props4 = mapStateToProps(
+            {
+                franchises: {
+                    byId: {},
+                    ids: [],
+                    isFetching: false,
+                    error: false,
+                    meta: {},
+                },
+            },
+            {mediaType: 'franchises'}
+        );
+        expect(props4).toEqual({
+            error: false,
+            isFetching: false,
+            items: [],
+            meta: {},
+        });
     });
 });

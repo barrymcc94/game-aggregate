@@ -6,7 +6,13 @@ describe('<SearchBar/>', () => {
     it('run a snapshot test', () => {
         expect(
             mountWithBaseWrapper(
-                <SearchBar searchLabel="search" value="" onChange={() => {}} />
+                <SearchBar
+                    id="test"
+                    label="test"
+                    searchLabel="search"
+                    value=""
+                    onChange={() => {}}
+                />
             )
         ).toMatchSnapshot();
     });

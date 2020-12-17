@@ -114,7 +114,7 @@ export class MediaListContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state, {mediaType, id}) => {
+export const mapStateToProps = (state, {mediaType, id}) => {
     const defaultProps = {
         isFetching: false,
         error: false,
@@ -138,7 +138,7 @@ const mapStateToProps = (state, {mediaType, id}) => {
     };
 };
 
-const mapDispatchToProps = (dispatch, {mediaType}) => {
+export const mapDispatchToProps = (dispatch, {mediaType}) => {
     let actions = {};
     if (mediaType == GAMES) {
         actions = {

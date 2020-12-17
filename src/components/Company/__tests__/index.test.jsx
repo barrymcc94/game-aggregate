@@ -40,7 +40,7 @@ describe('<Company/>', () => {
                     guid: '123-123',
                     name: 'name',
                     deck: 'deck',
-                    date_founded: 'date',
+                    date_founded: '2000-01-01T12:00:00.000Z',
                     image: {
                         screen_url: 'test',
                     },

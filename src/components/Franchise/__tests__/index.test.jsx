@@ -40,7 +40,7 @@ describe('<Franchise/>', () => {
                     guid: '123-123',
                     name: 'name',
                     deck: 'deck',
-                    original_release_date: 'date',
+                    original_release_date: '2000-01-01T12:00:00.000Z',
                     image: {
                         screen_url: 'test',
                     },

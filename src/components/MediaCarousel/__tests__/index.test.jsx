@@ -26,10 +26,16 @@ describe('<MediaCarousel/> functions', () => {
 });
 
 describe('<MediaCarousel/>', () => {
+    const items = [
+        {image: {screen_url: 'test'}},
+        {image: {screen_url: 'test'}},
+        {image: {screen_url: 'test'}},
+        {image: {screen_url: 'test'}},
+    ];
     it('tests carousel renders', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaCarousel
-                items={[{}, {}, {}, {}]}
+                items={items}
                 total={5}
                 link={'/'}
                 loadMore={jest.fn()}
@@ -42,7 +48,7 @@ describe('<MediaCarousel/>', () => {
     it('tests prev and next buttons work as expected', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaCarousel
-                items={[{}, {}, {}, {}]}
+                items={items}
                 total={5}
                 link={'/'}
                 loadMore={jest.fn()}
@@ -57,7 +63,7 @@ describe('<MediaCarousel/>', () => {
         const loadMore = jest.fn();
         const wrapper = mountWithBaseWrapper(
             <MediaCarousel
-                items={[{}, {}, {}, {}]}
+                items={items}
                 total={5}
                 error={false}
                 link={'/'}

@@ -50,7 +50,7 @@ export const MediaContainer = ({
     const isLoaded = isItemLoaded(mediaType, item);
     const loading = isFetching || !isLoaded;
     useEffect(() => {
-        if (isLoaded) {
+        if (isLoaded || !guid) {
             return;
         }
         fetchItem({guid});
@@ -68,7 +68,7 @@ export const MediaContainer = ({
     return null;
 };
 
-const mapStateToProps = (state, {mediaType, guid}) => {
+export const mapStateToProps = (state, {mediaType, guid}) => {
     const {isFetching, error} = state[mediaTypeKeys[mediaType]] || {};
     let mediaState = {};
     if (mediaType == GAMES) {
@@ -91,7 +91,7 @@ const mapStateToProps = (state, {mediaType, guid}) => {
     };
 };
 
-const mapDispatchToProps = (dispatch, {mediaType}) => {
+export const mapDispatchToProps = (dispatch, {mediaType}) => {
     let actions = {};
     if (mediaType == GAMES) {
         actions = {...actions, fetchItem: fetchGame};
@@ -104,7 +104,7 @@ const mapDispatchToProps = (dispatch, {mediaType}) => {
 };
 
 MediaContainer.propTypes = {
-    mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES]),
+    mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES, null]),
     guid: PropTypes.string,
     item: PropTypes.oneOfType([GameT, CompanyT, FranchiseT]),
     fetchItem: PropTypes.func,
