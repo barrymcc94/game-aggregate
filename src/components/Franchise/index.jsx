@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentTitle from 'react-document-title';
 import {injectIntl} from 'react-intl';
 import {Franchise as FranchiseT} from '../../types';
 import {ENUMS} from '../../config';
+import DocumentTitle from '../DocumentTitle';
 import ErrorMessage from '../ErrorMessage';
 import MediaHeader from '../MediaHeader';
 import MediaListContainer from '../../containers/MediaListContainer';
@@ -29,17 +29,15 @@ export const Franchise = ({
                     defaultMessage: 'Franchise',
                 })
             }>
-            <>
-                <MediaHeader item={franchise} isLoading={isFetching} />
-                <MediaListContainer
-                    titleId="franchise.gamesHeading"
-                    id={`franchiseGames_${franchise.guid}`}
-                    mediaType={GAMES}
-                    containerType={FILTERED}
-                    disableScrollLoading={false}
-                    isLoading={isFetching}
-                />
-            </>
+            <MediaHeader item={franchise} isLoading={isFetching} />
+            <MediaListContainer
+                titleId="franchise.gamesHeading"
+                id={`franchiseGames_${franchise.guid}`}
+                mediaType={GAMES}
+                containerType={FILTERED}
+                disableScrollLoading={false}
+                isLoading={isFetching}
+            />
         </DocumentTitle>
     );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentTitle from 'react-document-title';
 import {injectIntl} from 'react-intl';
 import {Game as GameT} from '../../types';
+import DocumentTitle from '../DocumentTitle';
 import ErrorMessage from '../ErrorMessage';
 import MediaHeader from '../MediaHeader';
 import GameDetails from '../GameDetails';
@@ -18,11 +18,9 @@ export const Game = ({game = {}, isFetching, error, intl: {formatMessage}}) => {
                 game.name ||
                 formatMessage({id: 'gamePage.title', defaultMessage: 'Game'})
             }>
-            <>
-                <MediaHeader item={game} isLoading={isFetching} />
-                <GameDetails game={game} isLoading={isFetching} />
-                <GameFooter isLoading={isFetching} />
-            </>
+            <MediaHeader item={game} isLoading={isFetching} />
+            <GameDetails game={game} isLoading={isFetching} />
+            <GameFooter isLoading={isFetching} />
         </DocumentTitle>
     );
 };

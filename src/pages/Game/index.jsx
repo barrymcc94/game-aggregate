@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentTitle from 'react-document-title';
 import {injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
-import {StyledGameArticle} from './styles';
+import DocumentTitle from '../../components/DocumentTitle';
 import MediaContainer from '../../containers/MediaContainer';
+import {StyledGameArticle} from './styles';
 
 const {GAMES} = ENUMS.MEDIA_TYPE;
 

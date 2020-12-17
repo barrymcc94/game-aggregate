@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentTitle from 'react-document-title';
 import {injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
-import {StyledFranchiseArticle} from './styles';
+import DocumentTitle from '../../components/DocumentTitle';
 import MediaContainer from '../../containers/MediaContainer';
+import {StyledFranchiseArticle} from './styles';
 
 const {FRANCHISES} = ENUMS.MEDIA_TYPE;
 

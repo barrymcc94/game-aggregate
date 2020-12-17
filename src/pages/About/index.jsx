@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentTitle from 'react-document-title';
 import {FormattedMessage, injectIntl} from 'react-intl';
+import DocumentTitle from '../../components/DocumentTitle';
 
 export const AboutPage = ({intl: {formatMessage}}) => (
     <DocumentTitle

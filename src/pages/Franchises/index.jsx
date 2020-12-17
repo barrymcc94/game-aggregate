@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentTitle from 'react-document-title';
 import Typography from '@material-ui/core/Typography';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
+import DocumentTitle from '../../components/DocumentTitle';
 import MediaListContainer from '../../containers/MediaListContainer';
 import MediaSearchContainer from '../../containers/MediaSearchContainer';
 import {StyledMediaListSection} from './styles';

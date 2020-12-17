@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentTitle from 'react-document-title';
 import Typography from '@material-ui/core/Typography';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
-import {StyledMediaListSection} from './styles';
+import DocumentTitle from '../../components/DocumentTitle';
 import MediaSearchContainer from '../../containers/MediaSearchContainer';
 import MediaListContainer from '../../containers/MediaListContainer';
+import {StyledMediaListSection} from './styles';
 
 const {COMPANIES} = ENUMS.MEDIA_TYPE;
 const {SEARCH} = ENUMS.CONTAINER_TYPE;

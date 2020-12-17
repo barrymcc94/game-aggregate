@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router-dom';
-import {ErrorSection, ErrorHeader, ErrorText} from './styles';
 import {FormattedMessage, injectIntl} from 'react-intl';
+import DocumentTitle from '../../components/DocumentTitle';
+import {ErrorSection, ErrorHeader, ErrorText} from './styles';
 
 export const ErrorPage = ({intl: {formatMessage}}) => (
     <DocumentTitle
