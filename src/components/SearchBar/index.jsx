@@ -4,6 +4,7 @@ import {StyledTextField} from './styles';
 
 const SearchBar = ({id, label, value, onChange}) => (
     <StyledTextField
+        type="search"
         variant="outlined"
         id={id}
         label={label}
