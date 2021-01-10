@@ -61,4 +61,6 @@ export default {
     'authModal.appCodeLabel': 'Enter App Code',
     'carousel.prevAria': 'Previous',
     'carousel.nextAria': 'Next',
+    'ariaLoader.loading': 'Loading',
+    'ariaLoader.loaded': 'Loading Complete',
 };

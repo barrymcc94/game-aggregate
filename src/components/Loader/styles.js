@@ -8,3 +8,11 @@ export const StyledLoaderContainer = styled.div`
 `;
 
 export const StyledLoader = styled(CircularProgress)``;
+
+export const StyledAriaLoader = styled.div`
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+`;

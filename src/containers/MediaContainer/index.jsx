@@ -17,6 +17,7 @@ import {
 import Game from '../../components/Game';
 import Company from '../../components/Company';
 import Franchise from '../../components/Franchise';
+import {AriaLoader} from '../../components/Loader';
 
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 const mediaTypeKeys = {
@@ -56,16 +57,24 @@ export const MediaContainer = ({
         fetchItem({guid});
     }, []);
 
+    let mediaComp = null;
     if (mediaType == GAMES) {
-        return <Game game={item} isFetching={loading} error={error} />;
+        mediaComp = <Game game={item} isFetching={loading} error={error} />;
     } else if (mediaType == COMPANIES) {
-        return <Company company={item} isFetching={loading} error={error} />;
+        mediaComp = (
+            <Company company={item} isFetching={loading} error={error} />
+        );
     } else if (mediaType == FRANCHISES) {
-        return (
+        mediaComp = (
             <Franchise franchise={item} isFetching={loading} error={error} />
         );
     }
-    return null;
+    return (
+        <>
+            <AriaLoader isLoading={loading} />
+            {mediaComp}
+        </>
+    );
 };
 
 export const mapStateToProps = (state, {mediaType, guid}) => {

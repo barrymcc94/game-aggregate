@@ -6,6 +6,7 @@ import {StyledGrid} from './styles';
 import LoadMoreButton from './LoadMoreButton';
 import ListHeading from './ListHeading';
 import MediaCarousel from '../MediaCarousel';
+import {AriaLoader} from '../Loader';
 
 const itemsPlaceholder = new Array(12).fill(0);
 export const MediaList = React.forwardRef(
@@ -26,6 +27,7 @@ export const MediaList = React.forwardRef(
     ) => {
         return (
             <>
+                <AriaLoader isLoading={isLoading} />
                 <ListHeading
                     titleId={titleId}
                     isLoading={isLoading && !items.length}

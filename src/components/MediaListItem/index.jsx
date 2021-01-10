@@ -45,7 +45,11 @@ export const MediaListItem = ({
         ) : (
             <StyledCardActionArea component={Link} to={`${link}${guid}`}>
                 <StyledCardMediaContainer>
-                    <StyledCardMedia title={name} image={image?.screen_url} />
+                    <StyledCardMedia
+                        aria-hidden={true}
+                        title={name}
+                        image={image?.screen_url}
+                    />
                 </StyledCardMediaContainer>
                 <StyledCardContent>
                     <StyledCardHeading variant="h5" component="h2" gutterBottom>
