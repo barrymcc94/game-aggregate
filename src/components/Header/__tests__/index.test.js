@@ -1,7 +1,7 @@
 import React from 'react';
+import {act} from 'react-dom/test-utils';
 import {Header} from '../index';
-import {StyledNav, MenuIcon} from '../styles';
-import {shallow} from 'enzyme';
+import {CloseIcon, MenuIcon, StyledIconButton} from '../styles';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 /*eslint-disable */
 jest.mock('@material-ui/core/Zoom', () => ({children}) => (
@@ -17,31 +17,18 @@ describe('<Header/>', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('renders correctly', () => {
+    it('opens and closes side menu through open & close button click', () => {
         const wrapper = mountWithBaseWrapper(
             <Header intl={{formatMessage: jest.fn()}} />
         );
-        wrapper.setState({menuActive: true});
-    });
-
-    it('simulates toggleMenu call through hamburger click', () => {
-        const wrapper = mountWithBaseWrapper(
-            <Header intl={{formatMessage: jest.fn()}} />
-        );
-        global.innerWidth = 400;
-        global.dispatchEvent(new Event('resize'));
-        expect(wrapper.state('menuActive')).toEqual(false);
-        wrapper.find(MenuIcon).simulate('click');
-        expect(wrapper.state('menuActive')).toEqual(true);
-        wrapper.unmount();
-    });
-
-    it('simulates closeMenu call through link click', () => {
-        const wrapper = shallow(<Header intl={{formatMessage: jest.fn()}} />);
-        wrapper.setState({menuActive: true});
-        expect(wrapper.state('menuActive')).toEqual(true);
-        wrapper.find(StyledNav).simulate('click');
-        wrapper.find(StyledNav).simulate('click');
-        expect(wrapper.state('menuActive')).toEqual(false);
+        expect(wrapper.find(StyledIconButton).length).toEqual(1);
+        act(() => {
+            wrapper.find(MenuIcon).at(0).simulate('click');
+        });
+        wrapper.update();
+        expect(wrapper.find(StyledIconButton).length).toEqual(2);
+        act(() => {
+            wrapper.find(CloseIcon).at(0).simulate('click');
+        });
     });
 });
