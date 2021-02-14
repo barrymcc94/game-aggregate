@@ -1,7 +1,5 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const workboxPlugin = require('workbox-webpack-plugin');
 const webpack = require('webpack');
@@ -12,8 +10,8 @@ module.exports = {
     mode: 'production',
     output: {
         path: path.join(__dirname, 'build'),
-        filename: '[id][hash].js',
-        chunkFilename: '[id][hash].js',
+        filename: '[id][contenthash].js',
+        chunkFilename: '[id][contenthash].js',
         publicPath: '/',
     },
     resolve: {
@@ -46,14 +44,7 @@ module.exports = {
             },
             {
                 test: /\.(pdf|jpg|png|svg|ico|gif|woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]',
-                        outputPath: 'static/',
-                        limit: 100000,
-                    },
-                },
+                type: 'asset/resource',
             },
         ],
     },
@@ -65,8 +56,8 @@ module.exports = {
         }),
         new Dotenv(),
         new MiniCssExtractPlugin({
-            filename: '[name]-[hash].css',
-            chunkFilename: '[id][hash].css',
+            filename: '[name]-[contenthash].css',
+            chunkFilename: '[id][contenthash].css',
         }),
         new htmlPlugin({
             title: 'Game Aggregate',
@@ -90,12 +81,6 @@ module.exports = {
     ],
     optimization: {
         minimize: true,
-        minimizer: [
-            new TerserPlugin({
-                test: /\.js(\?.*)?$/i,
-            }),
-            new OptimizeCSSAssetsPlugin({}),
-        ],
     },
     target: 'web',
 };

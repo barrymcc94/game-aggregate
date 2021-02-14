@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Link from '@material-ui/core/Link';
-import {FormattedMessage, FormattedHTMLMessage, injectIntl} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 import {Game, Company} from '../../types';
 import SkeletonLoader from '../SkeletonLoader';
 import {
@@ -90,7 +90,7 @@ export const MediaHeader = ({item, isLoading, intl}) => {
                 {aliasesContent && (
                     <DescriptionList variant="body1" component="dl">
                         <DescriptionLabel>
-                            <FormattedHTMLMessage
+                            <FormattedMessage
                                 id="mediaHeader.aliases"
                                 defaultMessage={`Also Known as: `}
                             />

@@ -1,6 +1,5 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
@@ -74,15 +73,7 @@ module.exports = {
             },
             {
                 test: /\.(pdf|jpg|png|svg|ico|gif|woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]',
-                        outputPath: 'static',
-                        publicPath: 'static',
-                        limit: 100000,
-                    },
-                },
+                type: 'asset/resource',
             },
         ],
     },
@@ -116,11 +107,6 @@ module.exports = {
     ],
     optimization: {
         minimize: false,
-        minimizer: [
-            new TerserPlugin({
-                sourceMap: true,
-            }),
-        ],
     },
     target: 'web',
 };

@@ -28,6 +28,9 @@
         "no-case-declarations": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "off",
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "no-dupe-else-if": "off",
+        "no-import-assign": "off",
+        "no-setter-return": "off"
     }
 }
