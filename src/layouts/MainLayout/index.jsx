@@ -15,7 +15,7 @@ class MainLayout extends React.Component {
             <React.Fragment>
                 <Header />
                 <StyledLayout>
-                    <StyledContainer maxWidth="lg">
+                    <StyledContainer maxWidth="xl">
                         <StyledMain>{this.props.children}</StyledMain>
                     </StyledContainer>
                 </StyledLayout>

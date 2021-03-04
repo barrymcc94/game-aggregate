@@ -34,7 +34,7 @@ export const Header = ({intl: {formatMessage}}) => {
     return (
         <StyledHeader>
             <StyledDrawer anchor={'left'} open={menuActive} onClose={closeMenu}>
-                <StyledDrawerHeaderContainer maxWidth="lg">
+                <StyledDrawerHeaderContainer>
                     <Zoom in={menuActive}>
                         <StyledIconButton
                             aria-label={formatMessage({
@@ -82,7 +82,7 @@ export const Header = ({intl: {formatMessage}}) => {
                     </NavLinkListItem>
                 </NavLinkList>
             </StyledDrawer>
-            <StyledContainer maxWidth="lg">
+            <StyledContainer>
                 <StyledNav>
                     <Zoom in={!menuActive}>
                         <StyledIconButton

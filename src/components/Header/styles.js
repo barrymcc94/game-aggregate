@@ -35,6 +35,7 @@ export const CloseIcon = styled(Close)`
 export const StyledContainer = styled(Container)`
     height: ${({theme}) => theme.headerHeight};
     position: relative;
+    max-width: 100%;
 `;
 
 export const StyledNav = styled.nav`
@@ -98,4 +99,5 @@ export const StyledDrawerHeaderContainer = styled(Container)`
     height: ${({theme}) => theme.headerHeight};
     position: relative;
     display: flex;
+    max-width: 100%;
 `;

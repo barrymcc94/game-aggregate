@@ -13,6 +13,7 @@ export const StyledFooter = styled.footer`
 
 export const StyledFooterItems = styled(Container)`
     margin: auto;
+    max-width: 100%;
 `;
 
 export const StyledFooterItem = styled.div`
