@@ -15,6 +15,8 @@ export const ENUMS = {
     },
 };
 
+export const dateFormat = 'DD-MM-YYYY';
+
 export const defaultLimit = 100;
 
 export const defaultGbApiDefaults = {

@@ -14,6 +14,7 @@ import {
     StyledCardBody,
     StyledCardFooter,
 } from './styles';
+import {dateFormat} from '../../config';
 
 export const MediaListItem = ({
     link,
@@ -62,7 +63,7 @@ export const MediaListItem = ({
                         {(original_release_date || date_founded) &&
                             moment(
                                 original_release_date || date_founded
-                            ).format('YYYY-M-D')}
+                            ).format(dateFormat)}
                     </StyledCardFooter>
                 </StyledCardContent>
             </StyledCardActionArea>
