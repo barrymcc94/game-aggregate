@@ -1,5 +1,5 @@
 import React from 'react';
-import {Game, isEqual} from '../index';
+import {Game} from '../index';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
 import {StyledErrorMessage} from '../../ErrorMessage/styles';
 import {StyledMediaHeader} from '../../MediaHeader/styles';
@@ -51,20 +51,5 @@ describe('<Game/>', () => {
         expect(wrapper.exists(StyledErrorMessage)).toBe(false);
         expect(wrapper.exists(StyledMediaHeader)).toBe(true);
         expect(wrapper).toMatchSnapshot();
-    });
-
-    it('tests isEqual function', () => {
-        expect(
-            isEqual(
-                {isFetching: true, game: {guid: '1'}},
-                {isFetching: true, game: {guid: '1'}}
-            )
-        ).toEqual(true);
-        expect(
-            isEqual(
-                {isFetching: true, game: {guid: '1'}},
-                {isFetching: false, game: {guid: '1'}}
-            )
-        ).toEqual(false);
     });
 });

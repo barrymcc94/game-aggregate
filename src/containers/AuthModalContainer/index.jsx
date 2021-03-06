@@ -14,6 +14,7 @@ export const AuthModalContainer = ({
     fetchGBApiKey,
     history,
 }) => {
+    const [alreadyAuthenticated] = useState(!!api_key);
     const [modalOpen, setModalOpen] = useState(!api_key);
     const [appCode, setAppCode] = useState('');
     const [showErrs, setShowErrs] = useState(false);
@@ -28,7 +29,7 @@ export const AuthModalContainer = ({
 
     const toggleModal = () => {
         setModalOpen(!modalOpen);
-        if (modalOpen) {
+        if (modalOpen && !alreadyAuthenticated) {
             history.push('/empty');
             history.goBack();
         }
