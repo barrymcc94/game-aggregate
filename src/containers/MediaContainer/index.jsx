@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {injectIntl} from 'react-intl';
 import {fetchGame, fetchCompany, fetchFranchise} from '../../redux/actions';
 import {ENUMS} from '../../config';
 import {
@@ -47,6 +48,7 @@ export const MediaContainer = ({
     isFetching,
     error,
     fetchItem,
+    intl: {formatMessage},
 }) => {
     const isLoaded = isItemLoaded(mediaType, item);
     const loading = isFetching || !isLoaded;
@@ -71,7 +73,11 @@ export const MediaContainer = ({
     }
     return (
         <>
-            <AriaLoader isLoading={loading} />
+            <AriaLoader
+                isLoading={loading}
+                loadingMessage={formatMessage({id: 'ariaLoader.loading'})}
+                loadedMessage={formatMessage({id: 'ariaLoader.loaded'})}
+            />
             {mediaComp}
         </>
     );
@@ -119,6 +125,9 @@ MediaContainer.propTypes = {
     fetchItem: PropTypes.func,
     isFetching: PropTypes.bool,
     error: PropTypes.bool,
+    intl: PropTypes.object,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaContainer);
+export default injectIntl(
+    connect(mapStateToProps, mapDispatchToProps)(MediaContainer)
+);

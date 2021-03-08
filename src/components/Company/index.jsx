@@ -36,24 +36,28 @@ export const Company = ({
             }>
             <MediaHeader item={company} isLoading={isFetching} />
             <MediaListContainer
-                titleId="company.publishedGamesTitle"
-                isCarousel={true}
                 id={`companyPublishedGames_${company.guid}`}
+                title={formatMessage({id: 'company.publishedGamesTitle'})}
+                isCarousel={true}
                 mediaType={GAMES}
                 containerType={FILTERED}
                 disableScrollLoading={true}
                 isLoading={isFetching}
-                loadMoreId="company.publishedGamesLoadMore"
+                loadMoreText={formatMessage({
+                    id: 'company.publishedGamesLoadMore',
+                })}
             />
             <MediaListContainer
-                titleId="company.developedGamesTitle"
-                isCarousel={true}
                 id={`companyDevelopedGames_${company.guid}`}
+                title={formatMessage({id: 'company.developedGamesTitle'})}
+                isCarousel={true}
                 mediaType={GAMES}
                 containerType={FILTERED}
                 disableScrollLoading={true}
                 isLoading={isFetching}
-                loadMoreId="company.developedGamesLoadMore"
+                loadMoreText={formatMessage({
+                    id: 'company.developedGamesLoadMore',
+                })}
             />
         </DocumentTitle>
     );

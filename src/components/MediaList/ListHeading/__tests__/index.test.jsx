@@ -6,7 +6,7 @@ import {StyledSkeletonLoader} from '../../../SkeletonLoader/styles';
 describe('<ListHeading/>', () => {
     it('tests Component renders as expected', () => {
         const wrapper = mountWithBaseWrapper(
-            <ListHeading titleId="homePage.gamesHeading" isLoading={false} />
+            <ListHeading title="New and upcoming games" isLoading={false} />
         );
 
         expect(wrapper.find(StyledSkeletonLoader).exists()).toEqual(false);
@@ -15,7 +15,7 @@ describe('<ListHeading/>', () => {
 
     it('tests Component renders skeleton loader when loading', () => {
         const wrapper = mountWithBaseWrapper(
-            <ListHeading titleId="id" isLoading={true} displayTitle={true} />
+            <ListHeading title="id" isLoading={true} displayTitle={true} />
         );
 
         expect(wrapper.find(StyledSkeletonLoader).exists()).toEqual(true);

@@ -38,8 +38,8 @@ export const Franchise = ({
             }>
             <MediaHeader item={franchise} isLoading={isFetching} />
             <MediaListContainer
-                titleId="franchise.gamesHeading"
                 id={`franchiseGames_${franchise.guid}`}
+                title={formatMessage({id: 'franchise.gamesHeading'})}
                 mediaType={GAMES}
                 containerType={FILTERED}
                 disableScrollLoading={false}

@@ -23,25 +23,25 @@ export const HomePage = ({intl: {formatMessage}}) => (
         </StyledHeading>
         <StyledMediaListSection>
             <MediaListContainer
-                titleId="homePage.gamesHeading"
                 id="home"
+                title={formatMessage({id: 'homePage.gamesHeading'})}
                 mediaType={GAMES}
                 containerType={ALL}
                 disableScrollLoading={true}
                 limit={12}
                 buttonType="link"
-                loadMoreId="homePage.gamesLink"
+                loadMoreText={formatMessage({id: 'homePage.gamesLink'})}
             />
         </StyledMediaListSection>
         <StyledMediaListSection>
             <MediaListContainer
-                titleId="homePage.companiesHeading"
+                title={formatMessage({id: 'homePage.companiesHeading'})}
                 mediaType={COMPANIES}
                 containerType={ALL}
                 disableScrollLoading={true}
                 limit={12}
                 buttonType="link"
-                loadMoreId="homePage.companiesLink"
+                loadMoreText={formatMessage({id: 'homePage.companiesLink'})}
             />
         </StyledMediaListSection>
     </DocumentTitle>

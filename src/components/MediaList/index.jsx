@@ -14,113 +14,112 @@ const itemsPlaceholder = new Array(12).fill(0);
 export const MediaList = React.forwardRef(
     (
         {
-            titleId,
+            title,
             link,
             buttonType,
             items,
             isLoading,
             error,
-            loadMoreId,
+            loadMoreText,
             loadMore,
             total,
             isCarousel,
             intl: {formatMessage},
         },
         ref
-    ) => {
-        return (
-            <>
-                <AriaLoader isLoading={isLoading} />
-                <ListHeading
-                    titleId={titleId}
-                    isLoading={isLoading && !items.length}
-                />
-                {isCarousel ? (
-                    !error && (total || isLoading) ? (
-                        <MediaCarousel
-                            ref={ref}
-                            items={
-                                isLoading && !items.length
-                                    ? itemsPlaceholder
-                                    : items
-                            }
-                            total={
-                                isLoading && !items.length
-                                    ? itemsPlaceholder.length
-                                    : total
-                            }
-                            link={link}
-                            loadMore={loadMore}
-                        />
-                    ) : null
-                ) : (
-                    <StyledGrid
-                        container
-                        component="ul"
-                        spacing={2}
-                        alignItems="stretch"
-                        ref={ref}>
-                        <>
-                            {items.map((item) => (
+    ) => (
+        <>
+            <AriaLoader
+                isLoading={isLoading}
+                loadingMessage={formatMessage({id: 'ariaLoader.loading'})}
+                loadedMessage={formatMessage({id: 'ariaLoader.loaded'})}
+            />
+            <ListHeading title={title} isLoading={isLoading && !items.length} />
+            {isCarousel ? (
+                !error && (total || isLoading) ? (
+                    <MediaCarousel
+                        ref={ref}
+                        items={
+                            isLoading && !items.length
+                                ? itemsPlaceholder
+                                : items
+                        }
+                        total={
+                            isLoading && !items.length
+                                ? itemsPlaceholder.length
+                                : total
+                        }
+                        link={link}
+                        loadMore={loadMore}
+                    />
+                ) : null
+            ) : (
+                <StyledGrid
+                    container
+                    component="ul"
+                    spacing={2}
+                    alignItems="stretch"
+                    ref={ref}>
+                    <>
+                        {items.map((item) => (
+                            <StyledGrid
+                                component="li"
+                                key={item.id}
+                                item
+                                xs={12}
+                                sm={6}
+                                md={4}
+                                lg={3}>
+                                <MediaListItem item={item} link={link} />
+                            </StyledGrid>
+                        ))}
+                        {isLoading &&
+                            itemsPlaceholder.map((_, i) => (
                                 <StyledGrid
                                     component="li"
-                                    key={item.id}
+                                    key={i}
                                     item
                                     xs={12}
                                     sm={6}
                                     md={4}
                                     lg={3}>
-                                    <MediaListItem item={item} link={link} />
+                                    <MediaListItem
+                                        item={{}}
+                                        isLoading={isLoading}
+                                    />
                                 </StyledGrid>
                             ))}
-                            {isLoading &&
-                                itemsPlaceholder.map((_, i) => (
-                                    <StyledGrid
-                                        component="li"
-                                        key={i}
-                                        item
-                                        xs={12}
-                                        sm={6}
-                                        md={4}
-                                        lg={3}>
-                                        <MediaListItem
-                                            item={{}}
-                                            isLoading={isLoading}
-                                        />
-                                    </StyledGrid>
-                                ))}
-                        </>
-                    </StyledGrid>
-                )}
-                <ErrorMessage
+                    </>
+                </StyledGrid>
+            )}
+            <ErrorMessage
+                error={error}
+                message={formatMessage({
+                    id: 'mediaList.error',
+                })}
+            />
+            {!error && !isLoading && !items.length ? (
+                <Typography variant="body1" gutterBottom>
+                    <FormattedMessage id="mediaList.emptyListMessage" />
+                </Typography>
+            ) : null}
+            {(isLoading || items.length) && !isCarousel ? (
+                <LoadMoreButton
+                    id={loadMoreText}
+                    isLoading={isLoading}
                     error={error}
-                    message={formatMessage({
-                        id: 'mediaList.error',
-                    })}
+                    buttonType={buttonType}
+                    link={link}
+                    onClick={loadMore}
                 />
-                {!error && !isLoading && !items.length ? (
-                    <Typography variant="body1" gutterBottom>
-                        <FormattedMessage id="mediaList.emptyListMessage" />
-                    </Typography>
-                ) : null}
-                {(isLoading || items.length) && !isCarousel ? (
-                    <LoadMoreButton
-                        id={loadMoreId}
-                        isLoading={isLoading}
-                        error={error}
-                        buttonType={buttonType}
-                        link={link}
-                        onClick={loadMore}
-                    />
-                ) : null}
-            </>
-        );
-    }
+            ) : null}
+        </>
+    )
 );
 
 MediaList.displayName = 'MediaList';
 MediaList.propTypes = {
-    titleId: PropTypes.string,
+    title: PropTypes.string,
     link: PropTypes.string,
     isCarousel: PropTypes.bool,
     items: PropTypes.array,
@@ -128,7 +127,7 @@ MediaList.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     buttonType: PropTypes.string,
-    loadMoreId: PropTypes.string,
+    loadMoreText: PropTypes.string,
     loadMore: PropTypes.func,
     intl: PropTypes.object,
 };

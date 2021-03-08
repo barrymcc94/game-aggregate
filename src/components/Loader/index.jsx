@@ -5,24 +5,23 @@ import {
     StyledLoader,
     StyledAriaLoader,
 } from './styles.js';
-import {FormattedMessage} from 'react-intl';
 
 export const AriaLoader = ({
     politeness = 'assertive',
     isLoading,
-    loadingMessageId = 'ariaLoader.loading',
-    loadedMessageId = 'ariaLoader.loaded',
+    loadingMessage,
+    loadedMessage,
 }) => (
     <StyledAriaLoader aria-live={politeness}>
-        <FormattedMessage id={isLoading ? loadingMessageId : loadedMessageId} />
+        {isLoading ? loadingMessage : loadedMessage}
     </StyledAriaLoader>
 );
 
 AriaLoader.propTypes = {
     politeness: PropTypes.string,
     isLoading: PropTypes.bool,
-    loadingMessageId: PropTypes.string,
-    loadedMessageId: PropTypes.string,
+    loadingMessage: PropTypes.string,
+    loadedMessage: PropTypes.string,
 };
 
 export const Loader = ({isLoading, children}) =>

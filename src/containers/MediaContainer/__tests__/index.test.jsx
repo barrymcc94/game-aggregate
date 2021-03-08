@@ -61,6 +61,7 @@ describe('<MediaContainer/>', () => {
         isFetching: false,
         error: false,
         fetchItem,
+        intl: {formatMessage: () => 'message'},
     };
 
     beforeEach(() => {

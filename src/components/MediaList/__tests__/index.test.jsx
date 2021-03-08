@@ -11,7 +11,7 @@ describe('<MediaList/>', () => {
     it('tests loader appears when fetching', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
-                titleId="test"
+                title="test"
                 isLoading={true}
                 error={false}
                 items={[
@@ -35,7 +35,7 @@ describe('<MediaList/>', () => {
     it('tests Medialist renders as expected with media data', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
-                titleId="test"
+                title="test"
                 isLoading={false}
                 error={false}
                 items={[
@@ -60,7 +60,7 @@ describe('<MediaList/>', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
                 isCarousel={true}
-                titleId="test"
+                title="test"
                 isLoading={false}
                 error={false}
                 total={10}
@@ -84,7 +84,7 @@ describe('<MediaList/>', () => {
     it('tests Medialist renders with temp message when no results are presented', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
-                titleId="test"
+                title="test"
                 isLoading={false}
                 error={false}
                 items={[]}
@@ -98,7 +98,7 @@ describe('<MediaList/>', () => {
     it('tests Medialist renders with temp message when error is true', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
-                titleId="test"
+                title="test"
                 isLoading={false}
                 error={true}
                 items={[]}
@@ -114,7 +114,7 @@ describe('<MediaList/>', () => {
         const loadMore = jest.fn(() => {});
         const wrapper = await mountWithBaseWrapper(
             <MediaList
-                titleId="test"
+                title="test"
                 isLoading={false}
                 error={false}
                 items={[
@@ -131,7 +131,7 @@ describe('<MediaList/>', () => {
                 intl={{formatMessage: () => 'temp message'}}
                 {...{
                     buttonType: '',
-                    loadMoreId: 'homePage.gamesLink',
+                    loadMoreText: 'load more',
                     loadMore,
                 }}
             />
@@ -145,7 +145,7 @@ describe('<MediaList/>', () => {
         const loadMore = jest.fn(() => {});
         const wrapper = await mountWithBaseWrapper(
             <MediaList
-                titleId="test"
+                title="test"
                 isLoading={false}
                 error={false}
                 link="/"
@@ -163,7 +163,7 @@ describe('<MediaList/>', () => {
                 intl={{formatMessage: () => 'temp message'}}
                 {...{
                     buttonType: 'link',
-                    loadMoreId: 'homePage.gamesLink',
+                    loadMoreText: 'load more',
                     loadMore,
                 }}
             />

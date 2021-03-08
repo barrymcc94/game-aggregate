@@ -77,7 +77,7 @@ export class MediaListContainer extends React.Component {
 
     render() {
         const {
-            titleId,
+            title,
             mediaType,
             isCarousel,
             disableScrollLoading,
@@ -86,12 +86,12 @@ export class MediaListContainer extends React.Component {
             error,
             isLoading = false,
             buttonType,
-            loadMoreId,
+            loadMoreText,
             meta: {total, offset},
         } = this.props;
         const list = (
             <MediaList
-                titleId={titleId}
+                title={title}
                 ref={this.listRef}
                 isCarousel={isCarousel}
                 items={items}
@@ -100,7 +100,7 @@ export class MediaListContainer extends React.Component {
                 error={error}
                 link={`/${mediaType}/`}
                 buttonType={buttonType}
-                loadMoreId={offset < total ? loadMoreId : ''}
+                loadMoreText={offset < total ? loadMoreText : ''}
                 loadMore={this.loadMore}
             />
         );
@@ -164,7 +164,7 @@ export const mapDispatchToProps = (dispatch, {mediaType}) => {
 
 MediaListContainer.propTypes = {
     id: PropTypes.string,
-    titleId: PropTypes.string,
+    title: PropTypes.string,
     isCarousel: PropTypes.bool,
     mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES]),
     containerType: PropTypes.oneOf([ALL, SEARCH, FILTERED]),
@@ -172,7 +172,7 @@ MediaListContainer.propTypes = {
     limit: PropTypes.number,
     isLoading: PropTypes.bool,
     buttonType: PropTypes.string,
-    loadMoreId: PropTypes.string,
+    loadMoreText: PropTypes.string,
     // controlled via redux
     items: PropTypes.array,
     error: PropTypes.bool,
