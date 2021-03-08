@@ -11,7 +11,7 @@ describe('<Game/>', () => {
                 isFetching={false}
                 error={true}
                 game={{}}
-                intl={{formatMessage: jest.fn()}}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledErrorMessage)).toBe(true);
@@ -23,7 +23,7 @@ describe('<Game/>', () => {
             <Game
                 isFetching={true}
                 error={true}
-                intl={{formatMessage: jest.fn()}}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledErrorMessage)).toBe(true);
@@ -45,7 +45,7 @@ describe('<Game/>', () => {
                         screen_url: 'test',
                     },
                 }}
-                intl={{formatMessage: jest.fn()}}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledErrorMessage)).toBe(false);

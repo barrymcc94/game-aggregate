@@ -18,7 +18,14 @@ export const Franchise = ({
     intl: {formatMessage},
 }) => {
     if (error || (!isFetching && (!franchise || !franchise.guid))) {
-        return <ErrorMessage error={error} id="franchise.error" />;
+        return (
+            <ErrorMessage
+                error={error}
+                message={formatMessage({
+                    id: 'franchise.error',
+                })}
+            />
+        );
     }
     return (
         <DocumentTitle

@@ -25,6 +25,7 @@ describe('<MediaList/>', () => {
                         },
                     },
                 ]}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
@@ -48,6 +49,7 @@ describe('<MediaList/>', () => {
                         },
                     },
                 ]}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
@@ -73,32 +75,34 @@ describe('<MediaList/>', () => {
                         },
                     },
                 ]}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledCarouselWrapper)).toBe(true);
     });
 
-    it('tests Medialist renders with error message when no results are presented', () => {
+    it('tests Medialist renders with temp message when no results are presented', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
                 titleId="test"
                 isLoading={false}
                 error={false}
                 items={[]}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
         expect(wrapper.exists(Grid)).toBe(true);
-        expect(wrapper.find(StyledErrorMessage).length).toEqual(1);
     });
 
-    it('tests Medialist renders with error message when error is true', () => {
+    it('tests Medialist renders with temp message when error is true', () => {
         const wrapper = mountWithBaseWrapper(
             <MediaList
                 titleId="test"
                 isLoading={false}
                 error={true}
                 items={[]}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
@@ -124,6 +128,7 @@ describe('<MediaList/>', () => {
                         },
                     },
                 ]}
+                intl={{formatMessage: () => 'temp message'}}
                 {...{
                     buttonType: '',
                     loadMoreId: 'homePage.gamesLink',
@@ -155,6 +160,7 @@ describe('<MediaList/>', () => {
                         },
                     },
                 ]}
+                intl={{formatMessage: () => 'temp message'}}
                 {...{
                     buttonType: 'link',
                     loadMoreId: 'homePage.gamesLink',

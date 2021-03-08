@@ -18,7 +18,7 @@ export const StyledHeader = styled.header`
 `;
 
 const baseMenuStyles = css`
-    font-size: 3rem;
+    font-size: 2rem;
     display: flex;
     align-self: center;
     cursor: pointer;
@@ -49,7 +49,7 @@ export const StyledNav = styled.nav`
 `;
 
 export const StyledIconButton = styled(IconButton)`
-    padding: 0;
+    padding: 0.5rem;
     margin: auto 0;
     color: ${({theme}) => theme.palette.text.primary};
     display: initial;

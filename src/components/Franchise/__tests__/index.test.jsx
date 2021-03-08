@@ -11,7 +11,7 @@ describe('<Franchise/>', () => {
                 isFetching={false}
                 error={true}
                 franchise={{}}
-                intl={{formatMessage: jest.fn()}}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledErrorMessage)).toBe(true);
@@ -23,7 +23,7 @@ describe('<Franchise/>', () => {
             <Franchise
                 isFetching={true}
                 error={true}
-                intl={{formatMessage: jest.fn()}}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
         expect(wrapper.exists(StyledErrorMessage)).toBe(true);
@@ -45,10 +45,10 @@ describe('<Franchise/>', () => {
                         screen_url: 'test',
                     },
                 }}
-                intl={{formatMessage: jest.fn()}}
+                intl={{formatMessage: () => 'temp message'}}
             />
         );
-        expect(wrapper.exists(StyledErrorMessage)).toBe(true);
+        expect(wrapper.exists(StyledErrorMessage)).toBe(false);
         expect(wrapper.exists(StyledMediaHeader)).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });

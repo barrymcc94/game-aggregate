@@ -18,7 +18,12 @@ export const Company = ({
     intl: {formatMessage},
 }) => {
     if (error || (!isFetching && (!company || !company.guid))) {
-        return <ErrorMessage error={error} id="company.error" />;
+        return (
+            <ErrorMessage
+                error={error}
+                message={formatMessage({id: 'company.error'})}
+            />
+        );
     }
     return (
         <DocumentTitle

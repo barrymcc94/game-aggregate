@@ -1,23 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
 import {StyledErrorMessage} from './styles.js';
 
-const ErrorMessage = ({id, error, children}) =>
-    id && error ? (
-        <StyledErrorMessage>
-            <FormattedMessage id={id} defaultMessage="Error Occurred" />
-        </StyledErrorMessage>
-    ) : (
-        children || null
-    );
+const ErrorMessage = ({message, error}) =>
+    message && error ? (
+        <StyledErrorMessage>{message}</StyledErrorMessage>
+    ) : null;
 
 ErrorMessage.propTypes = {
-    id: PropTypes.string.isRequired,
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-    children: PropTypes.any,
+    message: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 
 export const isEqual = (prevProps, nextProps) =>
+    prevProps.message == nextProps.message &&
     prevProps.error == nextProps.error;
 export default React.memo(ErrorMessage, isEqual);

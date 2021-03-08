@@ -10,7 +10,14 @@ import GameFooter from '../GameFooter';
 
 export const Game = ({game = {}, isFetching, error, intl: {formatMessage}}) => {
     if (error || (!isFetching && (!game || !game.guid))) {
-        return <ErrorMessage error={error} id="game.error" />;
+        return (
+            <ErrorMessage
+                error={error}
+                message={formatMessage({
+                    id: 'game.error',
+                })}
+            />
+        );
     }
     return (
         <DocumentTitle

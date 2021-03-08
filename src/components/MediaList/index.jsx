@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 import MediaListItem from '../MediaListItem';
 import ErrorMessage from '../ErrorMessage';
 import {StyledGrid} from './styles';
@@ -7,6 +8,7 @@ import LoadMoreButton from './LoadMoreButton';
 import ListHeading from './ListHeading';
 import MediaCarousel from '../MediaCarousel';
 import {AriaLoader} from '../Loader';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 const itemsPlaceholder = new Array(12).fill(0);
 export const MediaList = React.forwardRef(
@@ -22,6 +24,7 @@ export const MediaList = React.forwardRef(
             loadMore,
             total,
             isCarousel,
+            intl: {formatMessage},
         },
         ref
     ) => {
@@ -89,12 +92,16 @@ export const MediaList = React.forwardRef(
                         </>
                     </StyledGrid>
                 )}
-                <ErrorMessage error={error} id="mediaList.error" />
+                <ErrorMessage
+                    error={error}
+                    message={formatMessage({
+                        id: 'mediaList.error',
+                    })}
+                />
                 {!error && !isLoading && !items.length ? (
-                    <ErrorMessage
-                        error={true}
-                        id="mediaList.emptyListMessage"
-                    />
+                    <Typography variant="body1" gutterBottom>
+                        <FormattedMessage id="mediaList.emptyListMessage" />
+                    </Typography>
                 ) : null}
                 {(isLoading || items.length) && !isCarousel ? (
                     <LoadMoreButton
@@ -123,6 +130,7 @@ MediaList.propTypes = {
     buttonType: PropTypes.string,
     loadMoreId: PropTypes.string,
     loadMore: PropTypes.func,
+    intl: PropTypes.object,
 };
 
-export default MediaList;
+export default injectIntl(MediaList, {forwardRef: true});
