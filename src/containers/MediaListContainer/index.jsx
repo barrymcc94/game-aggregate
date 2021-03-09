@@ -139,27 +139,19 @@ export const mapStateToProps = (state, {mediaType, id}) => {
 };
 
 export const mapDispatchToProps = (dispatch, {mediaType}) => {
-    let actions = {};
+    let fetchItems = null;
+    let clearState = null;
     if (mediaType == GAMES) {
-        actions = {
-            ...actions,
-            fetchItems: fetchGames,
-            clearState: clearGamesState,
-        };
+        fetchItems = fetchGames;
+        clearState = clearGamesState;
     } else if (mediaType == COMPANIES) {
-        actions = {
-            ...actions,
-            fetchItems: fetchCompanies,
-            clearState: clearCompaniesState,
-        };
+        fetchItems = fetchCompanies;
+        clearState = clearCompaniesState;
     } else if (mediaType == FRANCHISES) {
-        actions = {
-            ...actions,
-            fetchItems: fetchFranchises,
-            clearState: clearFranchisesState,
-        };
+        fetchItems = fetchFranchises;
+        clearState = clearFranchisesState;
     }
-    return bindActionCreators(actions, dispatch);
+    return bindActionCreators({fetchItems, clearState}, dispatch);
 };
 
 MediaListContainer.propTypes = {

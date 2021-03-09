@@ -66,24 +66,15 @@ export const MediaSearchContainer = ({
 };
 
 export const mapDispatchToProps = (dispatch, {mediaType}) => {
-    let actions = {};
+    let setSearchFilters = null;
     if (mediaType == GAMES) {
-        actions = {
-            ...actions,
-            setSearchFilters: setGamesSearchFilters,
-        };
+        setSearchFilters = setGamesSearchFilters;
     } else if (mediaType == COMPANIES) {
-        actions = {
-            ...actions,
-            setSearchFilters: setCompaniesSearchFilters,
-        };
+        setSearchFilters = setCompaniesSearchFilters;
     } else if (mediaType == FRANCHISES) {
-        actions = {
-            ...actions,
-            setSearchFilters: setFranchisesSearchFilters,
-        };
+        setSearchFilters = setFranchisesSearchFilters;
     }
-    return bindActionCreators(actions, dispatch);
+    return bindActionCreators({setSearchFilters}, dispatch);
 };
 
 MediaSearchContainer.propTypes = {
