@@ -16,26 +16,16 @@ export const submitForm = (e) => {
 };
 
 export const FranchisesPage = ({intl: {formatMessage}}) => (
-    <DocumentTitle
-        title={formatMessage({
-            id: 'franchisesPage.title',
-            defaultMessage: 'Search',
-        })}>
+    <DocumentTitle title={formatMessage({id: 'franchisesPage.title'})}>
         <StyledMediaListSection>
             <Typography variant="h4" component="h1" gutterBottom>
-                <FormattedMessage
-                    id="franchisesPage.heading"
-                    defaultMessage="Franchise Search"
-                />
+                <FormattedMessage id="franchisesPage.heading" />
             </Typography>
             <form noValidate autoComplete="off" onSubmit={submitForm}>
                 <MediaSearchContainer
                     mediaType={FRANCHISES}
                     id="franchises_search"
-                    label={formatMessage({
-                        id: 'franchisesPage.searchLabel',
-                        defaultMessage: 'Search',
-                    })}
+                    label={formatMessage({id: 'franchisesPage.searchLabel'})}
                 />
             </form>
             <MediaListContainer

@@ -27,13 +27,7 @@ export const Company = ({
     }
     return (
         <DocumentTitle
-            title={
-                company.name ||
-                formatMessage({
-                    id: 'companyPage.title',
-                    defaultMessage: 'Company',
-                })
-            }>
+            title={company.name || formatMessage({id: 'companyPage.title'})}>
             <MediaHeader item={company} isLoading={isFetching} />
             <MediaListContainer
                 id={`companyPublishedGames_${company.guid}`}

@@ -4,13 +4,9 @@ import {FormattedMessage, injectIntl} from 'react-intl';
 import DocumentTitle from '../../components/DocumentTitle';
 
 export const AboutPage = ({intl: {formatMessage}}) => (
-    <DocumentTitle
-        title={formatMessage({id: 'aboutPage.title', defaultMessage: 'About'})}>
+    <DocumentTitle title={formatMessage({id: 'aboutPage.title'})}>
         <article>
-            <FormattedMessage
-                id="aboutPage.aboutText"
-                defaultMessage="About Text"
-            />
+            <FormattedMessage id="aboutPage.aboutText" />
         </article>
     </DocumentTitle>
 );

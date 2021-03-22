@@ -16,12 +16,10 @@ import {ENUMS} from '../../config';
 
 const {COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
-const GameDetail = (id, defaultMessage, detailArr, link) =>
-    Array.isArray(detailArr) && (
+const GameDetail = ({text, detailArr, link}) =>
+    Array.isArray(detailArr) ? (
         <DescriptionWrapper>
-            <DescriptionLabel>
-                <FormattedMessage id={id} defaultMessage={defaultMessage} />
-            </DescriptionLabel>
+            <DescriptionLabel>{text}</DescriptionLabel>
             {detailArr.map(({name, id, api_detail_url}) => {
                 let guid;
                 try {
@@ -42,7 +40,7 @@ const GameDetail = (id, defaultMessage, detailArr, link) =>
                 );
             })}
         </DescriptionWrapper>
-    );
+    ) : null;
 
 export const GameDetails = ({game, isLoading}) => {
     const {
@@ -65,35 +63,49 @@ export const GameDetails = ({game, isLoading}) => {
                 </DescriptionList>
             ) : (
                 <DescriptionList variant="body1" component="dl">
-                    {GameDetail(
-                        'gameDetails.franchises',
-                        'Franchises: ',
-                        franchises,
-                        `/${FRANCHISES}/`
-                    )}
-                    {GameDetail('gameDetails.genres', 'Genres: ', genres)}
-                    {GameDetail(
-                        'gameDetails.publishers',
-                        'Publishers: ',
-                        publishers,
-                        `/${COMPANIES}/`
-                    )}
-                    {GameDetail(
-                        'gameDetails.developers',
-                        'Developers: ',
-                        developers,
-                        `/${COMPANIES}/`
-                    )}
-                    {GameDetail('gameDetails.themes', 'Themes: ', themes)}
-                    {GameDetail(
-                        'gameDetails.platforms',
-                        'Platforms: ',
-                        platforms
-                    )}
+                    <GameDetail
+                        text={
+                            <FormattedMessage id={'gameDetails.franchises'} />
+                        }
+                        detailArr={franchises}
+                        link={`/${FRANCHISES}/`}
+                    />
+                    <GameDetail
+                        text={<FormattedMessage id={'gameDetails.genres'} />}
+                        detailArr={genres}
+                    />
+                    <GameDetail
+                        text={
+                            <FormattedMessage id={'gameDetails.publishers'} />
+                        }
+                        detailArr={publishers}
+                        link={`/${COMPANIES}/`}
+                    />
+                    <GameDetail
+                        text={
+                            <FormattedMessage id={'gameDetails.developers'} />
+                        }
+                        detailArr={developers}
+                        link={`/${COMPANIES}/`}
+                    />
+                    <GameDetail
+                        text={<FormattedMessage id={'gameDetails.themes'} />}
+                        detailArr={themes}
+                    />
+                    <GameDetail
+                        text={<FormattedMessage id={'gameDetails.platforms'} />}
+                        detailArr={platforms}
+                    />
                 </DescriptionList>
             )}
         </GameDetailsSection>
     );
+};
+
+GameDetail.propTypes = {
+    text: PropTypes.any,
+    detailArr: PropTypes.string,
+    link: PropTypes.string,
 };
 
 GameDetails.propTypes = {

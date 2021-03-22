@@ -78,10 +78,7 @@ export const MediaHeader = ({item, isLoading, intl}) => {
         <StyledMediaHeader>
             <PosterImg
                 src={small_url}
-                alt={intl.formatMessage({
-                    id: 'mediaHeader.posterAlt',
-                    defaultMessage: 'Game artwork poster',
-                })}
+                alt={intl.formatMessage({id: 'mediaHeader.posterAlt'})}
             />
             <TitleContent>
                 <GameName variant="h5" component="h1" gutterBottom>
@@ -91,10 +88,7 @@ export const MediaHeader = ({item, isLoading, intl}) => {
                 {aliasesContent && (
                     <DescriptionList variant="body1" component="dl">
                         <DescriptionLabel>
-                            <FormattedMessage
-                                id="mediaHeader.aliases"
-                                defaultMessage={`Also Known as: `}
-                            />
+                            <FormattedMessage id="mediaHeader.aliases" />
                         </DescriptionLabel>
                         {aliasesContent}
                     </DescriptionList>
@@ -102,17 +96,13 @@ export const MediaHeader = ({item, isLoading, intl}) => {
                 <HeadingFooter variant="subtitle2" component="div">
                     <FooterItem>
                         <Link href={site_detail_url} color="primary">
-                            <FormattedMessage
-                                id="mediaHeader.viewOnSite"
-                                defaultMessage="View on GiantBomb"
-                            />
+                            <FormattedMessage id="mediaHeader.viewOnSite" />
                         </Link>
                     </FooterItem>
                     {original_release_date && (
                         <FooterItem>
                             <FormattedMessage
                                 id="mediaHeader.released"
-                                defaultMessage={`Released: ${original_release_date}`}
                                 values={{
                                     date: moment(original_release_date).format(
                                         dateFormat
@@ -125,7 +115,6 @@ export const MediaHeader = ({item, isLoading, intl}) => {
                         <FooterItem>
                             <FormattedMessage
                                 id="mediaHeader.founded"
-                                defaultMessage={`Founded: ${date_founded}`}
                                 values={{
                                     date: moment(date_founded).format(
                                         dateFormat

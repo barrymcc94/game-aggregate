@@ -10,16 +10,9 @@ const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
 const {ALL} = ENUMS.CONTAINER_TYPE;
 
 export const HomePage = ({intl: {formatMessage}}) => (
-    <DocumentTitle
-        title={formatMessage({
-            id: 'homePage.title',
-            defaultMessage: 'Games and Companies',
-        })}>
+    <DocumentTitle title={formatMessage({id: 'homePage.title'})}>
         <StyledHeading variant="h4" component="h1" gutterBottom>
-            <FormattedMessage
-                id={'homePage.heading'}
-                defaultMessage="Games and Companies"
-            />
+            <FormattedMessage id={'homePage.heading'} />
         </StyledHeading>
         <StyledMediaListSection>
             <MediaListContainer

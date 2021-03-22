@@ -105,7 +105,7 @@ export const MediaList = React.forwardRef(
             ) : null}
             {(isLoading || items.length) && !isCarousel ? (
                 <LoadMoreButton
-                    id={loadMoreText}
+                    text={loadMoreText}
                     isLoading={isLoading}
                     error={error}
                     buttonType={buttonType}

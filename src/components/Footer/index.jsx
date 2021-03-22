@@ -7,17 +7,11 @@ const Footer = () => (
     <StyledFooter>
         <StyledFooterItems>
             <StyledFooterItem>
-                <FormattedMessage
-                    id="footer.copyright"
-                    defaultMessage="Copyright © Barry McCormack 2020"
-                />
+                <FormattedMessage id="footer.copyright" />
             </StyledFooterItem>
             <StyledFooterItem>
                 <Link to="/about">
-                    <FormattedMessage
-                        id="footer.about"
-                        defaultMessage="About"
-                    />
+                    <FormattedMessage id="footer.about" />
                 </Link>
             </StyledFooterItem>
         </StyledFooterItems>

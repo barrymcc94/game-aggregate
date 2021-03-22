@@ -9,8 +9,7 @@ import {StyledGameArticle} from './styles';
 const {GAMES} = ENUMS.MEDIA_TYPE;
 
 export const GamePage = ({match, intl: {formatMessage}}) => (
-    <DocumentTitle
-        title={formatMessage({id: 'gamePage.title', defaultMessage: 'Game'})}>
+    <DocumentTitle title={formatMessage({id: 'gamePage.title'})}>
         <StyledGameArticle>
             <MediaContainer guid={match.params.guid} mediaType={GAMES} />
         </StyledGameArticle>

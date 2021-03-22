@@ -13,7 +13,6 @@ export const GameFooter = ({isLoading}) => (
             ) : (
                 <FormattedMessage
                     id="gameFooter.poweredBy"
-                    defaultMessage="Powered By {link}"
                     values={{
                         link: (
                             <Link href="https://www.giantbomb.com/api/">

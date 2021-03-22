@@ -30,11 +30,7 @@ export const Franchise = ({
     return (
         <DocumentTitle
             title={
-                franchise.name ||
-                formatMessage({
-                    id: 'franchisePage.title',
-                    defaultMessage: 'Franchise',
-                })
+                franchise.name || formatMessage({id: 'franchisePage.title'})
             }>
             <MediaHeader item={franchise} isLoading={isFetching} />
             <MediaListContainer

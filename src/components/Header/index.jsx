@@ -37,10 +37,7 @@ export const Header = ({intl: {formatMessage}}) => {
                 <StyledDrawerHeaderContainer>
                     <Zoom in={menuActive}>
                         <StyledIconButton
-                            aria-label={formatMessage({
-                                id: 'header.closeMenu',
-                                defaultMessage: 'close',
-                            })}
+                            aria-label={formatMessage({id: 'header.closeMenu'})}
                             aria-expanded={menuActive}
                             onClick={closeMenu}>
                             <CloseIcon />
@@ -50,34 +47,22 @@ export const Header = ({intl: {formatMessage}}) => {
                 <NavLinkList active={menuActive} onClick={closeMenu}>
                     <NavLinkListItem active={menuActive}>
                         <StyledLink exact to="/">
-                            <FormattedMessage
-                                id="header.home"
-                                defaultMessage="Home"
-                            />
+                            <FormattedMessage id="header.home" />
                         </StyledLink>
                     </NavLinkListItem>
                     <NavLinkListItem active={menuActive}>
                         <StyledLink exact to={`/${GAMES}/`}>
-                            <FormattedMessage
-                                id="header.games"
-                                defaultMessage="Games"
-                            />
+                            <FormattedMessage id="header.games" />
                         </StyledLink>
                     </NavLinkListItem>
                     <NavLinkListItem active={menuActive}>
                         <StyledLink exact to={`/${COMPANIES}/`}>
-                            <FormattedMessage
-                                id="header.companies"
-                                defaultMessage="Companies"
-                            />
+                            <FormattedMessage id="header.companies" />
                         </StyledLink>
                     </NavLinkListItem>
                     <NavLinkListItem active={menuActive}>
                         <StyledLink exact to={`/${FRANCHISES}/`}>
-                            <FormattedMessage
-                                id="header.franchises"
-                                defaultMessage="Franchises"
-                            />
+                            <FormattedMessage id="header.franchises" />
                         </StyledLink>
                     </NavLinkListItem>
                 </NavLinkList>
@@ -86,10 +71,7 @@ export const Header = ({intl: {formatMessage}}) => {
                 <StyledNav>
                     <Zoom in={!menuActive}>
                         <StyledIconButton
-                            aria-label={formatMessage({
-                                id: 'header.openMenu',
-                                defaultMessage: 'open',
-                            })}
+                            aria-label={formatMessage({id: 'header.openMenu'})}
                             aria-expanded={menuActive}
                             onClick={toggleMenu}>
                             <MenuIcon />

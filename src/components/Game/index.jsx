@@ -21,10 +21,7 @@ export const Game = ({game = {}, isFetching, error, intl: {formatMessage}}) => {
     }
     return (
         <DocumentTitle
-            title={
-                game.name ||
-                formatMessage({id: 'gamePage.title', defaultMessage: 'Game'})
-            }>
+            title={game.name || formatMessage({id: 'gamePage.title'})}>
             <MediaHeader item={game} isLoading={isFetching} />
             <GameDetails game={game} isLoading={isFetching} />
             <GameFooter isLoading={isFetching} />

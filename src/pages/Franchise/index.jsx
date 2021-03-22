@@ -9,11 +9,7 @@ import {StyledFranchiseArticle} from './styles';
 const {FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export const FranchisePage = ({match, intl: {formatMessage}}) => (
-    <DocumentTitle
-        title={formatMessage({
-            id: 'franchisePage.title',
-            defaultMessage: 'Franchise',
-        })}>
+    <DocumentTitle title={formatMessage({id: 'franchisePage.title'})}>
         <StyledFranchiseArticle>
             <MediaContainer guid={match.params.guid} mediaType={FRANCHISES} />
         </StyledFranchiseArticle>

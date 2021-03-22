@@ -30,21 +30,14 @@ export const AuthModal = ({
     <>
         <Modal
             open={modalActive}
-            aria-label={formatMessage({
-                id: 'authModal.ariaLabel',
-                defaultMessage: 'Authentication Modal',
-            })}>
+            aria-label={formatMessage({id: 'authModal.ariaLabel'})}>
             <StyledModalContent>
                 <Heading variant="h5" component="h2" gutterBottom>
-                    <FormattedMessage
-                        id="authModal.heading"
-                        defaultMessage="Authentication"
-                    />
+                    <FormattedMessage id="authModal.heading" />
                 </Heading>
                 <Text variant="body1">
                     <FormattedMessage
                         id="authModal.description"
-                        defaultMessage="Auth key required, you can get one at {link}"
                         values={{
                             link: (
                                 <a
@@ -64,7 +57,6 @@ export const AuthModal = ({
                             variant="outlined"
                             label={formatMessage({
                                 id: 'authModal.appCodeLabel',
-                                defaultMessage: 'Enter App Code',
                             })}
                             value={appCode}
                             onChange={onAppCodeChange}
@@ -72,16 +64,10 @@ export const AuthModal = ({
                             helperText={
                                 api_key ? (
                                     <SuccessText>
-                                        <FormattedMessage
-                                            id="authModal.success"
-                                            defaultMessage="Success"
-                                        />
+                                        <FormattedMessage id="authModal.success" />
                                     </SuccessText>
                                 ) : error ? (
-                                    formatMessage({
-                                        id: 'authModal.error',
-                                        defaultMessage: 'Error Occurred',
-                                    })
+                                    formatMessage({id: 'authModal.error'})
                                 ) : (
                                     ''
                                 )
@@ -95,20 +81,14 @@ export const AuthModal = ({
                             color="primary"
                             disabled={isFetching || !appCode}
                             onClick={submitForm}>
-                            <FormattedMessage
-                                id="authModal.submit"
-                                defaultMessage="Submit"
-                            />
+                            <FormattedMessage id="authModal.submit" />
                         </Button>
                         <Button
                             variant="outlined"
                             color="primary"
                             disabled={isFetching || !api_key}
                             onClick={toggleModal}>
-                            <FormattedMessage
-                                id="authModal.Close"
-                                defaultMessage="Close"
-                            />
+                            <FormattedMessage id="authModal.close" />
                         </Button>
                     </ButtonWrapper>
                 </form>
@@ -118,10 +98,7 @@ export const AuthModal = ({
             variant="contained"
             color="primary"
             onClick={toggleModal}
-            aria-label={formatMessage({
-                id: 'header.authButton',
-                defaultMessage: 'Login',
-            })}>
+            aria-label={formatMessage({id: 'header.authButton'})}>
             <AccountCircleIcon />
         </ModalButton>
     </>

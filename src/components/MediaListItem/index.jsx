@@ -23,7 +23,7 @@ export const MediaListItem = ({
 }) => (
     <StyledCard>
         {isLoading ? (
-            <div>
+            <StyledCardActionArea>
                 <StyledCardMediaContainer>
                     <SkeletonLoader variant="rect" style={{height: '100%'}} />
                 </StyledCardMediaContainer>
@@ -42,7 +42,7 @@ export const MediaListItem = ({
                         />
                     </StyledCardFooter>
                 </StyledCardContent>
-            </div>
+            </StyledCardActionArea>
         ) : (
             <StyledCardActionArea component={Link} to={`${link}${guid}`}>
                 <StyledCardMediaContainer>

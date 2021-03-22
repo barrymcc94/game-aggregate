@@ -20,19 +20,13 @@ const Arrows = ({
         <>
             <PrevButton
                 style={getBtnStyle(showPrev)}
-                aria-label={formatMessage({
-                    id: 'carousel.prevAria',
-                    defaultMessage: 'Previous',
-                })}
+                aria-label={formatMessage({id: 'carousel.prevAria'})}
                 onClick={onPrevClick}>
                 <NavigateBeforeIcon />
             </PrevButton>
             <NextButton
                 style={getBtnStyle(showNext)}
-                aria-label={formatMessage({
-                    id: 'carousel.nextAria',
-                    defaultMessage: 'Next',
-                })}
+                aria-label={formatMessage({id: 'carousel.nextAria'})}
                 onClick={onNextClick}>
                 <NavigateNextIcon />
             </NextButton>

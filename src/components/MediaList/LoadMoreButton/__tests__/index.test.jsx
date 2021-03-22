@@ -16,7 +16,7 @@ describe('<MediaList/>', () => {
 
     it('tests Component renders skeleton loader when loading', () => {
         const wrapper = mountWithBaseWrapper(
-            <LoadMoreButton id="1" isLoading={true} />
+            <LoadMoreButton text="test" isLoading={true} />
         );
         expect(wrapper.find(StyledSkeletonLoader).exists()).toEqual(true);
     });
@@ -24,7 +24,7 @@ describe('<MediaList/>', () => {
     it('tests Component with load more button', () => {
         const onClick = jest.fn(() => {});
         const wrapper = mountWithBaseWrapper(
-            <LoadMoreButton id="id" isLoading={false} onClick={onClick} />
+            <LoadMoreButton text="test" isLoading={false} onClick={onClick} />
         );
         expect(wrapper.find(StyledSkeletonLoader).exists()).toEqual(false);
         wrapper.find(StyledButton).simulate('click');
@@ -35,7 +35,7 @@ describe('<MediaList/>', () => {
         const onClick = jest.fn(() => {});
         const wrapper = mountWithBaseWrapper(
             <LoadMoreButton
-                id="id"
+                text="test"
                 isLoading={false}
                 link={'/'}
                 buttonType="link"
