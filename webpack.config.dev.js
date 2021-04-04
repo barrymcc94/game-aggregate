@@ -79,10 +79,8 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('development'),
-                GB_API_KEY: JSON.stringify(process.env.GB_API_KEY),
-            },
+            NODE_ENV: JSON.stringify('development'),
+            GB_API_KEY: JSON.stringify(process.env.GB_API_KEY),
         }),
         new Dotenv(),
         new MiniCssExtractPlugin({
