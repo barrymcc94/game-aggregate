@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import smoothscroll from 'smoothscroll-polyfill';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
@@ -30,114 +30,87 @@ smoothscroll.polyfill();
 
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loadedStorage: false,
-        };
-    }
+export const App = ({location, locale, fetchGBApiKeySucceeded}) => {
+    const [loadedStorage, setLoadedStorage] = useState(false);
 
-    componentDidMount() {
-        const {fetchGBApiKeySucceeded} = this.props;
+    useEffect(() => {
         const gbKey = localStorage.getItem('gbkey');
         if (gbKey) {
             fetchGBApiKeySucceeded({api_key: gbKey});
         }
-        this.setState({loadedStorage: true});
-    }
+        setLoadedStorage(true);
+    }, []);
 
-    componentDidUpdate(prevProps) {
-        if (this.props.location !== prevProps.location) {
-            window.scrollTo(0, 0);
-        }
-    }
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location.pathname]);
 
-    shouldComponentUpdate(nextProps, nextState) {
-        const {location, locale} = this.props;
-        const {loadedStorage} = this.state;
-        const locationChange = !(
-            location.pathname == nextProps.location.pathname
-        );
-        const localeChange = !(locale == nextProps.locale);
-        const loadedChange = !(loadedStorage == nextState.loadedStorage);
-        return locationChange || localeChange || loadedChange;
+    if (!loadedStorage) {
+        return null;
     }
-
-    render() {
-        const {locale} = this.props;
-        const {loadedStorage} = this.state;
-        if (!loadedStorage) {
-            return null;
-        }
-        return (
-            <IntlProvider locale={locale} messages={messages[locale]}>
-                <MuiThemeProvider theme={theme}>
-                    <ThemeProvider theme={theme}>
-                        <Styles />
-                        <StylesProvider injectFirst>
-                            <MainLayout>
-                                <CssBaseline />
-                                <Switch>
-                                    <Route
-                                        exact
-                                        path="/"
-                                        component={HomePage}
-                                    />
-                                    <Route
-                                        exact
-                                        path={`/${GAMES}/`}
-                                        component={GamesPage}
-                                    />
-                                    <Route
-                                        exact
-                                        path={`/${GAMES}/:guid`}
-                                        component={GamePage}
-                                    />
-                                    <Route
-                                        exact
-                                        path={`/${COMPANIES}/`}
-                                        component={CompaniesPage}
-                                    />
-                                    <Route
-                                        exact
-                                        path={`/${COMPANIES}/:guid`}
-                                        component={CompanyPage}
-                                    />
-                                    <Route
-                                        exact
-                                        path={`/${FRANCHISES}/`}
-                                        component={FranchisesPage}
-                                    />
-                                    <Route
-                                        exact
-                                        path={`/${FRANCHISES}/:guid`}
-                                        component={FranchisePage}
-                                    />
-                                    <Route
-                                        exact
-                                        path="/about"
-                                        component={AboutPage}
-                                    />
-                                    <Route
-                                        exact
-                                        path="/empty"
-                                        component={() => <div></div>}
-                                    />
-                                    <Route path="/404" component={ErrorPage} />
-                                    <Route
-                                        path="*"
-                                        render={() => <Redirect to="/404" />}
-                                    />
-                                </Switch>
-                            </MainLayout>
-                        </StylesProvider>
-                    </ThemeProvider>
-                </MuiThemeProvider>
-            </IntlProvider>
-        );
-    }
-}
+    return (
+        <IntlProvider locale={locale} messages={messages[locale]}>
+            <MuiThemeProvider theme={theme}>
+                <ThemeProvider theme={theme}>
+                    <Styles />
+                    <StylesProvider injectFirst>
+                        <MainLayout>
+                            <CssBaseline />
+                            <Switch>
+                                <Route exact path="/" component={HomePage} />
+                                <Route
+                                    exact
+                                    path={`/${GAMES}/`}
+                                    component={GamesPage}
+                                />
+                                <Route
+                                    exact
+                                    path={`/${GAMES}/:guid`}
+                                    component={GamePage}
+                                />
+                                <Route
+                                    exact
+                                    path={`/${COMPANIES}/`}
+                                    component={CompaniesPage}
+                                />
+                                <Route
+                                    exact
+                                    path={`/${COMPANIES}/:guid`}
+                                    component={CompanyPage}
+                                />
+                                <Route
+                                    exact
+                                    path={`/${FRANCHISES}/`}
+                                    component={FranchisesPage}
+                                />
+                                <Route
+                                    exact
+                                    path={`/${FRANCHISES}/:guid`}
+                                    component={FranchisePage}
+                                />
+                                <Route
+                                    exact
+                                    path="/about"
+                                    component={AboutPage}
+                                />
+                                <Route
+                                    exact
+                                    path="/empty"
+                                    component={() => <div></div>}
+                                />
+                                <Route path="/404" component={ErrorPage} />
+                                <Route
+                                    path="*"
+                                    render={() => <Redirect to="/404" />}
+                                />
+                            </Switch>
+                        </MainLayout>
+                    </StylesProvider>
+                </ThemeProvider>
+            </MuiThemeProvider>
+        </IntlProvider>
+    );
+};
 
 const mapStateToProps = ({locale, auth}) => ({
     locale: locale.currentLocale,
@@ -150,8 +123,15 @@ const mapDispatchToProps = (dispatch) =>
 App.propTypes = {
     location: PropTypes.object,
     locale: PropTypes.string,
-    setLocale: PropTypes.func,
     fetchGBApiKeySucceeded: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
+export const isEqual = ({location, locale, gbKey}, nextProps) =>
+    location?.pathname == nextProps?.location?.pathname &&
+    locale == nextProps.locale &&
+    gbKey == nextProps.gbKey;
+
+export default React.memo(
+    connect(mapStateToProps, mapDispatchToProps)(withRouter(App)),
+    isEqual
+);

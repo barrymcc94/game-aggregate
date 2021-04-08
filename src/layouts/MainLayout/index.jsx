@@ -5,29 +5,24 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import {StyledLayout, StyledMain, StyledContainer} from './styles.js';
 
-class MainLayout extends React.Component {
-    shouldComponentUpdate(nextProps) {
-        return this.props.location.pathname !== nextProps.location.pathname;
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <Header />
-                <StyledLayout>
-                    <StyledContainer maxWidth="xl">
-                        <StyledMain>{this.props.children}</StyledMain>
-                    </StyledContainer>
-                </StyledLayout>
-                <Footer />
-            </React.Fragment>
-        );
-    }
-}
+export const MainLayout = ({children}) => (
+    <>
+        <Header />
+        <StyledLayout>
+            <StyledContainer maxWidth="xl">
+                <StyledMain>{children}</StyledMain>
+            </StyledContainer>
+        </StyledLayout>
+        <Footer />
+    </>
+);
 
 MainLayout.propTypes = {
     location: PropTypes.object,
     children: PropTypes.any,
 };
 
-export default withRouter(MainLayout);
+export const isEqual = (prevProps, nextProps) =>
+    prevProps?.location?.pathname == nextProps?.location?.pathname;
+
+export default React.memo(withRouter(MainLayout), isEqual);

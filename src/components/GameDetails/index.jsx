@@ -104,7 +104,7 @@ export const GameDetails = ({game, isLoading}) => {
 
 GameDetail.propTypes = {
     text: PropTypes.any,
-    detailArr: PropTypes.string,
+    detailArr: PropTypes.array,
     link: PropTypes.string,
 };
 

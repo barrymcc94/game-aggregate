@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
 
 export class InfinateLoader extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     onScroll = throttle(() => {
         const {listRef, loadMore} = this.props;
         if (
