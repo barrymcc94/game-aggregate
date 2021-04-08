@@ -19,7 +19,6 @@ debounce.mockImplementation((fn) => fn);
 describe('<MediaListContainer/>', () => {
     const loadMore = jest.fn(() => {});
     const fetchItems = jest.fn(() => {});
-    const clearState = jest.fn(() => Promise.resolve());
 
     const defaultProps = {
         mediaType: 'games',
@@ -35,7 +34,6 @@ describe('<MediaListContainer/>', () => {
             filters: {},
         },
         fetchItems,
-        clearState,
     };
 
     const defaultStoreProps = {
@@ -54,7 +52,6 @@ describe('<MediaListContainer/>', () => {
     beforeEach(() => {
         loadMore.mockClear();
         fetchItems.mockClear();
-        clearState.mockClear();
     });
 
     it('test component initial mount (games)', async () => {
@@ -63,9 +60,8 @@ describe('<MediaListContainer/>', () => {
             <Container {...{...defaultProps, mediaType: 'games'}} />,
             store
         );
-        expect(store.getActions().length).toEqual(2);
-        expect(store.getActions()[0].type).toEqual('CLEAR_GAMES_STATE');
-        expect(store.getActions()[1].type).toEqual('FETCH_GAMES_STARTED');
+        expect(store.getActions().length).toEqual(1);
+        expect(store.getActions()[0].type).toEqual('FETCH_GAMES_STARTED');
     });
 
     it('test component initial mount (companies)', async () => {
@@ -74,9 +70,8 @@ describe('<MediaListContainer/>', () => {
             <Container {...{...defaultProps, mediaType: 'companies'}} />,
             store
         );
-        expect(store.getActions().length).toEqual(2);
-        expect(store.getActions()[0].type).toEqual('CLEAR_COMPANIES_STATE');
-        expect(store.getActions()[1].type).toEqual('FETCH_COMPANIES_STARTED');
+        expect(store.getActions().length).toEqual(1);
+        expect(store.getActions()[0].type).toEqual('FETCH_COMPANIES_STARTED');
     });
 
     it('test component initial mount (franchises)', async () => {
@@ -85,9 +80,8 @@ describe('<MediaListContainer/>', () => {
             <Container {...{...defaultProps, mediaType: 'franchises'}} />,
             store
         );
-        expect(store.getActions().length).toEqual(2);
-        expect(store.getActions()[0].type).toEqual('CLEAR_FRANCHISES_STATE');
-        expect(store.getActions()[1].type).toEqual('FETCH_FRANCHISES_STARTED');
+        expect(store.getActions().length).toEqual(1);
+        expect(store.getActions()[0].type).toEqual('FETCH_FRANCHISES_STARTED');
     });
 
     it('test component mount and unmount with carousel', async () => {
@@ -98,9 +92,8 @@ describe('<MediaListContainer/>', () => {
             />,
             store
         );
-        expect(store.getActions().length).toEqual(2);
-        expect(store.getActions()[0].type).toEqual('CLEAR_GAMES_STATE');
-        expect(store.getActions()[1].type).toEqual('FETCH_GAMES_STARTED');
+        expect(store.getActions().length).toEqual(1);
+        expect(store.getActions()[0].type).toEqual('FETCH_GAMES_STARTED');
         wrapper.unmount();
     });
 
@@ -109,9 +102,7 @@ describe('<MediaListContainer/>', () => {
         mountWithBaseWrapper(<Container {...defaultProps} />, store);
         global.pageYOffset = 100;
         global.dispatchEvent(new Event('scroll'));
-        expect(store.getActions().length).toEqual(2);
-        expect(store.getActions()[0].type).toEqual('CLEAR_GAMES_STATE');
-        expect(store.getActions()[1].type).toEqual('FETCH_GAMES_STARTED');
+        expect(store.getActions()[0].type).toEqual('FETCH_GAMES_STARTED');
     });
 
     it('tests scrolling does not load more when disableScrollLoading prop is true', () => {
@@ -124,7 +115,6 @@ describe('<MediaListContainer/>', () => {
         global.dispatchEvent(new Event('scroll'));
         wrapper.unmount();
         expect(store.getActions().length).toEqual(1);
-        expect(store.getActions()[0].type).toEqual('CLEAR_GAMES_STATE');
     });
 
     it('tests scrolling does not load more when less than 80% down page', () => {
@@ -138,7 +128,6 @@ describe('<MediaListContainer/>', () => {
         global.dispatchEvent(new Event('scroll'));
         wrapper.unmount();
         expect(store.getActions().length).toEqual(1);
-        expect(store.getActions()[0].type).toEqual('CLEAR_GAMES_STATE');
     });
 
     it('tests component updates as expected', () => {
@@ -165,7 +154,6 @@ describe('<MediaListContainer/>', () => {
             ...defaultProps,
             containerType: 'filtered',
         });
-        expect(clearState).toBeCalledTimes(1);
     });
 
     it('tests mounting with search containerType', async () => {
@@ -221,7 +209,6 @@ describe('<MediaListContainer/>', () => {
         });
 
         expect(fetchItems).toBeCalledTimes(2);
-        expect(clearState).toBeCalledTimes(1);
     });
 });
 
@@ -231,13 +218,10 @@ describe('<MediaListContainer/> funcs', () => {
         const props1 = mapDispatchToProps(dispatch, {mediaType: 'test'});
         expect(props1).toEqual({});
         const props2 = mapDispatchToProps(dispatch, {mediaType: 'games'});
-        expect(props2.clearState).toBeTruthy();
         expect(props2.fetchItems).toBeTruthy();
         const props3 = mapDispatchToProps(dispatch, {mediaType: 'companies'});
-        expect(props3.clearState).toBeTruthy();
         expect(props3.fetchItems).toBeTruthy();
         const props4 = mapDispatchToProps(dispatch, {mediaType: 'franchises'});
-        expect(props4.clearState).toBeTruthy();
         expect(props4.fetchItems).toBeTruthy();
     });
 

@@ -2,14 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {
-    fetchGames,
-    clearGamesState,
-    fetchCompanies,
-    clearCompaniesState,
-    fetchFranchises,
-    clearFranchisesState,
-} from '../../redux/actions';
+import {fetchGames, fetchCompanies, fetchFranchises} from '../../redux/actions';
 import {
     selectGames,
     selectCompanies,
@@ -29,7 +22,7 @@ export class MediaListContainer extends React.Component {
         this.listRef = React.createRef();
     }
 
-    loadMore = () => {
+    loadMore = (clearState) => {
         const {id, mediaType, meta, limit, isFetching, fetchItems} = this.props;
         const {offset, total} = meta;
         if (isFetching || (total > -1 && offset >= total)) {
@@ -39,38 +32,35 @@ export class MediaListContainer extends React.Component {
             mediaType,
             limit ? {...meta, limit} : meta
         );
+        const clearProps = clearState ? {offset: 0} : null;
         fetchItems({
             id,
             queryObj: {
                 ...defaultQueryObj,
                 ...meta.filters,
+                ...clearProps,
             },
             meta: {
                 limit: defaultQueryObj.limit,
+                ...clearProps,
             },
+            clearState,
         });
     };
 
     componentDidMount() {
-        const {id, containerType, clearState} = this.props;
+        const {containerType} = this.props;
         if (containerType !== FILTERED) {
-            clearState({id}).then(() => {
-                this.loadMore();
-            });
+            this.loadMore(true);
         }
     }
 
     componentDidUpdate(prevProps) {
-        const {
-            containerType,
-            meta: {
-                filters: {filter},
-            },
-        } = this.props;
+        const {containerType, meta} = this.props;
         if (containerType == FILTERED) {
             return;
         }
-        if (filter !== prevProps.meta.filters.filter) {
+        if (meta.filters.filter !== prevProps.meta.filters.filter) {
             this.loadMore();
         }
     }
@@ -140,18 +130,14 @@ export const mapStateToProps = (state, {mediaType, id}) => {
 
 export const mapDispatchToProps = (dispatch, {mediaType}) => {
     let fetchItems = null;
-    let clearState = null;
     if (mediaType == GAMES) {
         fetchItems = fetchGames;
-        clearState = clearGamesState;
     } else if (mediaType == COMPANIES) {
         fetchItems = fetchCompanies;
-        clearState = clearCompaniesState;
     } else if (mediaType == FRANCHISES) {
         fetchItems = fetchFranchises;
-        clearState = clearFranchisesState;
     }
-    return bindActionCreators({fetchItems, clearState}, dispatch);
+    return bindActionCreators({fetchItems}, dispatch);
 };
 
 MediaListContainer.propTypes = {
@@ -176,7 +162,6 @@ MediaListContainer.propTypes = {
         filters: PropTypes.object,
     }),
     fetchItems: PropTypes.func,
-    clearState: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaListContainer);

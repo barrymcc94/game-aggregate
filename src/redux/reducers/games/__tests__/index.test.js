@@ -42,6 +42,34 @@ describe('Games Reducers', () => {
         expect(newState).toEqual(expectedNewState);
     });
 
+    it('simulates FETCH_GAMES_STARTED action with no existing games state', () => {
+        const oldState = {
+            byId: {},
+            games: {},
+        };
+        const expectedNewState = {
+            byId: {},
+            games: {
+                ids: [],
+                isFetching: true,
+                error: false,
+                meta: {
+                    filters: {
+                        filter: '',
+                    },
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const newState = games(oldState, {
+            type: types.FETCH_GAMES_STARTED,
+            payload: {id: 'games', queryObj: {filter: ''}, meta: {}},
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
     it('simulates FETCH_GAMES_SUCCEEDED action', () => {
         const oldState = {
             byId: {},
@@ -216,42 +244,6 @@ describe('Games Reducers', () => {
                 id: 'games',
                 filter: 'test_filter',
             },
-        });
-        expect(newState).toEqual(expectedNewState);
-    });
-
-    it('simulates invalid CLEAR_GAMES_STATE action', () => {
-        const oldState = {
-            byId: {},
-            games: {
-                ids: [],
-                isFetching: true,
-                error: true,
-                meta: {
-                    offset: 5,
-                    limit: defaultLimit,
-                    total: 20,
-                },
-            },
-        };
-        const expectedNewState = {
-            byId: {},
-            games: {
-                ids: [],
-                isFetching: false,
-                error: false,
-                meta: {
-                    offset: 0,
-                    limit: defaultLimit,
-                    total: -1,
-                    filters: {},
-                },
-            },
-        };
-        const newState = games(oldState, {
-            type: types.CLEAR_GAMES_STATE,
-            payload: {id: 'games'},
-            filters: {},
         });
         expect(newState).toEqual(expectedNewState);
     });

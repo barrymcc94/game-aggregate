@@ -54,8 +54,8 @@ export const getDefaultFranchisesFilter = () => ({});
 export const getDefaultListingFilters = (mediaType, meta) => {
     try {
         let defaultQueryObj = {
-            limit: meta.limit,
-            offset: meta.offset,
+            limit: meta.limit || defaultLimit,
+            offset: meta.offset || 0,
         };
         if (mediaType == GAMES) {
             defaultQueryObj = {

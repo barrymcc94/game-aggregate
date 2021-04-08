@@ -28,6 +28,7 @@ export const companies = (
         case types.FETCH_COMPANIES_STARTED:
             return {
                 ...state,
+                ids: payload.clearState ? [] : ids,
                 isFetching: true,
                 error: false,
                 meta: {
@@ -73,11 +74,6 @@ export const companies = (
                         filter: payload.filter,
                     },
                 },
-            };
-        case types.CLEAR_COMPANIES_STATE:
-            return {
-                ...initialState,
-                byId,
             };
         case types.FETCH_COMPANY_SUCCEEDED:
             return {

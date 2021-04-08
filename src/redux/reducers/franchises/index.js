@@ -28,6 +28,7 @@ export const franchises = (
         case types.FETCH_FRANCHISES_STARTED:
             return {
                 ...state,
+                ids: payload.clearState ? [] : ids,
                 isFetching: true,
                 error: false,
                 meta: {
@@ -73,11 +74,6 @@ export const franchises = (
                         filter: payload.filter,
                     },
                 },
-            };
-        case types.CLEAR_FRANCHISES_STATE:
-            return {
-                ...initialState,
-                byId,
             };
         case types.FETCH_FRANCHISE_SUCCEEDED:
             return {

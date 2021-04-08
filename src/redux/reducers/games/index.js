@@ -33,6 +33,7 @@ export const games = (
                 ...state,
                 [payload.id]: {
                     ...state[payload.id],
+                    ids: payload.clearState ? [] : state[payload.id]?.ids || [],
                     isFetching: true,
                     error: false,
                     meta: {
@@ -94,14 +95,6 @@ export const games = (
                             filter: payload.filter,
                         },
                     },
-                },
-            };
-        case types.CLEAR_GAMES_STATE:
-            return {
-                ...state,
-                byId,
-                [payload.id]: {
-                    ...gamesInitialState,
                 },
             };
         case types.FETCH_GAME_SUCCEEDED:

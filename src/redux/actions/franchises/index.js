@@ -3,7 +3,6 @@ import {
     FETCH_FRANCHISES_SUCCEEDED,
     FETCH_FRANCHISES_FAILED,
     SET_FRANCHISES_SEARCH_FILTERS,
-    CLEAR_FRANCHISES_STATE,
 } from '../../types';
 
 export const fetchFranchisesStarted = (payload) => ({
@@ -27,11 +26,5 @@ export const fetchFranchises = (payload) => async (dispatch) =>
 export const setFranchisesSearchFilters = (payload) => async (dispatch) =>
     dispatch({
         type: SET_FRANCHISES_SEARCH_FILTERS,
-        payload,
-    });
-
-export const clearFranchisesState = (payload) => async (dispatch) =>
-    dispatch({
-        type: CLEAR_FRANCHISES_STATE,
         payload,
     });

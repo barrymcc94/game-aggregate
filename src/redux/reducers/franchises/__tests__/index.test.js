@@ -49,6 +49,36 @@ describe('Companies Reducers', () => {
         expect(newState).toEqual(expectedNewState);
     });
 
+    it('simulates FETCH_FRANCHISES_STARTED action with clear prop', () => {
+        const oldState = {
+            ids: [],
+            byId: {},
+            isFetching: false,
+            error: false,
+            meta: {
+                offset: 0,
+                limit: defaultLimit,
+                total: -1,
+            },
+        };
+        const expectedNewState = {
+            ids: [],
+            byId: {},
+            isFetching: true,
+            error: false,
+            meta: {
+                offset: 0,
+                limit: defaultLimit,
+                total: -1,
+            },
+        };
+        const newState = franchises(oldState, {
+            type: types.FETCH_FRANCHISES_STARTED,
+            payload: {clearState: true},
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
     it('simulates FETCH_FRANCHISES_SUCCEEDED action', () => {
         const oldState = {
             ids: [],
@@ -203,38 +233,6 @@ describe('Companies Reducers', () => {
             payload: {
                 filter: 'test_filter',
             },
-        });
-        expect(newState).toEqual(expectedNewState);
-    });
-
-    it('simulates invalid CLEAR_FRANCHISES_STATE action', () => {
-        const oldState = {
-            ids: [],
-            byId: {},
-            isFetching: true,
-            error: true,
-            meta: {
-                offset: 5,
-                limit: defaultLimit,
-                total: 20,
-            },
-        };
-        const expectedNewState = {
-            ids: [],
-            byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
-                filters: {},
-            },
-        };
-        const newState = franchises(oldState, {
-            type: types.CLEAR_FRANCHISES_STATE,
-            payload: {},
-            filters: {},
         });
         expect(newState).toEqual(expectedNewState);
     });
