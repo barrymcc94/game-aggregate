@@ -84,19 +84,21 @@ export const games = (
                 },
             };
         case types.SET_GAMES_SEARCH_FILTERS:
-            return {
-                ...state,
-                [payload.id]: {
-                    ...gamesInitialState,
-                    meta: {
-                        ...gamesInitialState.meta,
-                        filters: {
-                            ...state[payload.id].meta.filters,
-                            filter: payload.filter,
-                        },
-                    },
-                },
-            };
+            return payload.filter == state[payload.id].meta.filters.filter
+                ? state
+                : {
+                      ...state,
+                      [payload.id]: {
+                          ...gamesInitialState,
+                          meta: {
+                              ...gamesInitialState.meta,
+                              filters: {
+                                  ...state[payload.id].meta.filters,
+                                  filter: payload.filter,
+                              },
+                          },
+                      },
+                  };
         case types.FETCH_GAME_SUCCEEDED:
             return {
                 ...state,

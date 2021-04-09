@@ -248,6 +248,34 @@ describe('Games Reducers', () => {
         expect(newState).toEqual(expectedNewState);
     });
 
+    it('simulates SET_GAMES_SEARCH_FILTERS action with the same filter', () => {
+        const oldState = {
+            byId: {},
+            games: {
+                ids: [],
+                isFetching: true,
+                error: true,
+                meta: {
+                    offset: 5,
+                    limit: defaultLimit,
+                    total: 20,
+                    filters: {
+                        filter: 'test',
+                    },
+                },
+            },
+        };
+        const expectedNewState = {...oldState};
+        const newState = games(oldState, {
+            type: types.SET_GAMES_SEARCH_FILTERS,
+            payload: {
+                id: 'games',
+                filter: 'test',
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
     it('simulates FETCH_GAME_SUCCEEDED action', () => {
         const oldState = {
             byId: {},

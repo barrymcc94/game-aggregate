@@ -38,7 +38,12 @@ export class MediaListContainer extends React.Component {
             queryObj: {
                 ...defaultQueryObj,
                 ...meta.filters,
-                ...clearProps,
+                ...(clearState
+                    ? {
+                          ...clearProps,
+                          filter: defaultQueryObj.filter,
+                      }
+                    : null),
             },
             meta: {
                 limit: defaultQueryObj.limit,
