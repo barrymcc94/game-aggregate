@@ -11,7 +11,7 @@ import {
 import {ENUMS} from '../../config';
 import {getDefaultListingFilters} from '../../utils';
 import MediaList from '../../components/MediaList';
-import InfinateLoader from '../../components/InfinateLoader';
+import InfiniteLoader from '../../components/InfiniteLoader';
 
 const {ALL, SEARCH, FILTERED} = ENUMS.CONTAINER_TYPE;
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
@@ -95,9 +95,9 @@ export class MediaListContainer extends React.Component {
             />
         );
         return !disableScrollLoading && !isCarousel ? (
-            <InfinateLoader listRef={this.listRef} loadMore={this.loadMore}>
+            <InfiniteLoader listRef={this.listRef} loadMore={this.loadMore}>
                 {list}
-            </InfinateLoader>
+            </InfiniteLoader>
         ) : (
             list
         );

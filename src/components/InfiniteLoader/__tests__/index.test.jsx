@@ -2,7 +2,7 @@ import React from 'react';
 import throttle from 'lodash.throttle';
 import debounce from 'lodash.debounce';
 import {mountWithBaseWrapper} from '../../../../tests/helper';
-import InfinateLoader from '../index';
+import InfiniteLoader from '../index';
 
 jest.mock('lodash.throttle');
 jest.mock('lodash.debounce');
@@ -11,7 +11,7 @@ jest.useFakeTimers();
 throttle.mockImplementation((fn) => fn);
 debounce.mockImplementation((fn) => fn);
 
-describe('<InfinateLoader/>', () => {
+describe('<InfiniteLoader/>', () => {
     const loadMore = jest.fn();
     beforeEach(() => {
         loadMore.mockClear();
@@ -20,9 +20,9 @@ describe('<InfinateLoader/>', () => {
     it('tests scrolling loads more when over 80% down page', () => {
         const listRef = {current: {offsetHeight: 0, offsetTop: 0}};
         mountWithBaseWrapper(
-            <InfinateLoader loadMore={loadMore} listRef={listRef}>
+            <InfiniteLoader loadMore={loadMore} listRef={listRef}>
                 test
-            </InfinateLoader>
+            </InfiniteLoader>
         );
         global.pageYOffset = 100;
         global.dispatchEvent(new Event('scroll'));
@@ -32,9 +32,9 @@ describe('<InfinateLoader/>', () => {
     it('tests scrolling does not load more when less than 80% down page', () => {
         const listRef = {current: {offsetHeight: 0, offsetTop: 0}};
         const wrapper = mountWithBaseWrapper(
-            <InfinateLoader loadMore={loadMore} listRef={listRef}>
+            <InfiniteLoader loadMore={loadMore} listRef={listRef}>
                 test
-            </InfinateLoader>
+            </InfiniteLoader>
         );
         global.innerHeight = 0;
         global.pageYOffset = -1;
