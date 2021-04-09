@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const StyledGameArticle = styled.article`
+export const StyledGameSection = styled.section`
     padding: 1rem 0;
 `;

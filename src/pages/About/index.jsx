@@ -5,9 +5,9 @@ import DocumentTitle from '../../components/DocumentTitle';
 
 export const AboutPage = ({intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: 'aboutPage.title'})}>
-        <article>
+        <section>
             <FormattedMessage id="aboutPage.aboutText" />
-        </article>
+        </section>
     </DocumentTitle>
 );
 

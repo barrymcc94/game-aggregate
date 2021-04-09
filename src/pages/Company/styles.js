@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const StyledCompanyArticle = styled.article`
+export const StyledCompanySection = styled.section`
     padding: 1rem 0;
 `;

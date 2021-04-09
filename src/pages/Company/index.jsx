@@ -4,15 +4,15 @@ import {injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
 import DocumentTitle from '../../components/DocumentTitle';
 import MediaContainer from '../../containers/MediaContainer';
-import {StyledCompanyArticle} from './styles';
+import {StyledCompanySection} from './styles';
 
 const {COMPANIES} = ENUMS.MEDIA_TYPE;
 
 export const CompanyPage = ({match, intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: 'companyPage.title'})}>
-        <StyledCompanyArticle>
+        <StyledCompanySection>
             <MediaContainer guid={match.params.guid} mediaType={COMPANIES} />
-        </StyledCompanyArticle>
+        </StyledCompanySection>
     </DocumentTitle>
 );
 

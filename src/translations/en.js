@@ -35,6 +35,9 @@ export default {
     'errorPage.title': '404 - Page Not Found',
     'errorPage.errorHeading': '404 - Page Not Found',
     'errorPage.errorMessage': 'Click here to go back to the homepage',
+    'aboutPage.title': 'About This Website',
+    'aboutPage.aboutText':
+        'This website is built using React and is powered by the Giantbomb API.',
     'mediaList.emptyListMessage': 'No results found',
     'mediaList.error': 'Error: Could not retrieve data',
     'game.error': 'Error: Could not retrieve game',

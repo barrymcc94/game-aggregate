@@ -4,15 +4,15 @@ import {injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
 import DocumentTitle from '../../components/DocumentTitle';
 import MediaContainer from '../../containers/MediaContainer';
-import {StyledGameArticle} from './styles';
+import {StyledGameSection} from './styles';
 
 const {GAMES} = ENUMS.MEDIA_TYPE;
 
 export const GamePage = ({match, intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: 'gamePage.title'})}>
-        <StyledGameArticle>
+        <StyledGameSection>
             <MediaContainer guid={match.params.guid} mediaType={GAMES} />
-        </StyledGameArticle>
+        </StyledGameSection>
     </DocumentTitle>
 );
 
