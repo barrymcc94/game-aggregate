@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -12,19 +12,33 @@ import {ENUMS} from '../../config';
 import {getDefaultListingFilters} from '../../utils';
 import MediaList from '../../components/MediaList';
 import InfiniteLoader from '../../components/InfiniteLoader';
+import {usePrevious} from '../../hooks';
 
 const {ALL, SEARCH, FILTERED} = ENUMS.CONTAINER_TYPE;
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
-export class MediaListContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.listRef = React.createRef();
-    }
+export const MediaListContainer = ({
+    id,
+    title,
+    isCarousel,
+    mediaType,
+    containerType,
+    disableScrollLoading,
+    limit,
+    isLoading = false,
+    buttonType,
+    loadMoreText,
+    items,
+    error,
+    isFetching,
+    meta,
+    fetchItems,
+}) => {
+    const listRef = useRef();
+    const {offset, total} = meta;
+    const prevId = usePrevious(id);
 
-    loadMore = (clearState) => {
-        const {id, mediaType, meta, limit, isFetching, fetchItems} = this.props;
-        const {offset, total} = meta;
+    const loadMore = (clearState) => {
         if (isFetching || (total > -1 && offset >= total)) {
             return;
         }
@@ -53,61 +67,46 @@ export class MediaListContainer extends React.Component {
         });
     };
 
-    componentDidMount() {
-        const {containerType} = this.props;
+    useEffect(() => {
         if (containerType !== FILTERED) {
-            this.loadMore(true);
+            loadMore(true);
         }
-    }
+    }, []);
 
-    componentDidUpdate(prevProps) {
-        const {containerType, meta} = this.props;
-        if (containerType == FILTERED) {
+    useEffect(() => {
+        if (
+            containerType == FILTERED ||
+            !meta.filters.filter ||
+            prevId !== id
+        ) {
             return;
         }
-        if (meta.filters.filter !== prevProps.meta.filters.filter) {
-            this.loadMore();
-        }
-    }
+        loadMore();
+    }, [meta.filters.filter]);
 
-    render() {
-        const {
-            title,
-            mediaType,
-            isCarousel,
-            disableScrollLoading,
-            items,
-            isFetching,
-            error,
-            isLoading = false,
-            buttonType,
-            loadMoreText,
-            meta: {total, offset},
-        } = this.props;
-        const list = (
-            <MediaList
-                title={title}
-                ref={this.listRef}
-                isCarousel={isCarousel}
-                items={items}
-                total={total}
-                isLoading={isFetching || isLoading}
-                error={error}
-                link={`/${mediaType}/`}
-                buttonType={buttonType}
-                loadMoreText={offset < total ? loadMoreText : ''}
-                loadMore={this.loadMore}
-            />
-        );
-        return !disableScrollLoading && !isCarousel ? (
-            <InfiniteLoader listRef={this.listRef} loadMore={this.loadMore}>
-                {list}
-            </InfiniteLoader>
-        ) : (
-            list
-        );
-    }
-}
+    const list = (
+        <MediaList
+            title={title}
+            ref={listRef}
+            isCarousel={isCarousel}
+            items={items}
+            total={total}
+            isLoading={isFetching || isLoading}
+            error={error}
+            link={`/${mediaType}/`}
+            buttonType={buttonType}
+            loadMoreText={offset < total ? loadMoreText : ''}
+            loadMore={loadMore}
+        />
+    );
+    return !disableScrollLoading && !isCarousel ? (
+        <InfiniteLoader listRef={listRef} loadMore={loadMore}>
+            {list}
+        </InfiniteLoader>
+    ) : (
+        list
+    );
+};
 
 export const mapStateToProps = (state, {mediaType, id}) => {
     const defaultProps = {

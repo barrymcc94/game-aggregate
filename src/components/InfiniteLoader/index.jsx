@@ -1,10 +1,10 @@
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import throttle from 'lodash.throttle';
 
 export const InfiniteLoader = ({listRef, loadMore, children}) => {
-    useEffect(() => {
-        const onScroll = throttle(() => {
+    const handleScroll = useRef(
+        throttle((throttledLoad) => {
             if (
                 !listRef?.current ||
                 window.innerHeight + window.pageYOffset <
@@ -13,13 +13,17 @@ export const InfiniteLoader = ({listRef, loadMore, children}) => {
             ) {
                 return;
             }
-            loadMore();
-        }, 1500);
+            throttledLoad();
+        }, 1500)
+    );
+
+    useEffect(() => {
+        const onScroll = () => handleScroll.current(loadMore);
         window.addEventListener('scroll', onScroll);
         return () => {
             window.removeEventListener('scroll', onScroll);
         };
-    }, []);
+    });
 
     return children;
 };

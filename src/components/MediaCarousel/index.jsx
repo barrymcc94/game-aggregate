@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import throttle from 'lodash.throttle';
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
@@ -32,53 +32,48 @@ const Column = ({index, style, data: {items, link}}) => (
 
 const MediaCarousel = React.forwardRef(
     ({items, total, link, loadMore}, ref) => {
-        const outerRef = useRef();
-
         const [width, setWidth] = useState(0);
         const [currentPos, setCurrentPos] = useState(0);
         const moveSpacing = (Math.floor(width / colWidth) || 1) * colWidth;
-
-        const handleScrollLoad = useCallback(
-            throttle(() => {
-                loadMore();
-            }, 1000),
-            []
+        const outerRef = useRef();
+        const handleScroll = useRef(
+            throttle((throttledFunc) => {
+                throttledFunc();
+            }, 1500)
         );
 
-        const handleScrollPos = useCallback(
-            debounce(() => {
+        useEffect(() => {
+            const onResize = debounce(() => {
+                setWidth(ref?.current?.clientWidth || 0);
+            }, 250);
+
+            onResize();
+            window.addEventListener('resize', onResize);
+
+            return () => {
+                window.removeEventListener('resize', onResize);
+            };
+        }, []);
+
+        useEffect(() => {
+            const onScroll = () => handleScroll.current(loadMore);
+            const handleScrollPos = debounce(() => {
                 setCurrentPos(
                     Math.ceil(outerRef?.current?.scrollLeft / moveSpacing) *
                         moveSpacing
                 );
-            }, 250),
-            []
-        );
+            }, 250);
 
-        const onResize = useCallback(
-            debounce(() => {
-                setWidth(ref?.current?.clientWidth || 0);
-            }, 250),
-            []
-        );
-
-        useEffect(() => {
-            onResize();
-            window.addEventListener('resize', onResize);
-            outerRef?.current?.addEventListener('scroll', handleScrollLoad);
+            outerRef?.current?.addEventListener('scroll', onScroll);
             outerRef?.current?.addEventListener('scroll', handleScrollPos);
             return () => {
-                window.removeEventListener('resize', onResize);
-                outerRef?.current?.removeEventListener(
-                    'scroll',
-                    handleScrollLoad
-                );
+                outerRef?.current?.removeEventListener('scroll', onScroll);
                 outerRef?.current?.removeEventListener(
                     'scroll',
                     handleScrollPos
                 );
             };
-        }, []);
+        });
 
         const moveCarousel = (newPos) => {
             if (currentPos == newPos) {

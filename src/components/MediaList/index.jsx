@@ -132,4 +132,7 @@ MediaList.propTypes = {
     intl: PropTypes.object,
 };
 
-export default injectIntl(MediaList, {forwardRef: true});
+export default React.memo(
+    injectIntl(MediaList, {forwardRef: true}),
+    (prev, next) => prev.isLoading == next.isLoading
+);
