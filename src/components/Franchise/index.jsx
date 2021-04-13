@@ -7,6 +7,7 @@ import DocumentTitle from '../DocumentTitle';
 import ErrorMessage from '../ErrorMessage';
 import MediaHeader from '../MediaHeader';
 import MediaListContainer from '../../containers/MediaListContainer';
+import AriaLoader from '../AriaLoader';
 
 const {GAMES} = ENUMS.MEDIA_TYPE;
 const {FILTERED} = ENUMS.CONTAINER_TYPE;
@@ -27,11 +28,18 @@ export const Franchise = ({
             />
         );
     }
+    const {name = ''} = franchise;
     return (
         <DocumentTitle
-            title={
-                franchise.name || formatMessage({id: 'franchisePage.title'})
-            }>
+            title={name || formatMessage({id: 'franchisePage.title'})}>
+            <AriaLoader
+                isLoading={isFetching}
+                loadingMessage={formatMessage(
+                    {id: 'ariaLoader.loading'},
+                    {name}
+                )}
+                loadedMessage={formatMessage({id: 'ariaLoader.loaded'}, {name})}
+            />
             <MediaHeader item={franchise} isLoading={isFetching} />
             <MediaListContainer
                 id={`franchiseGames_${franchise.guid}`}

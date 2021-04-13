@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {injectIntl} from 'react-intl';
 import {fetchGame, fetchCompany, fetchFranchise} from '../../redux/actions';
 import {ENUMS} from '../../config';
 import {
@@ -18,7 +17,6 @@ import {
 import Game from '../../components/Game';
 import Company from '../../components/Company';
 import Franchise from '../../components/Franchise';
-import {AriaLoader} from '../../components/Loader';
 
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 const mediaTypeKeys = {
@@ -48,7 +46,6 @@ export const MediaContainer = ({
     isFetching,
     error,
     fetchItem,
-    intl: {formatMessage},
 }) => {
     const isLoaded = isItemLoaded(mediaType, item);
     const loading = isFetching || !isLoaded;
@@ -59,28 +56,16 @@ export const MediaContainer = ({
         fetchItem({guid});
     }, []);
 
-    let mediaComp = null;
     if (mediaType == GAMES) {
-        mediaComp = <Game game={item} isFetching={loading} error={error} />;
+        return <Game game={item} isFetching={loading} error={error} />;
     } else if (mediaType == COMPANIES) {
-        mediaComp = (
-            <Company company={item} isFetching={loading} error={error} />
-        );
+        return <Company company={item} isFetching={loading} error={error} />;
     } else if (mediaType == FRANCHISES) {
-        mediaComp = (
+        return (
             <Franchise franchise={item} isFetching={loading} error={error} />
         );
     }
-    return (
-        <>
-            <AriaLoader
-                isLoading={loading}
-                loadingMessage={formatMessage({id: 'ariaLoader.loading'})}
-                loadedMessage={formatMessage({id: 'ariaLoader.loaded'})}
-            />
-            {mediaComp}
-        </>
-    );
+    return null;
 };
 
 export const mapStateToProps = (state, {mediaType, guid}) => {
@@ -128,6 +113,4 @@ MediaContainer.propTypes = {
     intl: PropTypes.object,
 };
 
-export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(MediaContainer)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(MediaContainer);

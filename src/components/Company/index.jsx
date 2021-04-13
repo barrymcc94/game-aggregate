@@ -7,6 +7,7 @@ import DocumentTitle from '../DocumentTitle';
 import ErrorMessage from '../ErrorMessage';
 import MediaHeader from '../MediaHeader';
 import MediaListContainer from '../../containers/MediaListContainer';
+import AriaLoader from '../AriaLoader';
 
 const {GAMES} = ENUMS.MEDIA_TYPE;
 const {FILTERED} = ENUMS.CONTAINER_TYPE;
@@ -25,9 +26,17 @@ export const Company = ({
             />
         );
     }
+    const {name = ''} = company;
     return (
-        <DocumentTitle
-            title={company.name || formatMessage({id: 'companyPage.title'})}>
+        <DocumentTitle title={name || formatMessage({id: 'companyPage.title'})}>
+            <AriaLoader
+                isLoading={isFetching}
+                loadingMessage={formatMessage(
+                    {id: 'ariaLoader.loading'},
+                    {name}
+                )}
+                loadedMessage={formatMessage({id: 'ariaLoader.loaded'}, {name})}
+            />
             <MediaHeader item={company} isLoading={isFetching} />
             <MediaListContainer
                 id={`companyPublishedGames_${company.guid}`}

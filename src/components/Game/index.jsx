@@ -7,6 +7,7 @@ import ErrorMessage from '../ErrorMessage';
 import MediaHeader from '../MediaHeader';
 import GameDetails from '../GameDetails';
 import GameFooter from '../GameFooter';
+import AriaLoader from '../AriaLoader';
 
 export const Game = ({game = {}, isFetching, error, intl: {formatMessage}}) => {
     if (error || (!isFetching && (!game || !game.guid))) {
@@ -19,9 +20,17 @@ export const Game = ({game = {}, isFetching, error, intl: {formatMessage}}) => {
             />
         );
     }
+    const {name = ''} = game;
     return (
-        <DocumentTitle
-            title={game.name || formatMessage({id: 'gamePage.title'})}>
+        <DocumentTitle title={name || formatMessage({id: 'gamePage.title'})}>
+            <AriaLoader
+                isLoading={isFetching}
+                loadingMessage={formatMessage(
+                    {id: 'ariaLoader.loading'},
+                    {name}
+                )}
+                loadedMessage={formatMessage({id: 'ariaLoader.loaded'}, {name})}
+            />
             <MediaHeader item={game} isLoading={isFetching} />
             <GameDetails game={game} isLoading={isFetching} />
             <GameFooter isLoading={isFetching} />

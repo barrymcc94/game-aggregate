@@ -7,14 +7,14 @@ import {StyledGrid} from './styles';
 import LoadMoreButton from './LoadMoreButton';
 import ListHeading from './ListHeading';
 import MediaCarousel from '../MediaCarousel';
-import {AriaLoader} from '../Loader';
+import AriaLoader from '../AriaLoader';
 import {FormattedMessage, injectIntl} from 'react-intl';
 
 const itemsPlaceholder = new Array(12).fill(0);
 export const MediaList = React.forwardRef(
     (
         {
-            title,
+            title = '',
             link,
             buttonType,
             items,
@@ -31,8 +31,14 @@ export const MediaList = React.forwardRef(
         <>
             <AriaLoader
                 isLoading={isLoading}
-                loadingMessage={formatMessage({id: 'ariaLoader.loading'})}
-                loadedMessage={formatMessage({id: 'ariaLoader.loaded'})}
+                loadingMessage={formatMessage(
+                    {id: 'ariaLoader.loading'},
+                    {name: title}
+                )}
+                loadedMessage={formatMessage(
+                    {id: 'ariaLoader.loaded'},
+                    {name: title}
+                )}
             />
             <ListHeading title={title} isLoading={isLoading && !items.length} />
             {isCarousel ? (

@@ -37,15 +37,15 @@ export const franchises = (
                 },
             };
         case types.FETCH_FRANCHISES_SUCCEEDED:
-            const normalizedCompanies = normalizeObjectListing(
+            const normalizedFranchises = normalizeObjectListing(
                 payload.data,
                 'guid'
             );
             return {
                 ...state,
                 ...combineNormalizedListingObjs(
-                    {ids, byId: normalizedCompanies.byId},
-                    {ids: normalizedCompanies.ids, byId}
+                    {ids, byId: normalizedFranchises.byId},
+                    {ids: normalizedFranchises.ids, byId}
                 ),
                 isFetching: false,
                 error: false,
