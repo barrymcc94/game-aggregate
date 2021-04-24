@@ -52,7 +52,7 @@ module.exports = {
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify('production'),
         }),
-        new Dotenv(),
+        new Dotenv({systemvars: true}),
         new MiniCssExtractPlugin({
             filename: '[name]-[contenthash].css',
             chunkFilename: '[id][contenthash].css',
@@ -79,6 +79,7 @@ module.exports = {
     ],
     optimization: {
         minimize: true,
+        moduleIds: 'deterministic',
     },
     target: 'web',
 };

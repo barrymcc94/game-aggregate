@@ -80,9 +80,8 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify('development'),
-            GB_API_KEY: JSON.stringify(process.env.GB_API_KEY),
         }),
-        new Dotenv(),
+        new Dotenv({systemvars: true}),
         new MiniCssExtractPlugin({
             filename: 'styles.css',
             chunkFilename: 'styles.css',
