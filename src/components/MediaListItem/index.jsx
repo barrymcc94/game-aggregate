@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import {GameListItem, CompanyListItem} from '../../types';
 import {Link} from 'react-router-dom';
+import {GameListItem, CompanyListItem} from '../../types';
+import {format} from 'date-fns';
 import SkeletonLoader from '../SkeletonLoader';
 import {
     StyledCard,
@@ -61,9 +61,10 @@ export const MediaListItem = ({
                     </StyledCardBody>
                     <StyledCardFooter variant="body2">
                         {(original_release_date || date_founded) &&
-                            moment(
-                                original_release_date || date_founded
-                            ).format(dateFormat)}
+                            format(
+                                new Date(original_release_date || date_founded),
+                                dateFormat
+                            )}
                     </StyledCardFooter>
                 </StyledCardContent>
             </StyledCardActionArea>

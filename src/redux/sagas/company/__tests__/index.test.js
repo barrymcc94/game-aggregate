@@ -27,9 +27,6 @@ describe('Company Sagas', () => {
     });
 
     it('tests fetchCompanySaga when expecting success', async () => {
-        Date.now = jest
-            .fn()
-            .mockReturnValue(new Date('2020-06-15T00:00:00.000Z'));
         const gen = fetchCompanySaga({payload: {}});
         const data = await gen.next().value;
         const gamesStartedAction1 = await gen.next(data).value.payload.action;

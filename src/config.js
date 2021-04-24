@@ -15,7 +15,7 @@ export const ENUMS = {
     },
 };
 
-export const dateFormat = 'DD-MM-YYYY';
+export const dateFormat = 'dd-MM-yyyy';
 
 export const defaultLimit = 100;
 

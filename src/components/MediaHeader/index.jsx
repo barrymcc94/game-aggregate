@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import Link from '@material-ui/core/Link';
 import {FormattedMessage, injectIntl} from 'react-intl';
+import {format} from 'date-fns';
 import {dateFormat} from '../../config';
 import {Game, Company} from '../../types';
 import SkeletonLoader from '../SkeletonLoader';
@@ -104,7 +104,8 @@ export const MediaHeader = ({item, isLoading, intl}) => {
                             <FormattedMessage
                                 id="mediaHeader.released"
                                 values={{
-                                    date: moment(original_release_date).format(
+                                    date: format(
+                                        new Date(original_release_date),
                                         dateFormat
                                     ),
                                 }}
@@ -116,7 +117,8 @@ export const MediaHeader = ({item, isLoading, intl}) => {
                             <FormattedMessage
                                 id="mediaHeader.founded"
                                 values={{
-                                    date: moment(date_founded).format(
+                                    date: format(
+                                        new Date(date_founded),
                                         dateFormat
                                     ),
                                 }}

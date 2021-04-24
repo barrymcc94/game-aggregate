@@ -19,3 +19,10 @@ global.helperStore = createStore(
 
 global.fetch = jest.fn(() => Promise.resolve({}));
 global.Request = (url) => url;
+
+class MockDate extends Date {
+    constructor() {
+        super('2020-06-14T00:00:00.000Z'); // add whatever date you'll expect to get
+    }
+}
+global.Date = MockDate;

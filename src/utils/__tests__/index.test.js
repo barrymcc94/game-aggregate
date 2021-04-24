@@ -269,9 +269,6 @@ describe('utils', () => {
     });
 
     it('tests getDefaultListingFilters works as expected', () => {
-        Date.now = jest
-            .fn()
-            .mockReturnValue(new Date('2020-06-15T00:00:00.000Z'));
         const expectedVal = {
             limit: 10,
             offset: 0,

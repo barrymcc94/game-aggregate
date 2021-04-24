@@ -1,4 +1,4 @@
-import moment from 'moment/moment';
+import {sub, format} from 'date-fns';
 import {ENUMS, defaultLimit} from '../config';
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
@@ -40,10 +40,9 @@ export const objToFilterStr = (obj) => {
 };
 
 export const getDefaultGamesFilter = () => {
-    const currentMoment = moment();
-    const dateFormat = 'YYYY-M-D 00:00:00';
+    const dateFormat = 'yyyy-M-d 00:00:00';
     const startDate = '';
-    const endDate = currentMoment.subtract(1, 'day').format(dateFormat);
+    const endDate = format(new Date(sub(new Date(), {days: 1})), dateFormat);
     return {original_release_date: `${startDate}|${endDate}`};
 };
 
