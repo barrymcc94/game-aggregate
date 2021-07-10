@@ -40,7 +40,7 @@ export const MediaHeader = ({item, isLoading, intl}) => {
     const {small_url = ''} = image || {};
     if (isLoading) {
         return (
-            <StyledMediaHeader>
+            <StyledMediaHeader data-testid="media-header">
                 <PosterImgLoader />
                 <TitleContent>
                     <GameName variant="h5" component="h1" gutterBottom>
@@ -75,7 +75,7 @@ export const MediaHeader = ({item, isLoading, intl}) => {
         );
     }
     return (
-        <StyledMediaHeader>
+        <StyledMediaHeader data-testid="media-header">
             <PosterImg
                 src={small_url}
                 alt={intl.formatMessage({id: 'mediaHeader.posterAlt'})}

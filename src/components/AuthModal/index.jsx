@@ -73,7 +73,9 @@ export const AuthModal = ({
                                 )
                             }
                         />
-                        {isFetching ? <ProgressSpinner /> : null}
+                        {isFetching ? (
+                            <ProgressSpinner data-testid="progress-spinner" />
+                        ) : null}
                     </TextFieldWrapper>
                     <ButtonWrapper>
                         <Button

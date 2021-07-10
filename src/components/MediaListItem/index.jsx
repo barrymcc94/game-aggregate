@@ -19,11 +19,11 @@ import {dateFormat} from '../../config';
 export const MediaListItem = ({
     link,
     isLoading,
-    item: {guid, name, deck, original_release_date, date_founded, image},
+    item: {guid, name, deck, original_release_date, date_founded, image} = {},
 }) => (
     <StyledCard>
         {isLoading ? (
-            <StyledCardActionArea>
+            <StyledCardActionArea data-testid="item-loading">
                 <StyledCardMediaContainer>
                     <SkeletonLoader variant="rect" style={{height: '100%'}} />
                 </StyledCardMediaContainer>
@@ -44,7 +44,10 @@ export const MediaListItem = ({
                 </StyledCardContent>
             </StyledCardActionArea>
         ) : (
-            <StyledCardActionArea component={Link} to={`${link}${guid}`}>
+            <StyledCardActionArea
+                component={Link}
+                to={`${link}${guid}`}
+                data-testid="item-loaded">
                 <StyledCardMediaContainer>
                     <StyledCardMedia
                         aria-hidden={true}

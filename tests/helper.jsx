@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
+import {render} from '@testing-library/react';
 import {mount, shallow} from 'enzyme';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'react-intl';
@@ -45,3 +46,6 @@ export const shallowWithBaseWrapper = (node) =>
 
 export const testRenderer = (component) =>
     renderer.create(BaseWrapper({children: component}));
+
+export const renderWithBaseWrapper = (ui, options) =>
+    render(ui, {wrapper: BaseWrapper, ...options});

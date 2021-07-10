@@ -4,7 +4,9 @@ import {StyledErrorMessage} from './styles.js';
 
 const ErrorMessage = ({message, error}) =>
     message && error ? (
-        <StyledErrorMessage>{message}</StyledErrorMessage>
+        <StyledErrorMessage data-testid="error-message">
+            {message}
+        </StyledErrorMessage>
     ) : null;
 
 ErrorMessage.propTypes = {

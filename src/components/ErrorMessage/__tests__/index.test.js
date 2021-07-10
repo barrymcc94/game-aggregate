@@ -1,35 +1,33 @@
 import React from 'react';
 import ErrorMessage, {isEqual} from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<ErrorMessage/>', () => {
     it('renders when error prop is true', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <ErrorMessage
                 message="Click here to go back to the homepage"
                 error={true}
             />
         );
-        expect(wrapper.children().length).toEqual(1);
-        expect(wrapper.text()).toEqual('Click here to go back to the homepage');
-        expect(wrapper).toMatchSnapshot();
+        expect(
+            wrapper.getByText('Click here to go back to the homepage')
+        ).toBeTruthy();
     });
 
     it('does not render when error prop is false', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <ErrorMessage
                 message="Click here to go back to the homepage"
                 error={false}
             />
         );
-        expect(wrapper.html()).toEqual(null);
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.html).toEqual(undefined);
     });
 
     it('does not render when id prop is falsy', () => {
-        const wrapper = mountWithBaseWrapper(<ErrorMessage error={true} />);
-        expect(wrapper.html()).toEqual(null);
-        expect(wrapper).toMatchSnapshot();
+        const wrapper = renderWithBaseWrapper(<ErrorMessage error={true} />);
+        expect(wrapper.html).toEqual(undefined);
     });
 
     it('tests isEqual function', () => {

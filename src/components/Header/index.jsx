@@ -39,7 +39,8 @@ export const Header = ({intl: {formatMessage}}) => {
                         <StyledIconButton
                             aria-label={formatMessage({id: 'header.closeMenu'})}
                             aria-expanded={menuActive}
-                            onClick={closeMenu}>
+                            onClick={closeMenu}
+                            data-testid="close-menu-button">
                             <CloseIcon />
                         </StyledIconButton>
                     </Zoom>
@@ -73,7 +74,8 @@ export const Header = ({intl: {formatMessage}}) => {
                         <StyledIconButton
                             aria-label={formatMessage({id: 'header.openMenu'})}
                             aria-expanded={menuActive}
-                            onClick={toggleMenu}>
+                            onClick={toggleMenu}
+                            data-testid="open-menu-button">
                             <MenuIcon />
                         </StyledIconButton>
                     </Zoom>

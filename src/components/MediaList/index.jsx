@@ -65,30 +65,33 @@ export const MediaList = React.forwardRef(
                     component="ul"
                     spacing={2}
                     alignItems="stretch"
-                    ref={ref}>
+                    ref={ref}
+                    data-testid="media-ul-grid">
                     <>
                         {items.map((item) => (
                             <StyledGrid
-                                component="li"
                                 key={item.id}
+                                component="li"
                                 item
                                 xs={12}
                                 sm={6}
                                 md={4}
-                                lg={3}>
+                                lg={3}
+                                data-testid="media-li-grid">
                                 <MediaListItem item={item} link={link} />
                             </StyledGrid>
                         ))}
                         {isLoading &&
                             itemsPlaceholder.map((_, i) => (
                                 <StyledGrid
-                                    component="li"
                                     key={i}
+                                    component="li"
                                     item
                                     xs={12}
                                     sm={6}
                                     md={4}
-                                    lg={3}>
+                                    lg={3}
+                                    data-testid="media-li-grid-loader">
                                     <MediaListItem
                                         item={{}}
                                         isLoading={isLoading}

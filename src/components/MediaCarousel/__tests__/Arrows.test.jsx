@@ -1,6 +1,6 @@
 import React from 'react';
-import {act} from 'react-dom/test-utils';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {act, fireEvent} from '@testing-library/react';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 import Arrows, {getBtnStyle} from '../Arrows';
 
 describe('<Arrows/> functions', () => {
@@ -17,7 +17,7 @@ describe('<Arrows/>', () => {
     it('tests carousel renders and arrows are clickable', () => {
         const prevClick = jest.fn();
         const nextClick = jest.fn();
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <Arrows
                 showPrev={true}
                 showNext={true}
@@ -26,11 +26,11 @@ describe('<Arrows/>', () => {
                 intl={{formatMessage: jest.fn()}}
             />
         );
-        const prevBtn = wrapper.find('button').at(0);
-        const nextBtn = wrapper.find('button').at(1);
+        const prevBtn = wrapper.getByTestId('prev-btn');
+        const nextBtn = wrapper.getByTestId('next-btn');
         act(() => {
-            prevBtn.simulate('click');
-            nextBtn.simulate('click');
+            fireEvent.click(prevBtn);
+            fireEvent.click(nextBtn);
         });
         expect(prevClick).toHaveBeenCalledTimes(1);
         expect(nextClick).toHaveBeenCalledTimes(1);

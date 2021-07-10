@@ -1,19 +1,16 @@
 import React from 'react';
+import {fireEvent} from '@testing-library/react';
 import SearchBar from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<SearchBar/>', () => {
-    it('run a snapshot test', () => {
-        expect(
-            mountWithBaseWrapper(
-                <SearchBar
-                    id="test"
-                    label="test"
-                    searchLabel="search"
-                    value=""
-                    onChange={() => {}}
-                />
-            )
-        ).toMatchSnapshot();
+    it('successfully renders and triggers an onchange event', () => {
+        const onChange = jest.fn();
+        const wrapper = renderWithBaseWrapper(
+            <SearchBar id="test" label="test" value="" onChange={onChange} />
+        );
+        const searchInput = wrapper.getByLabelText('test');
+        fireEvent.change(searchInput, {target: {value: '123'}});
+        expect(onChange).toBeCalledTimes(1);
     });
 });

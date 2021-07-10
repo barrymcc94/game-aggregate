@@ -11,17 +11,18 @@ export const SkeletonLoader = ({variant, numLines = 1, style = {}}) => {
                     width: '100%',
                     ...style,
                 }}
+                data-testid="loader"
             />
         );
     }
     // if type is text or invalid option
     const arr = new Array(numLines).fill(0);
     return (
-        <StyledSkeletonLoader style={style}>
+        <StyledSkeletonLoader style={style} data-testid="loader">
             {arr.map((_, i) => (
                 <React.Fragment key={i}>
                     &nbsp;
-                    <br />
+                    <br data-testid="loader-br" />
                 </React.Fragment>
             ))}
         </StyledSkeletonLoader>

@@ -4,7 +4,7 @@ import {FormattedMessage} from 'react-intl';
 import {StyledFooter, StyledFooterItems, StyledFooterItem} from './styles';
 
 const Footer = () => (
-    <StyledFooter>
+    <StyledFooter data-testid="footer">
         <StyledFooterItems>
             <StyledFooterItem>
                 <FormattedMessage id="footer.copyright" />

@@ -5,11 +5,19 @@ import SkeletonLoader from '../../SkeletonLoader';
 
 export const ListHeading = ({title, isLoading}) =>
     isLoading && title ? (
-        <Typography variant="h5" component="h2" gutterBottom>
+        <Typography
+            variant="h5"
+            component="h2"
+            gutterBottom
+            data-testid="list-heading-loader">
             <SkeletonLoader variant="text" numLines={1} />
         </Typography>
     ) : title ? (
-        <Typography variant="h5" component="h2" gutterBottom>
+        <Typography
+            variant="h5"
+            component="h2"
+            gutterBottom
+            data-testid="list-heading">
             {title}
         </Typography>
     ) : null;

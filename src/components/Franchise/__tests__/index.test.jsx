@@ -1,12 +1,10 @@
 import React from 'react';
 import {Franchise} from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {StyledErrorMessage} from '../../ErrorMessage/styles';
-import {StyledMediaHeader} from '../../MediaHeader/styles';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<Franchise/>', () => {
     it('tests error message appears when error exists', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <Franchise
                 isFetching={false}
                 error={true}
@@ -14,24 +12,24 @@ describe('<Franchise/>', () => {
                 intl={{formatMessage: () => 'temp message'}}
             />
         );
-        expect(wrapper.exists(StyledErrorMessage)).toBe(true);
-        expect(wrapper.exists(StyledMediaHeader)).toBe(false);
+        expect(wrapper.getByTestId('error-message')).toBeTruthy();
+        expect(wrapper.queryByTestId('media-header')).toBeFalsy();
     });
 
     it('tests error message appears when franchise data is invalid', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <Franchise
                 isFetching={true}
                 error={true}
                 intl={{formatMessage: () => 'temp message'}}
             />
         );
-        expect(wrapper.exists(StyledErrorMessage)).toBe(true);
-        expect(wrapper.exists(StyledMediaHeader)).toBe(false);
+        expect(wrapper.getByTestId('error-message')).toBeTruthy();
+        expect(wrapper.queryByTestId('media-header')).toBeFalsy();
     });
 
     it('tests franchise renders as expected with franchise data', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <Franchise
                 isFetching={false}
                 error={false}
@@ -48,8 +46,7 @@ describe('<Franchise/>', () => {
                 intl={{formatMessage: () => 'temp message'}}
             />
         );
-        expect(wrapper.exists(StyledErrorMessage)).toBe(false);
-        expect(wrapper.exists(StyledMediaHeader)).toBe(true);
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.queryByTestId('error-message')).toBeFalsy();
+        expect(wrapper.getByTestId('media-header')).toBeTruthy();
     });
 });

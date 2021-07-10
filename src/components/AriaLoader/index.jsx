@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import {StyledAriaLoader} from './styles.js';
 
 export const AriaLoader = ({isLoading, loadingMessage, loadedMessage}) => (
-    <StyledAriaLoader role="status">
+    <StyledAriaLoader
+        role="status"
+        data-testid={`aria-${isLoading ? 'loading' : 'loaded'}`}>
         {isLoading ? loadingMessage : loadedMessage}
     </StyledAriaLoader>
 );

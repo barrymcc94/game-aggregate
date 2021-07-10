@@ -1,8 +1,6 @@
 import React from 'react';
 import {MediaHeader, isEqual} from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {StyledMediaHeader} from '../styles';
-import {StyledSkeletonLoader} from '../../SkeletonLoader/styles';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<MediaHeader/>', () => {
     const defaultProps = {
@@ -19,20 +17,19 @@ describe('<MediaHeader/>', () => {
     };
 
     it('renders loader when isFetching is true', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <MediaHeader {...{...defaultProps, isLoading: true}} />
         );
-        expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
-        expect(wrapper.find(StyledSkeletonLoader)).toHaveLength(5);
+        expect(wrapper.getAllByTestId('loader').length).toEqual(5);
+        expect(wrapper.queryAllByTestId('media-header').length).toEqual(1);
     });
 
     it('renders as expected with game data', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <MediaHeader {...defaultProps} intl={{formatMessage: jest.fn()}} />
         );
-        expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
-        expect(wrapper.exists(StyledMediaHeader)).toBe(true);
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.queryAllByTestId('loader').length).toEqual(0);
+        expect(wrapper.getAllByTestId('media-header').length).toEqual(1);
     });
 
     it('tests isEqual function', () => {

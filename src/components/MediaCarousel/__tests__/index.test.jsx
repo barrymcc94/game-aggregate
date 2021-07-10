@@ -1,8 +1,8 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
 import debounce from 'lodash.debounce';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {PrevButton, NextButton} from '../styles';
+import {act, fireEvent} from '@testing-library/react';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 import MediaCarousel, {calculatePrevPos, calculateNextPos} from '../index';
 
 jest.mock('lodash.throttle');
@@ -33,7 +33,7 @@ describe('<MediaCarousel/>', () => {
         {image: {screen_url: 'test'}},
     ];
     it('tests carousel renders', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <MediaCarousel
                 items={items}
                 total={5}
@@ -41,12 +41,12 @@ describe('<MediaCarousel/>', () => {
                 loadMore={jest.fn()}
             />
         );
-        expect(wrapper.find('li').length).toEqual(5);
+        expect(wrapper.getAllByTestId('carousel-column').length).toEqual(5);
         wrapper.unmount();
     });
 
     it('tests prev and next buttons work as expected', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <MediaCarousel
                 items={items}
                 total={5}
@@ -54,14 +54,16 @@ describe('<MediaCarousel/>', () => {
                 loadMore={jest.fn()}
             />
         );
-        wrapper.find(NextButton).simulate('click');
-        wrapper.find(PrevButton).simulate('click'); // prev will not be called from 0
+        act(() => {
+            fireEvent.click(wrapper.getByTestId('prev-btn'));
+            fireEvent.click(wrapper.getByTestId('next-btn'));
+        });
         expect(Element.prototype.scrollTo).toBeCalledTimes(1);
     });
 
     it('tests scrolling', () => {
         const loadMore = jest.fn();
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <MediaCarousel
                 items={items}
                 total={5}
@@ -72,12 +74,9 @@ describe('<MediaCarousel/>', () => {
             />
         );
 
-        wrapper
-            .find('div')
-            .at(1)
-            .getDOMNode()
-            .dispatchEvent(new Event('scroll'));
-
+        fireEvent.scroll(wrapper.getByTestId('carousel').children[2], {
+            target: {scrollX: 100},
+        });
         expect(loadMore).toBeCalledTimes(1);
     });
 });

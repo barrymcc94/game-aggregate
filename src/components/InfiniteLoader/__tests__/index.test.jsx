@@ -1,7 +1,7 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
 import debounce from 'lodash.debounce';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 import InfiniteLoader from '../index';
 
 jest.mock('lodash.throttle');
@@ -19,7 +19,7 @@ describe('<InfiniteLoader/>', () => {
 
     it('tests scrolling loads more when over 80% down page', () => {
         const listRef = {current: {offsetHeight: 0, offsetTop: 0}};
-        mountWithBaseWrapper(
+        renderWithBaseWrapper(
             <InfiniteLoader loadMore={loadMore} listRef={listRef}>
                 test
             </InfiniteLoader>
@@ -31,7 +31,7 @@ describe('<InfiniteLoader/>', () => {
 
     it('tests scrolling does not load more when less than 80% down page', () => {
         const listRef = {current: {offsetHeight: 0, offsetTop: 0}};
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <InfiniteLoader loadMore={loadMore} listRef={listRef}>
                 test
             </InfiniteLoader>

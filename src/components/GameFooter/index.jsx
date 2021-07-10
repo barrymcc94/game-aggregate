@@ -6,7 +6,7 @@ import SkeletonLoader from '../SkeletonLoader';
 import {StyledGameFooter, FooterText} from './styles';
 
 export const GameFooter = ({isLoading}) => (
-    <StyledGameFooter>
+    <StyledGameFooter data-testid="footer">
         <FooterText variant="subtitle2" component="span">
             {isLoading ? (
                 <SkeletonLoader variant="text" numLines={1} />

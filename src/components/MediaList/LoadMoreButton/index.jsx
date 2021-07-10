@@ -27,6 +27,7 @@ export const LoadMoreButton = ({
                 <StyledButton
                     variant="outlined"
                     color="primary"
+                    data-testid="load-more-btn"
                     {...ButtonProps}>
                     {text}
                 </StyledButton>

@@ -21,13 +21,15 @@ const Arrows = ({
             <PrevButton
                 style={getBtnStyle(showPrev)}
                 aria-label={formatMessage({id: 'carousel.prevAria'})}
-                onClick={onPrevClick}>
+                onClick={onPrevClick}
+                data-testid="prev-btn">
                 <NavigateBeforeIcon />
             </PrevButton>
             <NextButton
                 style={getBtnStyle(showNext)}
                 aria-label={formatMessage({id: 'carousel.nextAria'})}
-                onClick={onNextClick}>
+                onClick={onNextClick}
+                data-testid="next-btn">
                 <NavigateNextIcon />
             </NextButton>
         </>

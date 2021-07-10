@@ -1,7 +1,6 @@
 import React from 'react';
 import AuthModal from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {ProgressSpinner} from '../styles.js';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<AuthModal/>', () => {
     const toggleModal = jest.fn();
@@ -9,7 +8,7 @@ describe('<AuthModal/>', () => {
     const submitForm = jest.fn();
 
     it('renders standard as expected', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <AuthModal
                 appCode=""
                 isFetching={false}
@@ -20,14 +19,11 @@ describe('<AuthModal/>', () => {
                 {...{toggleModal, onAppCodeChange, submitForm}}
             />
         );
-        expect(wrapper.text()).toEqual(
-            'AuthenticationAuth key required, you can get one at GiantbombEnter App CodeEnter App CodeSubmitClose'
-        );
-        expect(wrapper.find(ProgressSpinner).length).toEqual(0);
+        expect(wrapper.queryByTestId('progress-spinner')).toBeFalsy();
     });
 
     it('renders error state as expected', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <AuthModal
                 appCode=""
                 isFetching={false}
@@ -38,12 +34,14 @@ describe('<AuthModal/>', () => {
                 {...{toggleModal, onAppCodeChange, submitForm}}
             />
         );
-        expect(wrapper.text()).toContain('Please Try Again');
-        expect(wrapper.find(ProgressSpinner).length).toEqual(0);
+        expect(
+            wrapper.getByText('An Error Occurred, Please Try Again')
+        ).toBeTruthy();
+        expect(wrapper.queryByTestId('progress-spinner')).toBeFalsy();
     });
 
     it('renders success state as expected', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <AuthModal
                 appCode=""
                 isFetching={false}
@@ -54,14 +52,14 @@ describe('<AuthModal/>', () => {
                 {...{toggleModal, onAppCodeChange, submitForm}}
             />
         );
-        expect(wrapper.text()).toContain(
-            'Success, you can now use this website'
-        );
-        expect(wrapper.find(ProgressSpinner).length).toEqual(0);
+        expect(wrapper.queryByTestId('progress-spinner')).toBeFalsy();
+        expect(
+            wrapper.getByText('Success, you can now use this website')
+        ).toBeTruthy();
     });
 
     it('renders loading state as expected', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <AuthModal
                 appCode=""
                 isFetching={true}
@@ -72,6 +70,6 @@ describe('<AuthModal/>', () => {
                 {...{toggleModal, onAppCodeChange, submitForm}}
             />
         );
-        expect(wrapper.find(ProgressSpinner).length).toEqual(1);
+        expect(wrapper.getByTestId('progress-spinner')).toBeTruthy();
     });
 });

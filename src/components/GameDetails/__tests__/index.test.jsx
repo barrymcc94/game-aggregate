@@ -1,8 +1,6 @@
 import React from 'react';
 import {GameDetails, isEqual} from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
-import {GameDetailsSection} from '../styles';
-import {StyledSkeletonLoader} from '../../SkeletonLoader/styles';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<GameDetails />', () => {
     const genericObj = {
@@ -24,18 +22,17 @@ describe('<GameDetails />', () => {
     };
 
     it('renders loader when isLoading is true', () => {
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <GameDetails {...{...defaultProps, isLoading: true}} />
         );
-        expect(wrapper.exists(StyledSkeletonLoader)).toBe(true);
-        expect(wrapper.exists(GameDetailsSection)).toBe(true);
+        expect(wrapper.getAllByTestId('loader').length).toEqual(6);
     });
 
     it('renders as expected', () => {
-        const wrapper = mountWithBaseWrapper(<GameDetails {...defaultProps} />);
-        expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
-        expect(wrapper.exists(GameDetailsSection)).toBe(true);
-        expect(wrapper).toMatchSnapshot();
+        const wrapper = renderWithBaseWrapper(
+            <GameDetails {...defaultProps} />
+        );
+        expect(wrapper.queryAllByTestId('loader').length).toEqual(0);
     });
 
     it('renders as expected when publisher guid is not available', () => {
@@ -43,10 +40,8 @@ describe('<GameDetails />', () => {
             ...defaultProps,
             game: {...defaultProps.game, publishers: [{id: 123}]},
         };
-        const wrapper = mountWithBaseWrapper(<GameDetails {...props} />);
-        expect(wrapper.exists(StyledSkeletonLoader)).toBe(false);
-        expect(wrapper.exists(GameDetailsSection)).toBe(true);
-        expect(wrapper).toMatchSnapshot();
+        const wrapper = renderWithBaseWrapper(<GameDetails {...props} />);
+        expect(wrapper.queryAllByTestId('loader').length).toEqual(0);
     });
 
     it('tests isEqual function', () => {

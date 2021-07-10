@@ -21,7 +21,7 @@ export const calculateNextPos = (currentPos, moveSpacing, total) => {
 };
 
 const Column = ({index, style, data: {items, link}}) => (
-    <ListItem style={{...style}}>
+    <ListItem style={{...style}} data-testid="carousel-column">
         {items[index] ? (
             <MediaListItem key={index} item={items[index]} link={link} />
         ) : (
@@ -94,7 +94,7 @@ const MediaCarousel = React.forwardRef(
         };
 
         return (
-            <StyledCarouselWrapper ref={ref}>
+            <StyledCarouselWrapper ref={ref} data-testid="carousel">
                 <Arrows
                     showPrev={currentPos != 0}
                     showNext={currentPos + moveSpacing < total * colWidth}
