@@ -1,11 +1,11 @@
 import React from 'react';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 import Game from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<Game/>', () => {
-    it('runs a snapshot test', () => {
+    it('renders page successfully', () => {
         expect(
-            mountWithBaseWrapper(<Game match={{params: {guid: 'test'}}} />)
-        ).toMatchSnapshot();
+            renderWithBaseWrapper(<Game match={{params: {guid: 'test'}}} />)
+        ).toBeTruthy();
     });
 });

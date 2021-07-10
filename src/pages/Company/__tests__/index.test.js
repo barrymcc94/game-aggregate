@@ -1,11 +1,11 @@
 import React from 'react';
 import Company from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<Company/>', () => {
-    it('runs a snapshot test', () => {
+    it('renders page successfully', () => {
         expect(
-            mountWithBaseWrapper(<Company match={{params: {guid: 'test'}}} />)
-        ).toMatchSnapshot();
+            renderWithBaseWrapper(<Company match={{params: {guid: 'test'}}} />)
+        ).toBeTruthy();
     });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import Companies, {submitForm} from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<Companies/>', () => {
     it('verifys submitForm works as expected', () => {
@@ -9,9 +9,11 @@ describe('<Companies/>', () => {
         expect(e.preventDefault).toBeCalledTimes(1);
     });
 
-    it('runs a snapshot test', () => {
+    it('renders page successfully', () => {
         expect(
-            mountWithBaseWrapper(<Companies match={{params: {guid: 'test'}}} />)
-        ).toMatchSnapshot();
+            renderWithBaseWrapper(
+                <Companies match={{params: {guid: 'test'}}} />
+            )
+        ).toBeTruthy();
     });
 });

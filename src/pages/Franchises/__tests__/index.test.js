@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 import {FranchisesPage, submitForm} from '../index';
 
 describe('<FranchisesPage/>', () => {
@@ -9,10 +9,11 @@ describe('<FranchisesPage/>', () => {
         expect(e.preventDefault).toBeCalledTimes(1);
     });
 
-    it('runs a snapshot test', () => {
-        const wrapper = shallow(
-            <FranchisesPage intl={{formatMessage: () => ''}} />
-        );
-        expect(wrapper).toMatchSnapshot();
+    it('renders page successfully', () => {
+        expect(
+            renderWithBaseWrapper(
+                <FranchisesPage intl={{formatMessage: () => ''}} />
+            )
+        ).toBeTruthy();
     });
 });

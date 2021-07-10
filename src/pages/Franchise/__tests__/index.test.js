@@ -1,11 +1,13 @@
 import React from 'react';
 import Franchise from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<Franchise/>', () => {
-    it('runs a snapshot test', () => {
+    it('renders page successfully', () => {
         expect(
-            mountWithBaseWrapper(<Franchise match={{params: {guid: 'test'}}} />)
-        ).toMatchSnapshot();
+            renderWithBaseWrapper(
+                <Franchise match={{params: {guid: 'test'}}} />
+            )
+        ).toBeTruthy();
     });
 });

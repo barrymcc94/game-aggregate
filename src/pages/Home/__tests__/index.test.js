@@ -1,9 +1,9 @@
 import React from 'react';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 import Home from '../index';
 
 describe('<Home/>', () => {
-    it('runs a snapshot test', () => {
-        expect(mountWithBaseWrapper(<Home />)).toMatchSnapshot();
+    it('renders page successfully', () => {
+        expect(renderWithBaseWrapper(<Home />)).toBeTruthy();
     });
 });
