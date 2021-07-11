@@ -6,7 +6,7 @@ import Container, {
     mapStateToProps,
     mapDispatchToProps,
 } from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
 
 jest.mock('lodash.throttle');
@@ -56,7 +56,7 @@ describe('<MediaListContainer/>', () => {
 
     it('test component initial mount (games)', async () => {
         const store = mockStore({games: defaultStoreProps});
-        await mountWithBaseWrapper(
+        await renderWithBaseWrapper(
             <Container {...{...defaultProps, mediaType: 'games'}} />,
             store
         );
@@ -66,7 +66,7 @@ describe('<MediaListContainer/>', () => {
 
     it('test component initial mount (companies)', async () => {
         const store = mockStore({companies: defaultStoreProps});
-        await mountWithBaseWrapper(
+        await renderWithBaseWrapper(
             <Container {...{...defaultProps, mediaType: 'companies'}} />,
             store
         );
@@ -76,7 +76,7 @@ describe('<MediaListContainer/>', () => {
 
     it('test component initial mount (franchises)', async () => {
         const store = mockStore({franchises: defaultStoreProps});
-        await mountWithBaseWrapper(
+        await renderWithBaseWrapper(
             <Container {...{...defaultProps, mediaType: 'franchises'}} />,
             store
         );
@@ -86,7 +86,7 @@ describe('<MediaListContainer/>', () => {
 
     it('test component mount and unmount with carousel', async () => {
         const store = mockStore({games: defaultStoreProps});
-        const wrapper = await mountWithBaseWrapper(
+        const wrapper = await renderWithBaseWrapper(
             <Container
                 {...{...defaultProps, mediaType: 'games', isCarousel: true}}
             />,
@@ -99,7 +99,7 @@ describe('<MediaListContainer/>', () => {
 
     it('tests scrolling loads more when over 80% down page', () => {
         const store = mockStore({games: defaultStoreProps});
-        mountWithBaseWrapper(<Container {...defaultProps} />, store);
+        renderWithBaseWrapper(<Container {...defaultProps} />, store);
         global.pageYOffset = 100;
         global.dispatchEvent(new Event('scroll'));
         expect(store.getActions()[0].type).toEqual('FETCH_GAMES_STARTED');
@@ -107,7 +107,7 @@ describe('<MediaListContainer/>', () => {
 
     it('tests scrolling does not load more when disableScrollLoading prop is true', () => {
         const store = mockStore({games: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <Container {...{...defaultProps, disableScrollLoading: true}} />,
             store
         );
@@ -119,7 +119,7 @@ describe('<MediaListContainer/>', () => {
 
     it('tests scrolling does not load more when less than 80% down page', () => {
         const store = mockStore({games: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <Container {...defaultProps} />,
             store
         );
@@ -131,33 +131,49 @@ describe('<MediaListContainer/>', () => {
     });
 
     it('tests component updates as expected', () => {
-        const wrapper = mountWithBaseWrapper(
+        const {rerender} = renderWithBaseWrapper(
             <MediaListContainer {...defaultProps} />
         );
-        wrapper.setProps({
-            ...defaultProps,
-            containerType: 'all',
-            meta: {filters: {filter: 'test'}},
-        });
-        wrapper.setProps({
-            ...defaultProps,
-            containerType: 'search',
-            meta: {filters: {filter: 'test'}},
-        });
-        wrapper.setProps({
-            ...defaultProps,
-            isFetching: true,
-            containerType: 'search',
-            meta: {filters: {filter: 'test'}},
-        });
-        wrapper.setProps({
-            ...defaultProps,
-            containerType: 'filtered',
-        });
+        rerender(
+            <MediaListContainer
+                {...{
+                    ...defaultProps,
+                    containerType: 'all',
+                    meta: {filters: {filter: 'test'}},
+                }}
+            />
+        );
+        rerender(
+            <MediaListContainer
+                {...{
+                    ...defaultProps,
+                    containerType: 'search',
+                    meta: {filters: {filter: 'test'}},
+                }}
+            />
+        );
+        rerender(
+            <MediaListContainer
+                {...{
+                    ...defaultProps,
+                    isFetching: true,
+                    containerType: 'search',
+                    meta: {filters: {filter: 'test'}},
+                }}
+            />
+        );
+        rerender(
+            <MediaListContainer
+                {...{
+                    ...defaultProps,
+                    containerType: 'filtered',
+                }}
+            />
+        );
     });
 
     it('tests mounting with search containerType', async () => {
-        await mountWithBaseWrapper(
+        await renderWithBaseWrapper(
             <MediaListContainer
                 {...{
                     ...defaultProps,
@@ -169,7 +185,7 @@ describe('<MediaListContainer/>', () => {
     });
 
     it('tests mounting with search & allowing to initially fetch', async () => {
-        await mountWithBaseWrapper(
+        await renderWithBaseWrapper(
             <MediaListContainer
                 {...{
                     ...defaultProps,
@@ -194,29 +210,37 @@ describe('<MediaListContainer/>', () => {
             },
             containerType: 'search',
         };
-        const wrapper = await mountWithBaseWrapper(
+        const {rerender} = renderWithBaseWrapper(
             <MediaListContainer {...props} />
         );
         expect(fetchItems).toBeCalledTimes(2);
-        wrapper.setProps({
-            ...props,
-            meta: {
-                offset: 10,
-                limit: 10,
-                total: 100,
-                filters: {filter: 'test:123,name:'},
-            },
-        });
+        rerender(
+            <MediaListContainer
+                {...{
+                    ...props,
+                    meta: {
+                        offset: 10,
+                        limit: 10,
+                        total: 100,
+                        filters: {filter: 'test:123,name:'},
+                    },
+                }}
+            />
+        );
         expect(fetchItems).toBeCalledTimes(3);
-        wrapper.setProps({
-            ...props,
-            meta: {
-                offset: 10,
-                limit: 10,
-                total: 100,
-                filters: {filter: 'test:123,name:'},
-            },
-        });
+        rerender(
+            <MediaListContainer
+                {...{
+                    ...props,
+                    meta: {
+                        offset: 10,
+                        limit: 10,
+                        total: 100,
+                        filters: {filter: 'test:123,name:'},
+                    },
+                }}
+            />
+        );
         expect(fetchItems).toBeCalledTimes(3);
     });
 });

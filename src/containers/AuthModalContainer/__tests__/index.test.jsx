@@ -1,6 +1,7 @@
 import React from 'react';
+import {screen, act, fireEvent} from '@testing-library/react';
 import Container, {AuthModalContainer} from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
 
 describe('<AuthModalContainer/>', () => {
@@ -13,11 +14,17 @@ describe('<AuthModalContainer/>', () => {
     };
     it('tests input flow of container', () => {
         const store = mockStore({auth: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(<Container />, store);
-        const input = wrapper.find('input').first();
-        input.simulate('change', {target: {value: 'test_appcode'}});
-        const submitBtn = wrapper.find('button').first();
-        submitBtn.simulate('click');
+        const wrapper = renderWithBaseWrapper(<Container />, store);
+        const input = wrapper.getByTestId('auth-code-input').children[1]
+            .firstChild;
+        const submitBtn = wrapper.getByTestId('auth-code-submit');
+        act(() => {
+            fireEvent.change(input, {target: {value: 'test_appcode'}});
+        });
+        act(() => {
+            fireEvent.click(submitBtn);
+        });
+
         expect(store.getActions().length).toEqual(1);
         expect(store.getActions()[0].type).toEqual('FETCH_GB_API_KEY_STARTED');
     });
@@ -32,11 +39,16 @@ describe('<AuthModalContainer/>', () => {
                 },
             },
         });
-        const wrapper = mountWithBaseWrapper(<Container />, store);
-        const input = wrapper.find('input').first();
-        input.simulate('change', {target: {value: 'test_appcode'}});
-        const submitBtn = wrapper.find('button').first();
-        submitBtn.simulate('click');
+        const wrapper = renderWithBaseWrapper(<Container />, store);
+        const input = wrapper.getByTestId('auth-code-input').children[1]
+            .firstChild;
+        const submitBtn = wrapper.getByTestId('auth-code-submit');
+        act(() => {
+            fireEvent.change(input, {target: {value: 'test_appcode'}});
+        });
+        act(() => {
+            fireEvent.click(submitBtn);
+        });
         expect(store.getActions().length).toEqual(0);
     });
 
@@ -50,32 +62,12 @@ describe('<AuthModalContainer/>', () => {
                 },
             },
         });
-        const wrapper = mountWithBaseWrapper(<Container />, store);
-        const input = wrapper.find('input').first();
-        input.simulate('change', {target: {value: 'test_appcode'}});
-    });
-
-    it('tests closing modal triggers route refresh', () => {
-        const history = {
-            push: jest.fn(),
-            goBack: jest.fn(),
-        };
-        const wrapper = mountWithBaseWrapper(
-            <AuthModalContainer
-                isFetching={false}
-                error={false}
-                api_key={null}
-                fetchGBApiKey={jest.fn()}
-                history={history}
-            />
-        );
-        expect(wrapper.find('button').length).toEqual(3);
-        wrapper.setProps({api_key: 'key'});
-        const closeBtn = wrapper.find('button').at(1);
-        closeBtn.simulate('click');
-        expect(history.push).toBeCalledTimes(1);
-        expect(history.push).toBeCalledWith('/empty');
-        expect(history.goBack).toBeCalledTimes(1);
+        const wrapper = renderWithBaseWrapper(<Container />, store);
+        const input = wrapper.getByTestId('auth-code-input').children[1]
+            .firstChild;
+        act(() => {
+            fireEvent.change(input, {target: {value: 'test_appcode'}});
+        });
     });
 
     it('tests opeing modal does not trigger route refresh', () => {
@@ -83,7 +75,7 @@ describe('<AuthModalContainer/>', () => {
             push: jest.fn(),
             goBack: jest.fn(),
         };
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <AuthModalContainer
                 isFetching={false}
                 error={false}
@@ -92,10 +84,48 @@ describe('<AuthModalContainer/>', () => {
                 history={history}
             />
         );
-        expect(wrapper.find('button').length).toEqual(1);
-        const loginBtn = wrapper.find('button').at(0);
-        loginBtn.simulate('click');
+        const modalBtn = wrapper.getByTestId('modal-btn');
+        act(() => {
+            fireEvent.click(modalBtn);
+        });
+        const closeBtn = wrapper.getByTestId('auth-code-close');
+        act(() => {
+            fireEvent.click(closeBtn);
+        });
         expect(history.push).toBeCalledTimes(0);
         expect(history.goBack).toBeCalledTimes(0);
+    });
+
+    it('tests closing modal triggers route refresh', () => {
+        const history = {
+            push: jest.fn(),
+            goBack: jest.fn(),
+        };
+        const {rerender} = renderWithBaseWrapper(
+            <AuthModalContainer
+                isFetching={false}
+                error={false}
+                api_key={null}
+                fetchGBApiKey={jest.fn()}
+                history={history}
+            />
+        );
+
+        rerender(
+            <AuthModalContainer
+                isFetching={false}
+                error={false}
+                api_key={'test'}
+                fetchGBApiKey={jest.fn()}
+                history={history}
+            />
+        );
+        const closeBtn = screen.getByTestId('auth-code-close');
+        act(() => {
+            fireEvent.click(closeBtn);
+        });
+        expect(history.push).toBeCalledTimes(1);
+        expect(history.push).toBeCalledWith('/empty');
+        expect(history.goBack).toBeCalledTimes(1);
     });
 });

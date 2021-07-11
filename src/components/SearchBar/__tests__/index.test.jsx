@@ -1,5 +1,5 @@
 import React from 'react';
-import {fireEvent} from '@testing-library/react';
+import {act, fireEvent} from '@testing-library/react';
 import SearchBar from '../index';
 import {renderWithBaseWrapper} from '../../../../tests/helper';
 
@@ -10,7 +10,9 @@ describe('<SearchBar/>', () => {
             <SearchBar id="test" label="test" value="" onChange={onChange} />
         );
         const searchInput = wrapper.getByLabelText('test');
-        fireEvent.change(searchInput, {target: {value: '123'}});
+        act(() => {
+            fireEvent.change(searchInput, {target: {value: '123'}});
+        });
         expect(onChange).toBeCalledTimes(1);
     });
 });

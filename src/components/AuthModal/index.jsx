@@ -72,6 +72,7 @@ export const AuthModal = ({
                                     ''
                                 )
                             }
+                            data-testid="auth-code-input"
                         />
                         {isFetching ? (
                             <ProgressSpinner data-testid="progress-spinner" />
@@ -82,14 +83,16 @@ export const AuthModal = ({
                             variant="outlined"
                             color="primary"
                             disabled={isFetching || !appCode}
-                            onClick={submitForm}>
+                            onClick={submitForm}
+                            data-testid="auth-code-submit">
                             <FormattedMessage id="authModal.submit" />
                         </Button>
                         <Button
                             variant="outlined"
                             color="primary"
                             disabled={isFetching || !api_key}
-                            onClick={toggleModal}>
+                            onClick={toggleModal}
+                            data-testid="auth-code-close">
                             <FormattedMessage id="authModal.close" />
                         </Button>
                     </ButtonWrapper>
@@ -100,7 +103,8 @@ export const AuthModal = ({
             variant="contained"
             color="primary"
             onClick={toggleModal}
-            aria-label={formatMessage({id: 'header.authButton'})}>
+            aria-label={formatMessage({id: 'header.authButton'})}
+            data-testid="modal-btn">
             <AccountCircleIcon />
         </ModalButton>
     </>

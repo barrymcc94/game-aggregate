@@ -74,8 +74,10 @@ describe('<MediaCarousel/>', () => {
             />
         );
 
-        fireEvent.scroll(wrapper.getByTestId('carousel').children[2], {
-            target: {scrollX: 100},
+        act(() => {
+            fireEvent.scroll(wrapper.getByTestId('carousel').children[2], {
+                target: {scrollX: 100},
+            });
         });
         expect(loadMore).toBeCalledTimes(1);
     });

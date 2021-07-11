@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import {render} from '@testing-library/react';
-import {mount, shallow} from 'enzyme';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'react-intl';
 import {MemoryRouter} from 'react-router';
@@ -28,24 +27,13 @@ BaseWrapper.propTypes = {
     store: PropTypes.any,
 };
 
-export const mountWithBaseWrapper = (node, store) =>
-    mount(node, {
-        wrappingComponent: BaseWrapper,
-        wrappingComponentProps: {
-            store,
-        },
-    });
-
-export const shallowWithBaseWrapper = (node) =>
-    shallow(node, {
-        wrappingComponent: BaseWrapper,
-        wrappingComponentProps: {
-            locale,
-        },
-    });
-
 export const testRenderer = (component) =>
     renderer.create(BaseWrapper({children: component}));
 
-export const renderWithBaseWrapper = (ui, options) =>
-    render(ui, {wrapper: BaseWrapper, ...options});
+/* eslint-disable */
+export const renderWithBaseWrapper = (ui, store, options) =>
+    render(ui, {
+        wrapper: (props) => <BaseWrapper {...props} store={store} />,
+        ...options,
+    });
+/* eslint-enable */

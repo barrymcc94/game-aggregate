@@ -1,7 +1,8 @@
 import React from 'react';
+import {act, fireEvent} from '@testing-library/react';
 import MediaSearchContainer, {mapDispatchToProps} from '../index';
 import debounce from 'lodash.debounce';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
 jest.mock('lodash.debounce');
 jest.useFakeTimers();
@@ -36,28 +37,30 @@ describe('<MediaSearchContainer/>', () => {
 
     it('tests MediaSearchContainer with games props', () => {
         const store = mockStore({games: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <MediaSearchContainer {...defaultProps} />,
             store
         );
-        wrapper
-            .find('input')
-            .simulate('change', {target: {value: 'test input'}});
+        const searchInput = wrapper.getByLabelText('search');
+        act(() => {
+            fireEvent.change(searchInput, {target: {value: 'test input'}});
+        });
         expect(store.getActions().length).toEqual(1);
         expect(store.getActions()[0].type).toEqual('SET_GAMES_SEARCH_FILTERS');
     });
 
     it('tests MediaSearchContainer with companies props', () => {
         const store = mockStore({companies: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <MediaSearchContainer
                 {...{...defaultProps, mediaType: 'companies'}}
             />,
             store
         );
-        wrapper
-            .find('input')
-            .simulate('change', {target: {value: 'test input'}});
+        const searchInput = wrapper.getByLabelText('search');
+        act(() => {
+            fireEvent.change(searchInput, {target: {value: 'test input'}});
+        });
         expect(store.getActions().length).toEqual(1);
         expect(store.getActions()[0].type).toEqual(
             'SET_COMPANIES_SEARCH_FILTERS'
@@ -66,15 +69,16 @@ describe('<MediaSearchContainer/>', () => {
 
     it('tests MediaSearchContainer with franchises props', () => {
         const store = mockStore({companies: defaultStoreProps});
-        const wrapper = mountWithBaseWrapper(
+        const wrapper = renderWithBaseWrapper(
             <MediaSearchContainer
                 {...{...defaultProps, mediaType: 'franchises'}}
             />,
             store
         );
-        wrapper
-            .find('input')
-            .simulate('change', {target: {value: 'test input'}});
+        const searchInput = wrapper.getByLabelText('search');
+        act(() => {
+            fireEvent.change(searchInput, {target: {value: 'test input'}});
+        });
         expect(store.getActions().length).toEqual(1);
         expect(store.getActions()[0].type).toEqual(
             'SET_FRANCHISES_SEARCH_FILTERS'

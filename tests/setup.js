@@ -1,13 +1,9 @@
 import '@testing-library/jest-dom';
-import Enzyme from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import configureMockStore from 'redux-mock-store';
 import {createStore, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import reducers from '../src/redux/reducers';
-
-Enzyme.configure({adapter: new Adapter()});
 
 const sagaMiddleWare = createSagaMiddleware();
 export const mockStore = configureMockStore([thunk, sagaMiddleWare]);

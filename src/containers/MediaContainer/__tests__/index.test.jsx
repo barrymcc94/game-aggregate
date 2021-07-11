@@ -5,7 +5,7 @@ import {
     mapStateToProps,
     mapDispatchToProps,
 } from '../index';
-import {mountWithBaseWrapper} from '../../../../tests/helper';
+import {renderWithBaseWrapper} from '../../../../tests/helper';
 
 describe('<MediaContainer/> functions', () => {
     it('tests isItemLoaded', () => {
@@ -69,28 +69,28 @@ describe('<MediaContainer/>', () => {
     });
 
     it('tests Container Component (games)', () => {
-        mountWithBaseWrapper(
+        renderWithBaseWrapper(
             <MediaContainer {...{...defaultProps, mediaType: 'games'}} />
         );
         expect(fetchItem).toBeCalledTimes(1);
     });
 
     it('tests Container Component (companies)', () => {
-        mountWithBaseWrapper(
+        renderWithBaseWrapper(
             <MediaContainer {...{...defaultProps, mediaType: 'companies'}} />
         );
         expect(fetchItem).toBeCalledTimes(1);
     });
 
     it('tests Container Component (franchises)', () => {
-        mountWithBaseWrapper(
+        renderWithBaseWrapper(
             <MediaContainer {...{...defaultProps, mediaType: 'franchises'}} />
         );
         expect(fetchItem).toBeCalledTimes(1);
     });
 
     it('tests Container Component (null)', () => {
-        mountWithBaseWrapper(
+        renderWithBaseWrapper(
             <MediaContainer
                 {...{...defaultProps, guid: null, mediaType: null}}
             />
@@ -104,7 +104,7 @@ describe('<MediaContainer/>', () => {
             mediaType: 'games',
             item: {guid: '123', developers: []},
         };
-        mountWithBaseWrapper(<MediaContainer {...props} />);
+        renderWithBaseWrapper(<MediaContainer {...props} />);
         expect(fetchItem).toBeCalledTimes(0);
     });
 });
