@@ -22,7 +22,7 @@ import FranchisePage from './pages/Franchise';
 import FranchisesPage from './pages/Franchises';
 import GamesPage from './pages/Games';
 import AboutPage from './pages/About';
-import ErrorPage from './pages/Error';
+import NotFoundPage from './pages/NotFound';
 import Styles from './common-styles';
 import {ENUMS} from './config';
 import theme from './theme';
@@ -98,7 +98,7 @@ export const App = ({location, locale, fetchGBApiKeySucceeded}) => {
                                     path="/empty"
                                     component={() => <div></div>}
                                 />
-                                <Route path="/404" component={ErrorPage} />
+                                <Route path="/404" component={NotFoundPage} />
                                 <Route
                                     path="*"
                                     render={() => <Redirect to="/404" />}

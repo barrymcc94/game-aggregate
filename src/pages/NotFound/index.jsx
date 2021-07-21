@@ -5,23 +5,23 @@ import {FormattedMessage, injectIntl} from 'react-intl';
 import DocumentTitle from '../../components/DocumentTitle';
 import {ErrorSection, ErrorHeader, ErrorText} from './styles';
 
-export const ErrorPage = ({intl: {formatMessage}}) => (
-    <DocumentTitle title={formatMessage({id: 'errorPage.title'})}>
+export const NotFoundPage = ({intl: {formatMessage}}) => (
+    <DocumentTitle title={formatMessage({id: 'notFoundPage.title'})}>
         <ErrorSection>
             <ErrorHeader>
-                <FormattedMessage id="errorPage.errorHeading" />
+                <FormattedMessage id="notFoundPage.errorHeading" />
             </ErrorHeader>
             <ErrorText>
                 <Link to={'/'}>
-                    <FormattedMessage id="errorPage.errorMessage" />
+                    <FormattedMessage id="notFoundPage.errorMessage" />
                 </Link>
             </ErrorText>
         </ErrorSection>
     </DocumentTitle>
 );
 
-ErrorPage.propTypes = {
+NotFoundPage.propTypes = {
     intl: PropTypes.object,
 };
 
-export default injectIntl(ErrorPage);
+export default injectIntl(NotFoundPage);

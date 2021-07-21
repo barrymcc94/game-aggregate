@@ -26,9 +26,9 @@ export default {
     'franchisesPage.heading': 'Franchise Search',
     'franchisesPage.searchLabel': 'Search for a Franchise',
     'franchisePage.title': 'Franchise',
-    'errorPage.title': '404 - Page Not Found',
-    'errorPage.errorHeading': '404 - Page Not Found',
-    'errorPage.errorMessage': 'Click here to go back to the homepage',
+    'notFoundPage.title': '404 - Page Not Found',
+    'notFoundPage.errorHeading': '404 - Page Not Found',
+    'notFoundPage.errorMessage': 'Click here to go back to the homepage',
     'aboutPage.title': 'About This Website',
     'aboutPage.aboutText':
         'This website is built using React and is powered by the Giantbomb API.',

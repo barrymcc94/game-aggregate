@@ -1,9 +1,9 @@
 import React from 'react';
 import {renderWithBaseWrapper} from '../../../../tests/helper';
-import Error from '../index';
+import NotFoundPage from '../index';
 
-describe('<Error/>', () => {
+describe('<NotFoundPage/>', () => {
     it('renders page successfully', () => {
-        expect(renderWithBaseWrapper(<Error />)).toBeTruthy();
+        expect(renderWithBaseWrapper(<NotFoundPage />)).toBeTruthy();
     });
 });
