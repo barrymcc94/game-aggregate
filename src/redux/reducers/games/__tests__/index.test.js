@@ -276,6 +276,47 @@ describe('Games Reducers', () => {
         expect(newState).toEqual(expectedNewState);
     });
 
+    it('simulates FETCH_GAME_STARTED action', () => {
+        const oldState = {
+            byId: {},
+            games: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const expectedNewState = {
+            byId: {
+                1: {
+                    isFetching: true,
+                    error: false,
+                },
+            },
+            games: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const newState = games(oldState, {
+            type: types.FETCH_GAME_STARTED,
+            payload: {
+                guid: '1',
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
     it('simulates FETCH_GAME_SUCCEEDED action', () => {
         const oldState = {
             byId: {},
@@ -295,6 +336,8 @@ describe('Games Reducers', () => {
                 1: {
                     guid: 1,
                     title: 'game 1',
+                    isFetching: false,
+                    error: false,
                 },
             },
             games: {
@@ -316,6 +359,47 @@ describe('Games Reducers', () => {
                     guid: 1,
                     title: 'game 1',
                 },
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
+    it('simulates FETCH_GAME_FAILED action', () => {
+        const oldState = {
+            byId: {},
+            games: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const expectedNewState = {
+            byId: {
+                1: {
+                    isFetching: false,
+                    error: true,
+                },
+            },
+            games: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const newState = games(oldState, {
+            type: types.FETCH_GAME_FAILED,
+            payload: {
+                guid: '1',
             },
         });
         expect(newState).toEqual(expectedNewState);

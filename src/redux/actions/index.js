@@ -9,12 +9,10 @@ import {
     fetchGameStarted,
     fetchGameSucceeded,
     fetchGameFailed,
-    fetchGame,
-} from './game';
-import {
     fetchGamesStarted,
     fetchGamesSucceeded,
     fetchGamesFailed,
+    fetchGame,
     fetchGames,
     setGamesSearchFilters,
 } from './games';

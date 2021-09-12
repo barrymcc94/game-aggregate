@@ -1,5 +1,4 @@
-import {selectGame} from './game';
-import {selectGames} from './games';
+import {selectGame, selectGames} from './games';
 import {selectCompany} from './company';
 import {selectCompanies} from './companies';
 import {selectFranchise} from './franchise';

@@ -99,12 +99,40 @@ export const games = (
                           },
                       },
                   };
+        case types.FETCH_GAME_STARTED:
+            return {
+                ...state,
+                byId: {
+                    ...state.byId,
+                    [payload.guid]: {
+                        ...state.byId[payload.guid],
+                        isFetching: true,
+                        error: false,
+                    },
+                },
+            };
+        case types.FETCH_GAME_FAILED:
+            return {
+                ...state,
+                byId: {
+                    ...state.byId,
+                    [payload.guid]: {
+                        ...state.byId[payload.guid],
+                        isFetching: false,
+                        error: payload.error || true,
+                    },
+                },
+            };
         case types.FETCH_GAME_SUCCEEDED:
             return {
                 ...state,
                 byId: {
                     ...state.byId,
-                    [payload.data.guid]: payload.data,
+                    [payload.data.guid]: {
+                        ...payload.data,
+                        isFetching: false,
+                        error: false,
+                    },
                 },
             };
         default:

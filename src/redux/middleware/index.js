@@ -17,24 +17,27 @@ const gbAuthTypes = [
     FETCH_FRANCHISE_STARTED,
 ];
 
-export const authMiddleware = ({getState}) => (next) => (action) => {
-    if (gbAuthTypes.includes(action.type)) {
-        const {api_key} = getState().auth.giantbomb;
-        if (!api_key) {
+export const authMiddleware =
+    ({getState}) =>
+    (next) =>
+    (action) => {
+        if (gbAuthTypes.includes(action.type)) {
+            const {api_key} = getState().auth.giantbomb;
+            if (!api_key) {
+                return;
+            }
+            next({
+                ...action,
+                payload: {
+                    ...action.payload,
+                    queryObj: {
+                        ...(action.payload?.queryObj || {}),
+                        ...defaultGbApiDefaults,
+                        api_key,
+                    },
+                },
+            });
             return;
         }
-        next({
-            ...action,
-            payload: {
-                ...action.payload,
-                queryObj: {
-                    ...(action.payload?.queryObj || {}),
-                    ...defaultGbApiDefaults,
-                    api_key,
-                },
-            },
-        });
-        return;
-    }
-    next(action);
-};
+        next(action);
+    };

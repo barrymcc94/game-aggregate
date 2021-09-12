@@ -16,6 +16,7 @@ export const StyledLayout = styled.div`
         }
     }
     padding-top: ${({theme}) => theme.headerHeight};
+    margin-bottom: 1rem;
 `;
 
 export const StyledContainer = styled(Container)`
@@ -23,5 +24,7 @@ export const StyledContainer = styled(Container)`
 `;
 
 export const StyledMain = styled.main`
-    height: 100%;
+    height: calc(100% - 2rem);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 `;

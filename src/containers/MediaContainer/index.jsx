@@ -57,7 +57,9 @@ export const MediaContainer = ({
     }, []);
 
     if (mediaType == GAMES) {
-        return <Game game={item} isFetching={loading} error={error} />;
+        return (
+            <Game game={item} isFetching={item.isFetching} error={item.error} />
+        );
     } else if (mediaType == COMPANIES) {
         return <Company company={item} isFetching={loading} error={error} />;
     } else if (mediaType == FRANCHISES) {
