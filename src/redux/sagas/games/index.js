@@ -1,4 +1,5 @@
-import {put, fork, cancel, take} from 'redux-saga/effects';
+import {put} from 'redux-saga/effects';
+import {takeLatestById} from '../effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
 import {fetchGamesSucceeded, fetchGamesFailed} from '../../actions';
 import {FETCH_GAMES_STARTED} from '../../types';
@@ -36,24 +37,6 @@ export function* fetchGamesSaga({payload}) {
     }
 }
 
-export const takeLatestByIdGen = (patternOrChannel, saga, ...args) =>
-    function* () {
-        let lastTasks = {};
-        while (true) {
-            const action = yield take(patternOrChannel);
-            if (lastTasks[action.payload.id]) {
-                yield cancel(lastTasks[action.payload.id]);
-            }
-            lastTasks[action.payload.id] = yield fork(
-                saga,
-                ...args.concat(action)
-            );
-        }
-    };
-
-const takeLatestById = (patternOrChannel, saga, ...args) =>
-    fork(takeLatestByIdGen(patternOrChannel, saga, ...args));
-
 export function* watchFetchGames() {
-    yield takeLatestById(FETCH_GAMES_STARTED, fetchGamesSaga);
+    yield takeLatestById(FETCH_GAMES_STARTED, fetchGamesSaga, 'id');
 }

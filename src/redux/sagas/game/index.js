@@ -1,4 +1,5 @@
-import {put, takeLatest} from 'redux-saga/effects';
+import {put} from 'redux-saga/effects';
+import {takeLatestById} from '../effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
 import {fetchGameSucceeded, fetchGameFailed} from '../../actions';
 import {FETCH_GAME_STARTED} from '../../types';
@@ -27,5 +28,5 @@ export function* fetchGameSaga({payload}) {
 }
 
 export function* watchFetchGame() {
-    yield takeLatest(FETCH_GAME_STARTED, fetchGameSaga);
+    yield takeLatestById(FETCH_GAME_STARTED, fetchGameSaga, 'guid');
 }
