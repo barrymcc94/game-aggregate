@@ -15,14 +15,14 @@ import config from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchCompanySaga({payload = {}}) {
+    const {guid, queryObj} = payload;
     try {
-        const {guid, queryObj} = payload;
         const queryStr = objToQueryStr(queryObj);
         const {results, error, status_code} = yield jsonFetch(
             `${gbApiUrl}/api/company/${guid}/${queryStr}`
         );
         if (status_code !== 1) {
-            return yield put(fetchCompanyFailed({error}));
+            return yield put(fetchCompanyFailed({guid, error}));
         }
 
         const gamesLimit = 100;
@@ -61,11 +61,12 @@ export function* fetchCompanySaga({payload = {}}) {
 
         yield put(
             fetchCompanySucceeded({
+                guid,
                 data: results,
             })
         );
     } catch (e) {
-        yield put(fetchCompanyFailed({error: true}));
+        yield put(fetchCompanyFailed({guid, error: true}));
     }
 }
 

@@ -15,17 +15,18 @@ import config from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchFranchiseSaga({payload = {}}) {
+    const {guid, queryObj} = payload;
     try {
-        const {guid, queryObj} = payload;
         const queryStr = objToQueryStr(queryObj);
         const {results, error, status_code} = yield jsonFetch(
             `${gbApiUrl}/api/franchise/${guid}/${queryStr}`
         );
         if (status_code !== 1) {
-            return yield put(fetchFranchiseFailed({error}));
+            return yield put(fetchFranchiseFailed({guid, error}));
         }
         yield put(
             fetchFranchiseSucceeded({
+                guid,
                 data: results,
             })
         );
@@ -50,7 +51,7 @@ export function* fetchFranchiseSaga({payload = {}}) {
             })
         );
     } catch (e) {
-        yield put(fetchFranchiseFailed({error: true}));
+        yield put(fetchFranchiseFailed({guid, error: true}));
     }
 }
 

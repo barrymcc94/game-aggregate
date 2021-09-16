@@ -39,7 +39,7 @@ export const MediaListContainer = ({
     const prevId = usePrevious(id);
 
     const loadMore = (clearState) => {
-        if (isFetching || (total > -1 && offset >= total)) {
+        if (isFetching || (!clearState && total > -1 && offset >= total)) {
             return;
         }
         const defaultQueryObj = getDefaultListingFilters(
@@ -114,18 +114,18 @@ export const mapStateToProps = (state, {mediaType, id}) => {
         error: false,
         meta: {filters: {}},
     };
-    let {isFetching, error, meta} = state[mediaType] || defaultProps;
-    let mediaState = {};
+    const mediaState = state[mediaType] || {};
+    let {isFetching, error, meta} = mediaState[id] || defaultProps;
+    let items = [];
     if (mediaType == GAMES) {
-        ({isFetching, error, meta} = state[mediaType][id] || defaultProps);
-        mediaState = {items: selectGames(state, id)};
+        items = selectGames(state, id);
     } else if (mediaType == COMPANIES) {
-        mediaState = {items: selectCompanies(state)};
+        items = selectCompanies(state, id);
     } else if (mediaType == FRANCHISES) {
-        mediaState = {items: selectFranchises(state)};
+        items = selectFranchises(state, id);
     }
     return {
-        ...mediaState,
+        items,
         isFetching,
         error,
         meta,

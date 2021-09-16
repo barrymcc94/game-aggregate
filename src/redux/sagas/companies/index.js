@@ -1,4 +1,5 @@
-import {put, takeLatest} from 'redux-saga/effects';
+import {put} from 'redux-saga/effects';
+import {takeLatestById} from '../effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
 import {fetchCompaniesSucceeded, fetchCompaniesFailed} from '../../actions';
 import {FETCH_COMPANIES_STARTED} from '../../types';
@@ -6,8 +7,8 @@ import config from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchCompaniesSaga({payload}) {
+    const {id, queryObj} = payload || {};
     try {
-        const {queryObj} = payload || {};
         const queryStr = objToQueryStr(queryObj);
         const {
             results,
@@ -18,10 +19,11 @@ export function* fetchCompaniesSaga({payload}) {
             status_code,
         } = yield jsonFetch(`${gbApiUrl}/api/companies/${queryStr}`);
         if (status_code !== 1) {
-            return yield put(fetchCompaniesFailed({error}));
+            return yield put(fetchCompaniesFailed({id, error}));
         }
         yield put(
             fetchCompaniesSucceeded({
+                id,
                 data: results,
                 meta: {
                     limit,
@@ -31,10 +33,10 @@ export function* fetchCompaniesSaga({payload}) {
             })
         );
     } catch (e) {
-        yield put(fetchCompaniesFailed({error: true}));
+        yield put(fetchCompaniesFailed({id, error: true}));
     }
 }
 
 export function* watchFetchCompanies() {
-    yield takeLatest(FETCH_COMPANIES_STARTED, fetchCompaniesSaga);
+    yield takeLatestById(FETCH_COMPANIES_STARTED, fetchCompaniesSaga, 'id');
 }

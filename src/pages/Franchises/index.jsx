@@ -24,11 +24,12 @@ export const FranchisesPage = ({intl: {formatMessage}}) => (
             <form noValidate autoComplete="off" onSubmit={submitForm}>
                 <MediaSearchContainer
                     mediaType={FRANCHISES}
-                    id="franchises_search"
+                    id="franchises"
                     label={formatMessage({id: 'franchisesPage.searchLabel'})}
                 />
             </form>
             <MediaListContainer
+                id="franchises"
                 mediaType={FRANCHISES}
                 containerType={SEARCH}
                 disableScrollLoading={false}

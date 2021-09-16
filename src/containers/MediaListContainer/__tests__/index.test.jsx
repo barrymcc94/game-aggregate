@@ -263,6 +263,7 @@ describe('<MediaListContainer/> funcs', () => {
         expect(props1).toEqual({
             error: false,
             isFetching: false,
+            items: [],
             meta: {
                 filters: {},
             },
@@ -281,15 +282,9 @@ describe('<MediaListContainer/> funcs', () => {
 
         const props3 = mapStateToProps(
             {
-                companies: {
-                    byId: {},
-                    ids: [],
-                    isFetching: false,
-                    error: false,
-                    meta: {},
-                },
+                companies: {test: {isFetching: false, error: false, meta: {}}},
             },
-            {mediaType: 'companies'}
+            {mediaType: 'companies', id: 'test'}
         );
         expect(props3).toEqual({
             error: false,
@@ -300,15 +295,9 @@ describe('<MediaListContainer/> funcs', () => {
 
         const props4 = mapStateToProps(
             {
-                franchises: {
-                    byId: {},
-                    ids: [],
-                    isFetching: false,
-                    error: false,
-                    meta: {},
-                },
+                franchises: {test: {isFetching: false, error: false, meta: {}}},
             },
-            {mediaType: 'franchises'}
+            {mediaType: 'franchises', id: 'test'}
         );
         expect(props4).toEqual({
             error: false,

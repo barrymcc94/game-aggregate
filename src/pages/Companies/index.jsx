@@ -15,7 +15,7 @@ export const submitForm = (e) => {
     e.preventDefault();
 };
 
-export const HomePage = ({intl: {formatMessage}}) => (
+export const CompaniesPage = ({intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: 'companiesPage.title'})}>
         <StyledMediaListSection>
             <Typography variant="h4" component="h1" gutterBottom>
@@ -24,11 +24,12 @@ export const HomePage = ({intl: {formatMessage}}) => (
             <form noValidate autoComplete="off" onSubmit={submitForm}>
                 <MediaSearchContainer
                     mediaType={COMPANIES}
-                    id="companies_search"
+                    id="companies"
                     label={formatMessage({id: 'companiesPage.searchLabel'})}
                 />
             </form>
             <MediaListContainer
+                id="companies"
                 mediaType={COMPANIES}
                 containerType={SEARCH}
                 disableScrollLoading={false}
@@ -37,8 +38,8 @@ export const HomePage = ({intl: {formatMessage}}) => (
     </DocumentTitle>
 );
 
-HomePage.propTypes = {
+CompaniesPage.propTypes = {
     intl: PropTypes.object,
 };
 
-export default injectIntl(HomePage);
+export default injectIntl(CompaniesPage);

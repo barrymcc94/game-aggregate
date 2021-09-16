@@ -1,8 +1,6 @@
 import {selectGame, selectGames} from './games';
-import {selectCompany} from './company';
-import {selectCompanies} from './companies';
-import {selectFranchise} from './franchise';
-import {selectFranchises} from './franchises';
+import {selectCompany, selectCompanies} from './companies';
+import {selectFranchise, selectFranchises} from './franchises';
 
 export {
     selectGame,

@@ -2,97 +2,88 @@ import {franchises} from '../index';
 import * as types from '../../../types';
 import {defaultLimit} from '../../../../config';
 
-describe('Companies Reducers', () => {
+describe('Franchises Reducers', () => {
     it('simulates no params on franchises reducer', () => {
         const initialState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
-                filters: {},
-            },
         };
         expect(franchises()).toEqual(initialState);
     });
 
     it('simulates FETCH_FRANCHISES_STARTED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
             },
         };
         const expectedNewState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            franchises: {
+                ids: [],
+                isFetching: true,
+                error: false,
+                meta: {
+                    filters: {
+                        filter: '',
+                    },
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const newState = franchises(oldState, {
             type: types.FETCH_FRANCHISES_STARTED,
-            payload: {meta: {}},
+            payload: {id: 'franchises', queryObj: {filter: ''}, meta: {}},
         });
         expect(newState).toEqual(expectedNewState);
     });
 
-    it('simulates FETCH_FRANCHISES_STARTED action with clear prop', () => {
+    it('simulates FETCH_FRANCHISES_STARTED action with no existing franchises state', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
-            },
+            franchises: {},
         };
         const expectedNewState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            franchises: {
+                ids: [],
+                isFetching: true,
+                error: false,
+                meta: {
+                    filters: {
+                        filter: '',
+                    },
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const newState = franchises(oldState, {
             type: types.FETCH_FRANCHISES_STARTED,
-            payload: {clearState: true},
+            payload: {id: 'franchises', queryObj: {filter: ''}, meta: {}},
         });
         expect(newState).toEqual(expectedNewState);
     });
 
     it('simulates FETCH_FRANCHISES_SUCCEEDED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: true,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            franchises: {
+                isFetching: true,
+                error: true,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const expectedNewState = {
-            ids: [1, 2],
             byId: {
                 1: {
                     guid: 1,
@@ -103,17 +94,21 @@ describe('Companies Reducers', () => {
                     title: 'franchise 2',
                 },
             },
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: defaultLimit,
-                limit: defaultLimit,
-                total: 20,
+            franchises: {
+                ids: [1, 2],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: defaultLimit,
+                    limit: defaultLimit,
+                    total: 20,
+                },
             },
         };
         const newState = franchises(oldState, {
             type: types.FETCH_FRANCHISES_SUCCEEDED,
             payload: {
+                id: 'franchises',
                 data: [
                     {
                         guid: 1,
@@ -135,30 +130,35 @@ describe('Companies Reducers', () => {
 
     it('simulates invalid FETCH_FRANCHISES_SUCCEEDED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: true,
-            meta: {
-                offset: 5,
-                limit: defaultLimit,
-                total: 20,
+            franchises: {
+                ids: [],
+                isFetching: true,
+                error: true,
+                meta: {
+                    offset: 5,
+                    limit: defaultLimit,
+                    total: 20,
+                },
             },
         };
         const expectedNewState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 5 + defaultLimit,
-                limit: defaultLimit,
-                total: 20,
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 5 + defaultLimit,
+                    limit: defaultLimit,
+                    total: 20,
+                },
             },
         };
         const newState = franchises(oldState, {
             type: types.FETCH_FRANCHISES_SUCCEEDED,
             payload: {
+                id: 'franchises',
                 franchises: [],
                 meta: {
                     offset: 5,
@@ -172,66 +172,146 @@ describe('Companies Reducers', () => {
 
     it('simulates FETCH_FRANCHISES_FAILED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: false,
+            franchises: {
+                ids: [],
+                isFetching: true,
+                error: false,
+            },
         };
         const expectedNewState1 = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: true,
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: true,
+            },
         };
         const newState1 = franchises(oldState, {
             type: types.FETCH_FRANCHISES_FAILED,
-            payload: true,
+            payload: {id: 'franchises'},
         });
         expect(newState1).toEqual(expectedNewState1);
         const expectedNewState2 = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: 'error occurred',
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: 'error occurred',
+            },
         };
         const newState2 = franchises(oldState, {
             type: types.FETCH_FRANCHISES_FAILED,
-            payload: {error: 'error occurred'},
+            payload: {id: 'franchises', error: 'error occurred'},
         });
         expect(newState2).toEqual(expectedNewState2);
     });
 
-    it('simulates invalid SET_FRANCHISES_SEARCH_FILTERS action', () => {
+    it('simulates SET_FRANCHISES_SEARCH_FILTERS action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: true,
-            meta: {
-                offset: 5,
-                limit: defaultLimit,
-                total: 20,
-                filters: {},
+            franchises: {
+                ids: [],
+                isFetching: true,
+                error: true,
+                meta: {
+                    offset: 5,
+                    limit: defaultLimit,
+                    total: 20,
+                    filters: {},
+                },
             },
         };
         const expectedNewState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: true,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
-                filters: {
-                    filter: 'test_filter',
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                    filters: {
+                        filter: 'test_filter',
+                    },
                 },
             },
         };
         const newState = franchises(oldState, {
             type: types.SET_FRANCHISES_SEARCH_FILTERS,
             payload: {
+                id: 'franchises',
                 filter: 'test_filter',
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
+    it('simulates SET_FRANCHISES_SEARCH_FILTERS action with the same filter', () => {
+        const oldState = {
+            byId: {},
+            franchises: {
+                ids: [],
+                isFetching: true,
+                error: true,
+                meta: {
+                    offset: 5,
+                    limit: defaultLimit,
+                    total: 20,
+                    filters: {
+                        filter: 'test',
+                    },
+                },
+            },
+        };
+        const expectedNewState = {...oldState};
+        const newState = franchises(oldState, {
+            type: types.SET_FRANCHISES_SEARCH_FILTERS,
+            payload: {
+                id: 'franchises',
+                filter: 'test',
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
+    it('simulates FETCH_FRANCHISE_STARTED action', () => {
+        const oldState = {
+            byId: {},
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const expectedNewState = {
+            byId: {
+                1: {
+                    isFetching: true,
+                    error: false,
+                },
+            },
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const newState = franchises(oldState, {
+            type: types.FETCH_FRANCHISE_STARTED,
+            payload: {
+                guid: '1',
             },
         });
         expect(newState).toEqual(expectedNewState);
@@ -239,35 +319,42 @@ describe('Companies Reducers', () => {
 
     it('simulates FETCH_FRANCHISE_SUCCEEDED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const expectedNewState = {
-            ids: [],
             byId: {
                 1: {
                     guid: 1,
                     title: 'franchise 1',
+                    isFetching: false,
+                    error: false,
                 },
             },
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const newState = franchises(oldState, {
             type: types.FETCH_FRANCHISE_SUCCEEDED,
             payload: {
+                id: 'franchises',
                 data: {
                     guid: 1,
                     title: 'franchise 1',
@@ -277,18 +364,63 @@ describe('Companies Reducers', () => {
         expect(newState).toEqual(expectedNewState);
     });
 
-    it('simulates invalid action', () => {
+    it('simulates FETCH_FRANCHISE_FAILED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
         };
         const expectedNewState = {
-            ids: [],
+            byId: {
+                1: {
+                    isFetching: false,
+                    error: true,
+                },
+            },
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const newState = franchises(oldState, {
+            type: types.FETCH_FRANCHISE_FAILED,
+            payload: {
+                guid: '1',
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
+    it('simulates invalid action', () => {
+        const oldState = {
             byId: {},
-            isFetching: false,
-            error: false,
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+            },
+        };
+        const expectedNewState = {
+            byId: {},
+            franchises: {
+                ids: [],
+                isFetching: false,
+                error: false,
+            },
         };
         const newState = franchises(oldState, {
             type: 'INVALID',

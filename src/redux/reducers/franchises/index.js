@@ -1,21 +1,16 @@
 import * as types from '../../types';
 import {
-    combineNormalizedListingObjs,
-    normalizeObjectListing,
-} from '../../../utils';
-import {defaultLimit} from '../../../config';
+    handleFetchMediaStarted,
+    handleFetchMediaSucceeded,
+    handleFetchMediaFailed,
+    handleSetMediaSearchFilters,
+    handleFetchMediaItemStarted,
+    handleFetchMediaItemSucceeded,
+    handleFetchMediaItemFailed,
+} from '../utils';
 
 const initialState = {
-    ids: [],
     byId: {},
-    isFetching: false,
-    error: false,
-    meta: {
-        offset: 0,
-        limit: defaultLimit,
-        total: -1,
-        filters: {},
-    },
 };
 
 export const franchises = (
@@ -23,66 +18,21 @@ export const franchises = (
     action = {type: null, payload: null}
 ) => {
     const {type, payload} = action;
-    const {ids, byId} = state;
     switch (type) {
         case types.FETCH_FRANCHISES_STARTED:
-            return {
-                ...state,
-                ids: payload.clearState ? [] : ids,
-                isFetching: true,
-                error: false,
-                meta: {
-                    ...state.meta,
-                    ...payload.meta,
-                },
-            };
+            return handleFetchMediaStarted(state, payload);
         case types.FETCH_FRANCHISES_SUCCEEDED:
-            const normalizedFranchises = normalizeObjectListing(
-                payload.data,
-                'guid'
-            );
-            return {
-                ...state,
-                ...combineNormalizedListingObjs(
-                    {ids, byId: normalizedFranchises.byId},
-                    {ids: normalizedFranchises.ids, byId}
-                ),
-                isFetching: false,
-                error: false,
-                meta: {
-                    ...state.meta,
-                    ...payload.meta,
-                    ...{
-                        offset: state.meta.offset + state.meta.limit,
-                    },
-                },
-            };
+            return handleFetchMediaSucceeded(state, payload);
         case types.FETCH_FRANCHISES_FAILED:
-            return {
-                ...state,
-                isFetching: false,
-                error: payload.error || true,
-            };
+            return handleFetchMediaFailed(state, payload);
         case types.SET_FRANCHISES_SEARCH_FILTERS:
-            return {
-                ...state,
-                ids: [],
-                meta: {
-                    ...initialState.meta,
-                    filters: {
-                        ...state.meta.filters,
-                        filter: payload.filter,
-                    },
-                },
-            };
+            return handleSetMediaSearchFilters(state, payload);
+        case types.FETCH_FRANCHISE_STARTED:
+            return handleFetchMediaItemStarted(state, payload);
         case types.FETCH_FRANCHISE_SUCCEEDED:
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [payload.data.guid]: payload.data,
-                },
-            };
+            return handleFetchMediaItemSucceeded(state, payload);
+        case types.FETCH_FRANCHISE_FAILED:
+            return handleFetchMediaItemFailed(state, payload);
         default:
             return state;
     }

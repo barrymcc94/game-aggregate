@@ -2,97 +2,88 @@ import {companies} from '../index';
 import * as types from '../../../types';
 import {defaultLimit} from '../../../../config';
 
-describe('Companies Reducers', () => {
+describe('Companys Reducers', () => {
     it('simulates no params on companies reducer', () => {
         const initialState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
-                filters: {},
-            },
         };
         expect(companies()).toEqual(initialState);
     });
 
     it('simulates FETCH_COMPANIES_STARTED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
             },
         };
         const expectedNewState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            companies: {
+                ids: [],
+                isFetching: true,
+                error: false,
+                meta: {
+                    filters: {
+                        filter: '',
+                    },
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const newState = companies(oldState, {
             type: types.FETCH_COMPANIES_STARTED,
-            payload: {meta: {}},
+            payload: {id: 'companies', queryObj: {filter: ''}, meta: {}},
         });
         expect(newState).toEqual(expectedNewState);
     });
 
-    it('simulates FETCH_COMPANIES_STARTED action with clearState', () => {
+    it('simulates FETCH_COMPANIES_STARTED action with no existing companies state', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
-            },
+            companies: {},
         };
         const expectedNewState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            companies: {
+                ids: [],
+                isFetching: true,
+                error: false,
+                meta: {
+                    filters: {
+                        filter: '',
+                    },
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const newState = companies(oldState, {
             type: types.FETCH_COMPANIES_STARTED,
-            payload: {clearState: true},
+            payload: {id: 'companies', queryObj: {filter: ''}, meta: {}},
         });
         expect(newState).toEqual(expectedNewState);
     });
 
     it('simulates FETCH_COMPANIES_SUCCEEDED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: true,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            companies: {
+                isFetching: true,
+                error: true,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const expectedNewState = {
-            ids: [1, 2],
             byId: {
                 1: {
                     guid: 1,
@@ -103,17 +94,21 @@ describe('Companies Reducers', () => {
                     title: 'company 2',
                 },
             },
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: defaultLimit,
-                limit: defaultLimit,
-                total: 20,
+            companies: {
+                ids: [1, 2],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: defaultLimit,
+                    limit: defaultLimit,
+                    total: 20,
+                },
             },
         };
         const newState = companies(oldState, {
             type: types.FETCH_COMPANIES_SUCCEEDED,
             payload: {
+                id: 'companies',
                 data: [
                     {
                         guid: 1,
@@ -135,30 +130,35 @@ describe('Companies Reducers', () => {
 
     it('simulates invalid FETCH_COMPANIES_SUCCEEDED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: true,
-            meta: {
-                offset: 5,
-                limit: defaultLimit,
-                total: 20,
+            companies: {
+                ids: [],
+                isFetching: true,
+                error: true,
+                meta: {
+                    offset: 5,
+                    limit: defaultLimit,
+                    total: 20,
+                },
             },
         };
         const expectedNewState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 5 + defaultLimit,
-                limit: defaultLimit,
-                total: 20,
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 5 + defaultLimit,
+                    limit: defaultLimit,
+                    total: 20,
+                },
             },
         };
         const newState = companies(oldState, {
             type: types.FETCH_COMPANIES_SUCCEEDED,
             payload: {
+                id: 'companies',
                 companies: [],
                 meta: {
                     offset: 5,
@@ -172,66 +172,146 @@ describe('Companies Reducers', () => {
 
     it('simulates FETCH_COMPANIES_FAILED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: false,
+            companies: {
+                ids: [],
+                isFetching: true,
+                error: false,
+            },
         };
         const expectedNewState1 = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: true,
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: true,
+            },
         };
         const newState1 = companies(oldState, {
             type: types.FETCH_COMPANIES_FAILED,
-            payload: true,
+            payload: {id: 'companies'},
         });
         expect(newState1).toEqual(expectedNewState1);
         const expectedNewState2 = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: 'error occurred',
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: 'error occurred',
+            },
         };
         const newState2 = companies(oldState, {
             type: types.FETCH_COMPANIES_FAILED,
-            payload: {error: 'error occurred'},
+            payload: {id: 'companies', error: 'error occurred'},
         });
         expect(newState2).toEqual(expectedNewState2);
     });
 
-    it('simulates invalid SET_COMPANIES_SEARCH_FILTERS action', () => {
+    it('simulates SET_COMPANIES_SEARCH_FILTERS action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: true,
-            meta: {
-                offset: 5,
-                limit: defaultLimit,
-                total: 20,
-                filters: {},
+            companies: {
+                ids: [],
+                isFetching: true,
+                error: true,
+                meta: {
+                    offset: 5,
+                    limit: defaultLimit,
+                    total: 20,
+                    filters: {},
+                },
             },
         };
         const expectedNewState = {
-            ids: [],
             byId: {},
-            isFetching: true,
-            error: true,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
-                filters: {
-                    filter: 'test_filter',
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                    filters: {
+                        filter: 'test_filter',
+                    },
                 },
             },
         };
         const newState = companies(oldState, {
             type: types.SET_COMPANIES_SEARCH_FILTERS,
             payload: {
+                id: 'companies',
                 filter: 'test_filter',
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
+    it('simulates SET_COMPANIES_SEARCH_FILTERS action with the same filter', () => {
+        const oldState = {
+            byId: {},
+            companies: {
+                ids: [],
+                isFetching: true,
+                error: true,
+                meta: {
+                    offset: 5,
+                    limit: defaultLimit,
+                    total: 20,
+                    filters: {
+                        filter: 'test',
+                    },
+                },
+            },
+        };
+        const expectedNewState = {...oldState};
+        const newState = companies(oldState, {
+            type: types.SET_COMPANIES_SEARCH_FILTERS,
+            payload: {
+                id: 'companies',
+                filter: 'test',
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
+    it('simulates FETCH_COMPANY_STARTED action', () => {
+        const oldState = {
+            byId: {},
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const expectedNewState = {
+            byId: {
+                1: {
+                    isFetching: true,
+                    error: false,
+                },
+            },
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const newState = companies(oldState, {
+            type: types.FETCH_COMPANY_STARTED,
+            payload: {
+                guid: '1',
             },
         });
         expect(newState).toEqual(expectedNewState);
@@ -239,35 +319,42 @@ describe('Companies Reducers', () => {
 
     it('simulates FETCH_COMPANY_SUCCEEDED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const expectedNewState = {
-            ids: [],
             byId: {
                 1: {
                     guid: 1,
                     title: 'company 1',
+                    isFetching: false,
+                    error: false,
                 },
             },
-            isFetching: false,
-            error: false,
-            meta: {
-                offset: 0,
-                limit: defaultLimit,
-                total: -1,
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
             },
         };
         const newState = companies(oldState, {
             type: types.FETCH_COMPANY_SUCCEEDED,
             payload: {
+                id: 'companies',
                 data: {
                     guid: 1,
                     title: 'company 1',
@@ -277,18 +364,63 @@ describe('Companies Reducers', () => {
         expect(newState).toEqual(expectedNewState);
     });
 
-    it('simulates invalid action', () => {
+    it('simulates FETCH_COMPANY_FAILED action', () => {
         const oldState = {
-            ids: [],
             byId: {},
-            isFetching: false,
-            error: false,
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
         };
         const expectedNewState = {
-            ids: [],
+            byId: {
+                1: {
+                    isFetching: false,
+                    error: true,
+                },
+            },
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+                meta: {
+                    offset: 0,
+                    limit: defaultLimit,
+                    total: -1,
+                },
+            },
+        };
+        const newState = companies(oldState, {
+            type: types.FETCH_COMPANY_FAILED,
+            payload: {
+                guid: '1',
+            },
+        });
+        expect(newState).toEqual(expectedNewState);
+    });
+
+    it('simulates invalid action', () => {
+        const oldState = {
             byId: {},
-            isFetching: false,
-            error: false,
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+            },
+        };
+        const expectedNewState = {
+            byId: {},
+            companies: {
+                ids: [],
+                isFetching: false,
+                error: false,
+            },
         };
         const newState = companies(oldState, {
             type: 'INVALID',

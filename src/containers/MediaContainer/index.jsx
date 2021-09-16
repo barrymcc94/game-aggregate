@@ -19,11 +19,6 @@ import Company from '../../components/Company';
 import Franchise from '../../components/Franchise';
 
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
-const mediaTypeKeys = {
-    [GAMES]: 'game',
-    [COMPANIES]: 'company',
-    [FRANCHISES]: 'franchise',
-};
 
 export const isItemLoaded = (mediaType, mediaItem) => {
     if (!mediaItem) {
@@ -39,16 +34,9 @@ export const isItemLoaded = (mediaType, mediaItem) => {
     return false;
 };
 
-export const MediaContainer = ({
-    mediaType,
-    guid,
-    item = {},
-    isFetching,
-    error,
-    fetchItem,
-}) => {
+export const MediaContainer = ({mediaType, guid, item = {}, fetchItem}) => {
     const isLoaded = isItemLoaded(mediaType, item);
-    const loading = isFetching || !isLoaded;
+    const {error} = item;
     useEffect(() => {
         if (isLoaded || !guid) {
             return;
@@ -57,21 +45,18 @@ export const MediaContainer = ({
     }, []);
 
     if (mediaType == GAMES) {
-        return (
-            <Game game={item} isFetching={item.isFetching} error={item.error} />
-        );
+        return <Game game={item} isFetching={!isLoaded} error={error} />;
     } else if (mediaType == COMPANIES) {
-        return <Company company={item} isFetching={loading} error={error} />;
+        return <Company company={item} isFetching={!isLoaded} error={error} />;
     } else if (mediaType == FRANCHISES) {
         return (
-            <Franchise franchise={item} isFetching={loading} error={error} />
+            <Franchise franchise={item} isFetching={!isLoaded} error={error} />
         );
     }
     return null;
 };
 
 export const mapStateToProps = (state, {mediaType, guid}) => {
-    const {isFetching, error} = state[mediaTypeKeys[mediaType]] || {};
     let mediaState = {};
     if (mediaType == GAMES) {
         mediaState = {
@@ -86,11 +71,7 @@ export const mapStateToProps = (state, {mediaType, guid}) => {
             item: selectFranchise(state, guid),
         };
     }
-    return {
-        ...mediaState,
-        isFetching,
-        error,
-    };
+    return {...mediaState};
 };
 
 export const mapDispatchToProps = (dispatch, {mediaType}) => {
@@ -110,8 +91,6 @@ MediaContainer.propTypes = {
     guid: PropTypes.string,
     item: PropTypes.oneOfType([GameT, CompanyT, FranchiseT]),
     fetchItem: PropTypes.func,
-    isFetching: PropTypes.bool,
-    error: PropTypes.bool,
     intl: PropTypes.object,
 };
 

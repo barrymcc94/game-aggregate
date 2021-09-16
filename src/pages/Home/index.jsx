@@ -28,6 +28,7 @@ export const HomePage = ({intl: {formatMessage}}) => (
         </StyledMediaListSection>
         <StyledMediaListSection>
             <MediaListContainer
+                id="home"
                 title={formatMessage({id: 'homePage.companiesHeading'})}
                 mediaType={COMPANIES}
                 containerType={ALL}

@@ -1,4 +1,5 @@
-import {put, takeLatest} from 'redux-saga/effects';
+import {put} from 'redux-saga/effects';
+import {takeLatestById} from '../effects';
 import {jsonFetch, objToQueryStr} from '../../../utils';
 import {fetchFranchisesSucceeded, fetchFranchisesFailed} from '../../actions';
 import {FETCH_FRANCHISES_STARTED} from '../../types';
@@ -6,8 +7,8 @@ import config from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchFranchisesSaga({payload}) {
+    const {id, queryObj} = payload || {};
     try {
-        const {queryObj} = payload || {};
         const queryStr = objToQueryStr(queryObj);
         const {
             results,
@@ -18,10 +19,11 @@ export function* fetchFranchisesSaga({payload}) {
             status_code,
         } = yield jsonFetch(`${gbApiUrl}/api/franchises/${queryStr}`);
         if (status_code !== 1) {
-            return yield put(fetchFranchisesFailed({error}));
+            return yield put(fetchFranchisesFailed({id, error}));
         }
         yield put(
             fetchFranchisesSucceeded({
+                id,
                 data: results,
                 meta: {
                     limit,
@@ -31,10 +33,10 @@ export function* fetchFranchisesSaga({payload}) {
             })
         );
     } catch (e) {
-        yield put(fetchFranchisesFailed({error: true}));
+        yield put(fetchFranchisesFailed({id, error: true}));
     }
 }
 
 export function* watchFetchFranchises() {
-    yield takeLatest(FETCH_FRANCHISES_STARTED, fetchFranchisesSaga);
+    yield takeLatestById(FETCH_FRANCHISES_STARTED, fetchFranchisesSaga, 'id');
 }

@@ -1,4 +1,19 @@
-import {selectCompanies} from '../index';
+import {selectCompany, selectCompanies} from '../index';
+
+describe('Company Selector', () => {
+    it('simulates selectCompany ', () => {
+        const state = {
+            companies: {
+                byId: {
+                    id1: {id: 1},
+                },
+            },
+        };
+        const expectedResult = {id: 1};
+        const result = selectCompany(state, 'id1');
+        expect(result).toEqual(expectedResult);
+    });
+});
 
 describe('Companies Selector', () => {
     it('simulates selectCompanies 1', () => {
@@ -17,7 +32,6 @@ describe('Companies Selector', () => {
     it('simulates selectCompanies 2', () => {
         const state = {
             companies: {
-                ids: ['1', '2'],
                 byId: {
                     1: {
                         id: 1,
@@ -28,7 +42,10 @@ describe('Companies Selector', () => {
                         title: 'post 2',
                     },
                 },
-                isFetching: false,
+                companies: {
+                    ids: ['1', '2'],
+                    isFetching: false,
+                },
             },
         };
         const expectedResult = [
@@ -41,7 +58,7 @@ describe('Companies Selector', () => {
                 title: 'post 2',
             },
         ];
-        const result = selectCompanies(state);
+        const result = selectCompanies(state, 'companies');
         expect(result).toEqual(expectedResult);
     });
 });
