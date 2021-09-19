@@ -10,33 +10,65 @@ export const jsonFetch = async (url) => {
 };
 
 export const objToQueryStr = (obj) => {
-    try {
-        let queries = [];
-        for (let k in obj) {
-            queries.push(`${k}=${obj[k]}`);
-        }
-        if (queries.length) {
-            return `?${queries.join('&')}`;
-        }
-        throw new Error('Value supplied to objToQueryStr function is invalid');
-    } catch (err) {
+    if (!obj) {
         return '';
     }
+    const queries = Object.keys(obj)
+        .map((k) =>
+            Array.isArray(obj[k])
+                ? `${obj[k]
+                      .map((item) => `${k}=${encodeURIComponent(item)}`)
+                      .join('&')}`
+                : obj[k] !== undefined
+                ? `${k}=${encodeURIComponent(obj[k])}`
+                : ''
+        )
+        .filter((elem) => !!`${elem}`);
+    return queries.length ? `?${queries.join('&')}` : '';
 };
 
-export const objToFilterStr = (obj) => {
-    try {
-        let filterArr = [];
-        for (let k in obj) {
-            filterArr.push(`${k}:${obj[k]}`);
-        }
-        if (filterArr.length) {
-            return filterArr.join(',');
-        }
-        throw new Error('Value supplied to objToFilterStr function is invalid');
-    } catch (err) {
-        return '';
+export const parseQueryVal = (value) => {
+    if (!isNaN(value)) {
+        return Number(value);
     }
+    if (['true', 'false'].includes(value)) {
+        return JSON.parse(value);
+    }
+    return value;
+};
+
+export const parseQueryStr = (queryStr) =>
+    queryStr && queryStr.length
+        ? queryStr
+              .substring(1)
+              .split('&')
+              .reduce((accumulator, elem) => {
+                  const [key, value] = elem.split('=');
+                  const parsedVal = parseQueryVal(decodeURIComponent(value));
+                  const existingVal = accumulator[key];
+                  return {
+                      ...accumulator,
+                      [key]: existingVal
+                          ? [
+                                ...(Array.isArray(existingVal)
+                                    ? existingVal
+                                    : [existingVal]),
+                                parsedVal,
+                            ]
+                          : parsedVal,
+                  };
+              }, {})
+        : {};
+
+export const objToFilterStr = (obj) => {
+    let filterArr = [];
+    for (let k in obj) {
+        filterArr.push(`${k}:${obj[k]}`);
+    }
+    if (filterArr.length) {
+        return filterArr.join(',');
+    }
+    return '';
 };
 
 export const getDefaultGamesFilter = () => {
@@ -85,18 +117,6 @@ export const formatReqMeta = (offset, limit) => ({
     _limit: limit || defaultLimit,
 });
 
-export const getBreakPoint = (theme, breakpoint) => {
-    try {
-        const num = theme.breakpoints.values[breakpoint];
-        if (Number.isInteger(num)) {
-            return `${num}px`;
-        }
-        return '';
-    } catch (e) {
-        return '';
-    }
-};
-
 export const areShallowObjectsEqual = (obj1, obj2) => {
     if (obj1 !== Object(obj1) || obj2 !== Object(obj2)) {
         return false;
@@ -110,60 +130,43 @@ export const areShallowObjectsEqual = (obj1, obj2) => {
 };
 
 export const areRecordArraysTheSame = (arr1, arr2) => {
-    try {
-        if (arr1.length !== arr2.length) {
-            return false;
-        }
-        for (let prop in arr1) {
-            if (!arr2[prop] || arr1[prop].id !== arr2[prop].id) {
-                return false;
-            }
-        }
-        return true;
-    } catch {
+    if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
         return false;
     }
+    if (arr1.length !== arr2.length) {
+        return false;
+    }
+    for (const prop in arr1) {
+        if (!arr2[prop] || arr1[prop].id !== arr2[prop].id) {
+            return false;
+        }
+    }
+    return true;
 };
 
 export const normalizeObjectListing = (objArr, idProp) => {
-    try {
-        if (!Array.isArray(objArr)) {
-            return {
-                ids: [],
-                byId: {},
-            };
-        }
-        return {
-            ids: objArr.map((item) => item[idProp]),
-            byId: objArr.reduce(
-                (accum, item) => ({
-                    ...accum,
-                    [item[idProp]]: item,
-                }),
-                {}
-            ),
-        };
-    } catch {
+    if (!Array.isArray(objArr)) {
         return {
             ids: [],
             byId: {},
         };
     }
+    return {
+        ids: objArr.map((item) => item[idProp]),
+        byId: objArr.reduce(
+            (accum, item) => ({
+                ...accum,
+                [item[idProp]]: item,
+            }),
+            {}
+        ),
+    };
 };
 
-export const combineNormalizedListingObjs = (data1, data2) => {
-    try {
-        return {
-            byId: {
-                ...data1.byId,
-                ...data2.byId,
-            },
-            ids: [...new Set([...data1.ids, ...data2.ids])],
-        };
-    } catch (e) {
-        return {
-            byId: {},
-            ids: [],
-        };
-    }
-};
+export const combineNormalizedListingObjs = (data1, data2) => ({
+    byId: {
+        ...data1.byId,
+        ...data2.byId,
+    },
+    ids: [...new Set([...data1.ids, ...data2.ids])],
+});

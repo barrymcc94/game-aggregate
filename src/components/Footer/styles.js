@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
-import {getBreakPoint} from '../../utils';
 
 export const StyledFooter = styled.footer`
     flex-shrink: 0;
@@ -22,7 +21,7 @@ export const StyledFooterItem = styled.div`
     a {
         color: ${({theme}) => theme.palette.text.primary};
     }
-    @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
+    ${({theme}) => theme.breakpoints.up('sm')} {
         margin: 1.5rem 1rem;
         display: inline-block;
     }

@@ -1,13 +1,12 @@
 import styled, {css} from 'styled-components';
 import Typography from '@material-ui/core/Typography';
-import {getBreakPoint} from '../../utils';
 import {LoaderStyles} from '../../common-styles';
 
 export const StyledMediaHeader = styled.header`
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    @media (min-width: ${({theme}) => getBreakPoint(theme, 'md')}) {
+    ${({theme}) => theme.breakpoints.up('md')} {
         flex-direction: row;
     }
 `;
@@ -18,11 +17,11 @@ const PosterImgCss = css`
     min-height: 18rem;
     object-fit: contain;
     margin: 0 auto 1rem auto;
-    @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
+    ${({theme}) => theme.breakpoints.up('sm')} {
         min-width: 20rem;
         max-width: 20rem;
     }
-    @media (min-width: ${({theme}) => getBreakPoint(theme, 'md')}) {
+    ${({theme}) => theme.breakpoints.up('md')} {
         margin: 0;
     }
 `;
@@ -40,7 +39,7 @@ export const TitleContent = styled.div`
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    @media (min-width: ${({theme}) => getBreakPoint(theme, 'md')}) {
+    ${({theme}) => theme.breakpoints.up('md')} {
         margin-left: 1rem;
     }
 `;

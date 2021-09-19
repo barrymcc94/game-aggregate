@@ -4,7 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
 import {Menu, Close} from '@material-ui/icons';
 import {NavLink} from 'react-router-dom';
-import {getBreakPoint} from '../../utils';
 
 export const StyledHeader = styled.header`
     background-color: ${({theme}) => theme.palette.background.paper};
@@ -72,7 +71,7 @@ export const StyledLink = styled(NavLink)`
     color: ${({theme}) => theme.palette.text.primary};
     box-sizing: border-box;
     padding: 0.35rem 1rem;
-    @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
+    ${({theme}) => theme.breakpoints.up('sm')} {
         padding: 0.35rem 1.5rem;
     }
     &.active {
@@ -89,7 +88,7 @@ export const StyledLink = styled(NavLink)`
 export const StyledDrawer = styled(Drawer)`
     .MuiDrawer-paper {
         width: 100%;
-        @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
+        ${({theme}) => theme.breakpoints.up('sm')} {
             width: 25rem;
         }
     }

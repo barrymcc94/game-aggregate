@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import {getBreakPoint} from '../../../utils';
 
 export const StyledButtonWrapper = styled.div`
     display: flex;
@@ -11,10 +10,10 @@ export const StyledButtonWrapper = styled.div`
 export const StyledButton = styled(Button)`
     text-transform: none;
     font-size: 1.25rem;
-    @media (min-width: ${({theme}) => getBreakPoint(theme, 'xs')}) {
+    ${({theme}) => theme.breakpoints.up('xs')} {
         width: 100%;
     }
-    @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
+    ${({theme}) => theme.breakpoints.up('sm')} {
         width: initial;
     }
 `;

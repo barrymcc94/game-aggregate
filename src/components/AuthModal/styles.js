@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
-import {getBreakPoint} from '../../utils';
 
 export const ModalButton = styled(IconButton)`
     padding: 0.5rem;
@@ -23,7 +22,7 @@ export const StyledModalContent = styled.div`
     transform: translate(-50%, -50%);
     padding: 1rem;
     min-width: calc(100% - 1rem);
-    @media (min-width: ${({theme}) => getBreakPoint(theme, 'sm')}) {
+    ${({theme}) => theme.breakpoints.up('sm')} {
         min-width: 50%;
     }
 `;

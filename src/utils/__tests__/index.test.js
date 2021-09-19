@@ -1,9 +1,10 @@
 import {
     jsonFetch,
     formatReqMeta,
-    getBreakPoint,
     areShallowObjectsEqual,
     areRecordArraysTheSame,
+    parseQueryVal,
+    parseQueryStr,
     objToQueryStr,
     objToFilterStr,
     normalizeObjectListing,
@@ -43,18 +44,6 @@ describe('utils', () => {
         const result2 = formatReqMeta(0, 0);
         expect(result1).toEqual(expectedResult1);
         expect(result2).toEqual(expectedResult2);
-    });
-
-    it('tests getBreakPoint', () => {
-        expect(getBreakPoint({}, '')).toEqual('');
-        expect(getBreakPoint({breakpoints: {}}, 'xs')).toEqual('');
-        expect(getBreakPoint({breakpoints: {values: {}}}, 'xs')).toEqual('');
-        expect(getBreakPoint({breakpoints: {values: {xs: 0}}}, 'xs')).toEqual(
-            '0px'
-        );
-        expect(getBreakPoint({breakpoints: {values: {sm: 600}}}, 'sm')).toEqual(
-            '600px'
-        );
     });
 
     it('tests areShallowObjectsEqual', () => {
@@ -121,11 +110,34 @@ describe('utils', () => {
         expect(result4).toEqual(false);
     });
 
+    it('tests parseQueryVal', () => {
+        expect(parseQueryVal('500')).toEqual(500);
+        expect(parseQueryVal('true')).toEqual(true);
+        expect(parseQueryVal('false')).toEqual(false);
+        expect(parseQueryVal('test')).toEqual('test');
+    });
+
+    it('tests parseQueryStr', () => {
+        expect(parseQueryStr()).toEqual({});
+        expect(
+            parseQueryStr(
+                '?query1=test1&query2=test2&query3=test3%3Dvalue1&query3=test3%3Dvalue2&query3=test3%3Dvalue3'
+            )
+        ).toEqual({
+            query1: 'test1',
+            query2: 'test2',
+            query3: ['test3=value1', 'test3=value2', 'test3=value3'],
+        });
+    });
+
     it('successfully creates a querystring using objToQueryStr 1', () => {
-        const expectedResult = '?query1=test1&query2=test2';
+        const expectedResult =
+            '?query1=test1&query2=test2&query4=test2%3D100&query4=test3%3D200';
         const result = objToQueryStr({
             query1: 'test1',
             query2: 'test2',
+            query3: undefined,
+            query4: ['test2=100', 'test3=200'],
         });
         expect(result).toEqual(expectedResult);
     });
@@ -205,15 +217,6 @@ describe('utils', () => {
         expect(result).toEqual(expectedResult);
     });
 
-    it('successfully handles invalid params in normalizeObjectListing', () => {
-        const expectedResult = {
-            ids: [],
-            byId: {},
-        };
-        const result = normalizeObjectListing([null, null], 'id');
-        expect(result).toEqual(expectedResult);
-    });
-
     it('successfully combines identifiable objects using combineNormalizedListingObjs 1', () => {
         const expectedResult = {
             ids: [1, 2],
@@ -248,23 +251,6 @@ describe('utils', () => {
                 },
             }
         );
-        expect(result).toEqual(expectedResult);
-    });
-
-    it('successfully combines identifiable objects using combineNormalizedListingObjs 2', () => {
-        const expectedResult = {
-            ids: [],
-            byId: {},
-        };
-        const result = combineNormalizedListingObjs(null, {
-            ids: [2],
-            byId: {
-                2: {
-                    id: 2,
-                    title: 'post 2',
-                },
-            },
-        });
         expect(result).toEqual(expectedResult);
     });
 
