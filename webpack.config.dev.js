@@ -14,7 +14,6 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
-        inline: true,
         hot: true,
         port: 3000,
         proxy: {
@@ -27,9 +26,12 @@ module.exports = {
                 changeOrigin: true,
             },
         },
-        overlay: {
-            errors: true,
-            warnings: true,
+        client: {
+            overlay: {
+                errors: true,
+                warnings: true,
+            },
+            progress: true,
         },
     },
     devtool: 'source-map',
