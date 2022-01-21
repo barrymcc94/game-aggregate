@@ -97,7 +97,7 @@ describe('<MediaListContainer/>', () => {
         wrapper.unmount();
     });
 
-    it('tests scrolling loads more when over 80% down page', () => {
+    it('tests scrolling loads more when within 500px from bottom of component', () => {
         const store = mockStore({games: defaultStoreProps});
         renderWithBaseWrapper(<Container {...defaultProps} />, store);
         global.pageYOffset = 100;
@@ -117,14 +117,14 @@ describe('<MediaListContainer/>', () => {
         expect(store.getActions().length).toEqual(1);
     });
 
-    it('tests scrolling does not load more when less than 80% down page', () => {
+    it('tests scrolling does not load more when over 500px from bottom of component', () => {
         const store = mockStore({games: defaultStoreProps});
         const wrapper = renderWithBaseWrapper(
             <Container {...defaultProps} />,
             store
         );
         global.innerHeight = 0;
-        global.pageYOffset = -1;
+        global.pageYOffset = -501;
         global.dispatchEvent(new Event('scroll'));
         wrapper.unmount();
         expect(store.getActions().length).toEqual(1);

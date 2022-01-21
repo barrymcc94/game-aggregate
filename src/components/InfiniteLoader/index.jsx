@@ -8,8 +8,9 @@ export const InfiniteLoader = ({listRef, loadMore, children}) => {
             if (
                 !listRef?.current ||
                 window.innerHeight + window.pageYOffset <
-                    (listRef.current.offsetHeight + listRef.current.offsetTop) *
-                        0.8
+                    listRef.current.offsetHeight +
+                        listRef.current.offsetTop -
+                        500
             ) {
                 return;
             }

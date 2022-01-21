@@ -17,7 +17,7 @@ describe('<InfiniteLoader/>', () => {
         loadMore.mockClear();
     });
 
-    it('tests scrolling loads more when over 80% down page', () => {
+    it('tests scrolling loads more when within 500px from bottom of component', () => {
         const listRef = {current: {offsetHeight: 0, offsetTop: 0}};
         renderWithBaseWrapper(
             <InfiniteLoader loadMore={loadMore} listRef={listRef}>
@@ -29,7 +29,7 @@ describe('<InfiniteLoader/>', () => {
         expect(loadMore).toHaveBeenCalledTimes(1);
     });
 
-    it('tests scrolling does not load more when less than 80% down page', () => {
+    it('tests scrolling does not load more when over 500px from bottom of component', () => {
         const listRef = {current: {offsetHeight: 0, offsetTop: 0}};
         const wrapper = renderWithBaseWrapper(
             <InfiniteLoader loadMore={loadMore} listRef={listRef}>
@@ -37,7 +37,7 @@ describe('<InfiniteLoader/>', () => {
             </InfiniteLoader>
         );
         global.innerHeight = 0;
-        global.pageYOffset = -1;
+        global.pageYOffset = -501;
         global.dispatchEvent(new Event('scroll'));
         wrapper.unmount();
         expect(loadMore).toHaveBeenCalledTimes(0);
