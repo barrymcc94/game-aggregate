@@ -22,13 +22,32 @@ describe('Franchise Sagas', () => {
     });
 
     it('tests fetchFranchiseSaga when expecting success', async () => {
+        const dispatch = jest.fn();
         const gen = fetchFranchiseSaga({payload: {}});
         const data = await gen.next().value; // results from api
-        const {type, payload} = await gen.next(data).value.payload.action;
-        expect(type).toBe(FETCH_FRANCHISE_SUCCEEDED);
-        expect(payload).toEqual({data: {id: 1, games: [{id: 1}]}});
-        await gen.next().value;
-        expect(gen.next().done).toBe(true);
+        const put = await gen.next(data).value.payload.action;
+        put(dispatch);
+        expect(dispatch).toBeCalledTimes(2);
+        expect(dispatch).toBeCalledWith({
+            type: 'FETCH_FRANCHISE_SUCCEEDED',
+            payload: {data: {id: 1, games: [{id: 1}]}},
+        });
+        expect(dispatch).toBeCalledWith({
+            type: 'FETCH_GAMES_STARTED',
+            payload: {
+                id: 'franchiseGames_undefined',
+                meta: {
+                    limit: 100,
+                },
+                queryObj: {
+                    filter: 'original_release_date:|2020-6-14 00:00:00,id:1',
+                    limit: 100,
+                    offset: 0,
+                    sort: 'original_release_date:desc',
+                },
+            },
+        });
+        // expect(gen.next().done).toBe(true);
     });
 
     it('tests fetchFranchiseSaga when expecting error', async () => {

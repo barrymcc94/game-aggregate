@@ -1,3 +1,4 @@
+import {batch} from 'react-redux';
 import {put, takeLatest} from 'redux-saga/effects';
 import {
     jsonFetch,
@@ -27,44 +28,46 @@ export function* fetchCompanySaga({payload = {}}) {
 
         const gamesLimit = 100;
         const {published_games, developed_games} = results;
-
-        yield put(
-            fetchGamesStarted({
-                id: `companyPublishedGames_${guid}`,
-                queryObj: {
-                    sort: `original_release_date:desc`,
-                    filter: objToFilterStr({
-                        ...getDefaultGamesFilter(),
-                        id: published_games.map(({id}) => id).join('|'),
-                    }),
-                    limit: gamesLimit,
-                    offset: 0,
-                },
-                meta: {limit: gamesLimit},
-            })
-        );
-        yield put(
-            fetchGamesStarted({
-                id: `companyDevelopedGames_${guid}`,
-                queryObj: {
-                    sort: `original_release_date:desc`,
-                    filter: objToFilterStr({
-                        ...getDefaultGamesFilter(),
-                        id: developed_games.map(({id}) => id).join('|'),
-                    }),
-                    limit: gamesLimit,
-                    offset: 0,
-                },
-                meta: {limit: gamesLimit},
-            })
-        );
-
-        yield put(
-            fetchCompanySucceeded({
-                guid,
-                data: results,
-            })
-        );
+        yield put((dispatch) => {
+            batch(() => {
+                dispatch(
+                    fetchGamesStarted({
+                        id: `companyPublishedGames_${guid}`,
+                        queryObj: {
+                            sort: `original_release_date:desc`,
+                            filter: objToFilterStr({
+                                ...getDefaultGamesFilter(),
+                                id: published_games.map(({id}) => id).join('|'),
+                            }),
+                            limit: gamesLimit,
+                            offset: 0,
+                        },
+                        meta: {limit: gamesLimit},
+                    })
+                );
+                dispatch(
+                    fetchGamesStarted({
+                        id: `companyDevelopedGames_${guid}`,
+                        queryObj: {
+                            sort: `original_release_date:desc`,
+                            filter: objToFilterStr({
+                                ...getDefaultGamesFilter(),
+                                id: developed_games.map(({id}) => id).join('|'),
+                            }),
+                            limit: gamesLimit,
+                            offset: 0,
+                        },
+                        meta: {limit: gamesLimit},
+                    })
+                );
+                dispatch(
+                    fetchCompanySucceeded({
+                        guid,
+                        data: results,
+                    })
+                );
+            });
+        });
     } catch (e) {
         yield put(fetchCompanyFailed({guid, error: true}));
     }

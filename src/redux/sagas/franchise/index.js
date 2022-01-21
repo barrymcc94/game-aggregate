@@ -1,3 +1,4 @@
+import {batch} from 'react-redux';
 import {put, takeLatest} from 'redux-saga/effects';
 import {
     jsonFetch,
@@ -24,32 +25,36 @@ export function* fetchFranchiseSaga({payload = {}}) {
         if (status_code !== 1) {
             return yield put(fetchFranchiseFailed({guid, error}));
         }
-        yield put(
-            fetchFranchiseSucceeded({
-                guid,
-                data: results,
-            })
-        );
 
         const gamesLimit = 100;
         const {games} = results;
         const gamesIdFilter = games.map(({id}) => id).join('|');
 
-        yield put(
-            fetchGamesStarted({
-                id: `franchiseGames_${guid}`,
-                queryObj: {
-                    sort: `original_release_date:desc`,
-                    filter: objToFilterStr({
-                        ...getDefaultGamesFilter(),
-                        id: gamesIdFilter,
-                    }),
-                    limit: gamesLimit,
-                    offset: 0,
-                },
-                meta: {limit: gamesLimit},
-            })
-        );
+        yield put((dispatch) => {
+            batch(() => {
+                dispatch(
+                    fetchFranchiseSucceeded({
+                        guid,
+                        data: results,
+                    })
+                );
+                dispatch(
+                    fetchGamesStarted({
+                        id: `franchiseGames_${guid}`,
+                        queryObj: {
+                            sort: `original_release_date:desc`,
+                            filter: objToFilterStr({
+                                ...getDefaultGamesFilter(),
+                                id: gamesIdFilter,
+                            }),
+                            limit: gamesLimit,
+                            offset: 0,
+                        },
+                        meta: {limit: gamesLimit},
+                    })
+                );
+            });
+        });
     } catch (e) {
         yield put(fetchFranchiseFailed({guid, error: true}));
     }

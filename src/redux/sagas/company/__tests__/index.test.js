@@ -1,9 +1,5 @@
 import {fetchCompanySaga, watchFetchCompany} from '../index';
-import {
-    FETCH_COMPANY_SUCCEEDED,
-    FETCH_COMPANY_FAILED,
-    FETCH_GAMES_STARTED,
-} from '../../../types';
+import {FETCH_COMPANY_FAILED} from '../../../types';
 
 describe('Company Sagas', () => {
     const testResult = {
@@ -27,46 +23,55 @@ describe('Company Sagas', () => {
     });
 
     it('tests fetchCompanySaga when expecting success', async () => {
+        const dispatch = jest.fn();
         const gen = fetchCompanySaga({payload: {}});
         const data = await gen.next().value;
-        const gamesStartedAction1 = await gen.next(data).value.payload.action;
-        expect(gamesStartedAction1.type).toBe(FETCH_GAMES_STARTED);
-        expect(gamesStartedAction1.payload).toEqual({
-            id: 'companyPublishedGames_undefined',
-            meta: {
-                limit: 100,
-            },
-            queryObj: {
-                filter: 'original_release_date:|2020-6-14 00:00:00,id:1|2',
-                limit: 100,
-                offset: 0,
-                sort: 'original_release_date:desc',
-            },
-        });
-        const gamesStartedAction2 = await gen.next(data).value.payload.action;
-        expect(gamesStartedAction2.type).toBe(FETCH_GAMES_STARTED);
-        expect(gamesStartedAction2.payload).toEqual({
-            id: 'companyDevelopedGames_undefined',
-            meta: {
-                limit: 100,
-            },
-            queryObj: {
-                filter: 'original_release_date:|2020-6-14 00:00:00,id:3|4',
-                limit: 100,
-                offset: 0,
-                sort: 'original_release_date:desc',
+
+        const put = await gen.next(data).value.payload.action;
+        put(dispatch);
+
+        expect(dispatch).toBeCalledTimes(3);
+        expect(dispatch).toBeCalledWith({
+            type: 'FETCH_GAMES_STARTED',
+            payload: {
+                id: 'companyPublishedGames_undefined',
+                meta: {
+                    limit: 100,
+                },
+                queryObj: {
+                    filter: 'original_release_date:|2020-6-14 00:00:00,id:1|2',
+                    limit: 100,
+                    offset: 0,
+                    sort: 'original_release_date:desc',
+                },
             },
         });
-        const companySucceededAction = await gen.next(data).value.payload
-            .action;
-        expect(companySucceededAction.type).toBe(FETCH_COMPANY_SUCCEEDED);
-        expect(companySucceededAction.payload).toEqual({
-            data: {
-                id: 1,
-                published_games: [{id: 1}, {id: 2}],
-                developed_games: [{id: 3}, {id: 4}],
+        expect(dispatch).toBeCalledWith({
+            type: 'FETCH_GAMES_STARTED',
+            payload: {
+                id: 'companyDevelopedGames_undefined',
+                meta: {
+                    limit: 100,
+                },
+                queryObj: {
+                    filter: 'original_release_date:|2020-6-14 00:00:00,id:3|4',
+                    limit: 100,
+                    offset: 0,
+                    sort: 'original_release_date:desc',
+                },
             },
         });
+        expect(dispatch).toBeCalledWith({
+            type: 'FETCH_COMPANY_SUCCEEDED',
+            payload: {
+                data: {
+                    id: 1,
+                    published_games: [{id: 1}, {id: 2}],
+                    developed_games: [{id: 3}, {id: 4}],
+                },
+            },
+        });
+
         expect(gen.next().done).toBe(true);
     });
 
