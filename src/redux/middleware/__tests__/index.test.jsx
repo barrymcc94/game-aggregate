@@ -3,7 +3,7 @@ import {authMiddleware} from '../index';
 describe('MiddleWare', () => {
     it('tests authMiddleware flows with auth action', () => {
         const next = jest.fn();
-        const action = {type: 'FETCH_GAMES_STARTED', payload: {queryObj: {}}};
+        const action = {type: 'FETCH_GAMES_STARTED', payload: {query: {}}};
         authMiddleware({
             getState: () => ({
                 auth: {giantbomb: {api_key: 'api_key'}},
@@ -12,7 +12,7 @@ describe('MiddleWare', () => {
         expect(next).toBeCalledTimes(1);
     });
 
-    it('tests authMiddleware flows with auth action & no queryObj', () => {
+    it('tests authMiddleware flows with auth action & no query', () => {
         const next = jest.fn();
         const action = {type: 'FETCH_GAMES_STARTED', payload: {}};
         authMiddleware({

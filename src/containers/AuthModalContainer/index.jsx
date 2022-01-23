@@ -43,7 +43,7 @@ export const AuthModalContainer = ({
     const submitForm = (e) => {
         e.preventDefault();
         fetchGBApiKey({
-            queryObj: {...defaultGbApiDefaults, regCode: appCode},
+            query: {...defaultGbApiDefaults, regCode: appCode},
         });
         setAppCode('');
     };

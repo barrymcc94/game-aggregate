@@ -7,7 +7,6 @@ import MediaListContainer from '../../containers/MediaListContainer';
 import {StyledMediaListSection, StyledHeading} from './styles';
 
 const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
-const {ALL} = ENUMS.CONTAINER_TYPE;
 
 export const HomePage = ({intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: 'homePage.title'})}>
@@ -19,9 +18,8 @@ export const HomePage = ({intl: {formatMessage}}) => (
                 id="home"
                 title={formatMessage({id: 'homePage.gamesHeading'})}
                 mediaType={GAMES}
-                containerType={ALL}
                 disableScrollLoading={true}
-                limit={12}
+                queryOverwrite={{limit: 12}}
                 buttonType="link"
                 loadMoreText={formatMessage({id: 'homePage.gamesLink'})}
             />
@@ -31,9 +29,8 @@ export const HomePage = ({intl: {formatMessage}}) => (
                 id="home"
                 title={formatMessage({id: 'homePage.companiesHeading'})}
                 mediaType={COMPANIES}
-                containerType={ALL}
                 disableScrollLoading={true}
-                limit={12}
+                queryOverwrite={{limit: 12}}
                 buttonType="link"
                 loadMoreText={formatMessage({id: 'homePage.companiesLink'})}
             />

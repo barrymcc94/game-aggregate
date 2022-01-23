@@ -8,11 +8,6 @@ export const ENUMS = {
         COMPANIES: 'companies',
         FRANCHISES: 'franchises',
     },
-    CONTAINER_TYPE: {
-        ALL: 'all',
-        SEARCH: 'search',
-        FILTERED: 'filtered',
-    },
 };
 
 export const dateFormat = 'dd-MM-yyyy';

@@ -10,7 +10,6 @@ import MediaListContainer from '../../containers/MediaListContainer';
 import AriaLoader from '../AriaLoader';
 
 const {GAMES} = ENUMS.MEDIA_TYPE;
-const {FILTERED} = ENUMS.CONTAINER_TYPE;
 
 export const Franchise = ({
     franchise = {},
@@ -45,7 +44,7 @@ export const Franchise = ({
                 id={`franchiseGames_${franchise.guid}`}
                 title={formatMessage({id: 'franchise.gamesHeading'})}
                 mediaType={GAMES}
-                containerType={FILTERED}
+                preFiltered={true}
                 disableScrollLoading={false}
                 isLoading={isFetching}
             />

@@ -56,7 +56,7 @@ describe('Auth Sagas', () => {
     });
 
     it('tests fetchAuthSaga', async () => {
-        const gen = watchFetchAuth({payload: {queryObj: {}}});
+        const gen = watchFetchAuth({payload: {query: {}}});
         expect(gen.next().value.type).toBe('FORK');
         expect(gen.next().done).toBe(true);
     });

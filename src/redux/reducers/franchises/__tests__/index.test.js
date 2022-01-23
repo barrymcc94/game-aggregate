@@ -25,10 +25,8 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: true,
                 error: false,
-                meta: {
-                    filters: {
-                        filter: '',
-                    },
+                query: {
+                    filter: {name: ''},
                     offset: 0,
                     limit: defaultLimit,
                     total: -1,
@@ -37,7 +35,7 @@ describe('Franchises Reducers', () => {
         };
         const newState = franchises(oldState, {
             type: types.FETCH_FRANCHISES_STARTED,
-            payload: {id: 'franchises', queryObj: {filter: ''}, meta: {}},
+            payload: {id: 'franchises', query: {filter: {name: ''}}},
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -53,10 +51,8 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: true,
                 error: false,
-                meta: {
-                    filters: {
-                        filter: '',
-                    },
+                query: {
+                    filter: {name: 'test'},
                     offset: 0,
                     limit: defaultLimit,
                     total: -1,
@@ -65,7 +61,7 @@ describe('Franchises Reducers', () => {
         };
         const newState = franchises(oldState, {
             type: types.FETCH_FRANCHISES_STARTED,
-            payload: {id: 'franchises', queryObj: {filter: ''}, meta: {}},
+            payload: {id: 'franchises', query: {filter: {name: 'test'}}},
         });
         expect(newState).toEqual(expectedNewState);
     });
@@ -76,7 +72,7 @@ describe('Franchises Reducers', () => {
             franchises: {
                 isFetching: true,
                 error: true,
-                meta: {
+                query: {
                     offset: 0,
                     limit: defaultLimit,
                     total: -1,
@@ -98,7 +94,7 @@ describe('Franchises Reducers', () => {
                 ids: [1, 2],
                 isFetching: false,
                 error: false,
-                meta: {
+                query: {
                     offset: defaultLimit,
                     limit: defaultLimit,
                     total: 20,
@@ -119,7 +115,7 @@ describe('Franchises Reducers', () => {
                         title: 'franchise 2',
                     },
                 ],
-                meta: {
+                query: {
                     offset: 5,
                     total: 20,
                 },
@@ -135,7 +131,7 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: true,
                 error: true,
-                meta: {
+                query: {
                     offset: 5,
                     limit: defaultLimit,
                     total: 20,
@@ -148,7 +144,7 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: false,
                 error: false,
-                meta: {
+                query: {
                     offset: 5 + defaultLimit,
                     limit: defaultLimit,
                     total: 20,
@@ -160,7 +156,7 @@ describe('Franchises Reducers', () => {
             payload: {
                 id: 'franchises',
                 franchises: [],
-                meta: {
+                query: {
                     offset: 5,
                     limit: defaultLimit,
                     total: 20,
@@ -207,75 +203,6 @@ describe('Franchises Reducers', () => {
         expect(newState2).toEqual(expectedNewState2);
     });
 
-    it('simulates SET_FRANCHISES_SEARCH_FILTERS action', () => {
-        const oldState = {
-            byId: {},
-            franchises: {
-                ids: [],
-                isFetching: true,
-                error: true,
-                meta: {
-                    offset: 5,
-                    limit: defaultLimit,
-                    total: 20,
-                    filters: {},
-                },
-            },
-        };
-        const expectedNewState = {
-            byId: {},
-            franchises: {
-                ids: [],
-                isFetching: false,
-                error: false,
-                meta: {
-                    offset: 0,
-                    limit: defaultLimit,
-                    total: -1,
-                    filters: {
-                        filter: 'test_filter',
-                    },
-                },
-            },
-        };
-        const newState = franchises(oldState, {
-            type: types.SET_FRANCHISES_SEARCH_FILTERS,
-            payload: {
-                id: 'franchises',
-                filter: 'test_filter',
-            },
-        });
-        expect(newState).toEqual(expectedNewState);
-    });
-
-    it('simulates SET_FRANCHISES_SEARCH_FILTERS action with the same filter', () => {
-        const oldState = {
-            byId: {},
-            franchises: {
-                ids: [],
-                isFetching: true,
-                error: true,
-                meta: {
-                    offset: 5,
-                    limit: defaultLimit,
-                    total: 20,
-                    filters: {
-                        filter: 'test',
-                    },
-                },
-            },
-        };
-        const expectedNewState = {...oldState};
-        const newState = franchises(oldState, {
-            type: types.SET_FRANCHISES_SEARCH_FILTERS,
-            payload: {
-                id: 'franchises',
-                filter: 'test',
-            },
-        });
-        expect(newState).toEqual(expectedNewState);
-    });
-
     it('simulates FETCH_FRANCHISE_STARTED action', () => {
         const oldState = {
             byId: {},
@@ -283,7 +210,7 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: false,
                 error: false,
-                meta: {
+                query: {
                     offset: 0,
                     limit: defaultLimit,
                     total: -1,
@@ -301,7 +228,7 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: false,
                 error: false,
-                meta: {
+                query: {
                     offset: 0,
                     limit: defaultLimit,
                     total: -1,
@@ -324,7 +251,7 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: false,
                 error: false,
-                meta: {
+                query: {
                     offset: 0,
                     limit: defaultLimit,
                     total: -1,
@@ -344,7 +271,7 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: false,
                 error: false,
-                meta: {
+                query: {
                     offset: 0,
                     limit: defaultLimit,
                     total: -1,
@@ -371,7 +298,7 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: false,
                 error: false,
-                meta: {
+                query: {
                     offset: 0,
                     limit: defaultLimit,
                     total: -1,
@@ -389,7 +316,7 @@ describe('Franchises Reducers', () => {
                 ids: [],
                 isFetching: false,
                 error: false,
-                meta: {
+                query: {
                     offset: 0,
                     limit: defaultLimit,
                     total: -1,

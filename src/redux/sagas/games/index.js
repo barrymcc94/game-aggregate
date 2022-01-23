@@ -7,9 +7,9 @@ import config from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchGamesSaga({payload}) {
-    const {id, queryObj} = payload || {};
+    const {id, query} = payload || {};
     try {
-        const queryStr = objToQueryStr(queryObj);
+        const queryStr = objToQueryStr(query);
         const {
             results,
             error,
@@ -25,7 +25,7 @@ export function* fetchGamesSaga({payload}) {
             fetchGamesSucceeded({
                 id,
                 data: results,
-                meta: {
+                query: {
                     limit,
                     offset,
                     total: number_of_total_results,

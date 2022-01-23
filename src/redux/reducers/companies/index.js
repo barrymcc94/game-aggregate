@@ -3,7 +3,6 @@ import {
     handleFetchMediaStarted,
     handleFetchMediaSucceeded,
     handleFetchMediaFailed,
-    handleSetMediaSearchFilters,
     handleFetchMediaItemStarted,
     handleFetchMediaItemSucceeded,
     handleFetchMediaItemFailed,
@@ -25,8 +24,6 @@ export const companies = (
             return handleFetchMediaSucceeded(state, payload);
         case types.FETCH_COMPANIES_FAILED:
             return handleFetchMediaFailed(state, payload);
-        case types.SET_COMPANIES_SEARCH_FILTERS:
-            return handleSetMediaSearchFilters(state, payload);
         case types.FETCH_COMPANY_STARTED:
             return handleFetchMediaItemStarted(state, payload);
         case types.FETCH_COMPANY_SUCCEEDED:

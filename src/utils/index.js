@@ -20,7 +20,9 @@ export const objToQueryStr = (obj) => {
                       .map((item) => `${k}=${encodeURIComponent(item)}`)
                       .join('&')}`
                 : obj[k] !== undefined
-                ? `${k}=${encodeURIComponent(obj[k])}`
+                ? k === 'filter'
+                    ? `${k}=${objToFilterStr(obj[k])}`
+                    : `${k}=${encodeURIComponent(obj[k])}`
                 : ''
         )
         .filter((elem) => !!`${elem}`);
@@ -82,28 +84,28 @@ export const getDefaultCompaniesFilter = () => ({});
 
 export const getDefaultFranchisesFilter = () => ({});
 
-export const getDefaultListingFilters = (mediaType, meta) => {
+export const getDefaultListingFilters = (mediaType, query) => {
     try {
         let defaultQueryObj = {
-            limit: meta.limit || defaultLimit,
-            offset: meta.offset || 0,
+            limit: query.limit || defaultLimit,
+            offset: query.offset || 0,
         };
         if (mediaType == GAMES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
                 sort: 'original_release_date:desc',
-                filter: objToFilterStr(getDefaultGamesFilter()),
+                filter: getDefaultGamesFilter(),
             };
         } else if (mediaType == COMPANIES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
                 sort: 'date_founded:desc',
-                filter: objToFilterStr(getDefaultCompaniesFilter()),
+                filter: getDefaultCompaniesFilter(),
             };
         } else if (mediaType == FRANCHISES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
-                filter: objToFilterStr(getDefaultFranchisesFilter()),
+                filter: getDefaultFranchisesFilter(),
             };
         }
         return defaultQueryObj;

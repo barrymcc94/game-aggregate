@@ -7,8 +7,8 @@ const {gbApiUrl} = config;
 
 export function* fetchAuthSaga({payload = {}}) {
     try {
-        const {queryObj} = payload;
-        const queryStr = objToQueryStr(queryObj);
+        const {query} = payload;
+        const queryStr = objToQueryStr(query);
         const {status, regToken} = yield jsonFetch(
             `${gbApiUrl}/app/myapp/get-result${queryStr}`
         );

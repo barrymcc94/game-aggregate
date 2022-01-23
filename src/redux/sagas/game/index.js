@@ -8,8 +8,8 @@ const {gbApiUrl} = config;
 
 export function* fetchGameSaga({payload}) {
     try {
-        const {guid, queryObj} = payload || {};
-        const queryStr = objToQueryStr(queryObj);
+        const {guid, query} = payload || {};
+        const queryStr = objToQueryStr(query);
         const {results, error, status_code} = yield jsonFetch(
             `${gbApiUrl}/api/game/${guid}/${queryStr}`
         );

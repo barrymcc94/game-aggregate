@@ -14,7 +14,6 @@ import {
     fetchGamesFailed,
     fetchGame,
     fetchGames,
-    setGamesSearchFilters,
 } from './games';
 import {
     fetchCompanyStarted,
@@ -27,7 +26,6 @@ import {
     fetchCompaniesSucceeded,
     fetchCompaniesFailed,
     fetchCompanies,
-    setCompaniesSearchFilters,
 } from './companies';
 import {
     fetchFranchiseStarted,
@@ -40,7 +38,6 @@ import {
     fetchFranchisesSucceeded,
     fetchFranchisesFailed,
     fetchFranchises,
-    setFranchisesSearchFilters,
 } from './franchises';
 
 export {
@@ -58,7 +55,6 @@ export {
     fetchGamesSucceeded,
     fetchGamesFailed,
     fetchGames,
-    setGamesSearchFilters,
     fetchCompanyStarted,
     fetchCompanySucceeded,
     fetchCompanyFailed,
@@ -67,7 +63,6 @@ export {
     fetchCompaniesSucceeded,
     fetchCompaniesFailed,
     fetchCompanies,
-    setCompaniesSearchFilters,
     fetchFranchiseStarted,
     fetchFranchiseSucceeded,
     fetchFranchiseFailed,
@@ -76,5 +71,4 @@ export {
     fetchFranchisesSucceeded,
     fetchFranchisesFailed,
     fetchFranchises,
-    setFranchisesSearchFilters,
 };

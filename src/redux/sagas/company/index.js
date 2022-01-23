@@ -16,9 +16,9 @@ import config from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchCompanySaga({payload = {}}) {
-    const {guid, queryObj} = payload;
+    const {guid, query} = payload;
     try {
-        const queryStr = objToQueryStr(queryObj);
+        const queryStr = objToQueryStr(query);
         const {results, error, status_code} = yield jsonFetch(
             `${gbApiUrl}/api/company/${guid}/${queryStr}`
         );
@@ -33,31 +33,29 @@ export function* fetchCompanySaga({payload = {}}) {
                 dispatch(
                     fetchGamesStarted({
                         id: `companyPublishedGames_${guid}`,
-                        queryObj: {
+                        query: {
                             sort: `original_release_date:desc`,
-                            filter: objToFilterStr({
+                            filter: {
                                 ...getDefaultGamesFilter(),
                                 id: published_games.map(({id}) => id).join('|'),
-                            }),
+                            },
                             limit: gamesLimit,
                             offset: 0,
                         },
-                        meta: {limit: gamesLimit},
                     })
                 );
                 dispatch(
                     fetchGamesStarted({
                         id: `companyDevelopedGames_${guid}`,
-                        queryObj: {
+                        query: {
                             sort: `original_release_date:desc`,
-                            filter: objToFilterStr({
+                            filter: {
                                 ...getDefaultGamesFilter(),
                                 id: developed_games.map(({id}) => id).join('|'),
-                            }),
+                            },
                             limit: gamesLimit,
                             offset: 0,
                         },
-                        meta: {limit: gamesLimit},
                     })
                 );
                 dispatch(

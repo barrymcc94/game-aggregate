@@ -36,11 +36,11 @@ describe('Franchise Sagas', () => {
             type: 'FETCH_GAMES_STARTED',
             payload: {
                 id: 'franchiseGames_undefined',
-                meta: {
-                    limit: 100,
-                },
-                queryObj: {
-                    filter: 'original_release_date:|2020-6-14 00:00:00,id:1',
+                query: {
+                    filter: {
+                        original_release_date: '|2020-6-14 00:00:00',
+                        id: '1',
+                    },
                     limit: 100,
                     offset: 0,
                     sort: 'original_release_date:desc',

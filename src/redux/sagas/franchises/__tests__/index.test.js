@@ -32,7 +32,7 @@ describe('Franchises Sagas', () => {
         expect(type).toBe(FETCH_FRANCHISES_SUCCEEDED);
         expect(payload).toEqual({
             data: testResults,
-            meta: {
+            query: {
                 limit: 10,
                 offset: 0,
                 total: 100,

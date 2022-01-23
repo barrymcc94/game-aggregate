@@ -35,11 +35,11 @@ describe('Company Sagas', () => {
             type: 'FETCH_GAMES_STARTED',
             payload: {
                 id: 'companyPublishedGames_undefined',
-                meta: {
-                    limit: 100,
-                },
-                queryObj: {
-                    filter: 'original_release_date:|2020-6-14 00:00:00,id:1|2',
+                query: {
+                    filter: {
+                        original_release_date: '|2020-6-14 00:00:00',
+                        id: '1|2',
+                    },
                     limit: 100,
                     offset: 0,
                     sort: 'original_release_date:desc',
@@ -50,11 +50,11 @@ describe('Company Sagas', () => {
             type: 'FETCH_GAMES_STARTED',
             payload: {
                 id: 'companyDevelopedGames_undefined',
-                meta: {
-                    limit: 100,
-                },
-                queryObj: {
-                    filter: 'original_release_date:|2020-6-14 00:00:00,id:3|4',
+                query: {
+                    filter: {
+                        original_release_date: '|2020-6-14 00:00:00',
+                        id: '3|4',
+                    },
                     limit: 100,
                     offset: 0,
                     sort: 'original_release_date:desc',

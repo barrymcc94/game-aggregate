@@ -16,9 +16,9 @@ import config from '../../../config';
 const {gbApiUrl} = config;
 
 export function* fetchFranchiseSaga({payload = {}}) {
-    const {guid, queryObj} = payload;
+    const {guid, query} = payload;
     try {
-        const queryStr = objToQueryStr(queryObj);
+        const queryStr = objToQueryStr(query);
         const {results, error, status_code} = yield jsonFetch(
             `${gbApiUrl}/api/franchise/${guid}/${queryStr}`
         );
@@ -41,16 +41,15 @@ export function* fetchFranchiseSaga({payload = {}}) {
                 dispatch(
                     fetchGamesStarted({
                         id: `franchiseGames_${guid}`,
-                        queryObj: {
+                        query: {
                             sort: `original_release_date:desc`,
-                            filter: objToFilterStr({
+                            filter: {
                                 ...getDefaultGamesFilter(),
                                 id: gamesIdFilter,
-                            }),
+                            },
                             limit: gamesLimit,
                             offset: 0,
                         },
-                        meta: {limit: gamesLimit},
                     })
                 );
             });

@@ -8,11 +8,11 @@ const mediaInitialState = {
     ids: [],
     isFetching: false,
     error: false,
-    meta: {
+    query: {
         offset: 0,
         limit: defaultLimit,
         total: -1,
-        filters: {},
+        filter: {},
     },
 };
 
@@ -23,13 +23,10 @@ export const handleFetchMediaStarted = (state, payload) => ({
         ids: payload.clearState ? [] : state[payload.id]?.ids || [],
         isFetching: true,
         error: false,
-        meta: {
-            ...(state[payload.id]?.meta || mediaInitialState.meta),
-            ...payload.meta,
-            filters: {
-                ...(state[payload.id]?.meta?.filters || {}),
-                filter: payload.queryObj.filter,
-            },
+        query: {
+            ...(state[payload.id]?.query || mediaInitialState.query),
+            ...payload.query,
+            filter: payload.query.filter,
         },
     },
 });
@@ -49,13 +46,13 @@ export const handleFetchMediaSucceeded = (state, payload) => {
             ids: normalizedListing.ids,
             isFetching: false,
             error: false,
-            meta: {
-                ...state[payload.id].meta,
-                ...payload.meta,
+            query: {
+                ...state[payload.id].query,
+                ...payload.query,
                 ...{
                     offset:
-                        state[payload.id].meta.offset +
-                        state[payload.id].meta.limit,
+                        state[payload.id].query.offset +
+                        state[payload.id].query.limit,
                 },
             },
         },
@@ -70,23 +67,6 @@ export const handleFetchMediaFailed = (state, payload) => ({
         error: payload.error || true,
     },
 });
-
-export const handleSetMediaSearchFilters = (state, payload) =>
-    payload.filter == state[payload.id].meta.filters.filter
-        ? state
-        : {
-              ...state,
-              [payload.id]: {
-                  ...mediaInitialState,
-                  meta: {
-                      ...mediaInitialState.meta,
-                      filters: {
-                          ...state[payload.id].meta.filters,
-                          filter: payload.filter,
-                      },
-                  },
-              },
-          };
 
 export const handleFetchMediaItemStarted = (state, payload) => ({
     ...state,

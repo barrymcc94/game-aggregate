@@ -32,7 +32,7 @@ describe('Companies Sagas', () => {
         expect(type).toBe(FETCH_COMPANIES_SUCCEEDED);
         expect(payload).toEqual({
             data: testResults,
-            meta: {
+            query: {
                 limit: 10,
                 offset: 0,
                 total: 100,

@@ -10,7 +10,6 @@ import MediaListContainer from '../../containers/MediaListContainer';
 import AriaLoader from '../AriaLoader';
 
 const {GAMES} = ENUMS.MEDIA_TYPE;
-const {FILTERED} = ENUMS.CONTAINER_TYPE;
 
 export const Company = ({
     company = {},
@@ -43,7 +42,7 @@ export const Company = ({
                 title={formatMessage({id: 'company.publishedGamesTitle'})}
                 isCarousel={true}
                 mediaType={GAMES}
-                containerType={FILTERED}
+                preFiltered={true}
                 disableScrollLoading={true}
                 isLoading={isFetching}
                 loadMoreText={formatMessage({
@@ -55,7 +54,7 @@ export const Company = ({
                 title={formatMessage({id: 'company.developedGamesTitle'})}
                 isCarousel={true}
                 mediaType={GAMES}
-                containerType={FILTERED}
+                preFiltered={true}
                 disableScrollLoading={true}
                 isLoading={isFetching}
                 loadMoreText={formatMessage({

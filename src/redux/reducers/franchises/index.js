@@ -3,7 +3,6 @@ import {
     handleFetchMediaStarted,
     handleFetchMediaSucceeded,
     handleFetchMediaFailed,
-    handleSetMediaSearchFilters,
     handleFetchMediaItemStarted,
     handleFetchMediaItemSucceeded,
     handleFetchMediaItemFailed,
@@ -25,8 +24,6 @@ export const franchises = (
             return handleFetchMediaSucceeded(state, payload);
         case types.FETCH_FRANCHISES_FAILED:
             return handleFetchMediaFailed(state, payload);
-        case types.SET_FRANCHISES_SEARCH_FILTERS:
-            return handleSetMediaSearchFilters(state, payload);
         case types.FETCH_FRANCHISE_STARTED:
             return handleFetchMediaItemStarted(state, payload);
         case types.FETCH_FRANCHISE_SUCCEEDED:

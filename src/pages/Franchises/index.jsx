@@ -4,16 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {ENUMS} from '../../config';
 import DocumentTitle from '../../components/DocumentTitle';
-import MediaListContainer from '../../containers/MediaListContainer';
-import MediaSearchContainer from '../../containers/MediaSearchContainer';
+import MediaSearchList from '../../components/MediaSearchList';
 import {StyledMediaListSection} from './styles';
 
 const {FRANCHISES} = ENUMS.MEDIA_TYPE;
-const {SEARCH} = ENUMS.CONTAINER_TYPE;
-
-export const submitForm = (e) => {
-    e.preventDefault();
-};
 
 export const FranchisesPage = ({intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: 'franchisesPage.title'})}>
@@ -21,18 +15,10 @@ export const FranchisesPage = ({intl: {formatMessage}}) => (
             <Typography variant="h4" component="h1" gutterBottom>
                 <FormattedMessage id="franchisesPage.heading" />
             </Typography>
-            <form noValidate autoComplete="off" onSubmit={submitForm}>
-                <MediaSearchContainer
-                    mediaType={FRANCHISES}
-                    id="franchises"
-                    label={formatMessage({id: 'franchisesPage.searchLabel'})}
-                />
-            </form>
-            <MediaListContainer
-                id="franchises"
+            <MediaSearchList
                 mediaType={FRANCHISES}
-                containerType={SEARCH}
-                disableScrollLoading={false}
+                id="franchises"
+                label={formatMessage({id: 'franchisesPage.searchLabel'})}
             />
         </StyledMediaListSection>
     </DocumentTitle>

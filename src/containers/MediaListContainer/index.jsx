@@ -9,12 +9,11 @@ import {
     selectFranchises,
 } from '../../redux/selectors';
 import {ENUMS} from '../../config';
-import {getDefaultListingFilters} from '../../utils';
+import {getDefaultListingFilters, objToFilterStr} from '../../utils';
 import MediaList from '../../components/MediaList';
 import InfiniteLoader from '../../components/InfiniteLoader';
 import {usePrevious} from '../../hooks';
 
-const {ALL, SEARCH, FILTERED} = ENUMS.CONTAINER_TYPE;
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export const MediaListContainer = ({
@@ -22,67 +21,61 @@ export const MediaListContainer = ({
     title,
     isCarousel,
     mediaType,
-    containerType,
+    preFiltered,
     disableScrollLoading,
-    limit,
+    queryOverwrite,
     isLoading = false,
     buttonType,
     loadMoreText,
     items,
     error,
     isFetching,
-    meta,
+    query,
     fetchItems,
 }) => {
     const listRef = useRef();
-    const {offset, total} = meta;
+    const {offset, limit, total} = query;
     const prevId = usePrevious(id);
+    const filterStr = objToFilterStr(queryOverwrite?.filter);
 
     const loadMore = (clearState) => {
         if (isFetching || (!clearState && total > -1 && offset >= total)) {
             return;
         }
-        const defaultQueryObj = getDefaultListingFilters(
-            mediaType,
-            limit ? {...meta, limit} : meta
-        );
-        const clearProps = clearState ? {offset: 0} : null;
+        const defaultQueryObj = getDefaultListingFilters(mediaType, {
+            offset,
+            limit,
+        });
         fetchItems({
             id,
-            queryObj: {
+            query: {
                 ...defaultQueryObj,
-                ...meta.filters,
-                ...(clearState
-                    ? {
-                          ...clearProps,
-                          filter: defaultQueryObj.filter,
-                      }
-                    : null),
-            },
-            meta: {
-                limit: defaultQueryObj.limit,
-                ...clearProps,
+                ...(preFiltered
+                    ? {filter: query.filter}
+                    : {
+                          ...queryOverwrite,
+                          filter: {
+                              ...defaultQueryObj?.filter,
+                              ...queryOverwrite?.filter,
+                          },
+                      }),
+                ...(clearState && {offset: 0}),
             },
             clearState,
         });
     };
 
     useEffect(() => {
-        if (containerType !== FILTERED) {
+        if (!preFiltered) {
             loadMore(true);
         }
     }, []);
 
     useEffect(() => {
-        if (
-            containerType == FILTERED ||
-            !meta.filters.filter ||
-            prevId !== id
-        ) {
-            return;
+        if (prevId === id) {
+            loadMore(true);
         }
-        loadMore();
-    }, [meta.filters.filter]);
+    }, [filterStr]);
 
     const list = (
         <MediaList
@@ -112,10 +105,11 @@ export const mapStateToProps = (state, {mediaType, id}) => {
     const defaultProps = {
         isFetching: false,
         error: false,
-        meta: {filters: {}},
+        query: {filter: {}},
     };
+
     const mediaState = state[mediaType] || {};
-    let {isFetching, error, meta} = mediaState[id] || defaultProps;
+    let {isFetching, error, query} = mediaState[id] || defaultProps;
     let items = [];
     if (mediaType == GAMES) {
         items = selectGames(state, id);
@@ -124,11 +118,12 @@ export const mapStateToProps = (state, {mediaType, id}) => {
     } else if (mediaType == FRANCHISES) {
         items = selectFranchises(state, id);
     }
+
     return {
         items,
         isFetching,
         error,
-        meta,
+        query,
     };
 };
 
@@ -149,9 +144,9 @@ MediaListContainer.propTypes = {
     title: PropTypes.string,
     isCarousel: PropTypes.bool,
     mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES]),
-    containerType: PropTypes.oneOf([ALL, SEARCH, FILTERED]),
+    preFiltered: PropTypes.bool,
     disableScrollLoading: PropTypes.bool,
-    limit: PropTypes.number,
+    queryOverwrite: PropTypes.object,
     isLoading: PropTypes.bool,
     buttonType: PropTypes.string,
     loadMoreText: PropTypes.string,
@@ -159,11 +154,11 @@ MediaListContainer.propTypes = {
     items: PropTypes.array,
     error: PropTypes.bool,
     isFetching: PropTypes.bool,
-    meta: PropTypes.shape({
+    query: PropTypes.shape({
         offset: PropTypes.number,
         limit: PropTypes.number,
         total: PropTypes.number,
-        filters: PropTypes.object,
+        filter: PropTypes.object,
     }),
     fetchItems: PropTypes.func,
 };

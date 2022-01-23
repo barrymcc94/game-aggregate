@@ -30,8 +30,8 @@ export const authMiddleware =
                 ...action,
                 payload: {
                     ...action.payload,
-                    queryObj: {
-                        ...(action.payload?.queryObj || {}),
+                    query: {
+                        ...(action.payload?.query || {}),
                         ...defaultGbApiDefaults,
                         api_key,
                     },

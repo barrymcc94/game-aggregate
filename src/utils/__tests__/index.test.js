@@ -132,12 +132,13 @@ describe('utils', () => {
 
     it('successfully creates a querystring using objToQueryStr 1', () => {
         const expectedResult =
-            '?query1=test1&query2=test2&query4=test2%3D100&query4=test3%3D200';
+            '?query1=test1&query2=test2&query4=test2%3D100&query4=test3%3D200&filter=name1:1,name2:2';
         const result = objToQueryStr({
             query1: 'test1',
             query2: 'test2',
             query3: undefined,
             query4: ['test2=100', 'test3=200'],
+            filter: {name1: 1, name2: 2},
         });
         expect(result).toEqual(expectedResult);
     });
@@ -264,20 +265,20 @@ describe('utils', () => {
         ).toEqual({
             ...expectedVal,
             sort: 'original_release_date:desc',
-            filter: 'original_release_date:|2020-6-14 00:00:00',
+            filter: {original_release_date: '|2020-6-14 00:00:00'},
         });
         expect(
             getDefaultListingFilters('companies', {limit: 10, offset: 0})
         ).toEqual({
             ...expectedVal,
-            filter: '',
+            filter: {},
             sort: 'date_founded:desc',
         });
         expect(
             getDefaultListingFilters('franchises', {limit: 10, offset: 0})
         ).toEqual({
             ...expectedVal,
-            filter: '',
+            filter: {},
         });
         expect(
             getDefaultListingFilters('test', {limit: 10, offset: 0})
