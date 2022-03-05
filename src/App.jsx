@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import smoothscroll from 'smoothscroll-polyfill';
-import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
+import {Routes, Route, Navigate, useLocation} from 'react-router-dom';
 import {IntlProvider} from 'react-intl';
 import {ThemeProvider} from 'styled-components';
 import {StylesProvider} from '@material-ui/core/styles';
@@ -30,7 +30,8 @@ smoothscroll.polyfill();
 
 const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
-export const App = ({location, locale, fetchGBApiKeySucceeded}) => {
+export const App = ({locale, fetchGBApiKeySucceeded}) => {
+    let location = useLocation();
     const [loadedStorage, setLoadedStorage] = useState(false);
 
     useEffect(() => {
@@ -56,54 +57,54 @@ export const App = ({location, locale, fetchGBApiKeySucceeded}) => {
                     <StylesProvider injectFirst>
                         <MainLayout>
                             <CssBaseline />
-                            <Switch>
-                                <Route exact path="/" component={HomePage} />
+                            <Routes>
+                                <Route exact path="/" element={<HomePage />} />
                                 <Route
                                     exact
                                     path={`/${GAMES}/`}
-                                    component={GamesPage}
+                                    element={<GamesPage />}
                                 />
                                 <Route
                                     exact
                                     path={`/${GAMES}/:guid`}
-                                    component={GamePage}
+                                    element={<GamePage />}
                                 />
                                 <Route
                                     exact
                                     path={`/${COMPANIES}/`}
-                                    component={CompaniesPage}
+                                    element={<CompaniesPage />}
                                 />
                                 <Route
                                     exact
                                     path={`/${COMPANIES}/:guid`}
-                                    component={CompanyPage}
+                                    element={<CompanyPage />}
                                 />
                                 <Route
                                     exact
                                     path={`/${FRANCHISES}/`}
-                                    component={FranchisesPage}
+                                    element={<FranchisesPage />}
                                 />
                                 <Route
                                     exact
                                     path={`/${FRANCHISES}/:guid`}
-                                    component={FranchisePage}
+                                    element={<FranchisePage />}
                                 />
                                 <Route
                                     exact
                                     path="/about"
-                                    component={AboutPage}
+                                    element={<AboutPage />}
                                 />
                                 <Route
                                     exact
                                     path="/empty"
-                                    component={() => <div></div>}
+                                    element={() => <div></div>}
                                 />
-                                <Route path="/404" component={NotFoundPage} />
+                                <Route path="/404" element={<NotFoundPage />} />
                                 <Route
                                     path="*"
-                                    render={() => <Redirect to="/404" />}
+                                    element={<Navigate to="/404" />}
                                 />
-                            </Switch>
+                            </Routes>
                         </MainLayout>
                     </StylesProvider>
                 </ThemeProvider>
@@ -121,17 +122,14 @@ const mapDispatchToProps = (dispatch) =>
     bindActionCreators({fetchGBApiKeySucceeded}, dispatch);
 
 App.propTypes = {
-    location: PropTypes.object,
     locale: PropTypes.string,
     fetchGBApiKeySucceeded: PropTypes.func,
 };
 
-export const isEqual = ({location, locale, gbKey}, nextProps) =>
-    location?.pathname == nextProps?.location?.pathname &&
-    locale == nextProps.locale &&
-    gbKey == nextProps.gbKey;
+export const isEqual = ({locale, gbKey}, nextProps) =>
+    locale == nextProps.locale && gbKey == nextProps.gbKey;
 
 export default React.memo(
-    connect(mapStateToProps, mapDispatchToProps)(withRouter(App)),
+    connect(mapStateToProps, mapDispatchToProps)(App),
     isEqual
 );

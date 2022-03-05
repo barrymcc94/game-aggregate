@@ -6,7 +6,7 @@ This projet uses the Giantbomb api to diplay games and game information
 
 To use this application you will need `node` and `npm` installed, I would recommend using [nvm](https://github.com/nvm-sh/nvm) to download the most recent version of each.
 
-for development purposes, you will be required to supply a `GB_API_KEY` env variable to the webpack config
+for development purposes, you will be required to supply a `GB_API_KEY` env variable
 
 ## Steps Required To Run This Project In Development Mode
 

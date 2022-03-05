@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {defaultGbApiDefaults} from '../../config';
 import {fetchGBApiKey} from '../../redux/actions';
 import AuthModal from '../../components/AuthModal';
@@ -12,8 +12,8 @@ export const AuthModalContainer = ({
     error,
     api_key,
     fetchGBApiKey,
-    history,
 }) => {
+    const navigate = useNavigate();
     const [alreadyAuthenticated] = useState(!!api_key);
     const [modalOpen, setModalOpen] = useState(!api_key);
     const [appCode, setAppCode] = useState('');
@@ -30,8 +30,8 @@ export const AuthModalContainer = ({
     const toggleModal = () => {
         setModalOpen(!modalOpen);
         if (modalOpen && !alreadyAuthenticated) {
-            history.push('/empty');
-            history.goBack();
+            navigate('/empty');
+            navigate(-1);
         }
     };
 
@@ -82,9 +82,6 @@ AuthModalContainer.propTypes = {
     isFetching: PropTypes.bool,
     error: PropTypes.bool,
     fetchGBApiKey: PropTypes.func,
-    history: PropTypes.object,
 };
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(AuthModalContainer)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthModalContainer);
