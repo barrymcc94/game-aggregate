@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {
     StyledModalContent,

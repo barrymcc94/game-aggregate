@@ -1,8 +1,8 @@
 import styled, {css} from 'styled-components';
-import Container from '@material-ui/core/Container';
-import IconButton from '@material-ui/core/IconButton';
-import Drawer from '@material-ui/core/Drawer';
-import {Menu, Close} from '@material-ui/icons';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Drawer from '@mui/material/Drawer';
+import {Menu, Close} from '@mui/icons-material';
 import {NavLink} from 'react-router-dom';
 
 export const StyledHeader = styled.header`

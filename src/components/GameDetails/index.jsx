@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from '@material-ui/core/Link';
+import Link from '@mui/material/Link';
 import {Link as RouterLink} from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
 import {Game} from '../../types/game';
@@ -43,14 +43,8 @@ const GameDetail = ({text, detailArr, link}) =>
     ) : null;
 
 export const GameDetails = ({game, isLoading}) => {
-    const {
-        franchises,
-        genres,
-        publishers,
-        developers,
-        themes,
-        platforms,
-    } = game;
+    const {franchises, genres, publishers, developers, themes, platforms} =
+        game;
     return (
         <GameDetailsSection>
             {isLoading ? (

@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import {LoaderStyles} from '../../common-styles';
 
 export const StyledMediaHeader = styled.header`

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 
 export const StyledFooter = styled.footer`
     flex-shrink: 0;

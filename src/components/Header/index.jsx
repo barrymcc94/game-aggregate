@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AuthModalContainer from '../../containers/AuthModalContainer';
 import {ENUMS} from '../../config';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import {Zoom} from '@material-ui/core';
+import {Zoom} from '@mui/material';
 import {
     MenuIcon,
     CloseIcon,

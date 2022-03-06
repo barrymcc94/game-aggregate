@@ -3,9 +3,7 @@ import {act, fireEvent} from '@testing-library/react';
 import {renderWithBaseWrapper} from '../../../../tests/helper';
 import {Header} from '../index';
 /*eslint-disable */
-jest.mock('@material-ui/core/Zoom', () => ({children}) => (
-    <div>{children}</div>
-));
+jest.mock('@mui/material/Zoom', () => ({children}) => <div>{children}</div>);
 /*eslint-enable */
 
 describe('<Header/>', () => {

@@ -4,14 +4,14 @@ import smoothscroll from 'smoothscroll-polyfill';
 import {Routes, Route, Navigate, useLocation} from 'react-router-dom';
 import {IntlProvider} from 'react-intl';
 import {ThemeProvider} from 'styled-components';
-import {StylesProvider} from '@material-ui/core/styles';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {fetchGBApiKeySucceeded} from './redux/actions';
 import {
     CssBaseline,
     ThemeProvider as MuiThemeProvider,
-} from '@material-ui/core';
+    StyledEngineProvider,
+} from '@mui/material';
 import messages from './translations';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/Home';
@@ -51,12 +51,12 @@ export const App = ({locale, fetchGBApiKeySucceeded}) => {
     }
     return (
         <IntlProvider locale={locale} messages={messages[locale]}>
-            <MuiThemeProvider theme={theme}>
-                <ThemeProvider theme={theme}>
-                    <Styles />
-                    <StylesProvider injectFirst>
+            <StyledEngineProvider injectFirst>
+                <MuiThemeProvider theme={theme}>
+                    <ThemeProvider theme={theme}>
+                        <CssBaseline />
+                        <Styles />
                         <MainLayout>
-                            <CssBaseline />
                             <Routes>
                                 <Route exact path="/" element={<HomePage />} />
                                 <Route
@@ -106,9 +106,9 @@ export const App = ({locale, fetchGBApiKeySucceeded}) => {
                                 />
                             </Routes>
                         </MainLayout>
-                    </StylesProvider>
-                </ThemeProvider>
-            </MuiThemeProvider>
+                    </ThemeProvider>
+                </MuiThemeProvider>
+            </StyledEngineProvider>
         </IntlProvider>
     );
 };

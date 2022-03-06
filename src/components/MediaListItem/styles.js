@@ -6,7 +6,7 @@ import {
     CardMedia,
     CardContent,
     Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const imageHeight = `11rem`;
 

@@ -19,8 +19,7 @@ const Styles = createGlobalStyle`
         }
     }
     a {
-        text-decoration: none;
-        color: ${({theme}) => theme.palette.primary.main};
+        text-decoration: none !important;
     }
 `;
 

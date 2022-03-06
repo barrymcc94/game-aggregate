@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 
 export const StyledHeading = styled(Typography)`
     padding-top: 1rem;

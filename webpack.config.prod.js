@@ -16,6 +16,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json'],
+        alias: {
+            '@mui/styled-engine': '@mui/styled-engine-sc',
+        },
     },
     module: {
         rules: [

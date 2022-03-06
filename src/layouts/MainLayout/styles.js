@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 
 export const StyledLayout = styled.div`
     flex: 1 0 auto;

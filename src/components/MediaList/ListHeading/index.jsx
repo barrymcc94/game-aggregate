@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Typography} from '@material-ui/core';
+import {Typography} from '@mui/material';
 import SkeletonLoader from '../../SkeletonLoader';
 
 export const ListHeading = ({title, isLoading}) =>

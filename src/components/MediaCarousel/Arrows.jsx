@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isMobile from 'is-mobile';
 import {injectIntl} from 'react-intl';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import {PrevButton, NextButton} from './styles';
 
 export const getBtnStyle = (show) =>
