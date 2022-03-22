@@ -60,9 +60,7 @@ export const NavLinkList = styled.ul`
     max-height: none;
 `;
 
-export const NavLinkListItem = styled.li`
-    background-color: ${({theme}) => theme.palette.background.paper};
-`;
+export const NavLinkListItem = styled.li``;
 
 export const StyledLink = styled(NavLink)`
     display: block;
@@ -75,13 +73,13 @@ export const StyledLink = styled(NavLink)`
         padding: 0.35rem 1.5rem;
     }
     &.active {
-        background-color: ${({theme}) => theme.palette.action.hover};
+        background-color: ${({theme}) => theme.palette.background.paper};
     }
     &:hover,
     &:focus {
         outline: none;
         text-decoration: none;
-        background-color: ${({theme}) => theme.palette.action.hover};
+        background-color: ${({theme}) => theme.palette.background.paper};
     }
 `;
 
