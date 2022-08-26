@@ -5,6 +5,5 @@ export const setLocale = (payload) => ({
     payload,
 });
 
-export const changeLocale = (payload) => async (dispatch) => {
-    return dispatch(setLocale(payload));
-};
+export const changeLocale = (payload) => async (dispatch) =>
+    dispatch(setLocale(payload));
