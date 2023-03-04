@@ -56,3 +56,7 @@ export const ProgressSpinner = styled(CircularProgress)`
     right: 0.5rem;
     top: 0.5rem;
 `;
+
+export const StyledLink = styled.a`
+    color: ${({theme}) => theme.palette.primary.main};
+`;

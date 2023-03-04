@@ -14,6 +14,7 @@ import {
     SuccessText,
     ProgressSpinner,
     ModalButton,
+    StyledLink,
 } from './styles.js';
 
 export const AuthModal = ({
@@ -40,12 +41,12 @@ export const AuthModal = ({
                         id="authModal.description"
                         values={{
                             link: (
-                                <a
+                                <StyledLink
                                     href="https://www.giantbomb.com/app/myapp/"
                                     rel="noreferrer"
                                     target="_blank">
                                     Giantbomb
-                                </a>
+                                </StyledLink>
                             ),
                         }}
                     />

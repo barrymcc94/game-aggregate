@@ -13,6 +13,7 @@ module.exports = {
         publicPath: '/',
     },
     devServer: {
+        open: true,
         historyApiFallback: true,
         hot: true,
         port: 3000,
@@ -55,8 +56,8 @@ module.exports = {
                 loader: 'source-map-loader',
             },
             {
-                test: /\.(css|scss)$/,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
+                test: /\.(css)$/,
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.(pdf|jpg|png|svg|ico|gif|woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
