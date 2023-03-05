@@ -1,10 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react';
-import throttle from 'lodash.throttle';
-import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import {FixedSizeList} from 'react-window';
 import MediaListItem from '../MediaListItem';
 import Arrows from './Arrows';
+import {debounce, throttle} from '../../utils';
 import {StyledCarouselWrapper, ListItem} from './styles';
 
 const colWidth = 300;
@@ -45,7 +44,7 @@ const MediaCarousel = React.forwardRef(
         useEffect(() => {
             const onResize = debounce(() => {
                 setWidth(ref?.current?.clientWidth || 0);
-            }, 250);
+            }, 500);
 
             onResize();
             window.addEventListener('resize', onResize);
@@ -62,7 +61,7 @@ const MediaCarousel = React.forwardRef(
                     Math.ceil(outerRef?.current?.scrollLeft / moveSpacing) *
                         moveSpacing
                 );
-            }, 250);
+            }, 500);
 
             outerRef?.current?.addEventListener('scroll', onScroll);
             outerRef?.current?.addEventListener('scroll', handleScrollPos);

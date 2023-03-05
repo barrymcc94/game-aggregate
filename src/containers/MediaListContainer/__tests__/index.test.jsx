@@ -1,6 +1,4 @@
 import React from 'react';
-import throttle from 'lodash.throttle';
-import debounce from 'lodash.debounce';
 import Container, {
     MediaListContainer,
     mapStateToProps,
@@ -9,12 +7,13 @@ import Container, {
 import {renderWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
 
-jest.mock('lodash.throttle');
-jest.mock('lodash.debounce');
 jest.useFakeTimers();
 
-throttle.mockImplementation((fn) => fn);
-debounce.mockImplementation((fn) => fn);
+jest.mock('../../../utils', () => ({
+    ...jest.requireActual('../../../utils'),
+    throttle: (fn) => fn,
+    debounce: (fn) => fn,
+}));
 
 describe('<MediaListContainer/>', () => {
     const loadMore = jest.fn(() => {});

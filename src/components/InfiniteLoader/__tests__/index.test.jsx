@@ -1,15 +1,14 @@
 import React from 'react';
-import throttle from 'lodash.throttle';
-import debounce from 'lodash.debounce';
 import {renderWithBaseWrapper} from '../../../../tests/helper';
 import InfiniteLoader from '../index';
 
-jest.mock('lodash.throttle');
-jest.mock('lodash.debounce');
 jest.useFakeTimers();
 
-throttle.mockImplementation((fn) => fn);
-debounce.mockImplementation((fn) => fn);
+jest.mock('../../../utils', () => ({
+    ...jest.requireActual('../../../utils'),
+    throttle: (fn) => fn,
+    debounce: (fn) => fn,
+}));
 
 describe('<InfiniteLoader/>', () => {
     const loadMore = jest.fn();

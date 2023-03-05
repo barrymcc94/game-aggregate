@@ -1,8 +1,8 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash.debounce';
 import SearchBar from '../SearchBar';
 import MediaListContainer from '../../containers/MediaListContainer';
+import {useDebounce} from '../../hooks';
 
 export const submitForm = (e) => {
     e.preventDefault();
@@ -12,18 +12,14 @@ export const MediaSearchList = ({id, mediaType, label}) => {
     const [value, setValue] = useState('');
     const [searchStr, setSearchVal] = useState('');
 
-    const debounceOnChange = useCallback(
-        debounce((val) => {
-            setSearchVal(val);
-        }, 1000),
-        []
-    );
-
     const onChange = (event) => {
-        const {value} = event.target;
-        setValue(value);
-        debounceOnChange(value);
+        setValue(event.target.value);
     };
+
+    const debouncedValue = useDebounce(value, 1000);
+    useEffect(() => {
+        setSearchVal(debouncedValue);
+    }, [debouncedValue]);
 
     return (
         <>

@@ -1,6 +1,6 @@
 import {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
-import throttle from 'lodash.throttle';
+import {throttle} from '../../utils';
 
 export const InfiniteLoader = ({listRef, loadMore, children}) => {
     const handleScroll = useRef(
