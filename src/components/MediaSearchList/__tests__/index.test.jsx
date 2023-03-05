@@ -1,7 +1,8 @@
 import React from 'react';
-import {act, fireEvent} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import MediaSearchList, {submitForm} from '../index';
 import {renderWithBaseWrapper} from '../../../../tests/helper';
+import {waitFor} from '@testing-library/react';
 
 jest.useFakeTimers();
 
@@ -9,10 +10,10 @@ const mockDebouncedFunc = jest.fn();
 
 jest.mock('../../../hooks', () => ({
     ...jest.requireActual('../../../hooks'),
-    useDebounce: jest.fn((value) => {
-        mockDebouncedFunc();
+    useDebounce: (value) => {
+        mockDebouncedFunc(value);
         return value;
-    }),
+    },
 }));
 
 describe('<MediaSearchList/>', () => {
@@ -28,14 +29,14 @@ describe('<MediaSearchList/>', () => {
         expect(e.preventDefault).toBeCalledTimes(1);
     });
 
-    it('tests MediaSearchList with games props', () => {
+    it('tests MediaSearchList with games props', async () => {
         const wrapper = renderWithBaseWrapper(
             <MediaSearchList {...defaultProps} />
         );
         const searchInput = wrapper.getByLabelText('search');
-        act(() => {
-            fireEvent.change(searchInput, {target: {value: 'test input'}});
+        userEvent.type(searchInput, 'test input');
+        await waitFor(() => {
+            expect(mockDebouncedFunc).toHaveBeenCalledWith('test input');
         });
-        expect(mockDebouncedFunc).toHaveBeenCalled();
     });
 });

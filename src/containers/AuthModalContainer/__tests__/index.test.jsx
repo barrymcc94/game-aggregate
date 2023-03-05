@@ -1,5 +1,6 @@
 import React from 'react';
-import {screen, act, fireEvent} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import {screen, waitFor} from '@testing-library/react';
 import Container, {AuthModalContainer} from '../index';
 import {renderWithBaseWrapper} from '../../../../tests/helper';
 import {mockStore} from '../../../../tests/setup';
@@ -18,20 +19,20 @@ describe('<AuthModalContainer/>', () => {
             error: false,
         },
     };
-    it('tests input flow of container', () => {
+    it('tests input flow of container', async () => {
         const store = mockStore({auth: defaultStoreProps});
         const wrapper = renderWithBaseWrapper(<Container />, store);
         const input =
             wrapper.getByTestId('auth-code-input').children[1].firstChild;
         const submitBtn = wrapper.getByTestId('auth-code-submit');
-        act(() => {
-            fireEvent.change(input, {target: {value: 'test_appcode'}});
-        });
-        act(() => {
-            fireEvent.click(submitBtn);
+
+        await userEvent.type(input, 'test_appcode');
+        userEvent.click(submitBtn);
+
+        await waitFor(() => {
+            expect(store.getActions().length).toEqual(1);
         });
 
-        expect(store.getActions().length).toEqual(1);
         expect(store.getActions()[0].type).toEqual('FETCH_GB_API_KEY_STARTED');
     });
 
@@ -46,16 +47,9 @@ describe('<AuthModalContainer/>', () => {
             },
         });
         const wrapper = renderWithBaseWrapper(<Container />, store);
-        const input =
-            wrapper.getByTestId('auth-code-input').children[1].firstChild;
         const submitBtn = wrapper.getByTestId('auth-code-submit');
-        act(() => {
-            fireEvent.change(input, {target: {value: 'test_appcode'}});
-        });
-        act(() => {
-            fireEvent.click(submitBtn);
-        });
-        expect(store.getActions().length).toEqual(0);
+
+        expect(submitBtn).toBeDisabled();
     });
 
     it('tests error flow of container', () => {
@@ -71,13 +65,11 @@ describe('<AuthModalContainer/>', () => {
         const wrapper = renderWithBaseWrapper(<Container />, store);
         const input =
             wrapper.getByTestId('auth-code-input').children[1].firstChild;
-        act(() => {
-            fireEvent.change(input, {target: {value: 'test_appcode'}});
-        });
+        userEvent.type(input, 'test_appcode');
     });
 
-    it('tests opeing modal does not trigger route refresh', () => {
-        const wrapper = renderWithBaseWrapper(
+    it('tests opening modal does not trigger route refresh', async () => {
+        renderWithBaseWrapper(
             <AuthModalContainer
                 isFetching={false}
                 error={false}
@@ -85,19 +77,16 @@ describe('<AuthModalContainer/>', () => {
                 fetchGBApiKey={jest.fn()}
             />
         );
-        const modalBtn = wrapper.getByTestId('modal-btn');
-        act(() => {
-            fireEvent.click(modalBtn);
-        });
-        const closeBtn = wrapper.getByTestId('auth-code-close');
-        act(() => {
-            fireEvent.click(closeBtn);
-        });
-        expect(mockedUsedNavigate).toBeCalledTimes(0);
+        const modalBtn = screen.getByTestId('modal-btn');
+        userEvent.click(modalBtn);
+
+        const closeBtn = await screen.findByTestId('auth-code-close');
+        userEvent.click(closeBtn);
+
         expect(mockedUsedNavigate).toBeCalledTimes(0);
     });
 
-    it('tests closing modal triggers route refresh', () => {
+    it('tests closing modal triggers route refresh', async () => {
         const {rerender} = renderWithBaseWrapper(
             <AuthModalContainer
                 isFetching={false}
@@ -116,11 +105,43 @@ describe('<AuthModalContainer/>', () => {
             />
         );
         const closeBtn = screen.getByTestId('auth-code-close');
-        act(() => {
-            fireEvent.click(closeBtn);
+        userEvent.click(closeBtn);
+
+        await waitFor(() => {
+            expect(mockedUsedNavigate).toBeCalledTimes(2);
         });
-        expect(mockedUsedNavigate).toBeCalledTimes(2);
+
         expect(mockedUsedNavigate).toBeCalledWith('/empty');
         expect(mockedUsedNavigate).toBeCalledWith(-1);
+    });
+
+    it('tests error correctly is displayed when component is passed one', async () => {
+        const {rerender} = renderWithBaseWrapper(
+            <AuthModalContainer
+                isFetching={false}
+                error={true}
+                api_key={null}
+                fetchGBApiKey={jest.fn()}
+            />
+        );
+
+        const input =
+            screen.getByTestId('auth-code-input').children[1].firstChild;
+        await userEvent.type(input, 'test_appcode');
+
+        rerender(
+            <AuthModalContainer
+                isFetching={false}
+                error={false}
+                api_key={null}
+                fetchGBApiKey={jest.fn()}
+            />
+        );
+
+        await waitFor(() => {
+            expect(
+                screen.queryByText('An Error Occurred, Please Try Again')
+            ).toBeNull();
+        });
     });
 });

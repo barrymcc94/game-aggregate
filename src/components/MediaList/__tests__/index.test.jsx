@@ -1,7 +1,8 @@
 import React from 'react';
-import {act, fireEvent} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {renderWithBaseWrapper} from '../../../../tests/helper';
 import {MediaList} from '../index';
+import {waitFor} from '@testing-library/react';
 
 describe('<MediaList/>', () => {
     it('tests loader appears when fetching with existing data', () => {
@@ -114,7 +115,7 @@ describe('<MediaList/>', () => {
     });
 
     it('tests Component with load more button', async () => {
-        const loadMore = jest.fn(() => {});
+        const loadMore = jest.fn();
         const wrapper = await renderWithBaseWrapper(
             <MediaList
                 title="test"
@@ -140,14 +141,15 @@ describe('<MediaList/>', () => {
             />
         );
         const loadMoreBtn = wrapper.getByTestId('load-more-btn');
-        act(() => {
-            fireEvent.click(loadMoreBtn);
+
+        userEvent.click(loadMoreBtn);
+        await waitFor(() => {
+            expect(loadMore).toBeCalledTimes(1);
         });
-        expect(loadMore).toBeCalledTimes(1);
     });
 
     it('tests Component with load more link', async () => {
-        const loadMore = jest.fn(() => {});
+        const loadMore = jest.fn();
         const wrapper = await renderWithBaseWrapper(
             <MediaList
                 title="test"
@@ -175,9 +177,10 @@ describe('<MediaList/>', () => {
         );
 
         const loadMoreBtn = wrapper.getByTestId('load-more-btn');
-        act(() => {
-            fireEvent.click(loadMoreBtn);
+
+        userEvent.click(loadMoreBtn);
+        await waitFor(() => {
+            expect(loadMore).toBeCalledTimes(0);
         });
-        expect(loadMore).toBeCalledTimes(0);
     });
 });

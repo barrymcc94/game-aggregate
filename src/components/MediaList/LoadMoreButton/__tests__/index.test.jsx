@@ -1,7 +1,8 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import {LoadMoreButton} from '../index';
 import {renderWithBaseWrapper} from '../../../../../tests/helper';
-import {act, fireEvent} from '@testing-library/react';
+import {waitFor} from '@testing-library/react';
 
 describe('<MediaList/>', () => {
     it('tests Component renders null with invalid props', () => {
@@ -21,19 +22,20 @@ describe('<MediaList/>', () => {
         expect(wrapper.queryAllByTestId('load-more-btn').length).toEqual(0);
     });
 
-    it('tests Component with load more button', () => {
+    it('tests Component with load more button', async () => {
         const onClick = jest.fn(() => {});
         const wrapper = renderWithBaseWrapper(
             <LoadMoreButton text="test" isLoading={false} onClick={onClick} />
         );
         expect(wrapper.queryAllByTestId('loader').length).toEqual(0);
-        act(() => {
-            fireEvent.click(wrapper.getByTestId('load-more-btn'));
+        userEvent.click(wrapper.getByTestId('load-more-btn'));
+
+        await waitFor(() => {
+            expect(onClick).toBeCalledTimes(1);
         });
-        expect(onClick).toBeCalledTimes(1);
     });
 
-    it('tests Component with load more button', () => {
+    it('tests Component with load more button', async () => {
         const onClick = jest.fn(() => {});
         const wrapper = renderWithBaseWrapper(
             <LoadMoreButton
@@ -46,9 +48,10 @@ describe('<MediaList/>', () => {
         );
 
         expect(wrapper.queryAllByTestId('loader').length).toEqual(0);
-        act(() => {
-            fireEvent.click(wrapper.getByTestId('load-more-btn'));
+        userEvent.click(wrapper.getByTestId('load-more-btn'));
+
+        await waitFor(() => {
+            expect(onClick).toBeCalledTimes(0);
         });
-        expect(onClick).toBeCalledTimes(0);
     });
 });

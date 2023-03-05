@@ -58,44 +58,33 @@ export const App = ({locale, fetchGBApiKeySucceeded}) => {
                         <Styles />
                         <MainLayout>
                             <Routes>
-                                <Route exact path="/" element={<HomePage />} />
+                                <Route path="/" element={<HomePage />} />
                                 <Route
-                                    exact
                                     path={`/${GAMES}/`}
                                     element={<GamesPage />}
                                 />
                                 <Route
-                                    exact
                                     path={`/${GAMES}/:guid`}
                                     element={<GamePage />}
                                 />
                                 <Route
-                                    exact
                                     path={`/${COMPANIES}/`}
                                     element={<CompaniesPage />}
                                 />
                                 <Route
-                                    exact
                                     path={`/${COMPANIES}/:guid`}
                                     element={<CompanyPage />}
                                 />
                                 <Route
-                                    exact
                                     path={`/${FRANCHISES}/`}
                                     element={<FranchisesPage />}
                                 />
                                 <Route
-                                    exact
                                     path={`/${FRANCHISES}/:guid`}
                                     element={<FranchisePage />}
                                 />
+                                <Route path="/about" element={<AboutPage />} />
                                 <Route
-                                    exact
-                                    path="/about"
-                                    element={<AboutPage />}
-                                />
-                                <Route
-                                    exact
                                     path="/empty"
                                     element={() => <div></div>}
                                 />

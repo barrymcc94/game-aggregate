@@ -1,9 +1,8 @@
 import React from 'react';
-import {act, fireEvent} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import {act, fireEvent, waitFor} from '@testing-library/react';
 import {renderWithBaseWrapper} from '../../../../tests/helper';
 import MediaCarousel, {calculatePrevPos, calculateNextPos} from '../index';
-
-jest.useFakeTimers();
 
 jest.mock('../../../utils', () => ({
     ...jest.requireActual('../../../utils'),
@@ -44,7 +43,7 @@ describe('<MediaCarousel/>', () => {
         wrapper.unmount();
     });
 
-    it('tests prev and next buttons work as expected', () => {
+    it('tests prev and next buttons work as expected', async () => {
         const wrapper = renderWithBaseWrapper(
             <MediaCarousel
                 items={items}
@@ -53,11 +52,13 @@ describe('<MediaCarousel/>', () => {
                 loadMore={jest.fn()}
             />
         );
-        act(() => {
-            fireEvent.click(wrapper.getByTestId('prev-btn'));
-            fireEvent.click(wrapper.getByTestId('next-btn'));
+
+        userEvent.click(wrapper.getByTestId('prev-btn'));
+        userEvent.click(wrapper.getByTestId('next-btn'));
+
+        await waitFor(() => {
+            expect(Element.prototype.scrollTo).toBeCalledTimes(1);
         });
-        expect(Element.prototype.scrollTo).toBeCalledTimes(1);
     });
 
     it('tests scrolling', () => {

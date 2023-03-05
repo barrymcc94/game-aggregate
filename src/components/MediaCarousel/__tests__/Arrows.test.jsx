@@ -1,7 +1,8 @@
 import React from 'react';
-import {act, fireEvent} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {renderWithBaseWrapper} from '../../../../tests/helper';
 import Arrows, {getBtnStyle} from '../Arrows';
+import {waitFor} from '@testing-library/react';
 
 describe('<Arrows/> functions', () => {
     it('tests getBtnStyle', () => {
@@ -14,7 +15,7 @@ describe('<Arrows/> functions', () => {
 });
 
 describe('<Arrows/>', () => {
-    it('tests carousel renders and arrows are clickable', () => {
+    it('tests carousel renders and arrows are clickable', async () => {
         const prevClick = jest.fn();
         const nextClick = jest.fn();
         const wrapper = renderWithBaseWrapper(
@@ -28,11 +29,17 @@ describe('<Arrows/>', () => {
         );
         const prevBtn = wrapper.getByTestId('prev-btn');
         const nextBtn = wrapper.getByTestId('next-btn');
-        act(() => {
-            fireEvent.click(prevBtn);
-            fireEvent.click(nextBtn);
+
+        userEvent.click(prevBtn);
+
+        await waitFor(() => {
+            expect(prevClick).toHaveBeenCalledTimes(1);
         });
-        expect(prevClick).toHaveBeenCalledTimes(1);
-        expect(nextClick).toHaveBeenCalledTimes(1);
+
+        userEvent.click(nextBtn);
+
+        await waitFor(() => {
+            expect(nextClick).toHaveBeenCalledTimes(1);
+        });
     });
 });

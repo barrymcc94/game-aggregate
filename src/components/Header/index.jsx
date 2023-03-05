@@ -47,22 +47,22 @@ export const Header = ({intl: {formatMessage}}) => {
                 </StyledDrawerHeaderContainer>
                 <NavLinkList active={menuActive} onClick={closeMenu}>
                     <NavLinkListItem active={menuActive}>
-                        <StyledLink exact to="/">
+                        <StyledLink to="/">
                             <FormattedMessage id="header.home" />
                         </StyledLink>
                     </NavLinkListItem>
                     <NavLinkListItem active={menuActive}>
-                        <StyledLink exact to={`/${GAMES}/`}>
+                        <StyledLink to={`/${GAMES}/`}>
                             <FormattedMessage id="header.games" />
                         </StyledLink>
                     </NavLinkListItem>
                     <NavLinkListItem active={menuActive}>
-                        <StyledLink exact to={`/${COMPANIES}/`}>
+                        <StyledLink to={`/${COMPANIES}/`}>
                             <FormattedMessage id="header.companies" />
                         </StyledLink>
                     </NavLinkListItem>
                     <NavLinkListItem active={menuActive}>
-                        <StyledLink exact to={`/${FRANCHISES}/`}>
+                        <StyledLink to={`/${FRANCHISES}/`}>
                             <FormattedMessage id="header.franchises" />
                         </StyledLink>
                     </NavLinkListItem>
