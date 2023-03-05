@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyledAriaLoader} from './styles.js';
+import {StyledAriaLoader} from './styles';
 
 export const AriaLoader = ({isLoading, loadingMessage, loadedMessage}) => (
     <StyledAriaLoader

@@ -11,15 +11,10 @@
         "test:watch": "jest --watch",
         "test:updateSnapshot": "jest --updateSnapshot",
         "lint": "eslint --ext .js --ext .jsx src",
-        "format": "prettier --config .prettierrc '{,!(node_modules|build|coverage)/**/}*.(js|jsx|json)' --write"
+        "prepare": "husky install"
     },
     "author": "Barry Mc Cormack",
     "license": "ISC",
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run lint && npm run format && npm run test"
-        }
-    },
     "devDependencies": {
         "@babel/cli": "^7.21.0",
         "@babel/core": "^7.21.0",

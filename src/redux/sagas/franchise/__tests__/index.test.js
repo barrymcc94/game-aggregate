@@ -1,8 +1,5 @@
 import {fetchFranchiseSaga, watchFetchFranchise} from '../index';
-import {
-    FETCH_FRANCHISE_SUCCEEDED,
-    FETCH_FRANCHISE_FAILED,
-} from '../../../types';
+import {FETCH_FRANCHISE_FAILED} from '../../../types';
 
 describe('Franchise Sagas', () => {
     const testResult = {id: 1, games: [{id: 1}]};

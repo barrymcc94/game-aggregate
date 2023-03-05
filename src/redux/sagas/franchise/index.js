@@ -1,11 +1,6 @@
 import {batch} from 'react-redux';
 import {put, takeLatest} from 'redux-saga/effects';
-import {
-    jsonFetch,
-    objToQueryStr,
-    objToFilterStr,
-    getDefaultGamesFilter,
-} from '../../../utils';
+import {jsonFetch, objToQueryStr, getDefaultGamesFilter} from '../../../utils';
 import {
     fetchFranchiseSucceeded,
     fetchFranchiseFailed,
