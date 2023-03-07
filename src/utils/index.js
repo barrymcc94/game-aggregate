@@ -1,3 +1,3 @@
 export * from './requestUtils';
-export * from './reduxUtils';
+export * from './normalizerUtils';
 export * from './functionDelayers';

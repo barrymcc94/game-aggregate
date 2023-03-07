@@ -1,7 +1,7 @@
 import {
     normalizeObjectListing,
     combineNormalizedListingObjs,
-} from '../reduxUtils';
+} from '../normalizerUtils';
 
 describe('utils', () => {
     it('successfully normalizes an object array using normalizeObjectListing 1', () => {
