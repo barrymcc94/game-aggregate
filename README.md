@@ -1,6 +1,6 @@
 # game-aggregate
 
-This projet uses the Giantbomb api to diplay games and game information
+This project uses the Giantbomb api to display games and game information
 
 # Installation
 
