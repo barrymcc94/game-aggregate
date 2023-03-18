@@ -2,12 +2,14 @@ import REACT_ICON from './static/img/react.svg';
 
 export {REACT_ICON};
 
-export const ENUMS = {
-    MEDIA_TYPE: {
-        GAMES: 'games',
-        COMPANIES: 'companies',
-        FRANCHISES: 'franchises',
-    },
+export const MEDIA_TYPES = {
+    GAMES: 'games',
+    COMPANIES: 'companies',
+    FRANCHISES: 'franchises',
+};
+
+export const REQUEST_ERROR_TYPES = {
+    ABORT_ERROR: 'AbortError',
 };
 
 export const dateFormat = 'dd-MM-yyyy';

@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import {ENUMS} from '../../config';
+import {MEDIA_TYPES} from '../../config';
 import DocumentTitle from '../../components/DocumentTitle';
 import MediaListContainer from '../../containers/MediaListContainer';
 import {StyledMediaListSection, StyledHeading} from './styles';
-
-const {GAMES, COMPANIES} = ENUMS.MEDIA_TYPE;
 
 export const HomePage = ({intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: 'homePage.title'})}>
@@ -17,7 +15,7 @@ export const HomePage = ({intl: {formatMessage}}) => (
             <MediaListContainer
                 id="home"
                 title={formatMessage({id: 'homePage.gamesHeading'})}
-                mediaType={GAMES}
+                mediaType={MEDIA_TYPES.GAMES}
                 disableScrollLoading={true}
                 queryOverwrite={{limit: 12}}
                 buttonType="link"
@@ -28,7 +26,7 @@ export const HomePage = ({intl: {formatMessage}}) => (
             <MediaListContainer
                 id="home"
                 title={formatMessage({id: 'homePage.companiesHeading'})}
-                mediaType={COMPANIES}
+                mediaType={MEDIA_TYPES.COMPANIES}
                 disableScrollLoading={true}
                 queryOverwrite={{limit: 12}}
                 buttonType="link"

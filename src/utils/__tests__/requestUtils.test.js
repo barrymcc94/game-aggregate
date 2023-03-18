@@ -1,3 +1,4 @@
+import {defaultLimit, REQUEST_ERROR_TYPES} from '../../config';
 import {
     jsonFetch,
     formatReqMeta,
@@ -7,10 +8,9 @@ import {
     objToFilterStr,
     getDefaultListingFilters,
 } from '../requestUtils';
-import {defaultLimit} from '../../config';
 
 describe('Request Utils', () => {
-    it('successfully tests fetching (mocked)', (done) => {
+    it('successfully tests fetching', async () => {
         fetch.mockImplementationOnce(() =>
             Promise.resolve({
                 status: 200,
@@ -21,9 +21,58 @@ describe('Request Utils', () => {
             })
         );
 
-        jsonFetch('').then(() => {
-            done();
-        });
+        const json = await jsonFetch('');
+        expect(json).toEqual({test: 'test'});
+    });
+
+    it('successfully tests fetching with success handler', async () => {
+        fetch.mockImplementationOnce(() =>
+            Promise.resolve({
+                status: 200,
+                json: () =>
+                    Promise.resolve({
+                        test: 'test',
+                    }),
+            })
+        );
+        const onSuccess = jest.fn();
+
+        await jsonFetch('', {}, onSuccess);
+        expect(onSuccess).toHaveBeenCalledTimes(1);
+        expect(onSuccess).toHaveBeenCalledWith({test: 'test'});
+    });
+
+    it('verifies fetch abort error does not throw an error', async () => {
+        fetch.mockRejectedValueOnce({name: REQUEST_ERROR_TYPES.ABORT_ERROR});
+
+        try {
+            await jsonFetch('');
+        } catch (e) {
+            expect(e).toEqual(undefined);
+        }
+    });
+
+    it('successfully tests a an error that is not an abort error is thrown', async () => {
+        fetch.mockRejectedValueOnce({name: 'error'});
+
+        try {
+            await jsonFetch('');
+        } catch (e) {
+            expect(e).toEqual({name: 'error'});
+        }
+    });
+
+    it('successfully tests a an error that is not an abort error is thrown with error handler', async () => {
+        fetch.mockRejectedValueOnce({name: 'error'});
+        const onError = jest.fn();
+
+        try {
+            await jsonFetch('', {}, null, onError);
+        } catch (e) {
+            expect(onError).toBeCalledTimes(1);
+            expect(onError).toBeCalledWith({name: 'error'});
+            expect(e).toEqual({name: 'error'});
+        }
     });
 
     it('tests formatReqMeta', () => {

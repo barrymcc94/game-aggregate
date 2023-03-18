@@ -12,9 +12,7 @@ import {
     DescriptionLabel,
     DescriptionValue,
 } from './styles';
-import {ENUMS} from '../../config';
-
-const {COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
+import {MEDIA_TYPES} from '../../config';
 
 const GameDetail = ({text, detailArr, link}) =>
     Array.isArray(detailArr) ? (
@@ -62,7 +60,7 @@ export const GameDetails = ({game, isLoading}) => {
                             <FormattedMessage id={'gameDetails.franchises'} />
                         }
                         detailArr={franchises}
-                        link={`/${FRANCHISES}/`}
+                        link={`/${MEDIA_TYPES.FRANCHISES}/`}
                     />
                     <GameDetail
                         text={<FormattedMessage id={'gameDetails.genres'} />}
@@ -73,14 +71,14 @@ export const GameDetails = ({game, isLoading}) => {
                             <FormattedMessage id={'gameDetails.publishers'} />
                         }
                         detailArr={publishers}
-                        link={`/${COMPANIES}/`}
+                        link={`/${MEDIA_TYPES.COMPANIES}/`}
                     />
                     <GameDetail
                         text={
                             <FormattedMessage id={'gameDetails.developers'} />
                         }
                         detailArr={developers}
-                        link={`/${COMPANIES}/`}
+                        link={`/${MEDIA_TYPES.COMPANIES}/`}
                     />
                     <GameDetail
                         text={<FormattedMessage id={'gameDetails.themes'} />}

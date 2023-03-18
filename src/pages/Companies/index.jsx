@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import {ENUMS} from '../../config';
+import {MEDIA_TYPES} from '../../config';
 import DocumentTitle from '../../components/DocumentTitle';
 import MediaSearchList from '../../components/MediaSearchList';
 import {StyledMediaListSection} from './styles';
-
-const {COMPANIES} = ENUMS.MEDIA_TYPE;
 
 export const CompaniesPage = ({intl: {formatMessage}}) => (
     <DocumentTitle title={formatMessage({id: 'companiesPage.title'})}>
@@ -16,7 +14,7 @@ export const CompaniesPage = ({intl: {formatMessage}}) => (
                 <FormattedMessage id={'companiesPage.heading'} />
             </Typography>
             <MediaSearchList
-                mediaType={COMPANIES}
+                mediaType={MEDIA_TYPES.COMPANIES}
                 id="companies"
                 label={formatMessage({id: 'companiesPage.searchLabel'})}
             />

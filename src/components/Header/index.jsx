@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import AuthModalContainer from '../../containers/AuthModalContainer';
-import {ENUMS} from '../../config';
+import {MEDIA_TYPES} from '../../config';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {Zoom} from '@mui/material';
 import {
@@ -17,8 +17,6 @@ import {
     StyledDrawer,
     StyledDrawerHeaderContainer,
 } from './styles.js';
-
-const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export const Header = ({intl: {formatMessage}}) => {
     const [menuActive, setMenuActive] = useState(false);
@@ -52,17 +50,17 @@ export const Header = ({intl: {formatMessage}}) => {
                         </StyledLink>
                     </NavLinkListItem>
                     <NavLinkListItem active={menuActive}>
-                        <StyledLink to={`/${GAMES}/`}>
+                        <StyledLink to={`/${MEDIA_TYPES.GAMES}/`}>
                             <FormattedMessage id="header.games" />
                         </StyledLink>
                     </NavLinkListItem>
                     <NavLinkListItem active={menuActive}>
-                        <StyledLink to={`/${COMPANIES}/`}>
+                        <StyledLink to={`/${MEDIA_TYPES.COMPANIES}/`}>
                             <FormattedMessage id="header.companies" />
                         </StyledLink>
                     </NavLinkListItem>
                     <NavLinkListItem active={menuActive}>
-                        <StyledLink to={`/${FRANCHISES}/`}>
+                        <StyledLink to={`/${MEDIA_TYPES.FRANCHISES}/`}>
                             <FormattedMessage id="header.franchises" />
                         </StyledLink>
                     </NavLinkListItem>

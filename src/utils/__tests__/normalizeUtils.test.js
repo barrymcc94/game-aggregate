@@ -1,7 +1,7 @@
 import {
     normalizeObjectListing,
     combineNormalizedListingObjs,
-} from '../normalizerUtils';
+} from '../normalizeUtils';
 
 describe('utils', () => {
     it('successfully normalizes an object array using normalizeObjectListing 1', () => {

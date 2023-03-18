@@ -24,11 +24,11 @@ import GamesPage from './pages/Games';
 import AboutPage from './pages/About';
 import NotFoundPage from './pages/NotFound';
 import Styles from './common-styles';
-import {ENUMS} from './config';
+import {MEDIA_TYPES} from './config';
 import theme from './theme';
 smoothscroll.polyfill();
 
-const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
+const {GAMES, COMPANIES, FRANCHISES} = MEDIA_TYPES;
 
 export const App = ({locale, fetchGBApiKeySucceeded}) => {
     let location = useLocation();

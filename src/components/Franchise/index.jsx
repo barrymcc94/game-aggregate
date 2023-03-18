@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import {Franchise as FranchiseT} from '../../types';
-import {ENUMS} from '../../config';
+import {MEDIA_TYPES} from '../../config';
 import DocumentTitle from '../DocumentTitle';
 import ErrorMessage from '../ErrorMessage';
 import MediaHeader from '../MediaHeader';
 import MediaListContainer from '../../containers/MediaListContainer';
 import AriaLoader from '../AriaLoader';
-
-const {GAMES} = ENUMS.MEDIA_TYPE;
 
 export const Franchise = ({
     franchise = {},
@@ -43,7 +41,7 @@ export const Franchise = ({
             <MediaListContainer
                 id={`franchiseGames_${franchise.guid}`}
                 title={formatMessage({id: 'franchise.gamesHeading'})}
-                mediaType={GAMES}
+                mediaType={MEDIA_TYPES.GAMES}
                 preFiltered={true}
                 disableScrollLoading={false}
                 isLoading={isFetching}

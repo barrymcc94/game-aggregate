@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {fetchGame, fetchCompany, fetchFranchise} from '../../redux/actions';
-import {ENUMS} from '../../config';
+import {MEDIA_TYPES} from '../../config';
 import {
     selectGame,
     selectCompany,
@@ -18,17 +18,15 @@ import Game from '../../components/Game';
 import Company from '../../components/Company';
 import Franchise from '../../components/Franchise';
 
-const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
-
 export const isItemLoaded = (mediaType, mediaItem) => {
     if (!mediaItem) {
         return false;
     }
-    if (mediaType == GAMES) {
+    if (mediaType == MEDIA_TYPES.GAMES) {
         return mediaItem.developers !== undefined;
-    } else if (mediaType == COMPANIES) {
+    } else if (mediaType == MEDIA_TYPES.COMPANIES) {
         return mediaItem.developed_games !== undefined;
-    } else if (mediaType == FRANCHISES) {
+    } else if (mediaType == MEDIA_TYPES.FRANCHISES) {
         return mediaItem.games !== undefined;
     }
     return false;
@@ -44,11 +42,11 @@ export const MediaContainer = ({mediaType, guid, item = {}, fetchItem}) => {
         fetchItem({guid});
     }, []);
 
-    if (mediaType == GAMES) {
+    if (mediaType == MEDIA_TYPES.GAMES) {
         return <Game game={item} isFetching={!isLoaded} error={error} />;
-    } else if (mediaType == COMPANIES) {
+    } else if (mediaType == MEDIA_TYPES.COMPANIES) {
         return <Company company={item} isFetching={!isLoaded} error={error} />;
-    } else if (mediaType == FRANCHISES) {
+    } else if (mediaType == MEDIA_TYPES.FRANCHISES) {
         return (
             <Franchise franchise={item} isFetching={!isLoaded} error={error} />
         );
@@ -58,15 +56,15 @@ export const MediaContainer = ({mediaType, guid, item = {}, fetchItem}) => {
 
 export const mapStateToProps = (state, {mediaType, guid}) => {
     let mediaState = {};
-    if (mediaType == GAMES) {
+    if (mediaType == MEDIA_TYPES.GAMES) {
         mediaState = {
             item: selectGame(state, guid),
         };
-    } else if (mediaType == COMPANIES) {
+    } else if (mediaType == MEDIA_TYPES.COMPANIES) {
         mediaState = {
             item: selectCompany(state, guid),
         };
-    } else if (mediaType == FRANCHISES) {
+    } else if (mediaType == MEDIA_TYPES.FRANCHISES) {
         mediaState = {
             item: selectFranchise(state, guid),
         };
@@ -76,18 +74,23 @@ export const mapStateToProps = (state, {mediaType, guid}) => {
 
 export const mapDispatchToProps = (dispatch, {mediaType}) => {
     let actions = {};
-    if (mediaType == GAMES) {
+    if (mediaType == MEDIA_TYPES.GAMES) {
         actions = {...actions, fetchItem: fetchGame};
-    } else if (mediaType == COMPANIES) {
+    } else if (mediaType == MEDIA_TYPES.COMPANIES) {
         actions = {...actions, fetchItem: fetchCompany};
-    } else if (mediaType == FRANCHISES) {
+    } else if (mediaType == MEDIA_TYPES.FRANCHISES) {
         actions = {...actions, fetchItem: fetchFranchise};
     }
     return bindActionCreators(actions, dispatch);
 };
 
 MediaContainer.propTypes = {
-    mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES, null]),
+    mediaType: PropTypes.oneOf([
+        MEDIA_TYPES.GAMES,
+        MEDIA_TYPES.COMPANIES,
+        MEDIA_TYPES.FRANCHISES,
+        null,
+    ]),
     guid: PropTypes.string,
     item: PropTypes.oneOfType([GameT, CompanyT, FranchiseT]),
     fetchItem: PropTypes.func,

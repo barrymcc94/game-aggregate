@@ -8,13 +8,11 @@ import {
     selectCompanies,
     selectFranchises,
 } from '../../redux/selectors';
-import {ENUMS} from '../../config';
+import {MEDIA_TYPES} from '../../config';
 import {getDefaultListingFilters, objToFilterStr} from '../../utils';
 import MediaList from '../../components/MediaList';
 import InfiniteLoader from '../../components/InfiniteLoader';
 import {usePrevious} from '../../hooks';
-
-const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
 
 export const MediaListContainer = ({
     id,
@@ -111,11 +109,11 @@ export const mapStateToProps = (state, {mediaType, id}) => {
     const mediaState = state[mediaType] || {};
     let {isFetching, error, query} = mediaState[id] || defaultProps;
     let items = [];
-    if (mediaType == GAMES) {
+    if (mediaType == MEDIA_TYPES.GAMES) {
         items = selectGames(state, id);
-    } else if (mediaType == COMPANIES) {
+    } else if (mediaType == MEDIA_TYPES.COMPANIES) {
         items = selectCompanies(state, id);
-    } else if (mediaType == FRANCHISES) {
+    } else if (mediaType == MEDIA_TYPES.FRANCHISES) {
         items = selectFranchises(state, id);
     }
 
@@ -129,11 +127,11 @@ export const mapStateToProps = (state, {mediaType, id}) => {
 
 export const mapDispatchToProps = (dispatch, {mediaType}) => {
     let fetchItems = null;
-    if (mediaType == GAMES) {
+    if (mediaType == MEDIA_TYPES.GAMES) {
         fetchItems = fetchGames;
-    } else if (mediaType == COMPANIES) {
+    } else if (mediaType == MEDIA_TYPES.COMPANIES) {
         fetchItems = fetchCompanies;
-    } else if (mediaType == FRANCHISES) {
+    } else if (mediaType == MEDIA_TYPES.FRANCHISES) {
         fetchItems = fetchFranchises;
     }
     return bindActionCreators({fetchItems}, dispatch);
@@ -143,7 +141,11 @@ MediaListContainer.propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,
     isCarousel: PropTypes.bool,
-    mediaType: PropTypes.oneOf([GAMES, COMPANIES, FRANCHISES]),
+    mediaType: PropTypes.oneOf([
+        MEDIA_TYPES.GAMES,
+        MEDIA_TYPES.COMPANIES,
+        MEDIA_TYPES.FRANCHISES,
+    ]),
     preFiltered: PropTypes.bool,
     disableScrollLoading: PropTypes.bool,
     queryOverwrite: PropTypes.object,

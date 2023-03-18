@@ -32,5 +32,11 @@
         "no-dupe-else-if": "off",
         "no-import-assign": "off",
         "no-setter-return": "off"
+    },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "detect"
+        }
     }
 }

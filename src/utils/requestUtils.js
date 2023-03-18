@@ -1,12 +1,19 @@
 import {sub, format} from 'date-fns';
-import {ENUMS, defaultLimit} from '../config';
-const {GAMES, COMPANIES, FRANCHISES} = ENUMS.MEDIA_TYPE;
+import {MEDIA_TYPES, REQUEST_ERROR_TYPES, defaultLimit} from '../config';
 
-export const jsonFetch = async (url) => {
-    const req = new Request(url);
-    return await fetch(req)
-        .then((response) => response.json())
-        .then((jsonRes) => jsonRes);
+export const jsonFetch = async (url, options, onSuccess, onError) => {
+    try {
+        const req = new Request(url);
+        const res = await fetch(req, options);
+        const resJson = await res.json();
+        onSuccess?.(resJson);
+        return resJson;
+    } catch (e) {
+        if (e.name !== REQUEST_ERROR_TYPES.ABORT_ERROR) {
+            onError?.(e);
+            throw e;
+        }
+    }
 };
 
 export const objToQueryStr = (obj) => {
@@ -90,19 +97,19 @@ export const getDefaultListingFilters = (mediaType, query) => {
             limit: query.limit || defaultLimit,
             offset: query.offset || 0,
         };
-        if (mediaType == GAMES) {
+        if (mediaType == MEDIA_TYPES.GAMES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
                 sort: 'original_release_date:desc',
                 filter: getDefaultGamesFilter(),
             };
-        } else if (mediaType == COMPANIES) {
+        } else if (mediaType == MEDIA_TYPES.COMPANIES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
                 sort: 'date_founded:desc',
                 filter: getDefaultCompaniesFilter(),
             };
-        } else if (mediaType == FRANCHISES) {
+        } else if (mediaType == MEDIA_TYPES.FRANCHISES) {
             defaultQueryObj = {
                 ...defaultQueryObj,
                 filter: getDefaultFranchisesFilter(),
